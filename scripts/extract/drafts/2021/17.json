@@ -5,11 +5,17 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "O modelo de dados relacional a seguir representa de forma simplificada o banco de dados para um\nsistema de informação bancário:\n                                    CATEGORIA_CLIENTE                               TIPO_MOVIMENTACAO\n                           COD CATEGORIA CLIENTE integer      <pk>        COD TIPO MOVIMENTACAO integer    <pk>\n                           NOM_CATEGORIA_CLIENTE varchar(100)             DES_TIPO_MOVIMENTACAO varchar(200)\n                                                                          VAL_TAXA               money\n                                                                          IND_DEBITO_CREDITO     char(1)\n\n               CLIENTE                            AGENCIA\nCOD CLIENTE           integer      <pk>   NUM AGENCIA integer      <pk>\nNOM_CLIENTE           varchar(100)        NOM_AGENCIA varchar(100)\nNUM_CPF_CNPJ          varchar(20)                                                  HISTORICO_MOVIMENTACAO\nNUM_CELULAR           varchar(20)                                         COD HISTORICO MOVIMENTACAO integer <pk>\nDES_ENDERECO          varchar(300)                                        NUM_CONTA                   integer <�1>\nCOD_CATEGORIA_CLIENTE integer      <�>                                    COD_TIPO_MOVIMENTACAO       integer <�2>\n                                                     CONTA                VAL_MOVIMENTACAO             money\n                                                                          DTA_MOVIMENTACAO            date�me\n                                           NUM CONTA      integer <pk>\n                                           VAL_SALDO      money\n                                           COD_TIPO_CONTA integer <�1>\n           TIPO_CONTA                      COD_CLIENTE    integer <�2>\n COD TIPO CONTA integer      <pk>          NUM_AGENCIA integer <�3>\n DES_TIPO_CONTA varchar(100)\n\nUsando a linguagem SQL (Structured Query Language) indique a consulta que recupera o nome dos\nclientes e o valor médio movimentado por eles em sua conta até o momento. Primeiro devem ser exibidos\nos clientes com maior média de valor movimentado.",
+  "statementMd": "O modelo de dados relacional a seguir representa de forma simplificada o banco de dados para um sistema de informação bancário (ver imagem anexa).\n\nUsando a linguagem SQL (Structured Query Language) indique a consulta que recupera o nome dos clientes e o valor médio movimentado por eles em sua conta até o momento. Primeiro devem ser exibidos os clientes com maior média de valor movimentado.",
   "valuePoints": null,
   "sourcePage": 25,
-  "needsAsset": false,
-  "assets": [],
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2021/17-1.png",
+      "caption": "Modelo de dados relacional (bancário) — prova pág. 25"
+    }
+  ],
   "options": [
     {
       "letter": "A",
@@ -28,7 +34,7 @@
     },
     {
       "letter": "D",
-      "textMd": "SELECT CL.NOME, AVG(HM.VAL_MOVIMENTADO) FROM CLIENTE CL LEFT OUTER JOIN CONTA CO ON CL.COD_CLIENTE = CO.NUM_CONTA LEFT OUTER JOIN HISTORICO_MOVIMENTACAO HM ON CO.NUM_CONTA = HM.COD_HISTORICO_ MOVIMENTACAO GROUP BY CL.NOME ORDER BY AVG(HM.VAL_MOVIMENTADO) DESC",
+      "textMd": "SELECT CL.NOME, AVG(HM.VAL_MOVIMENTADO) FROM CLIENTE CL LEFT OUTER JOIN CONTA CO ON CL.COD_CLIENTE = CO.NUM_CONTA LEFT OUTER JOIN HISTORICO_MOVIMENTACAO HM ON CO.NUM_CONTA = HM.COD_HISTORICO_MOVIMENTACAO GROUP BY CL.NOME ORDER BY AVG(HM.VAL_MOVIMENTADO) DESC",
       "isCorrect": false
     },
     {
@@ -38,6 +44,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Banco de Dados"],
   "reviewNotes": []
 }

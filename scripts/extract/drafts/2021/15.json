@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Uma fundação municipal de arte e cultura oferece cursos para crianças e adolescentes de até 16 anos.\nOs registros de matrículas são realizados em uma planilha eletrônica ilustrada a seguir, o que dificulta bastante\no controle dos dados frente ao número expressivo de estudantes, muitos dos quais solicitam matrícula em mais\nde um curso. A administração da fundação, então, solicitou o desenvolvimento de um programa para facilitar\no registro e a consulta desses dados, incluindo-se a data de efetivação de cada matrícula, para fins de controles\nespecíficos da secretaria.\n\n             NOME           DATA          NOME\nNÚMERO                                                   CONTATOS       CURSO       HORÁRIO      PROFESSOR(A)\n           ESTUDANTE        NASC.      RESPONSÁVEL\n\n                                                                                  9h - 10h\n                                                     (99)99999-0101\n                                   Charles                          Violão Básico (ter - qui)    Dennis Ritchie\n     10    Ada Lovelace 10/12/2009                   charles@\n                                   Babbage                          Desenho       10h - 11h      John Backus\n                                                     babbage.com\n                                                                                  (seg - qua)\n           Ole-Johan                                                               9h - 10h\n     11                   12/10/2008 Kristen Nygaard -               Desenho                     Mary Keller\n           Dahl                                                                    (seg - qua)\n                                                     (99)99999-0091\n     12    Grace Hopper 09/12/2010 Howard Aiken                     Balé           8h - 10h (sex) Hedy Lamarr\n                                                     (99)99999-0095\n                                                                                  9h - 10h\n                                                                    Desenho       (seg - qua)    Mary Keller\n     13    Alan Turing    23/06/2009 Joan Clarke     (99)99999-0231\n                                                                    Violão Básico 9h - 10h       Dennis Ritchie\n                                                                                  (ter - qui)\n           Dorothy                     Katherine\n     14                   20/09/2009                 (99)99999-0201 Balé           8h - 10h (sex) Hedy Lamarr\n           Vaughan                     Johnson\n\n     ...        ...           ...            ...            ...            ...           ...            ...\n\nA equipe de desenvolvimento de softwares da prefeitura, após uma breve entrevista com a administração\nda fundação e de posse da planilha eletrônica, modelou um Diagrama de Classes como parte da\nespecificação dos requisitos do sistema.\n\nConsiderando o cenário descrito, assinale a opção a seguir que exibe o Diagrama de Classes modelado\ncorretamente pela equipe de desenvolvimento.\n                                                                                                                   Horario\n          Contato                        Pessoa\n                                                                                     Professor              - dia : String\n     - descricao : String            - nome : String                                                        - horaInicio : Date\n                                                               Matricula                 1                  - horaFim : Date\n          0..*",
+  "statementMd": "Uma fundação municipal de arte e cultura oferece cursos para crianças e adolescentes de até 16 anos. Os registros de matrículas são realizados em uma planilha eletrônica ilustrada a seguir, o que dificulta bastante o controle dos dados frente ao número expressivo de estudantes, muitos dos quais solicitam matrícula em mais de um curso. A administração da fundação, então, solicitou o desenvolvimento de um programa para facilitar o registro e a consulta desses dados, incluindo-se a data de efetivação de cada matrícula, para fins de controles específicos da secretaria.\n\n| Número | Nome estudante | Data nasc. | Nome responsável | Contatos | Curso | Horário | Professor(a) |\n|---|---|---|---|---|---|---|---|\n| 10 | Ada Lovelace | 10/12/2009 | Charles Babbage | (99)99999-0101, charles@babbage.com | Violão Básico, Desenho | 9h-10h (ter-qui), 10h-11h (seg-qua) | Dennis Ritchie, John Backus |\n| 11 | Ole-Johan Dahl | 12/10/2008 | Kristen Nygaard | - | Desenho | 9h-10h (seg-qua) | Mary Keller |\n| 12 | Grace Hopper | 09/12/2010 | Howard Aiken | (99)99999-0091, (99)99999-0095 | Balé | 8h-10h (sex) | Hedy Lamarr |\n| 13 | Alan Turing | 23/06/2009 | Joan Clarke | (99)99999-0231 | Desenho, Violão Básico | 9h-10h (seg-qua), 9h-10h (ter-qui) | Mary Keller, Dennis Ritchie |\n| 14 | Dorothy Vaughan | 20/09/2009 | Katherine Johnson | (99)99999-0201 | Balé | 8h-10h (sex) | Hedy Lamarr |\n| ... | ... | ... | ... | ... | ... | ... | ... |\n\nA equipe de desenvolvimento de softwares da prefeitura, após uma breve entrevista com a administração da fundação e de posse da planilha eletrônica, modelou um Diagrama de Classes como parte da especificação dos requisitos do sistema.\n\nConsiderando o cenário descrito, assinale a opção a seguir que exibe o Diagrama de Classes modelado corretamente pela equipe de desenvolvimento.",
   "valuePoints": null,
   "sourcePage": 22,
   "needsAsset": true,
@@ -37,36 +37,13 @@
     }
   ],
   "options": [
-    {
-      "letter": "A",
-      "textMd": "- data : Date 1..* 1 0..* 1 Estudante Responsavel 1 1..* Curso 1 0..* Turma - numero : int - nascimento : Date 0..* 1..* - nome : String - id : int Contato Pessoa Curso Professor - descricao : String - nome : String - nome : String Matricula 1 1 0..* - data : Date",
-      "isCorrect": false
-    },
-    {
-      "letter": "B",
-      "textMd": "0..* 0..* Horario 1 Estudante Responsavel 1 1..* Turma - dia : String - numero : int - nascimento : Date 0..* 1..* - id : int 1 1..* -- horaInicio : Date horaFim : Date Contato Pessoa Curso Professor 1 0..* - descricao : String - nome : String - nome : String Matricula 1 1..* - data : Date",
-      "isCorrect": true
-    },
-    {
-      "letter": "C",
-      "textMd": "0..* Horario 1 Estudante Responsavel 1 1..* Turma - dia : String - numero : int - nascimento : Date 0..* 1 - id : int 1 1..* - horaInicio : Date - horaFim : Date Contato Pessoa Curso Professor - descricao : String - nome : String - nome : String Matricula 1 1 1..* - data : Date",
-      "isCorrect": false
-    },
-    {
-      "letter": "D",
-      "textMd": "0..* 0..* Horario 1 Estudante Responsavel 1 1..* Turma - dia : String - numero : int - nascimento : Date 0..* 1 - id : int 1 1 - horaInicio : Date - horaFim : Date Horario Contato Pessoa Professor 1 0..* - dia : String - descricao : String - nome : String - horaInicio : Date - horaFim : Date Matricula 0..*",
-      "isCorrect": false
-    },
-    {
-      "letter": "E",
-      "textMd": "- data : Date 1..* 1 1 Estudante Curso Responsavel 1 1..* 1 0..* Turma - numero : int - nascimento : Date 0..* 1..* - nome : String - id : int",
-      "isCorrect": false
-    }
+    { "letter": "A", "textMd": "Ver imagem anexa (Alternativa A).", "isCorrect": false },
+    { "letter": "B", "textMd": "Ver imagem anexa (Alternativa B).", "isCorrect": true },
+    { "letter": "C", "textMd": "Ver imagem anexa (Alternativa C).", "isCorrect": false },
+    { "letter": "D", "textMd": "Ver imagem anexa (Alternativa D).", "isCorrect": false },
+    { "letter": "E", "textMd": "Ver imagem anexa (Alternativa E).", "isCorrect": false }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": [
-    "Página com layout em duas colunas ou alternativas em imagem — texto extraído provavelmente está fora de ordem, revisar contra o PDF original.",
-    "Questão precisa de imagem — ver docs/figuras-2021.md."
-  ]
+  "tags": ["Engenharia de Software", "Banco de Dados"],
+  "reviewNotes": []
 }

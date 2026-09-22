@@ -25,6 +25,6 @@
       ]
     }
   ],
-  "tags": [],
-  "reviewNotes": ["Padrão de resposta precisa de imagem — ver docs/figuras-2021.md."]
+  "tags": ["Engenharia de Software", "Banco de Dados"],
+  "reviewNotes": []
 }

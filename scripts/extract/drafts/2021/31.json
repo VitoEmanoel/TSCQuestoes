@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Foi solicitado o desenvolvimento de um software para o controle e gestão das matrículas dos alunos\nem uma universidade. Os alunos poderão realizá-las diretamente no sistema, em um terminal a ser\ndisponibilizado na universidade. Além dessas características, o sistema deverá considerar as restrições\nrepresentadas no diagrama a seguir:\n\n                     Aluno\n                                                    Realizar\n                                                    Matricula Fora\n                                                    do Prazo\n                                <<extend>>\n\n                 Realizar\n                 Matricula                                                       Validar via\n                                  <<include>>                                    Re�na\n\n                                                  Validar Aluno\n                                                                                   Validar via\n                                                                                   Digital\n\nCom base no texto e no diagrama, avalie as afirmações a seguir.\n    I. O aluno poderá realizar a matrícula fora do prazo e as tratativas são as mesmas da matrícula feita\n         dentro do prazo.\n    II. O aluno poderá, opcionalmente, realizar a matrícula fora do prazo.\n    III. O sistema, obrigatoriamente, deverá validar o aluno que realizar a matrícula fora do prazo.\n    IV. A validação do aluno deverá ser feita a partir da sua matrícula informada no sistema.\n    V. A validação do aluno, a ser feita por retina, é diferente da validação feita pela digital.\nÉ correto apenas o que se afirma em",
+  "statementMd": "Foi solicitado o desenvolvimento de um software para o controle e gestão das matrículas dos alunos em uma universidade. Os alunos poderão realizá-las diretamente no sistema, em um terminal a ser disponibilizado na universidade. Além dessas características, o sistema deverá considerar as restrições representadas no diagrama a seguir (ver imagem anexa).\n\nCom base no texto e no diagrama, avalie as afirmações a seguir.\n    I. O aluno poderá realizar a matrícula fora do prazo e as tratativas são as mesmas da matrícula feita\n         dentro do prazo.\n    II. O aluno poderá, opcionalmente, realizar a matrícula fora do prazo.\n    III. O sistema, obrigatoriamente, deverá validar o aluno que realizar a matrícula fora do prazo.\n    IV. A validação do aluno deverá ser feita a partir da sua matrícula informada no sistema.\n    V. A validação do aluno, a ser feita por retina, é diferente da validação feita pela digital.\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 38,
   "needsAsset": true,
@@ -44,6 +44,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2021.md."]
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
 }

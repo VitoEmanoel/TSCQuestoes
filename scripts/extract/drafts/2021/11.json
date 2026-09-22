@@ -5,16 +5,39 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "",
+  "statementMd": "O código Java, a seguir, contém a implementação de uma Pilha utilizando a estratégia encadeada.\n\npublic class No{\n  public int dado;\n  public No prox;\n  public No(int dado){\n    this.dado = dado;\n  }\n}\npublic class PilhaEncadeada{\n  private No topo;\n  public int pop(){\n    if (topo == null)\n      return -1;\n    No lixo = topo;\n    topo = topo.prox;\n    lixo.prox = null;\n    return lixo.dado;\n  }\n\n  public int top(){\n    if (topo == null)\n      return -1;\n    return (topo.dado);\n  }\n}\n\nCom base no exposto, assinale a opção que possui a implementação correta do método push para essa Pilha.",
   "valuePoints": null,
   "sourcePage": 20,
   "needsAsset": false,
   "assets": [],
-  "options": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "public void push(int elemento){\n   No novo = new No(elemento);\n   if(topo == null)\n      topo = novo;\n   else\n      topo.prox = novo;\n}",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "public void push(int elemento){\n   No novo = new No(elemento);\n   topo = novo;\n}",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "public void push(int elemento){\n   topo.dado = elemento;\n}",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "public void push(int elemento){\n   No novo = new No(elemento);\n   while (topo != null)\n      topo = topo.prox;\n   topo.prox = novo;\n}",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "public void push(int elemento){\n   No novo = new No(elemento);\n   novo.prox = topo;\n   topo = novo;\n}",
+      "isCorrect": true
+    }
+  ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": [
-    "Esperava 5 alternativas, encontrou 0 — revisar manualmente.",
-    "Página com layout em duas colunas ou alternativas em imagem — texto extraído provavelmente está fora de ordem, revisar contra o PDF original."
-  ]
+  "tags": ["Estrutura de Dados e Algoritmos", "Programação"],
+  "reviewNotes": []
 }
