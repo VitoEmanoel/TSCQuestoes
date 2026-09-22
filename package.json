@@ -2,6 +2,9 @@
   "name": "tscquestoes",
   "version": "0.1.0",
   "private": true,
+  "overrides": {
+    "deepmerge-ts": "^8.0.2"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -25,6 +28,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^18.0.3",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
     "eslint-config-prettier": "^10.1.8",
