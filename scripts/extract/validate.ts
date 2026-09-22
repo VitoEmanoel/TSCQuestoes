@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { QuestionDraft } from "./parsers/types";
 
 type Level = "error" | "warning";
@@ -13,7 +14,7 @@ type Issue = {
 const DRAFTS_ROOT = join(process.cwd(), "scripts/extract/drafts");
 const ASSETS_ROOT = join(process.cwd(), "public/assets");
 
-function listYears(): string[] {
+export function listYears(): string[] {
   const requestedYear = process.argv[2];
   if (requestedYear) {
     return [requestedYear];
@@ -21,7 +22,7 @@ function listYears(): string[] {
   return readdirSync(DRAFTS_ROOT).filter((name) => /^\d{4}$/.test(name));
 }
 
-function loadDrafts(year: string): { file: string; draft: QuestionDraft }[] {
+export function loadDrafts(year: string): { file: string; draft: QuestionDraft }[] {
   const yearDir = join(DRAFTS_ROOT, year);
   return readdirSync(yearDir)
     .filter((name) => name.endsWith(".json"))
@@ -154,8 +155,7 @@ function validateDraft(file: string, draft: QuestionDraft): Issue[] {
   return issues;
 }
 
-function main() {
-  const years = listYears();
+export function validateYears(years: string[]): Issue[] {
   const issues: Issue[] = [];
   const seenLabels = new Map<string, string>();
   const seenOrders = new Map<string, string>();
@@ -186,6 +186,11 @@ function main() {
     }
   }
 
+  return issues;
+}
+
+function main() {
+  const issues = validateYears(listYears());
   const errors = issues.filter((issue) => issue.level === "error");
   const warnings = issues.filter((issue) => issue.level === "warning");
 
@@ -201,4 +206,6 @@ function main() {
   }
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
