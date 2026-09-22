@@ -1,0 +1,19 @@
+# Planejamento local do projeto (não vai para o repositório)
+docs/
+
+# Dependências e build (Node.js / Next.js)
+node_modules/
+.next/
+out/
+build/
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
