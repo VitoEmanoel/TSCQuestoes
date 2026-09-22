@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "16",
+  "order": 18,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Eclipse, Netbeans, Jdeveloper são exemplos de\nambientes integrados de desenvolvimento, chamados de\nIDE, que têm por objetivo facilitar o desenvolvimento de\nsoftwares, provendo maior produtividade e gerenciamento\nde projetos. A especificação JavaBeans foi criada para\nser um padrão de desenvolvimento de componentes que\npossam ser facilmente usados por outros desenvolvedores\nem diferentes IDE.\nCom relação ao tema, analise as asserções a seguir.\nSeja para o Netbeans ou para o Eclipse, é possível adquirir\ncomponentes de terceiros que facilitem a implementação\ndo seu projeto\n                       PORQUE\ncomo o código desses componentes está em linguagem\nintermediária, ou seja, independente da arquitetura de um\ncomputador real, só é necessário que a máquina virtual\nesteja instalada no computador onde o aplicativo será\nexecutado e a máquina virtual será a responsável pela\ninterpretação do código para a linguagem de máquina do\ncomputador em execução.\nAcerca dessas asserções, assinale a alternativa correta.",
+  "valuePoints": null,
+  "sourcePage": 11,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "A primeira asserção é uma proposição verdadeira, e a segunda, uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A primeira asserção é uma proposição falsa, e a segunda, uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Tanto a primeira quanto a segunda asserções são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Programação"],
+  "reviewNotes": []
+}

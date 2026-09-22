@@ -1,0 +1,49 @@
+{
+  "examYear": 2011,
+  "originalLabel": "14",
+  "order": 16,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O diagrama de atividades é um dos diagramas disponíveis na UML (Linguagem de Modelagem Unificada) para a modelagem de aspectos dinâmicos de sistemas (ver imagem anexa).\n\nCom relação ao diagrama de atividades apresentado, avalie as afirmações a seguir.\n    I.  A atividade 05 será executada se a atividade 03 ou a atividade 04 for concluída.\n   II. A ramificação sequencial existente após a atividade 02 significa que, caso o fluxo seja [não], é necessário que sejam executadas novamente as atividades 01 e 02.\n   III. As atividades 03 e 04 vão ter início ao mesmo tempo, entretanto, não significa que terminarão ao mesmo tempo.\n   IV. Caso o fluxo da ramificação sequencial existente após a atividade 02 tenha o fluxo [sim], a atividade 02 não será mais executada.\nÉ correto apenas o que afirma em",
+  "valuePoints": null,
+  "sourcePage": 10,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2011/14-1.png",
+      "caption": "Diagrama de Atividades UML — prova pág. 10"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "III e IV.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

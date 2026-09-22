@@ -1,0 +1,24 @@
+{
+  "examYear": 2011,
+  "originalLabel": "D1",
+  "order": 9,
+  "type": "DISCURSIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "A Educação a Distância (EaD) é a modalidade de ensino que permite que a\n\n                   comunicação e a construção do conhecimento entre os usuários envolvidos\n\n                   possam acontecer em locais e tempos distintos. São necessárias tecnologias\n\n                   cada vez mais sofisticadas para essa modalidade de ensino não presencial, com\n\n                   vistas à crescente necessidade de uma pedagogia que se desenvolva por meio\n\n                   de novas relações de ensino-aprendizagem.\n\n                   O Censo da Educação Superior de 2009, realizado pelo MEC/INEP, aponta\n\n                   para o aumento expressivo do número de matrículas nessa modalidade. Entre\n\n                   2004 e 2009, a participação da EaD na Educação Superior passou de 1,4%\n\n                   para 14,1%, totalizando 838 mil matrículas, das quais 50% em cursos de\n\n                   licenciatura. Levantamentos apontam ainda que 37% dos estudantes de EaD\n\n                   estão na pós-graduação e que 42% estão fora do seu estado de origem.\n\nConsiderando as informações acima, enumere três vantagens de um curso a distância, justificando brevemente cada\numa delas. (valor: 10,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 7,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": null,
+      "criteriaMd": "O estudante deve ser capaz de apontar algumas vantagens dentre as seguintes, quanto à\nmodalidade EaD:\n\n(i)    flexibilidade de horário e de local, pois o aluno estabelece o seu ritmo de estudo;\n(ii)   valor do curso, em geral, é mais baixo que do ensino presencial;\n(iii)  capilaridade ou possibilidade de acesso em locais não atendidos pelo ensino presencial;\n(iv)   democratização de acesso à educação, pois atende a um público maior e mais variado\n       que os cursos presenciais; além de contribuir para o desenvolvimento local e regional;\n(v)    troca de experiência e conhecimento entre os participantes, sobretudo quando\n       dificilmente de forma presencial isso seria possível (exemplo, de pontos geográficos\n       longínquos);\n(vi) incentivo à educação permanente em virtude da significativa diversidade de cursos e de\n       níveis de ensino;\n(vii) inclusão digital,permitindo a familiarização com as mais diversas tecnologias;\n(viii) aperfeiçoamento/formação pessoal e profissional de pessoas que, por distintos motivos,\n       não poderiam frequentar as escolas regulares;\n(ix) formação/qualificação/habilitação de professores, suprindo demandas em vastas áreas\n       do país;\n(x)    inclusão de pessoas com comprometimento motor reduzindo os deslocamentos diários.",
+      "maxScore": 10,
+      "assets": []
+    }
+  ],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

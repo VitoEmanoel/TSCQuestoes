@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "21",
+  "order": 23,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O paradigma de programação orientado a objetos tem sido\nlargamente utilizado no desenvolvimento de sistemas.\nConsiderando o conceito de herança, avalie as afirma-\nções abaixo.\n    I.  Herança é uma propriedade que facilita a\n        implementação de reuso.\n   II. Quando uma subclasse é criada, essa herda todas\n        as características da superclasse, não podendo\n        possuir propriedades e métodos próprios.\n   III. Herança múltipla é uma propriedade na qual uma\n        superclasse possui diversas subclasses.\n   IV. Extensão é uma das formas de se implementar\n        herança.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 12,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e IV.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Programação"],
+  "reviewNotes": []
+}

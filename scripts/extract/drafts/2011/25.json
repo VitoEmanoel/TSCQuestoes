@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "25",
+  "order": 27,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Em projetos de desenvolvimento de software, vários tipos de\ntestes podem ser empregados para garantia da qualidade\ndo produto. Um dos tipos comumente empregados é o\nteste de regressão, o qual tem como objetivo",
+  "valuePoints": null,
+  "sourcePage": 14,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "identificar defeitos através da verificação do código-fonte.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "identificar defeitos através da execução do sistema ou parte dele.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "identificar defeitos no sistema em situação de sobrecarga.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "verificar a existência de defeitos após alterações em um sistema (ou parte dele) já testado.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "verificar a existência de defeitos em um sistema ou parte dele.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Qualidade de Software"],
+  "reviewNotes": []
+}

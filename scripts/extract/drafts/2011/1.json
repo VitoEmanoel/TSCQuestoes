@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "1",
+  "order": 1,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Retrato de uma princesa desconhecida\n                                                 Para que ela tivesse um pescoço tão fino\n                                                 Para que os seus pulsos tivessem um quebrar de caule\n                                                 Para que os seus olhos fossem tão frontais e limpos\n                                                 Para que a sua espinha fosse tão direita\n                                                 E ela usasse a cabeça tão erguida\n                                                 Com uma tão simples claridade sobre a testa\n                                                 Foram necessárias sucessivas gerações de escravos\n                                                 De corpo dobrado e grossas mãos pacientes\n                                                 Servindo sucessivas gerações de príncipes\n                                                 Ainda um pouco toscos e grosseiros\n                                                 Ávidos cruéis e fraudulentos\n                                                 Foi um imenso desperdiçar de gente\n                                                 Para que ela fosse aquela perfeição\n                                                 Solitária exilada sem destino\n                                                               ANDRESEN, S. M. B. Dual. Lisboa: Caminho, 2004. p. 73.\nNo poema, a autora sugere que",
+  "valuePoints": null,
+  "sourcePage": 2,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "os príncipes e as princesas são naturalmente belos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "os príncipes generosos cultivavam a beleza da princesa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "a beleza da princesa é desperdiçada pela miscigenação racial.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "o trabalho compulsório de escravos proporcionou privilégios aos príncipes.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "o exílio e a solidão são os responsáveis pela manutenção do corpo esbelto da princesa.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

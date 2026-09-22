@@ -1,0 +1,30 @@
+{
+  "examYear": 2011,
+  "originalLabel": "D5",
+  "order": 40,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Jogos de tabuleiro são atividades comuns de entretenimento na vida cotidiana das pessoas. Uma de suas características é a necessidade do uso de um tabuleiro com localizações bem definidas para o posicionamento de peças, podendo indicar também as fases do jogo. No livro O Homem que Calculava, de Malba Tahan (São Paulo: Record, 2002, p. 120), há uma história na qual um rei deveria efetuar o pagamento pelos serviços de um de seus conselheiros, dando-lhe uma certa quantidade de grãos de trigo a ser calculada da seguinte forma: coloca-se 1 grão de trigo na primeira casa do tabuleiro, 2 na segunda casa, 4 na terceira casa, 8 na quarta casa e assim dobrando-se sucessivamente até a última casa.\n\n| 1 | 2 | 3 | 4 |\n|---|---|---|---|\n| 5 | 6 | 7 | 8 |\n| 9 | 10 | 11 | 12 |\n| 13 | 14 | 15 | 16 |\n\nConsiderando o tabuleiro 4 x 4 ilustrado acima, contendo a indicação da ordem das casas, construa um único algoritmo que:\n\na) calcule, armazene em uma estrutura e escreva em ordem a quantidade de grãos de trigo em cada casa do tabuleiro; (valor: 8,0 pontos)\n\nb) calcule, armazene em uma variável e escreva a quantidade total de grãos de trigo presentes no tabuleiro. (valor: 2,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 21,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "A resposta está no cálculo, armazenamento e escrita da variável Trigo.\n\nAtenção: os comentários (//) não são necessários na resposta dada pelo candidato.\n\ninício\n\n// declara variável do tipo vetor\ntipo Trigo = vetor [1..16] de inteiros;\n\n// declaração de variáveis simples\ninteiro: TotalTrigo, Indice1;\n\n// inicializa acumulador de total de trigo\nTotalTrigo <- 0;\n\n// Determinando a qtde de trigo em cada casa\npara Indice1 de 0 até 15 passo 1 faça\n    Trigo[Indice1 + 1] <- pot(2, Indice1);\n    TotalTrigo <- TotalTrigo + Trigo[Indice1 + 1];\nfimpara;\n\n// escrevendo a Rota Correta\npara Indice1 de 1 até 16 passo 1 faça\n    escreva(\"Quantidade de grãos de trigo na casa \", Indice1, \" = \", Trigo[Indice1]);\nfimpara;",
+      "maxScore": 8,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "A resposta está no bom funcionamento da variável TotalTrigo.\n\nescreva(\"Total de grãos de trigo no tabuleiro = \", TotalTrigo);\n\nfim.",
+      "maxScore": 2,
+      "assets": []
+    }
+  ],
+  "tags": ["Estrutura de Dados e Algoritmos", "Programação"],
+  "reviewNotes": []
+}

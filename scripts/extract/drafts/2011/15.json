@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "15",
+  "order": 17,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Os mapas de navegação enfocam como as pessoas\nse movimentam por um site ou aplicação. Cada página\ndo site ou local da aplicação é representado com uma\ncaixa ou cabeçalho e todas as páginas que puderem ser\nacessadas a partir dela devem usá-la como referência\nUma técnica bastante utilizada é colocar todos os fluxos\npossíveis no mapa de navegação, já que isso destacará\nseções onde há necessidade de uma revisão no projeto\nda interface.\n      BENYON, D. Interação humano-computador. 2.ed. São Paulo: Pearson\n                                                    Prentice Hall, 2011\n\nCom relação ao tema, analise as asserções a seguir.\nOs mapas de navegação são redesenhados muitas vezes\nno decorrer do ciclo de vida do projeto\n                            PORQUE\na interface deve ser projetada para atender pessoas\n(capacidades      e    limitações      motoras,       neurológicas\ncognitivas, etc.), atividades que as pessoas querem\nrealizar (questões temporais, com ou sem cooperação\nse são críticas em termos de segurança ,etc.), contextos\nnos quais a interação acontece (ambiente físico, contexto\nsocial ou organizacional ,etc.), e ater-se às tecnologias\nempregadas (hardware, plataformas, normas, linguagens\nde programação, políticas de acesso em ambientes de\ntrabalho e residencial, etc.). As combinações desses\nelementos são muito diferentes, por exemplo, em um\nquiosque público, em um sistema de agenda compartilhada\nem uma cabine de avião ou em um telefone celular.\nAcerca dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 11,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "A primeira asserção é uma proposição verdadeira, e a segunda, uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A primeira asserção é uma proposição falsa, e a segunda, uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Tanto a primeira quanto a segunda asserções são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

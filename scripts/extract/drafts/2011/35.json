@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "35",
+  "order": 37,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A programação orientada a objeto não é apenas uma\nforma de programar, é também um jeito de pensar em\num problema utilizando conceitos do mundo real e, não\nsomente conceitos computacionais.\nConsiderando os conceitos da programação orientada a\nobjetos, analise as afirmações abaixo.\n    I.  O objeto tem determinadas propriedades que\n        o caracterizam e que são armazenadas no\n        próprio objeto. As propriedades de um objeto são\n        chamadas de instâncias.\n   II. As mensagens são informações enviadas ao objeto\n        para que ele se comporte de uma determinada maneira.\n        Um programa orientado a objetos em execução\n        consiste em envios, interpretações e respostas às\n        mensagens. São os métodos, os procedimentos\n        residentes nos objetos, que determinam como eles\n        irão atuar ao receber as mensagens.\n   III. A herança é um mecanismo para o\n        compartilhamento de métodos e atributos entre\n        classes e subclasses, permitindo a criação de\n        novas classes através da programação das\n        diferenças entre a nova classe e a classe-pai.\n   IV. O encapsulamento é um mecanismo que permite\n        o acesso aos dados de um objeto somente através\n        dos métodos desse. Nenhuma outra parte do\n        programa pode operar sobre os dados do objeto.\n        A comunicação entre os objetos é feita apenas\n        através de troca de mensagens.\nÉ correto apenas o que afirma em",
+  "valuePoints": null,
+  "sourcePage": 18,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Programação"],
+  "reviewNotes": []
+}

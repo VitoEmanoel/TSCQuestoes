@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "32",
+  "order": 34,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O MPS.BR (Melhoria de Processos do Software Brasileiro)\né, ao mesmo tempo, um movimento para melhoria da\nqualidade e um modelo de qualidade de processo.\n                                         Guia MPS.BR (SOFTEX)\n\nCom relação às suas características, o MPS.BR",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "possui 5 níveis de maturidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "possui representação contínua e por estágios.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "está em conformidade com as normas ISO/IEC 12207 e 15504.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "considera 3 dimensões: pessoas, ferramentas e procedimentos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "divide-se em 3 modelos: desenvolvimento, aquisição e serviços.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Governança e Gestão de TI"],
+  "reviewNotes": []
+}

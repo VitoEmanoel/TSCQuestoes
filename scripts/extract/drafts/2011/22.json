@@ -1,0 +1,49 @@
+{
+  "examYear": 2011,
+  "originalLabel": "22",
+  "order": 24,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Pedro foi contratado como desenvolvedor de software de uma empresa. Em seu primeiro dia de trabalho ele se deparou com o DER (Diagrama Entidade-Relacionamento), que representa os dados de um sistema de controle de malotes. Foi solicitado a Pedro relatório para o sistema contendo os seguintes dados: o nome de todos os funcionários que enviaram os malotes, o código dos malotes enviados, a descrição de seus conteúdos e a situação dos malotes. Para a geração do relatório, Pedro tem que fazer uma consulta utilizando o comando SELECT da linguagem SQL (ver imagem anexa).\n\nConhecidos o modelo conceitual de dados e os dados necessários para a tarefa de Pedro, o comando SELECT que ele deve executar para realizar a consulta e produzir o relatório corretamente é",
+  "valuePoints": null,
+  "sourcePage": 13,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2011/22-1.png",
+      "caption": "Diagrama Entidade-Relacionamento — prova pág. 13"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "SELECT NOME,CODIGO_MALOTE,DESCRICAO,SITUACAO_MALOTE FROM MALOTES INNER JOIN CONTEUDOS ON (CODIGO_CONTEUDO = CODIGO_CONTEUDO) INNER JOIN FUNCIONARIOS ON (MATRICULA = MATRICULA);",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "SELECT NOME, CODIGO_MALOTE, DESCRICAO, SITUACAO_MALOTE FROM MALOTES, CONTEUDOS, FUNCIONARIOS WHERE (CODIGO_CONTEUDO = CODIGO_CONTEUDO) AND (MATRICULA = MATRICULA);",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "SELECT NOME,CODIGO_MALOTE,DESCRICAO,SITUACAO_MALOTE FROM MALOTES INNER JOIN CONTEUDOS INNER JOIN FUNCIONARIOS ON(MALOTES.CODIGO_CONTEUDO = CONTEUDOS.CODIGO_CONTEUDO) ON(MALOTES.MATRICULA = FUNCIONARIOS.MATRICULA);",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "SELECT NOME, CODIGO_MALOTE, DESCRICAO,SITUACAO_MALOTE FROM MALOTES INNER JOIN CONTEUDOS ON (MALOTES.CODIGO_CONTEUDO = CONTEUDOS.CODIGO_CONTEUDO) INNER JOIN FUNCIONARIOS ON(MALOTES.MATRICULA = FUNCIONARIOS.MATRICULA);",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "SELECT NOME, CODIGO_MALOTE, DESCRICAO, SITUACAO_MALOTE FROM MALOTES, CONTEUDOS, FUNCIONARIOS INNER JOIN WHERE (MALOTES.CODIGO_CONTEUDO = CONTEUDOS.CODIGO_CONTEUDO) AND (MALOTES.MATRICULA = FUNCIONARIOS.MATRICULA);",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Banco de Dados"],
+  "reviewNotes": []
+}

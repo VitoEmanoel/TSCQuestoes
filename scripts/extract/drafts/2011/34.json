@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "34",
+  "order": 36,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O plano de negócios é um documento usado para\ndescrever um empreendimento e o modelo de negócios\nque sustentam a empresa. Sua elaboração envolve\num processo de aprendizagem e autoconhecimento\ne ainda permite ao empreendedor situar-se no seu\nambiente de negócios.\nDORNELAS, J. C. A. Empreendedorismo: transformando ideias em negócios\n                                       Rio de Janeiro: Campus, 2001, p. 97\n\nA respeito do plano de negócios, avalie as seguintes\nasserções.\nO plano de negócios é importante para gerenciar de forma\nmais eficaz a empresa e tomar decisões acertadas e\nidentificar oportunidades e transformá-las em diferencia\ncompetitivo para a empresa\n                                       PORQUE\npermite estabelecer comunicação interna eficaz na\nempresa e convencer o público-alvo externo: fornecedores\nparceiros, clientes, bancos, investidores, etc. sobre os\nbenefícios e os custos do negócio.\nAcerca dessas asserções, assinale a opção correta",
+  "valuePoints": null,
+  "sourcePage": 18,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A primeira asserção é uma proposição verdadeira, e a segunda, uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A primeira asserção é uma proposição falsa, e a segunda, uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "As duas asserções são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Governança e Gestão de TI"],
+  "reviewNotes": []
+}

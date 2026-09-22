@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "10",
+  "order": 12,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Várias técnicas relacionadas à programação\nextrema (XP) são diretamente ligadas ao código\nincluindo a refatoração, programação em pares e\nintegração contínua. A programação em pares é a\nprática preferida dos desenvolvedores XP trabalhando\nem pares em um computador.\n     SCOTT, K. O Processo Unificado Explicado. Porto Alegre: Artmed, 2002\n  BECK, K. Programação Extrema (XP) Explicada. Porto Alegre: Artmed, 2000\n\nA programação em pares auxilia no desenvolvimento de\ncódigo de melhor qualidade quando os pares",
+  "valuePoints": null,
+  "sourcePage": 9,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "elaboram e utilizam padrões de codificação conjuntamente, os quais, quando utilizados corretamente e apropriadamente, reduzem problemas individuais.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "estão acostumados ao desenvolvimento e à propriedade coletiva, limitando-se a fazer pequenas mudanças na ocorrência de erros em tempo de execução.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "minimizam os riscos de insucesso no projeto através da utilização de ferramentas para a geração automática de testes funcionais e protótipos de interface.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "escrevem testes em separado e discutem os resultados posteriormente, o que dá a eles a chance de se sintonizarem antes de começarem a implementação.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "trabalham em projetos complexos onde a codificação seja desenvolvida de forma conjunta, minimizando erros e agregando valor onde quer que o sistema necessite. ESPECÍFICO",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

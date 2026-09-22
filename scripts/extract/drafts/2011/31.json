@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "31",
+  "order": 33,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Em um determinado momento, uma rede recebe uma\nquantidade de requisições de operações, vindas de\nnúmeros IPs distintos, muito acima das condições\noperacionais previstas para os seus recursos e “trava”, isto\né, os seus serviços são interrompidos. Muitas empresas\ne entidades governamentais sofrem esse tipo de ataque\nhacker. Para realizá-lo, um atacante precisa distribuir\num código, em vários computadores, normalmente sem\no consentimento dos destinatários, que se tornam seus\n“zumbis”. Em um momento, o atacante ativa os “zumbis”\nque fazem muitos acessos a um determinado alvo,\nacabando por esgotar seus recursos e derrubando o\nsistema de informações.\nA respeito desse        tipo   de   ataque,   analise     as\nafirmações abaixo.\n   I.    É um ataque de negação de serviço distribuído\n         (Distributed Denial Of Service).\n   II. É um ataque que ameaça o atributo da\n       disponibilidade do sistema.\n   III. É um ataque em que os zumbis roubam as senhas\n        dos usuários, para poder enviar requisições.\n   IV. É um ataque não detectável por sistemas de antivírus.\nEstá correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e II.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Redes de Computadores"],
+  "reviewNotes": []
+}

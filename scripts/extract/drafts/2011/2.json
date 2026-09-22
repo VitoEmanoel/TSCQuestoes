@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "2",
+  "order": 2,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Exclusão digital é um conceito que diz respeito às extensas camadas sociais que ficaram à margem do fenômeno da\nsociedade da informação e da extensão das redes digitais. O problema da exclusão digital se apresenta como um dos\nmaiores desafios dos dias de hoje, com implicações diretas e indiretas sobre os mais variados aspectos da sociedade\ncontemporânea.\nNessa nova sociedade, o conhecimento é essencial para aumentar a produtividade e a competição global. É fundamental\npara a invenção, para a inovação e para a geração de riqueza. As tecnologias de informação e comunicação (TICs)\nproveem uma fundação para a construção e aplicação do conhecimento nos setores públicos e privados. É nesse\ncontexto que se aplica o termo exclusão digital, referente à falta de acesso às vantagens e aos benefícios trazidos por\nessas novas tecnologias, por motivos sociais, econômicos, políticos ou culturais.\nConsiderando as ideias do texto acima, avalie as afirmações a seguir.\n      I.   Um mapeamento da exclusão digital no Brasil permite aos gestores de políticas públicas escolherem o público-\n           alvo de possíveis ações de inclusão digital.\n      II. O uso das TICs pode cumprir um papel social, ao prover informações àqueles que tiveram esse direito negado\n           ou negligenciado e, portanto, permitir maiores graus de mobilidade social e econômica.\n      III. O direito à informação diferencia-se dos direitos sociais, uma vez que esses estão focados nas relações entre\n           os indivíduos e, aqueles, na relação entre o indivíduo e o conhecimento.\n      IV. O maior problema de acesso digital no Brasil está na deficitária tecnologia existente em território nacional, muito\n           aquém da disponível na maior parte dos países do primeiro mundo.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 2,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

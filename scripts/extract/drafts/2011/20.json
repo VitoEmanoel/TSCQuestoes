@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "20",
+  "order": 22,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Padrões de criação (creational patterns) abstraem\na forma como objetos são criados, tornando o sistema\nindependente de como os objetos são criados, compostos\ne representados. Um padrão de criação de classe\nusa a herança para variar a classe que é instanciada,\nenquanto que um padrão de criação de objeto delegará\na instanciação para outro objeto. Há dois temas\nrecorrentes nesses padrões. Primeiro, todos encapsulam\nconhecimento sobre quais classes concretas são usadas\npelo sistema. Segundo, ocultam o modo como essas\nclasses são criadas e montadas. Tudo que o sistema\nsabe no geral sobre os objetos é que suas classes são\ndefinidas por classes abstratas. Os padrões de criação\nsão classificados em Abstract Factory, Builder, Factory\nMethod, Prototype e Singleton.\n    GAMMA, E. et al. Design Patterns: Elements of Reusable Object-Oriented\n                      Software. Reading, MA: Addison-Wesley, 1994.(adaptado)\n\nO padrão Abstract Factory é usado quando",
+  "valuePoints": null,
+  "sourcePage": 12,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "o sistema deve ser independente da maneira como seus produtos são criados, relacionados e representados.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "o algoritmo de criação de um objeto deve ser independente das suas partes e da maneira como ele é montado.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "houver uma única instância de uma classe e esta for acessada a partir de um ponto de acesso conhecido.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "classes delegam responsabilidade a alguma das subclasses, e deseja-se localizar qual é a subclasse acessada.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "as classes utilizadas para instanciação são especificadas em tempo de execução ou carregadas dinamicamente.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "9",
+  "order": 11,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O levantamento de requisitos é uma etapa fundamental do\nprojeto de sistemas. Dependendo da situação encontrada\numa ou mais técnicas podem ser utilizadas para a\nelicitação dos requisitos. A respeito dessas técnicas\nanalise as afirmações a seguir.\n    I.  Workshop de requisitos consiste na realização\n        de reuniões estruturadas e delimitadas entre os\n        analistas de requisitos do projeto e representantes\n        do cliente.\n   II. Cenário consiste na observação das ações do\n        funcionário na realização de uma determinada\n        tarefa, para verificar os passos necessários para\n        sua conclusão.\n   III. As entrevistas são realizadas com os stakeholders\n        e podem ser abertas ou fechadas.\n   IV. A prototipagem é uma versão inicial do sistema\n        baseado em requisitos levantados em outros\n        sistemas da organização.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 9,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e III.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

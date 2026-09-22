@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "13",
+  "order": 15,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A linguagem gráfica EPC/ARIS é utilizada para modelar\nprocessos de negócios. Para isso, utiliza diversos recursos\npara descrever, representar ou indicar, por exemplo\natividades, funções, processos e fluxos. Nesse contexto\navalie as afirmações a seguir.\n      I.    A ligação entre dois processos é indicada por um\n            conector.\n      II. A descrição de um processo deve iniciar e terminar\n          em um evento.\n      III. As funções, ou atividades, são representadas por\n           um retângulo com bordas arredondadas.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 10,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II e III.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

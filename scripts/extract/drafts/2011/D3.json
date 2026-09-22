@@ -1,0 +1,30 @@
+{
+  "examYear": 2011,
+  "originalLabel": "D3",
+  "order": 38,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um jogo consiste de dois dados, cada um deles com 6 faces. As faces dos\n                    dados são numeradas de 1 até 6. Para ganhar uma partida, o jogador deverá\n                    fazer 3 lançamentos de dados, vencendo ao menos 2 deles. O jogador vence um\n                    lançamento se a soma dos dados for igual a 7 ou 11. Para iniciar um novo jogo,\n                    deve-se pressionar o botão “JOGAR”. Quando pressionado, ele imediatamente\n                    fica desabilitado e os dois dados aparecem girando na frente do jogador. Ao\n                    se pressionar o botão “LANÇAR”, os dados começam a girar mais lentamente\n                    até parar, mostrando os valores das suas faces em um sistema tridimensional.\n                    Nesse momento, encerra-se o lançamento e aparece “VENCEU” ou “PERDEU”\n                    na tela da aplicação, juntamente com um sinal sonoro de alerta e a quantidade\n                    de lançamentos restantes. Somente quando o jogador pressiona novamente\n                    o botão “LANÇAR” é que se inicia novo lançamento de dados. A qualquer\n                    momento, o jogador poderá encerrar o jogo: pressionando o botão “PARAR”.\n                    Tal ação reabilita o botão “JOGAR”.\n                          (LARMAN, C. Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design\n                                                    and Iterative Development. Prentice Hall, 3.ed, 2004. (com adaptações)\n\nConsiderando a caracterização do jogo de dados, elabore os seguintes artefatos da análise de requisitos.\n      a) Desenhe um diagrama de classes de domínio (UML) para o problema apresentado. (valor: 6,0 pontos)\n      b) Liste três requisitos funcionais referentes ao comportamento funcional essencial do jogo. (valor: 4,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 19,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "O estudante deve destacar as classes \"JogoDados\" e \"Dado\". Esta última deve ser vista\ncomo parte do \"JogoDados\". \"Face\" é um atributo de negócio importante na classe \"Dado\".\nUma anotação UML pode ser utilizada para registrar requisitos não‐funcionais, tais como\n\"Girar lentamente até parar\" (em relação ao \"Dado\"), \"tocar por 2s\" (em relação ao\n\"JogoDados\"). Outras classes que não forem de negócio deverão ser ignoradas.",
+      "maxScore": 6,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "o aluno deve listar pelo menos três das seguintes funcionalidades, podendo ser aceitas\nvariações na descrição das funcionalidades apresentadas no padrão de respostas.\nRF1: Iniciar jogo\nRF2: Lançar dados\nRF3: Verificar resultado\nRF4: Mostrar valores das faces\nRF5: Parar jogo\nRF6: Calcular ou exibir lançamentos restantes",
+      "maxScore": 4,
+      "assets": []
+    }
+  ],
+  "tags": ["Estrutura de Dados e Algoritmos", "Programação"],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "30",
+  "order": 32,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "As revisões técnicas formais são um meio efetivo de\nmelhorar a qualidade do software. Com relação a esse\ntipo de revisão, analise as seguintes asserções.\nNas revisões, os produtos de trabalho de um indivíduo ou\nequipe são revisados por técnicos ou gerentes\n                       PORQUE\nas revisões fornecem informações sobre defeitos\naumentando e permitindo o controle da qualidade do\nproduto final.\nAcerca dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A primeira asserção é uma proposição verdadeira, e a segunda, uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A primeira asserção é uma proposição falsa, e a segunda, uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Tanto a primeira quanto a segunda asserções são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Qualidade de Software"],
+  "reviewNotes": []
+}

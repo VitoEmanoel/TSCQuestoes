@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "24",
+  "order": 26,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "No que diz respeito aos baselines (linhas base) da\ngerência de configuração, avalie as seguintes afirmações.\n    I.   As baselines representam conjuntos de itens de\n         configuração formalmente aprovados que servem de\n         base para as etapas seguintes de desenvolvimento.\n    II. As baselines são definidas e podem ocorrer\n        ao final de cada uma das fases do processo de\n        desenvolvimento de software, ou de algum outro\n        modo definido pela gerência.\n    III. Um item de configuração de software “baselined”\n         pode ser alterado a qualquer momento durante o\n         desenvolvimento de software independentemente\n         de um procedimento formal.\n    IV. Ao término de uma etapa do desenvolvimento, e\n        após sua aceitação formal, a baseline na qual a\n        etapa se baseou pode ser descartada pois já se\n        encontra representada nos artefatos gerados.\n    V. Uma das funções da tarefa “Identificação da\n       Configuração”, envolve a definição de uma\n       nomenclatura que possibilite a identificação\n       inequívoca dos itens de configuração, baselines\n       e releases.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 14,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "III e V.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, II e V.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "7",
+  "order": 7,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "A definição de desenvolvimento                sustentável             mais\nusualmente     utilizada   é a que procura atender às\nnecessidades atuais sem comprometer a capacidade das\ngerações futuras. O mundo assiste a um questionamento\ncrescente de paradigmas estabelecidos na economia e\ntambém na cultura política. A crise ambiental no planeta,\nquando traduzida na mudança climática, é uma ameaça real\nao pleno desenvolvimento das potencialidades dos países.\n\nO Brasil está em uma posição privilegiada para enfrentar\nos enormes desafios que se acumulam. Abriga elementos\nfundamentais para o desenvolvimento: parte significativa\nda biodiversidade e da água doce existentes no planeta;\ngrande extensão de terras cultiváveis; diversidade étnica e\ncultural e rica variedade de reservas naturais.\n\nO campo do desenvolvimento sustentável pode ser\nconceitualmente      dividido     em      três        componentes:\nsustentabilidade ambiental, sustentabilidade econômica e\nsustentabilidade sociopolítica.\n\nNesse contexto, o desenvolvimento sustentável pressupõe",
+  "valuePoints": null,
+  "sourcePage": 5,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "a preservação do equilíbrio global e do valor das reservas de capital natural, o que não justifica a desaceleração do desenvolvimento econômico e político de uma sociedade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "a redefinição de critérios e instrumentos de avaliação de custo-benefício que reflitam os efeitos socioeconômicos e os valores reais do consumo e da preservação.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "o reconhecimento de que, apesar de os recursos naturais serem ilimitados, deve ser traçado um novo modelo de desenvolvimento econômico para a humanidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "a redução do consumo das reservas naturais com a consequente estagnação do desenvolvimento econômico e tecnológico.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "a distribuição homogênea das reservas naturais entre as nações e as regiões em nível global e regional.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

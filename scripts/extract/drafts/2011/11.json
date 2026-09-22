@@ -1,0 +1,49 @@
+{
+  "examYear": 2011,
+  "originalLabel": "11",
+  "order": 13,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O conjunto de casos de uso representa as possíveis interações que serão representadas nos requisitos do sistema. A figura a seguir desenvolve um exemplo de biblioteca e mostra outros casos de uso (use-cases) nesse ambiente (ver imagem anexa).\n\nSOMMERVILLE, I. Engenharia de software. 6. ed. São Paulo: Makron Books, 2003, p. 113.\n\nCom relação ao tema, analise as asserções a seguir.\n\nA figura também ilustra os pontos essenciais da notação de casos de uso. Os agentes no processo são representados por bonecos e cada tipo de interação é representada por uma elipse com um nome\n\nPORQUE\n\na UML é um padrão para a modelagem orientada a objetos e, assim, os casos de uso e a obtenção de requisitos com base em casos de uso são cada vez mais utilizados para obter requisitos.\n\nAcerca dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 9,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2011/11-1.png",
+      "caption": "Diagrama de Casos de Uso UML — prova pág. 9"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "A primeira asserção é uma proposição verdadeira, e a segunda, uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A primeira asserção é uma proposição falsa, e a segunda, uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Tanto a primeira quanto a segunda asserções são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

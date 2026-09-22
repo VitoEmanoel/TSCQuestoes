@@ -1,0 +1,49 @@
+{
+  "examYear": 2011,
+  "originalLabel": "6",
+  "order": 6,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "A educação é o Xis da questão (ver imagem anexa: infográfico comparando taxa de desemprego e salário conforme os anos de estudo).\n\nDisponível em: <http://ead.uepb.edu.br/noticias,82>. Acesso em: 24 ago. 2011.\n\nA expressão “o Xis da questão” usada no título do infográfico diz respeito",
+  "valuePoints": null,
+  "sourcePage": 5,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2011/6-1.png",
+      "caption": "Infográfico desemprego x salário — prova pág. 5"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "à quantidade de anos de estudos necessários para garantir um emprego estável com salário digno.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "às oportunidades de melhoria salarial que surgem à medida que aumenta o nível de escolaridade dos indivíduos.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "à influência que o ensino de língua estrangeira nas escolas tem exercido na vida profissional dos indivíduos",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "aos questionamentos que são feitos acerca da quantidade mínima de anos de estudo que os indivíduos precisam para ter boa educação.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "à redução da taxa de desemprego em razão da política atual de controle da evasão escolar e de aprovação automática de ano de acordo com a idade.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

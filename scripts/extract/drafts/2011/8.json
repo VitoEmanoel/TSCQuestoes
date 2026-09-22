@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "8",
+  "order": 8,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Em reportagem, Owen Jones, autor do livro Chavs: a difamação da classe trabalhadora, publicado no Reino\nUnido, comenta as recentes manifestações de rua em Londres e em outras principais cidades inglesas.\n\n    Jones prefere chamar atenção para as camadas sociais mais desfavorecidas do país, que desde o início dos\ndistúrbios, ficaram conhecidas no mundo todo pelo apelido chavs, usado pelos britânicos para escarnecer dos hábitos\nde consumo da classe trabalhadora. Jones denuncia um sistemático abandono governamental dessa parcela da\npopulação: “Os políticos insistem em culpar os indivíduos pela desigualdade”, diz. (...) “você não vai ver alguém assumir\nser um chav, pois se trata de um insulto criado como forma de generalizar o comportamento das classes mais baixas.\nMeu medo não é o preconceito e, sim, a cortina de fumaça que ele oferece. Os distúrbios estão servindo como o\nargumento ideal para que se faça valer a ideologia de que os problemas sociais são resultados de defeitos individuais,\nnão de falhas maiores. Trata-se de uma filosofia que tomou conta da sociedade britânica com a chegada de Margaret\nThatcher ao poder, em 1979, e que basicamente funciona assim: você é culpado pela falta de oportunidades. (...) Os\npolíticos insistem em culpar os indivíduos pela desigualdade”.\n                                                                           Suplemento Prosa & Verso, O Globo, Rio de Janeiro, 20 ago. 2011, p. 6 (adaptado).\n\nConsiderando as ideias do texto, avalie as afirmações a seguir.\n\n      I.    Chavs é um apelido que exalta hábitos de consumo de parcela da população britânica.\n      II. Os distúrbios ocorridos na Inglaterra serviram para atribuir deslizes de comportamento individual como causas\n          de problemas sociais.\n      III. Indivíduos da classe trabalhadora britânica são responsabilizados pela falta de oportunidades decorrente da\n           ausência de políticas públicas.\n      IV. As manifestações de rua na Inglaterra reivindicavam formas de inclusão nos padrões de consumo vigente.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 6,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

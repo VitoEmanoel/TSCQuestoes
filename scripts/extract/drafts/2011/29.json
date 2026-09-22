@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "29",
+  "order": 31,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A pilha é uma estrutura de dados que permite a inserção\nremoção de itens dinamicamente seguindo a norma de\núltimo a entrar, primeiro a sair. Suponha que para uma\nestrutura de dados, tipo pilha, são definidos os comandos\n•     PUSH (p, n): Empilha um número “n” em uma estrutura\n      de dados do tipo pilha “p”;\n•     POP (p): Desempilha o elemento no topo da pilha.\nConsidere que, em uma estrutura de dados tipo pilha “p”\ninicialmente vazia, sejam executados os seguintes comandos\n        PUSH (p, 10)\n        PUSH (p, 5)\n        PUSH (p, 3)\n        PUSH (p, 40)\n        POP (p)\n        PUSH (p, 11)\n        PUSH (p, 4)\n        PUSH (p, 7)\n        POP (p)\n        POP (p)\nApós a execução dos comandos, o elemento no topo da\npilha “p” e a soma dos elementos armazenados na pilha\n“p” são, respectivamente,",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "11 e 29.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "11 e 80.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "4 e 80.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "7 e 29.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "7 e 40.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Estrutura de Dados e Algoritmos"],
+  "reviewNotes": []
+}

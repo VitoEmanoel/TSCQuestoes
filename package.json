@@ -15,6 +15,7 @@
     "db:seed": "prisma db seed",
     "extract:raw": "tsx scripts/extract/extract-raw-text.ts",
     "extract:parse:2021": "tsx scripts/extract/parsers/2021.ts",
+    "extract:parse:2011": "tsx scripts/extract/parsers/2011.ts",
     "extract:validate": "tsx scripts/extract/validate.ts"
   },
   "dependencies": {

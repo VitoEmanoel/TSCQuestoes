@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "19",
+  "order": 21,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Com relação ao valor lógico, avalie as afirmações a seguir\n    I. ¬ (p^¬q)\n    II. p→(q→p)\n    III. (pv¬q)→¬p\n    IV. (p^q)v(¬p^¬q)\nÉ tautologia apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 12,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "II.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Matemática e Lógica"],
+  "reviewNotes": []
+}

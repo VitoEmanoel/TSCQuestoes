@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "17",
+  "order": 19,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Os processos de negócio aumentam o entendimento do “o\nque precisa ser feito” e do “como precisa ser feito” dentro\nde uma organização.\n                                     (BALDAM, R. 2009, ed.2 , p. 25)\n\nSabendo disso, a fase da gestão de processos de negócio\nque evita a estagnação dos processos organizacionais é",
+  "valuePoints": null,
+  "sourcePage": 11,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "a fase de gerenciamento.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "a fase de planejamento .",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "a fase de monitoração.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "a fase de modelagem.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "a fase de otimização.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

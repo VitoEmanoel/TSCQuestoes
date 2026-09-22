@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "4",
+  "order": 4,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Com o advento da República, a discussão sobre a questão\neducacional torna-se pauta significativa nas esferas dos\nPoderes Executivo e Legislativo, tanto no âmbito Federal\nquanto no Estadual. Já na Primeira República, a expansão\nda demanda social se propaga com o movimento da escola-\nnovista; no período getulista, encontram-se as reformas\nde Francisco Campos e Gustavo Capanema; no momento\nde crítica e balanço do pós-1946, ocorre a promulgação\nda primeira Lei de Diretrizes e Bases da Educação\nNacional, em 1961. É somente com a Constituição de\n1988, no entanto, que os brasileiros têm assegurada a\neducação de forma universal, como um direito de todos,\ntendo em vista o pleno desenvolvimento da pessoa no que\nse refere a sua preparação para o exercício da cidadania\ne sua qualificação para o trabalho. O artigo 208 do texto\nconstitucional prevê como dever do Estado a oferta da\neducação tanto a crianças como àqueles que não tiveram\nacesso ao ensino em idade própria à escolarização cabida.\n\nNesse contexto, avalie as seguintes asserções e a relação\nproposta entre elas.\n\nA relação entre educação e cidadania se estabelece na\nbusca da universalização da educação como uma das\ncondições necessárias para a consolidação da democracia\nno Brasil.\n                         PORQUE\nPor meio da atuação de seus representantes nos Poderes\nExecutivos e Legislativo, no decorrer do século XX,\npassou a ser garantido no Brasil o direito de acesso à\neducação, inclusive aos jovens e adultos que já estavam\nfora da idade escolar.\n\nA respeito dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 3,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As duas são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "As duas são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A primeira é uma proposição verdadeira, e a segunda, falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A primeira é uma proposição falsa, e a segunda, verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Tanto a primeira quanto a segunda asserções são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

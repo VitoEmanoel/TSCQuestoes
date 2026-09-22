@@ -1,0 +1,30 @@
+{
+  "examYear": 2011,
+  "originalLabel": "D4",
+  "order": 39,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Considerando a execução do algoritmo abaixo, responda ao que se pede nos itens a e b.\n\n                                          01   algoritmo Vetores\n                                          02   variaveis\n                                          03       vetA[1..10], vetB[1..10], i: inteiro\n                                          04   inicio\n                                          05       para i <- 1 ate 10 passo 1 faca\n                                          06           vetB[i] <- 0\n                                          07           se resto(i,2) = 0 entao\n                                          08              vetA[i] <- i\n                                          09          senão\n                                          10              vetA[i] <- 2 * i\n                                          11          fimse\n                                          12       fimpara\n                                          13       para i <- 1 ate 10 passo 1 faca\n                                          14           enquanto(vetA[i] > i)\n                                          15              vetB[i] <- vetA[i]\n                                          16              vetA[i] <- vetA[i] – 1\n                                          17           fimenquanto\n                                          18       fimpara\n                                          19   fimalgoritmo\n        a) Apresente os dados dos vetores vetA e vetB ao término da execução da linha 12. (valor: 5,0 pontos)\n        b) Apresente os dados dos vetores vetA e vetB ao término da execução da linha 19. (valor: 5,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 20,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "Ao final da execução da linha 12, o aluno deve chegar aos seguintes valores:\n                                             vetA\nPosição       1       2       3        4        5       6        7       8        9    10\nValor         2       2       6        4        10      6       14       8        18   10\n                                             vetB\nPosição       1       2        3       4        5       6        7       8        9    10\nValor         0       0        0       0        0       0        0       0        0    0",
+      "maxScore": 5,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "Ao final da execução da linha 19, o aluno deve chegar aos seguintes valores:\n                                             vetA\nPosição       1       2        3       4        5       6        7       8        9    10\nValor         1       2        3       4        5       6        7       8        9    10\n                                             vetB\nPosição       1       2        3       4        5       6        7       8        9    10\nValor         2       0        4       0        6       0        8       0        10   0",
+      "maxScore": 5,
+      "assets": []
+    }
+  ],
+  "tags": ["Estrutura de Dados e Algoritmos", "Programação"],
+  "reviewNotes": []
+}

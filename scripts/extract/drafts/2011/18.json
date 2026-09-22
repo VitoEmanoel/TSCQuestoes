@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "18",
+  "order": 20,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A Norma ISO/IEC FDIS 14764 (2006) estabelece\ndefinições de vários tipos de manutenção e fornece um\nguia para gerenciar o processo de manutenção, que pode\nser aplicado no planejamento, execução e controle, revisão\ne avaliação, e fechamento do processo de manutenção\nSegundo essa Norma, solicitações de modificação são\nclassificadas como corretiva, preventiva, adaptativa ou\nperfectiva. Os detalhes de como implementar ou realizar as\natividades e tarefas de manutenção não são especificadas\npela Norma, sendo de responsabilidade do mantenedor.\nISO/IEC FDIS 14764. Software Engineering – Software Life Cycle Processes\n                                                        Maintenance. 2006\n\nConsiderando os tipos de manutenção e as atividades de\nimplementação do processo, avalie as afirmações a seguir\n      I.O mantenedor deve desenvolver, documentar e\n        executar planos e procedimentos para realizar as\n        atividades e tarefas do processo de manutenção.\n   II. O mantenedor deve alterar a configuração do\n        sistema para corrigir erros identificados pelos\n        usuários usando a manutenção perfectiva.\n   III. O mantenedor deve estabelecer procedimentos\n        para receber, registrar e rastrear solicitações de\n        modificação/registro de problemas dos usuários\n        e também prover realimentação para os usuários.\n   IV. O mantenedor deve documentar a estratégia a ser\n        usada para melhorar a manutebilidade futura do\n        sistema, usando a manutenção corretiva.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 12,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e III.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

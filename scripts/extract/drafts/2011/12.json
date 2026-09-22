@@ -1,0 +1,43 @@
+{
+  "examYear": 2011,
+  "originalLabel": "12",
+  "order": 14,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Analise as seguintes afirmações sobre a UML (Linguagem\nde Modelagem Unificada).\n      I.    A UML é uma metodologia para o desenvolvimento\n            de software orientado a objetos, uma vez que\n            fornece um conjunto de representações gráficas\n            e sua semântica para a modelagem de software.\n      II. O diagrama de casos de uso procura, por\n          meio de uma linguagem simples, demonstrar\n          o comportamento externo do sistema. Esse\n          diagrama apresenta o sistema sob a perspectiva\n          do usuário, e é dentre todos da UML, o mais\n          abstrato, flexível e informal.\n      III. Um relacionamento de extensão de um caso de\n           uso “A” para um caso de uso “B” significa que\n           toda vez que “A” for executado ele incorporará o\n           comportamento definido em “B”.\n      IV. Os diagramas de comportamento da UML\n          demonstram como ocorrem as trocas de\n          mensagens entre os objetos do sistema para se\n          atingir um determinado objetivo.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 10,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "II e IV.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

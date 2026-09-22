@@ -1,0 +1,49 @@
+{
+  "examYear": 2011,
+  "originalLabel": "23",
+  "order": 25,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Considere o diagrama de entidades e relacionamentos a seguir, onde as chaves primárias de cada entidade se encontram na parte superior dos retângulos. As entidades fortes são representadas por retângulos e as entidades fracas são representadas por retângulos com cantos arredondados (ver imagem anexa).\n\nO diagrama atende as seguintes restrições:\n      (i) entre Ent1 e Ent2, tem-se um relacionamento muitos para muitos;\n      (ii) entre as Entidades Ent2 e Ent3, tem-se um relacionamento de um para nenhum, um ou muitos;\n      (iii) entre Ent1 e Ent5, tem-se um relacionamento de zero ou um para zero, um ou muitos; e\n      (iv) entre Ent3 e Ent4, tem-se um relacionamento de muitos para muitos.\n\nAplicando a terceira forma normal ao modelo, qual será o total de colunas que deve ser criado para representar as chaves estrangeiras?",
+  "valuePoints": null,
+  "sourcePage": 14,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2011/23-1.png",
+      "caption": "Diagrama Entidade-Relacionamento — prova pág. 14"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "3.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "5.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "7.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "8.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "9.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Banco de Dados"],
+  "reviewNotes": []
+}
