@@ -1,0 +1,51 @@
+{
+  "examYear": 2014,
+  "originalLabel": "9",
+  "order": 14,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Confome definido pelo Corpo de Conhecimento para Gerenciamento de Projeto de Software PMBOK,\num dos artefatos de maior importância dentro do planejamento de um projeto de software é a Estrutura\nAnalítica do Projeto (EAP).\n\nPMI. Um guia do conhecimento em gerenciamento de projetos. Guia PMBOK. 4 ed. EUA: Project Management Institute, 2008.\n\nA EAP apresentada na figura a seguir mapeia o processo de produção de um software de uma empresa e os\npacotes de trabalho que fazem parte desse projeto de software. Percebe-se que as atividades de “codificação”\ne “teste” não possuem pacotes de trabalho. A empresa Alfa optou por terceirizá-las para uma parceira em\numa operação de outsourcing.\n\n€Software de Controle Acadêmicã\nQ.\n\ná\n| | | | |\n\nGl Levantamento de Requisitos) (1.2 Projeto de Software) (L.B Codificação) (1.4 Teste) ÇL.S Implantação)\nFm Q.\n\nQ\n\nGl.l Pacote de inserção de dadoã 1.2.1 Pacote de inserção de dadoã 1.5.1 Pacote de inserção de dadã\n\n1.1.2 Pacote de relatórios 1.2.2 Pacote de relatórios 1.5.2 Pacote de relatórios\n\nAnalisando-se o EAP da empresa, conclui-se que as atividades de “codificação” e “teste”",
+  "valuePoints": null,
+  "sourcePage": 12,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2014/9-1.png",
+      "caption": "Diagrama EAP — prova pág. 12"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "devem ser inseridas no planejamento do projeto, uma vez que a empresa é a responsável pela implantação do software (a terceirização foi uma opção da própria empresa).",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "devem ser inseridas no planejamento do projeto porque é obrigatório que um processo de software tenha as atividades de “codificação” e “teste” dentro de seu conjunto de atividades.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "não devem ser inseridas no planejamento do projeto, porque, como elas foram terceirizadas, não é necessário realizar o controle de qualidade dessas atividades.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "não devem ser inseridas no planejamento do projeto porque, como elas foram terceirizadas, não é necessário realizar o controle de produção - tempo, esforço e custo - dessas atividades.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "não devem ser inseridas no planejamento do projeto, porque em um processo de software não é obrigatório que as atividades de “codificação” e “teste” estejam dentro de seu conjunto de atividades. MNnA — recnocosia Em ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": [
+    "Questão precisa de imagem — ver docs/figuras-2014.md."
+  ]
+}

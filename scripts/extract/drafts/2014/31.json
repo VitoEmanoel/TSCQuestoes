@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "31",
+  "order": 36,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Analise o fluxograma a seguir.\n\nDA ESARE\n\nEm relação à execução de testes de caixa branca\nsobre este fluxograma, avalie as afirmações a seguir.\nl. Os caminhos 1-2-3-4-5, 1-2-3-4-6, 1-2-3-7-9,\n1-2-3-7-8-9 formam um conjunto de caminhos\n\nde execução independentes.\n\nIl. Ocálculo de complexidade ciclomática fornece\na quantidade de caminhos independentes a\ntestar.\n\nIIl. Testes sobre caminhos independentes podem\nser executados em programas procedurais,\nmas não podem ser executados em programas\norientados a objetos.\n\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 24,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "|, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Ill, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "lell, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "ll elll, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "111eI. L ESENVOLVIMENTO DE SISTEMAS",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

@@ -1,4 +1,7 @@
 import { execFileSync } from "node:child_process";
+import { mkdtempSync, readdirSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join as joinPath } from "node:path";
 
 const NOISE_PATTERNS: RegExp[] = [
   /^Área livre$/i,
@@ -246,13 +249,21 @@ export function getPdfPageSize(pdfPath: string): { width: number; height: number
   return { width: Number(match[1]), height: Number(match[2]) };
 }
 
-const LEFT_COLUMN_END_FRACTION = 305 / 580.517;
-const RIGHT_COLUMN_START_FRACTION = 320 / 580.517;
+export type ColumnFractions = { leftEnd: number; rightStart: number };
 
-export function extractTwoColumnPageText(pdfPath: string, page: number): string {
+export const DEFAULT_COLUMN_FRACTIONS: ColumnFractions = {
+  leftEnd: 305 / 580.517,
+  rightStart: 320 / 580.517,
+};
+
+export function extractTwoColumnPageText(
+  pdfPath: string,
+  page: number,
+  fractions: ColumnFractions = DEFAULT_COLUMN_FRACTIONS,
+): string {
   const { width, height } = getPdfPageSize(pdfPath);
-  const leftWidth = Math.round(width * LEFT_COLUMN_END_FRACTION);
-  const rightStart = Math.round(width * RIGHT_COLUMN_START_FRACTION);
+  const leftWidth = Math.round(width * fractions.leftEnd);
+  const rightStart = Math.round(width * fractions.rightStart);
   const rightWidth = Math.round(width - rightStart);
   const heightRounded = Math.round(height);
 
@@ -310,4 +321,77 @@ export function extractPageText(pdfPath: string, page: number): string {
       encoding: "utf-8",
     },
   ).trim();
+}
+
+const OCR_DPI = 300;
+
+function withPageImage<T>(pdfPath: string, page: number, fn: (imagePath: string) => T): T {
+  const dir = mkdtempSync(joinPath(tmpdir(), "tscq-ocr-"));
+  try {
+    execFileSync("pdftoppm", [
+      "-png",
+      "-r",
+      String(OCR_DPI),
+      "-f",
+      String(page),
+      "-l",
+      String(page),
+      pdfPath,
+      joinPath(dir, "page"),
+    ]);
+    const file = readdirSync(dir).find((name) => name.endsWith(".png"));
+    if (!file) {
+      throw new Error(`Falha ao renderizar página ${page} de ${pdfPath}`);
+    }
+    return fn(joinPath(dir, file));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+function ocrImage(imagePath: string, psm: number): string {
+  return execFileSync("tesseract", [imagePath, "-", "-l", "por", "--psm", String(psm)], {
+    encoding: "utf-8",
+  }).trim();
+}
+
+export function ocrPageText(pdfPath: string, page: number): string {
+  return withPageImage(pdfPath, page, (imagePath) => ocrImage(imagePath, 4));
+}
+
+export function ocrTwoColumnPageText(
+  pdfPath: string,
+  page: number,
+  fractions: ColumnFractions = DEFAULT_COLUMN_FRACTIONS,
+): string {
+  return withPageImage(pdfPath, page, (imagePath) => {
+    const dims = execFileSync("identify", ["-format", "%w %h", imagePath], { encoding: "utf-8" });
+    const [width, height] = dims.trim().split(" ").map(Number);
+    const leftWidth = Math.round(width * fractions.leftEnd);
+    const rightStart = Math.round(width * fractions.rightStart);
+    const rightWidth = width - rightStart;
+
+    const dir = mkdtempSync(joinPath(tmpdir(), "tscq-ocr-col-"));
+    try {
+      const leftPath = joinPath(dir, "left.png");
+      const rightPath = joinPath(dir, "right.png");
+      execFileSync("magick", [
+        imagePath,
+        "-crop",
+        `${leftWidth}x${height}+0+0`,
+        "+repage",
+        leftPath,
+      ]);
+      execFileSync("magick", [
+        imagePath,
+        "-crop",
+        `${rightWidth}x${height}+${rightStart}+0`,
+        "+repage",
+        rightPath,
+      ]);
+      return `${ocrImage(leftPath, 4)}\n\n${ocrImage(rightPath, 4)}`;
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
 }

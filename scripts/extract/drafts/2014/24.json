@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "24",
+  "order": 29,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O RUP (Rational Unified Process) é subdividido em\nFases, que indicam a ênfase que é dada ao projeto\nem um dado instante, e em Fluxos de trabalho, que\ndefinem os grupos de atividades a serem realizadas\nao longo das fases.\n\nConsiderando que no desenvolvimento de software\nutilizam-se técnicas de análise e projeto orientado\na objetos e que as atividades sejam distribuídas\nde acordo com o RUP, o momento que devem ser\nelaborados os diagramas de classes e de interação\nentre os objetos do sistema é",
+  "valuePoints": null,
+  "sourcePage": 21,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "na fase de Concepção, no fluxo de Modelagem de negócios.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "na fase de Elaboração, no fluxo de Análise e Design.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "na fase de Concepção, no fluxo de Análise e Design.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "na fase de Elaboração, no fluxo de Requisitos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "na fase de Concepção, no fluxo de Requisitos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

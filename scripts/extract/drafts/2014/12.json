@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "12",
+  "order": 17,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "No cenário de uma economia globalizada, cresce\no interesse pelo empreendedorismo e pela busca\nde meios que levem a uma maior produtividade,\ncompetitividade e inovação. Os avanços das\ntecnologias da informação e comunicação (TIC)\nauxiliam esse crescimento. Atualmente, uma parcela\nsignificativa dos negócios tem uma dependência\nforte das TIC.\n\nDesse modo, manter a disponibilidade da informação\ne comunicação e manter os negócios operando,\nsem qualquer paralisação, é indispensável. Porém,\né preciso analisar o que pode ser afetado, qual o\nimpacto financeiro e quais os impactos na imagem e\nna reputação da empresa, se cada um dos processos\nde negócio sofresse uma paralisação por conta da TIC.\n\nA fim de mitigar possíveis riscos, é recomendável\ndocumentar um plano para eliminar ou reduzir a\npossibilidade de ocorrer cenários de indisponibilidade\nda TIC. Nessa situação, é preciso elaborar um",
+  "valuePoints": null,
+  "sourcePage": 15,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "plano de negócio.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "documento de visão.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "plano de contingência.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "plano de gerência de riscos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "plano de gerenciamento de projetos. TECNOLOGIA EM ANÁLISE E DES| ENADE 2014",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

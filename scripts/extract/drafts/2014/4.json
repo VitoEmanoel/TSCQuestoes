@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "4",
+  "order": 6,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Importante website de relacionamento caminha para\n700 milhões de usuários. Outro conhecido servidor de\nmicroblogging acumula 140 milhões de mensagens ao\ndia. É como se 75% da população brasileira postasse um\ncomentário a cada 24 horas. Com as redes sociais cada\nvez mais presentes no dia a dia das pessoas, é inevitável\nque muita gente encontre nelas uma maneira fácil,\nrápida e abrangente de se manifestar.\n\nUma rede social de recrutamento revelou que 92%\ndas empresas americanas já usaram ou planejam\nusar as redes sociais no processo de contratação.\nDestas, 60% assumem que bisbilhotam a vida dos\ncandidatos em websites de rede social.\n\nRealizada por uma agência de recrutamento, uma\npesquisa com 2 500 executivos brasileiros mostrou\nque 44% desclassificariam, no processo de seleção, um\ncandidato por seu comportamento em uma rede social.\n\nMuitas pessoas já enfrentaram problemas por\ncausa de informações online, tanto no campo\npessoal quanto no profissional. Algumas empresas\ne instituições, inclusive, já adotaram cartilhas de\nconduta em redes sociais.\n\nPOLONI, G. O lado perigoso das redes sociais. Revista INFO,\np. 70 - 75, julho 2011 (adaptado).\n\nDe acordo com o texto,",
+  "valuePoints": null,
+  "sourcePage": 6,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "mais da metade das empresas americanas evita acessar websites de redes sociais de candidatos a emprego.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "empresas e instituições estão atentas ao comportamento de seus funcionários em websites de redes sociais.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "a complexidade dos procedimentos de rastreio e monitoramento de uma rede social impede que as empresas tenham acesso ao perfil de seus funcionários.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "as cartilhas de conduta adotadas nas empresas proíbem o uso de redes sociais pelos funcionários, em vez de recomendar mudanças de comportamento.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "a maioria dos executivos brasileiros utilizaria informações obtidas em websites de redes sociais, para desclassificar um candidato em processo de seleção. NnnA — recnococia EM ANÁLISE E",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "1",
+  "order": 3,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "O trecho da música “Nos Bailes da Vida”, de Milton Nascimento, “todo artista tem de ir aonde o povo está”, é antigo,\ne a música, de tão tocada, acabou por se tornar um estereótipo de tocadores de violões e de rodas de amigos em\nVisconde de Mauá, nos anos 1970. Em tempos digitais, porém, ela ficou mais atual do que nunca. É fácil entender\no porquê: antigamente, quando a informação se concentrava em centros de exposição, veículos de comunicação,\neditoras, museus e gravadoras, era preciso passar por uma série de curadores, para garantir a publicação de um\nartigo ou livro, a gravação de um disco ou a produção de uma exposição. O mesmo funil, que poderia ser injusto e\ndeixar grandes talentos de fora, simplesmente porque não tinham acesso às ferramentas, às pessoas ou às fontes\nde informação, também servia como filtro de qualidade. Tocar violão ou encenar uma peça de teatro em um grande\nauditório costumava ter um peso muito maior do que fazê-lo em um bar, um centro cultural ou uma calçada.\nNas raras ocasiões em que esse valor se invertia, era justamente porque, para uso do espaço “alternativo”, havia\nmecanismos de seleção tão ou mais rígidos que os do espaço oficial.\n\nRADFAHRER, L. Todo artista tem de ir aonde o povo está.Disponível em: <http://novo.itaucultural.org.br>. Acesso em: 29 jul. 2014 (adaptado).\n\nA partir do texto acima, avalie as asserções a seguir e a relação proposta entre elas.\n|. O processo de evolução tecnológica da atualidade democratiza a produção e a divulgação de obras\nartísticas, reduzindo a importância que os centros de exposição tinham nos anos 1970.\nPORQUE\n\nIl. As novas tecnologias possibilitam que artistas sejam independentes, montem seus próprios ambientes\nde produção e disponibilizem seus trabalhos, de forma simples, para um grande número de pessoas.\n\nA respeito dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 4,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As asserções | e |l são proposições verdadeiras, e a 1l é uma justificativa correta da |.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "As asserções | e |l são proposições verdadeiras, mas a |1l não é uma justificativa correta da |.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A asserção | é uma proposição verdadeira, e a 1l é uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A asserção | é uma proposição falsa, e a |l é uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "As asserções | e 1l são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

@@ -1,0 +1,30 @@
+{
+  "examYear": 2014,
+  "originalLabel": "D5",
+  "order": 13,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Matrizes multidimensionais são vetores capazes de armazenarem mais de uma posição de cada elemento\nque será indicado por dois ou mais índices. Um exemplo de matrizes multidimensionais são as matrizes\nmatemáticas, que representam valores tabulados em linhas e colunas.\n\n01 algoritmo “matriz”\n\n02 var\n\n03 i, j : inteiro;\n\n04 m1l : vetor [1..3, 1..3] de inteiro;\n\n05 m2 : vetor [1..3, 1..3] de inteiro;\n\n06 inicio\n\n07 para i de 1 ate 3 faça\n\no8 para j de 1 ate 3 faça\no9 m1[i,j] := i + 1;\n10 m2[i,]] := j + 1;\n11 fimpara;\n\n12 fimpara;\n13 para i de 1 ate 3 faça\n\n14 para j de 1 ate 3 faça\n\n15 se (m1i[i,j] = m2[i,j]) então\n16 m1[i,j] := O;\n\n17 senão\n\n18 m2[i,j]] := 1;\n\n19 fimse;\n\n20 fimpara;\n\n21 fimpara;\n\n22 fimalgoritmo\n\nConsiderando o algoritmo acima e com base no teste de mesa, faça o que se pede nos itens a seguir.\na) Apresente os dados dos vetores m1 e m2 ao término da execução da linha 12. (valor: 5,0 pontos)\nb) Apresente os dados dos vetores m1 e m2 ao término da execução da linha 21. (valor: 5,0 pontos)\n\nENADE 2014",
+  "valuePoints": 10,
+  "sourcePage": 11,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "Após a linha 12:\nA matriz m1 ficará da seguinte forma:\n222\n333\n444\nA matriz m2 ficará da seguinte forma:\n234\n234\n234",
+      "maxScore": 5,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "A matriz m1 após a linha 21 ficará desta forma:\n022\n303\n440\nA matriz m2 após a linha 21 ficará desta forma:\n211\n131\n114",
+      "maxScore": 5,
+      "assets": []
+    }
+  ],
+  "tags": [],
+  "reviewNotes": []
+}

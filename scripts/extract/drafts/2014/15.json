@@ -1,0 +1,51 @@
+{
+  "examYear": 2014,
+  "originalLabel": "15",
+  "order": 20,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Considere o arranjo computacional apresentado a\n\nseguir.\nBase de\ndados |l\n\nAplicação |l\n\nRede pública\n\n\"=\nE=\n\nAplicação |\n\nDados Base de\npessoais dados |\n\nA característica fundamental esperada para tais\nsistemas de modo a ter o menor impacto sobre a\nexperiência do usuário final é",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2014/15-1.png",
+      "caption": "Diagrama de arquitetura — prova pág. 16"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "a transparência entre as entidades do sistema.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "alinguagem de programação orientada a eventos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "o hardware com elevada taxa de processamento de dados.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "a base de dados deve estar localizada no mesmo espaço físico.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "a independência quanto à disponibilidade de conexão à rede de comunicação de dados. ) ESENVOLVIMENTO DE SISTEMAS",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": [
+    "Questão precisa de imagem — ver docs/figuras-2014.md."
+  ]
+}

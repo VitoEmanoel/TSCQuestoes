@@ -1,0 +1,36 @@
+{
+  "examYear": 2014,
+  "originalLabel": "D4",
+  "order": 12,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma estrutura de dados do tipo pilha pode ser usada em um algoritmo que permite imprimir uma palavra de\nforma invertida. Exemplo: FELICIDADE deve ser impresso como EDADICILEF.\n\nUtilizando as variáveis declaradas abaixo:\n\npilha[1..50]: caractere;\n\ni, topo: inteiro;\n\npalavra: string;\n\nEm pseudocódigo, faça o que se pede nos itens a seguir.\n\na) Desenvolva a rotina push que inclui um elemento na pilha. (valor: 3,0 pontos)\nb) Desenvolva a rotina pop que retira um elemento da pilha. (valor: 3,0 pontos)\n\nc) Desenvolva a rotina que leia a palavra e, usando a pilha, a imprima de forma invertida. (valor: 4,0 pontos)\n\nCaso necessite de mais espaço, divida as linhas em duas ou três colunas.\n\nNTN — recnocosia Em ANÁLISE E DESENVOLVIMENTO DE SISTEMAS\n\nENADE 2014",
+  "valuePoints": 10,
+  "sourcePage": 10,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "função push(c:caractere)\n    início\n      se topo >= 50\n        escreva “Erro: Pilha Cheia”\n      senão\n        topo <- topo + 1\n        pilha[topo] <- c\n      fimse\n    fimfunção",
+      "maxScore": 3,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "função pop(): caractere\n    início\n      se topo <= 0\n        escreva “Erro: Pilha Vazia”\n      senão\n        devolva (pilha[topo])\n        topo <- topo - 1\n      fimse\n    fimfunção",
+      "maxScore": 3,
+      "assets": []
+    },
+    {
+      "subItem": "c",
+      "criteriaMd": "função inverte()\n    início\n      topo <- 0\n      leia palavra\n      para i <- 1 até tamanho(palavra) passo 1 faça\n        push(palavra[i])\n      fimpara\n      para i <- 1 até tamanho(palavra) passo 1 faça\n        imprima (pop())\n      fimpara\n    fimfunção\nObservação 1: qualquer notação em português estruturado será considerada, assim como\nem uma linguagem de alto nível como Pascal, C ou Java;\nObservação 2: serão consideradas outras soluções para a função “inverte” sem o uso das\nfunções “push” e “pop”.",
+      "maxScore": 4,
+      "assets": []
+    }
+  ],
+  "tags": [],
+  "reviewNotes": []
+}

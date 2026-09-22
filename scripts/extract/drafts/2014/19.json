@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "19",
+  "order": 24,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Requisitos funcionais e não funcionais podem definir\ncaracterísticas e funcionalidades presentes na\ninterface a ser desenvolvida para um sistema.\n\nEm relação aos requisitos não funcionais, também\nchamados de requisitos de qualidade, avalie as\nafirmações a seguir.\n\n|. Sãolevantados e elicitados após os requisitos\nfuncionais, uma vez que os requisitos\nfuncionais determinarão as funcionalidades\nda interface.\n\nll. Sempre serão definidos de forma mais\nconcreta, através de requisitos funcionais,\numa vez que o usuário manipula na interface\nsomente as funcionalidades levantadas.\n\nIll. Podem — complementar os  reqguisitos\nfuncionais.\n\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 18,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "|l, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Ill, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "lell, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "lelll, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "111eI. : ) ) ESENVOLVIMENTO DE SISTEMAS",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "8",
+  "order": 10,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Constantes transformações ocorreram nos meios\nrural e urbano, a partir do século XX. Com o advento\nda industrialização, houve mudanças importantes no\nmodo de vida das pessoas, em seus padrões culturais,\nvalores e tradições. O conjunto de acontecimentos\nprovocou, tanto na zona urbana quanto na rural,\nproblemas como explosão demográfica, prejuízo nas\natividades agrícolas e violência.\n\nIniciaram-se inúmeras transformações na natureza,\ncriando-se técnicas para objetos até então sem utilidade\npara o homem. Isso só foi possível em decorrência\ndos recursos naturais existentes, que propiciaram\nestrutura de crescimento e busca de prosperidade, o\nque faz da experimentação um método de transformar\noOs recursos em benefício próprio.\n\nSANTOS, M. Metamorfoses do espaço habitado.\nSão Paulo: Hucitec, 1988 (adaptado).\n\nA partir das ideias expressas no texto acima, conclui-se\nque, no Brasil do século XX,",
+  "valuePoints": null,
+  "sourcePage": 8,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "a industrialização ocorreu independentemente do êxodo rural e dos recursos naturais disponíveis.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "oêxodo rural para as cidades não prejudicou as atividades agrícolas nem o meio rural porque novas tecnologias haviam sido introduzidas no campo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "homens e mulheres advindos do campo deixaram sua cultura e se adaptaram a outra, citadina, totalmente diferente e oposta aos seus valores.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "tanto o espaço urbano quanto o rural sofreram transformações decorrentes da aplicação de novas tecnologias às atividades industriais e agrícolas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "os migrantes chegaram às grandes cidades trazendo consigo valores e tradições, que lhes possibilitaram manter intacta sua cultura, tal como se manifestava nas pequenas cidades e no meio rural. ESENVOLVIMENTO DE SISTEMAS ENADE 2014 Co M PON ENTE ESPECÍFICO EXAME NACIONAL DE DESEMPENHO DOS ESTUDANTES",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

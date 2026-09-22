@@ -1,0 +1,30 @@
+{
+  "examYear": 2014,
+  "originalLabel": "D1",
+  "order": 1,
+  "type": "DISCURSIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Os desafios da mobilidade urbana associam-se à necessidade de desenvolvimento urbano sustentável.\nA ONU define esse desenvolvimento como aquele que assegura qualidade de vida, incluídos os componentes\necológicos, culturais, políticos, institucionais, sociais e econômicos que não comprometam a qualidade de\nvida das futuras gerações.\n\nO espaço urbano brasileiro é marcado por inúmeros problemas cotidianos e por várias contradições. Uma das\ngrandes questões em debate diz respeito à mobilidade urbana, uma vez que o momento é de motorização\ndos deslocamentos da população, por meio de transporte coletivo e individual.\n\nConsidere os dados do seguinte quadro.\n\nMobilidade urbana em cidade com mais de 500 mil habitantes\n\nModalidade Tipologia Porcentagem (%)\n- , A pé 15,9\nNão motorizado Iãicicleta 27\nQnibus municipal 22,2\nMotorizado coletivo Onibus metropolitano 4,5\nMetroferroviário 25,1\n, o Automóvel 27,5\nMotorizado individual Motocicleta 21\n\nTendo em vista o texto e o quadro de mobilidade urbana apresentados, redija um texto dissertativo,\ncontemplando os seguintes aspectos:\n\na) consequências, para o desenvolvimento sustentável, do uso mais frequente do transporte motorizado;\n(valor: 5,0 pontos)\n\nb) duas ações de intervenção que contribuam para a consolidação de política pública de incremento ao uso\nde bicicleta na cidade mencionada, assegurando-se o desenvolvimento sustentável. (valor: 5,0 pontos)\n\nNiNA — recnocosia EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS\n\nENADE 2014",
+  "valuePoints": 10,
+  "sourcePage": 2,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "aborde pelo menos duas das seguintes consequências:\n       aumento da emissão de poluentes atmosféricos;\n       aumento da emissão de gases de efeito estufa (CO2 – dióxido de carbono, CO – monóxido\n        de carbono, O3 – ozônio);\n       aumento da poluição visual e sonora;\n       aumento da temperatura local e global;\n       aumento do consumo de combustíveis;\n       aumento de problemas de saúde (cardíaco, respiratório, dermatológico);\n       aumento da frota de veículos promovendo congestionamentos urbanos;\n       diminuição de áreas verdes;\n       desmatamento;\n       aumento das áreas impermeabilizadas resultando em enchentes, diminuição da infiltração\n        da água e recarga de lençóis freáticos;\n      elevação dos custos de manutenção das cidades (metroferrovias, rodovias, tratamento de\n       água, limpeza da cidade, etc);\n      necessidade de ampliação de vias trafegáveis;\n      necessidade de ampliação de áreas de estacionamento.",
+      "maxScore": 5,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "aborde duas das seguintes intervenções:\n      construção de vias exclusivas para bicicletas (ciclovias e ciclofaixas);\n      proposição de formas de integração entre o transporte por bicicletas, o metroviário e os\n       ônibus coletivos, a fim de garantir segurança e conforto em momentos de adversidades\n       climáticas e relevo acidentado;\n      pontos de aluguel e/ou empréstimo de bicicleta;\n      construção de bicicletários;\n      investimento na segurança pública;\n      políticas de incentivo ao uso de bicicleta (educação ambiental, qualidade de vida, saúde,\n       propaganda);\n      implementação de políticas de crédito e de redução do custo das bicicletas.",
+      "maxScore": 5,
+      "assets": []
+    }
+  ],
+  "tags": [],
+  "reviewNotes": []
+}

@@ -1,0 +1,51 @@
+{
+  "examYear": 2014,
+  "originalLabel": "3",
+  "order": 5,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Pegada ecológica é um indicador que estima a demanda ou a exigência humana sobre o meio ambiente,\nconsiderando-se o nível de atividade para atender ao padrão de consumo atual (com a tecnologia atual). É, de\ncerta forma, uma maneira de medir o fluxo de ativos ambientais de que necessitamos para sustentar nosso padrão\nde consumo. Esse indicador é medido em hectare global, medida de área equivalente a 10 000 m?. Na medida\nhectare global, são consideradas apenas as áreas produtivas do planeta. A biocapacidade do planeta, indicador\nque reflete a regeneração (natural) do meio ambiente, é medida também em hectare global. Uma razão entre\npegada ecológica e biocapacidade do planeta igual a 1 indica que a exigência humana sobre os recursos do\nmeio ambiente é reposta na sua totalidade pelo planeta, devido à capacidade natural de regeneração. Se for\nmaior que 1, a razão indica que a demanda humana é superior à capacidade do planeta de se recuperar e, se for\nmenor que 1, indica que o planeta se recupera mais rapidamente.\n\nRazão entre a pegada ecológica\n\n1.60 1 e a biocapacidade do planeta\n\n1.52\n\n150 1 145\n1.40 1\n1.30\n1.30 1 1.25 1.27\n1.20 1\n116 1.14\n1.00 q T ' T T T T T T T\n\n' \" 1.00\n\n0.90 +\n080 À 0.85\n070 4 074\n0.60\n'squ xqbº, .&q«º '9«6 qu,º 'sqq;, 'sqqº quç, 'Içºº Wººç, Wººq,\n\nDisponível em:<http://financasfaceis.wordpress.com>. Acesso em: 10 ago. 2014.\n\nO aumento da razão entre pegada ecológica e biocapacidade representado no gráfico evidencia",
+  "valuePoints": null,
+  "sourcePage": 5,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "chart",
+      "filePath": "2014/3-1.png",
+      "caption": "Gráfico de barras — prova pág. 5"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "redução das áreas de plantio do planeta para valores inferiores a 10 000 m? devido ao padrão atual de consumo de produtos agrícolas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "aumento gradual da capacidade natural de regeneração do planeta em relação às exigências humanas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "reposição dos recursos naturais pelo planeta em sua totalidade frente às exigências humanas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "incapacidade de regeneração natural do planeta ao longo do período 1961-2008.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "tendência a desequilíbrio gradual e contínuo da sustentabilidade do planeta. ENADE 2014",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": [
+    "Questão precisa de imagem — ver docs/figuras-2014.md."
+  ]
+}

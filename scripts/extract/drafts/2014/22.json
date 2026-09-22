@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "22",
+  "order": 27,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O modelo relacional representa o banco de dados\ncomo uma coleção de relações (tabelas). Na\nterminologia formal do modelo relacional, uma linha\néchamada de “tupla”, otítulo da coluna é denominado\n“atributo” e a tabela é chamada de “relação”. O tipo\nde dado que descreve os tipos de valores que podem\naparecer em cada coluna é denominado “domínio”.\nUm banco de dados relacional pode impor vários\ntipos de restrições nos dados armazenados.\n\nELMASRI, R.; NAVATHE, S. B. Sistema de Banco de Dados\nFundamentos e Aplicações. Rio de Janeiro: LTC, 2002.\n\nRestrições que permitem controlar situações como,\npor exemplo, “o salário de um empregado não deve\nexceder o salário do supervisor do empregado” e\nutilizam mecanismos chamados triggers (gatilhos) na\nsua implementação, são do tipo",
+  "valuePoints": null,
+  "sourcePage": 20,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "restrições de domínio.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "restrições de unicidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "restrições de integridade referencial.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "restrições de integridade da entidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "restrições de integridade semântica. TTNn —recnocosia em anáuSE",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

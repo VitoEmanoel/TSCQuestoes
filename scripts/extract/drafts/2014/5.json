@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "5",
+  "order": 7,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Uma ideia e um aparelho simples devem, em breve,\najudar a salvar vidas de recém-nascidos. Idealizado pelo\nmecânico argentinoJorge Odón, odispositivo que leva seu\nsobrenome desentala um bebê preso no canal vaginal —\ne, por mais inusitado que pareça, foi criado com base em\ntécnica usada para remover rolhas de dentro de garrafas.\nO aparelho consiste em uma bolsa plástica inserida em\numa proteção feita do mesmo material e que envolve a\ncabeça da criança. Estando o dispositivo devidamente\nposicionado, a bolsa é inflada para aderir à cabeça do\nbebê e ser puxada aos poucos, de forma a não machucá-\nlo. O método de Odón deve substituir outros já arcaicos,\ncomo o de fórceps e o de tubos de sucção, os quais, se\nusados por mãos maltreinadas, podem comprometer\na vida do bebê, o que, segundo especialistas, não deve\nacontecer com o novo equipamento.\n\nSegundo o The New York Times, a ideia recebeu apoio\nda Organização Mundial de Saúde (OMS) e já foi até\nlicenciada por uma empresa norte-americana de\ntecnologia médica. Não se sabe quando o equipamento\ncomeçará a ser produzido nem o preço a ser cobrado,\nmas presume-se que ele não passará de 50 dólares,\ncom redução do preço em países mais pobres.\nGUSMÃO, G. Aparelho deve facilitar partos em situações de\n\nemergência. Disponível em: <http://exame.abril.com.br>.\nAcesso em: 18 nov. 2013 (adaptado).\n\nCom relação ao texto acima, avalie as afirmações a seguir.\n\nl. A utilização do método de Odón poderá\nreduzir a taxa de mortalidade de crianças ao\nnascer, mesmo em países pobres.\n\nIl. Por ser uma variante dos tubos de sucção, o\naparelho desenvolvido por Odón é resultado de\naperfeiçoamento de equipamentos de parto.\n\nIIll. Por seu uso simples, o dispositivo de Ódon tem\ngrande potencial de ser usado em países onde\no parto é usualmente realizado por parteiras.\n\nIV. A possibilidade de, em países mais pobres,\nreduzir-se o preço do aparelho idealizado\npor Odón evidencia preocupação com a\nresponsabilidade social.\n\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 6,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "iel.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "ileiv",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "iei,.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "L eIV.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": ",elv. ESENVOLVIMENTO DE SISTEMAS ENADE 2014",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

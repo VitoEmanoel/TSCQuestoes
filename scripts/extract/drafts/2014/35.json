@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "35",
+  "order": 40,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "José discutindo futebol com João declarou que se\no time X venceu o último jogo, então o time Y é\ncampeão. João depois de algumas horas descobriu\nque a declaração era falsa. Em consequência, teve\ncerteza de que é verdade que\n\nO o time X não venceu o último jogo e o time Y é\ncampeão.",
+  "valuePoints": null,
+  "sourcePage": 26,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "o time X venceu o último jogo e o time Y não é campeão.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "ou o time X não venceu o último jogo ou o time Y é campeão.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "o time X não venceu o último jogo e o time Y não é campeão.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "se o time Y não é campeão, então o time X não venceu o último jogo. ) ESENVOLVIMENTO DE SISTEMAS ENADE 2014",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "UESTIONÁRIO DE PERCEPÇÃO DA PROVA As questões abaixo visam levantar sua opinião sobre a qualidade e a adequação da prova que você acabou de realizar. Assinale as alternativas correspondentes à sua opinião nos espaços apropriados do Caderno de Respostas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

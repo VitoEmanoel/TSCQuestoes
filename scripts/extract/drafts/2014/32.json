@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "32",
+  "order": 37,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Vivemos em um mundo de produtos de alta\ntecnologia e praticamente todos requerem interação\nhumana. Para que um produto de software seja\nbem-sucedido, deve apresentar boa usabilidade.\nSe os mecanismos de interface tiverem sido bem\nprojetados, o usuário flui suavemente através da\ninteração usando um ritmo cadenciado que permite\nque o trabalho seja realizado sem grandes esforços.\nEntretanto, se a interface for mal concebida, o usuário\nse move aos trancos e barrancos, e o resultado será\nfrustração e baixa eficiência no trabalho.\n\nTrês regras de ouro são a base para um conjunto de\nprincípios para o projeto de interfaces do usuário:\n\n1— deixar o usuário no comando;\n2 — reduzir a carga de memória do usuário;\n\n3 — tornar a interface consistente.\n\nPRESSMAN, R. S.; Engenharia de Software: uma abordagem\nprofissional. 7 ed., McGraw Hill,2011, p. 287-288 (adaptado).\n\nCom base nessas três regras, avalie as afirmações a\nseguir.\n\nl. Um sistema que permita ao usuário desfazer\nqualquer ação, respeita a regra de ouro 1.\n\nll. Um sistema de pagamento de contas que\nusa uma imagem de um cartão de crédito\npara orientar o usuário pelo processo de\npagamento de uma conta, respeita a regra de\nouro 2.\n\nIll. Um conjunto de aplicações ou produtos que\nimplementam as mesmas regras de projeto\nde modo padronizado, respeita a regra de\nouro 3.\n\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 25,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "|, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "1l, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "lelll, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Ilelll, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "1L11el,. TECNOLOGIA EM ANÁLISE E DES| ENADE 2014",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

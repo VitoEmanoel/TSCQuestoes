@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "14",
+  "order": 19,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Para fins estatísticosó, uma empresa precisa\narmazenar os trajetos que seus representantes\ncomerciais percorrem entre pontos de venda.\nÉ importante que para cada local visitado sejam\narmazenados, além da informação do próprio\nlocal, o local de origem do representante (ponto\nde venda anterior), o local de destino (ponto de\nvenda posterior), as distâncias percorridas e os\ntempos de viagem. Esse procedimento permite\nque estes trajetos possam ser analisados, de forma\nrápida, do local de origem ao local de destino, bem\ncomo no sentido inverso, do local de destino (final\ndo trajeto) ao local de origem (início do trajeto).\nO analista responsável pelo sistema que utilizará\nos dados armazenados e produzirá os relatórios\nestatísticos, projetou o seguinte esboço de uma\nclasse que representa um ponto de venda:\n\npublic class Local (\nprivate String nome estabelecimento;\nprivate String endereco;\nprivate Local origem;\nprivate Local destino;\nprivate float distancia origem;\nprivate float tempo origem;\n\nj\n\nA respeito do esboço da classe, avalie as afirmações\na seguir.\n\nl. O esboço acima representa uma |lista\nduplamente encadeada.\n\nIl. Utilizar um nó de uma estrutura de dados\ndo tipo árvore de busca multivias de grau 3,\nseria a solução ideal para o problema porque\nprovidenciaria a economia de recursos de\nmemória e de disco.\n\nIll. A utilização de uma árvore de pesquisa binária\npara a solução do problema é normal, desde\nque o atributo de ordenação da árvore seja\ndistancia origem.\n\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "|, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "|l, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "leilll, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "ll elll, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "111eI. TTAnA —recnocosia em anáuSE",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

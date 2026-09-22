@@ -1,0 +1,51 @@
+{
+  "examYear": 2014,
+  "originalLabel": "21",
+  "order": 26,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O modelo lógico de dados fornece uma visão da\nmaneira como os dados serão armazenados. A figura\na seguir representa o modelo lógico de um ambiente\nobservado em um escritório contábil.\n\nB cContripuinte CPF NT\n' ano exercicio DATE\n. ano base DATE\n\n<> endereco VARCHAR(60) . valor INT\n\n(/ telefone VARCHAR(15)\n\n[ CPFINT\nÀ nome VARCHAR(45)\n\n. restituicao ou pagamento BOOLEAN\nIndexes >\nRE\n\nIndexes >\n\nO Malha Fina Identificador INT\nA Contribuinte CPF INT\n\n. valor INT\n\n. quantidade de prestacoes INT\n\nIndexes >\n\n[) Identificador INT\nQ ano exercicio DATE\n\nIndexes »\nT\n\nEm relação ao modelo, avalie as afirmações a seguir.\n\n|. A entidade Declaração Imposto de Renda é\numa entidade fraca.\n\nIl. Orelacionamento entre Contribuinte e Malha\nFina é do tipo N:M (muitos para muitos).\n\nIll. O atributo CPF da entidade Contribuinte\ntem a função de chave estrangeira na\nentidade Declaração Imposto de Renda e no\nrelacionamento Contribuinte MalhaFina.\n\nIV. A entidade Malha Fina não possui chave\nprimária somente chave estrangeira.\n\nV. O relacionamento Contribuinte MalhaFina é\num relacionamento ternário.\n\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 19,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2014/21-1.png",
+      "caption": "Diagrama lógico de dados — prova pág. 19"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "L11e.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "LIlelv.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "lLiVev.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "1,I1evV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": ", IVeV. VoLvIMENTO DE sisremas — MNMNA WINI LN ENADE 2014",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": [
+    "Questão precisa de imagem — ver docs/figuras-2014.md."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "30",
+  "order": 35,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A gerência de configuração de software, também\nchamada de gerência de mudança e configuração, é\no processo que mantém atualizadas as informações\ndos elementos de configuração.\n\nA esse respeito, avalie as afirmações a seguir.\n\n|. A auditoria de software é um processo que\nconsiste em verificar se a linha de base foi\natendida ou se os requisitos do sistema foram\natendidos.\n\nIl. A linha de base é o marco de referência, a\npartir do qual serão feitos os controles de\nmudança, e pode ser a versão 1.0 de um\nsoftware.\n\nIll. Um item de configuração é um elemento\nunitário, que compõe aquele software e deve\nser gerenciado.\n\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 24,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "|, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "1l, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "lelll, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Ilelll, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "1L11el,. TTAnA —recnocosia em anáuiSE",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

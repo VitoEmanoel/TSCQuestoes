@@ -1,0 +1,43 @@
+{
+  "examYear": 2014,
+  "originalLabel": "27",
+  "order": 32,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O barramento é o elemento de conexão entre todos\nos componentes do computador, como memória,\nCPU e dispositivos de entrada e saída. O barramento\nde dados é o meio por onde serão trafegados os\ndados; o barramento de endereços transporta a\ninformação do endereço do dispositivo que poderá\nacessar o barramento de dados; e o barramento de\ncontrole serve para determinar o sentido do fluxo de\ndados (se os dados são de entrada ou saída da CPU),\ne se os dados devem ser destinados à memória ou à\ndispositivos de 1/O e também para controlar o clock\nno barramento.\n\nSTALLINGS, W. Arquitetura e Organização de Computadores. 8 ed.\nSão Paulo: Pearson Pratice Hall, 2010 (adaptado).\n\nConsiderando um computador com um barramento\nde dados de 4 bits e barramento de endereços de 3\nbits, ele poderá endereçar, respectivamente, quantas\nposições de memória e quantos dispositivos de 1/0?",
+  "valuePoints": null,
+  "sourcePage": 22,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "4e4.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "1e8.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "8 e3.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "8e4.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "8ets. TTAA —recnocosia em anÁuISE é",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}
