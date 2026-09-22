@@ -1,0 +1,30 @@
+{
+  "examYear": 2021,
+  "originalLabel": "D2",
+  "order": 2,
+  "type": "DISCURSIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "TEXTO I\nUma cidade é considerada inteligente quando: i) nela se utiliza a tecnologia para melhorar a sua\ninfraestrutura e seus serviços, tornando os setores de administração, educação, saúde, segurança pública,\nmoradia e transporte mais inteligentes, interconectados e eficientes, beneficiando toda a população;\ne ii) está comprometida com o meio ambiente e com sua herança histórica e cultural.\n        AQUINO, A. L. L. et al. Cidades inteligentes, um novo paradigma da sociedade do conhecimento. Blucher Education Proceedings,\n                                                                                                v. 1, n. 1, p. 165-178, 2015 (adaptado).\n\nTEXTO II\nA evolução para uma cidade mais inteligente, mais integrada, mais inovadora pressupõe uma\nvisão holística e sistêmica do espaço urbano e a integração efetiva dos vários atores e setores.\nPara tal, é necessário ir além dos investimentos em inovação tecnológica e inovar também na gestão,\nno planejamento, no modelo de governança e no desenvolvimento de políticas públicas.\n                         CAMPOS, C. C. et al. Cidades inteligentes e mobilidade urbana. Cadernos FGV Projetos, n. 24, 2014 (adaptado).\n\nA partir do conceito de cidade inteligente exposto nos textos, faça o que se pede nos itens a seguir.\na) Explique de que modo as cidades inteligentes podem contribuir para a melhoria das questões\n   relacionadas ao desenvolvimento sustentável. (valor: 5,0 pontos)\nb) Apresente uma proposta de intervenção urbana que pode gerar impacto social e contribuir para a\n   melhoria da vida em comunidade. (valor: 5,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 4,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "O respondente deve mencionar que as cidades inteligentes podem diminuir o impacto ambiental\n   dos aglomerados urbanos, pois, ao utilizarem a tecnologia como um fator indispensável para\n   modernizar e oferecer melhor infraestrutura e serviços, colaboram, por exemplo, com a redução\n   no consumo de energia e na emissão de CO2.",
+      "maxScore": 5,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "O respondente deve elaborar uma proposta de intervenção que gere impacto social e contribua\n   para a melhoria da vida em comunidade. Exemplos de intervenção incluem:\n    Proposição de aplicativos para:\n           compartilhamento de transporte (caronas);\n           oferecimento de pequenos serviços (babá, petsitter, acompanhamento de idosos, acom-\n            panhamento psicológico);\n           doação de produtos, alimentos, etc.\n     Plano de ação a fim de oferecer serviços específicos a grupos menos favorecidos, como ido-\n      sos ou população de rua.\n     Concepção de artefatos urbanos para melhorar a mobilidade urbana ou para permitir a pas-\n      sagem de fauna.\n    Etc.",
+      "maxScore": 5,
+      "assets": []
+    }
+  ],
+  "tags": [],
+  "reviewNotes": []
+}

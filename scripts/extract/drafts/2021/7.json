@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "7",
+  "order": 9,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "TEXTO I\nO estudo Internet and American Life Project, do Pew Research Center, demonstrou que, em 2009,\nmetade das buscas de temas relacionados à saúde na internet era feita para terceiros, e quase seis em\ncada dez pessoas que usaram meios digitais para se informar sobre saúde mudaram o enfoque com que\ncuidavam da própria saúde ou da de algum parente. Estima-se que exista uma correlação positiva entre o\ngrau de conhecimento das doenças (seus fatores de risco, formas de prevenção e tratamento) e a taxa de\nadoção de hábitos saudáveis pela sociedade. O aumento nos diagnósticos precoces do câncer de mama\ne a diminuição do tabagismo são dois exemplos clássicos a favor dessa ideia. Acredita-se que indivíduos\nmais bem informados aderem a comportamentos preventivos e reagem melhor a uma enfermidade.\nInfelizmente, a divulgação de temas médicos é uma faca de dois gumes: quem não sabe nada está mais\nperto da verdade do que a pessoa cuja mente está cheia de informações equivocadas. Conseguir que\na mensagem seja bem decodificada pelos receptores é o grande desafio que preocupa (ou deveria\npreocupar) tanto médicos quanto jornalistas.\n                    TABAKMAN, R. A saúde na mídia: medicina para jornalistas, jornalismo para médicos. Trad. Lizandra Magon de Almeida.\n                                                                                          São Paulo: Summus Editorial, 2013 (adaptado).\n\nTEXTO II\nDe acordo com os dados da última TIC Domicílios — pesquisa realizada anualmente com o objetivo de\nmapear formas de uso das tecnologias de informação e comunicação no país —, aproximadamente\n46% dos usuários de Internet no Brasil utilizam a rede à procura de informações médicas sobre saúde em\ngeral e serviços de saúde. Para uma médica e pesquisadora da Fiocruz, os indivíduos sempre procuraram\ninformações sobre seu estado de saúde, mas é inegável que o surgimento da Internet trouxe um aumento\nsignificativo do acesso a informações amplificando assim os reflexos deste processo e alterando a relação\nentre os indivíduos. A pesquisadora chama a atenção para o perigo do autodiagnóstico e da automedicação,\nque podem gerar consequências nefastas tanto para os indivíduos quanto para a saúde pública, uma vez\nque boa parte dos estudos mostra que não são adotados critérios durante as buscas na Internet.\n     Disponível em: https://agencia.fiocruz.br/conteudos-sobre-saude-na-web-alteram-relacao-medico-paciente. Acesso em: 16 abr. 2020 (adaptado).\n\nConsiderando a abordagem dos textos, avalie as afirmações a seguir.\n    I. Os textos I e II evidenciam a importância de critérios nas buscas realizadas pelos usuários da\n         Internet por informações sobre patologias, pois algumas informações podem trazer riscos à saúde\n         por fomentarem a compreensão equivocada de sintomas e profilaxias.\n    II. O texto I afirma que a disponibilização de informações sobre temas de saúde nos meios de\n         comunicação tem contribuído para o esclarecimento da população acerca de hábitos saudáveis.\n    III. No texto II, defende-se o acesso a informações relativas a pesquisas da área da saúde nos veículos\n         de comunicação, pois elas permitem que o indivíduo seja proativo na prevenção de patologias.\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 12,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "III, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e II, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "II e III, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

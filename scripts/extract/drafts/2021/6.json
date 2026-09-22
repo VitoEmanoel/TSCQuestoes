@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "6",
+  "order": 8,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "A pandemia ocasionada pelo novo Coronavírus gerou impactos negativos na economia e nos negócios,\nintensificando problemas sociais no mundo todo. Nos Estados Unidos, um estudo realizado com a\nparceria de duas importantes universidades verificou que a expectativa de vida dos norte-americanos\ncaiu 1,1 ano em 2020. A nova expectativa é de 77,4 anos. De acordo com o estudo, esta foi a maior queda\nanual da expectativa de vida já registrada nos últimos 40 anos. O declínio é ainda maior se considerada a\nexpectativa de vida para negros que moram no país, cuja queda foi de 2,1 anos. Para a população latina,\nessa queda foi de 3 anos. O declínio na expectativa de vida dos latinos é significativo, uma vez que eles\napresentam menor incidência de condições crônicas que são fatores de risco para a Covid-19 em relação\nàs populações de brancos e negros.\n     LOUREIRO, R. Covid-19 reduz gravemente expectativa de vida de negros e latinos nos EUA. Revista Exame, 2021 (adaptado).\n\nConsiderando as informações apresentadas no texto, avalie as asserções a seguir e a relação proposta\nentre elas.\n   I. O efeito desproporcional da pandemia da Covid-19 na expectativa de vida da população negra e\n      latino-americana estabelece relação com sua situação de vulnerabilidade social.\n                                                       PORQUE\n   II. Uma hipótese que pode ser levantada quanto à diminuição da expectativa de vida de negros e\n       latino-americanos está relacionada às suas precárias condições de trabalho, levando-os a maior\n       possibilidade de exposição ao contágio pelo novo Coronavírus.\n\nA respeito dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 11,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "As asserções I e II são proposições falsas. DESENVOLVIMENTO DE SISTEMAS 11",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

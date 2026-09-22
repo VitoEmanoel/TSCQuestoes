@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "9",
+  "order": 14,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A etapa de definição de requisitos é voltada para estabelecer quais as funções são requeridas pelo sistema\ne as restrições sobre a operação e o desenvolvimento do software. Os requisitos de software podem ser\nclassificados como requisitos funcionais e não funcionais.\n                               SOMMERVILLE, I. Engenharia de Software, 10. ed. São Paulo: Pearson Education, 2019 (adaptado).\n\nConsiderando as informações do texto, assinale a alternativa em que o item é um requisito funcional.",
+  "valuePoints": null,
+  "sourcePage": 18,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "O software deve ser operacionalizado no sistema Linux.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "O tempo de desenvolvimento não deve ultrapassar seis meses.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "O software deve emitir relatórios de compras a cada quinze dias.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "O tempo de resposta do sistema não deve ultrapassar 30 segundos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "A base de dados deve ser protegida para acesso apenas de usuários autorizados.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

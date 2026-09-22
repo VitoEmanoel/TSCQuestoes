@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "4",
+  "order": 6,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Além do contexto econômico, o avanço da tecnologia também é um dos responsáveis pelo aumento dos\ntrabalhadores informais. E a tendência de contratação de freelancers por meio de plataformas digitais,\ncomo aplicativos de delivery e de mobilidade urbana, ganhou até um nome: Gig Economy, ou economia\ndos bicos. Para os gigantes de tecnologia detentores desses aplicativos, os motoristas são trabalhadores\nautônomos, que não possuem vínculo empregatício. Além de não estarem sujeitos a nenhuma\nregulamentação e proteção legal, os profissionais que desenvolvem esse tipo de trabalho deixam de\ncontribuir para a Previdência Social e de possuir benefícios como Fundo de Garantia por Tempo de\nServiço (FGTS), férias e décimo terceiro salário. Não obstante, ainda arcam com todo o custo da atividade\nque exercem. Em uma reportagem que ouviu alguns desses trabalhadores, motoristas afirmaram sofrer\ncom problemas de coluna e com o estresse no trânsito, além das longas jornadas de trabalho. Por esses\nmotivos, a Gig Economy está no centro de uma discussão mundial acerca da responsabilidade dessas\ncompanhias milionárias sobre as condições de trabalho da mão de obra que contratam. No meio do limbo\njurídico, quem sofre são os trabalhadores dessas plataformas, que ficam duplamente desprotegidos ―\npelas empresas e pelo Estado.\n                      Disponível em: https://exame.abril.com.br/carreira/quais-sao-as-consequencia-do-trabalho-informal-no-pais/.\n                                                                                             Acesso em: 18 abr. 2020 (adaptado).\n\nA partir das informações apresentadas, avalie as asserções a seguir e a relação proposta entre elas.\n   I. Trabalhadores autônomos informais que atuam em plataformas digitais sem qualquer vínculo\n      empregatício, desprotegidos de regulamentação ou lei trabalhista, compõem a Gig Economy.\n                                                       PORQUE\n   II. Os trabalhadores, na Gig Economy, arcam com todos os custos necessários para desempenhar\n       o seu trabalho, ganham por produção e enfrentam longas jornadas diárias, o que os deixa mais\n       desgastados e com problemas de saúde.\n\nA respeito dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 9,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "As asserções I e II são proposições falsas. DESENVOLVIMENTO DE SISTEMAS 9",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

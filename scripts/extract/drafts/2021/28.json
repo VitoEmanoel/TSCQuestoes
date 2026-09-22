@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "28",
+  "order": 33,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O modo clássico de encarar um sistema operacional é como um gerenciador de recursos. Desse ponto de\nvista, o sistema operacional é responsável pelo hardware do sistema. Nesse papel, ele recebe solicitações\nde acesso a recursos por parte das aplicações e concede ou nega tais acessos. Ao conceder solicitações de\nalocação, ele deve dispor com cuidado os recursos, de modo que os programas não interfiram uns nos outros.\nPor exemplo, é uma péssima ideia permitir que os programas tenham acesso sem restrição à memória\nuns dos outros. Se um programa com defeito (ou malicioso) escreve no espaço de memória do outro\nprograma, o segundo programa travará, na melhor das hipóteses, ou produzirá resultados incorretos, na\npior das hipóteses. Ou ainda, se o programa ofensivo modificar a memória do sistema operacional poderá\nafetar o comportamento de todo o sistema.\n              STUART. B. L. Princípios de Sistemas Operacionais: projetos e aplicações. São Paulo: Cengage Learning, 2011 (adaptado).\n\nConsiderando que o texto alerta para a possibilidade de um programa interferir no outro, a atividade que\num sistema operacional garante essa proteção é",
+  "valuePoints": null,
+  "sourcePage": 36,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "o programa antivírus.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "o gerenciamento de memória.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "o gerenciamento de arquivos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "o gerenciamento de processos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "o gerenciamento de entrada e saída.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

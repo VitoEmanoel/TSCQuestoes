@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "19",
+  "order": 24,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Arquitetura de software é uma representação que permite analisar a efetividade do projeto no\nentendimento dos requisitos declarados. Durante a fase de concepção da arquitetura, podem-se\nconsiderar alternativas de arquitetura em um estágio em que mudanças ainda são realizadas com menor\nesforço, diminuindo riscos associados à construção do software ainda na fase inicial.\n                   PRESSMAN, R. S. Engenharia de Software: uma abordagem profissional. 8. ed. Porto Alegue: AMGH, 2016 (adaptado).\n\nA respeito dos estilos e padrões arquiteturais contidos na engenharia de software, avalie as afirmações\na seguir.\n    I. Em arquiteturas orientadas a objetos, a comunicação entre os componentes do software é realizada\n       por intermédio da troca de mensagens.\n    II. As arquiteturas monolíticas consistem de um sistema dividido em pequenas partes, possibilitando\n        que estas tenham sua manutenção, execução e evolução individual.\n    III. No padrão arquitetural Modelo-Visão-Controle (MVC), a camada de Modelo armazena as interações\n         realizadas no Controle, podendo ser apresentados/manipulados posteriormente na Visão.\n    IV. Nas arquiteturas microsserviços, o software possui componentes altamente acoplados, dificultando\n        a manutenção.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 27,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e III.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

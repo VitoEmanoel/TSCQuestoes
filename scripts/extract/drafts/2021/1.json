@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "1",
+  "order": 3,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "A chance de uma criança de baixa renda ter um futuro melhor que a realidade em que nasceu está,\nem maior ou menor grau, relacionada à escolaridade e ao nível de renda de seus pais. Nos países ricos,\no \"elevador social\" anda mais rápido. Nos emergentes, mais devagar. No Brasil, ainda mais lentamente.\nO país ocupa a segunda pior posição em um estudo sobre mobilidade social feito pela Organização\npara a Cooperação e Desenvolvimento Econômico (OCDE), em 2018, com dados de 30 países. Segundo\nos resultados, seriam necessárias nove gerações para que os descendentes de um brasileiro entre os\n10% mais pobres atingissem o nível médio de rendimento do país. A estimativa é a mesma para a\nÁfrica do Sul e só perde para a Colômbia, onde o período de ascensão levaria 11 gerações. Mais de\n1/3 daqueles que nascem entre os 20% mais pobres no Brasil permanece na base da pirâmide, enquanto\napenas 7% consegue chegar aos 20% mais ricos. Filhos de pais na base da pirâmide têm dificuldade\nde acesso à saúde e maior probabilidade de frequentar uma escola com ensino de baixa qualidade.\nA educação precária, em geral, limita as opções para esses jovens no mercado de trabalho.\nSobram-lhes empregos de baixa remuneração, em que a possibilidade de crescimento salarial para\nquem tem pouca qualificação é pequena – e a chance de perpetuação do ciclo de pobreza, grande.\n             LEMOS, V. Brasil é o segundo pior em mobilidade social em ranking de 30 países. BBC News Brasil, 15 jun. 2018 (adaptado).\n\nA partir das informações apresentadas, é correto afirmar que",
+  "valuePoints": null,
+  "sourcePage": 5,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "o fator ambiental e o fator demográfico afetam a mobilidade social observada, sendo ela menor nos países que apresentam as maiores taxas de natalidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "a baixa organização social dos economicamente menos favorecidos determina a baixa mobilidade social da base para o topo da pirâmide.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "a mobilidade social é caracterizada por um fator ancestral que se revela ao longo das gerações, sendo um limitador da eficácia de políticas públicas de redução das desigualdades sociais.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "a análise de mobilidade social permite a observação de um ciclo vicioso, que se caracteriza por uma subida nas camadas sociais seguida de uma queda, repetindo-se esse ciclo de modo sucessivo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "a ascensão social depende de fatores viabilizadores que estão fora do alcance das camadas pobres, o que ocasiona conflitos sociais em busca do acesso a tais fatores. DESENVOLVIMENTO DE SISTEMAS 5",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

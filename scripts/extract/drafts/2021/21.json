@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "21",
+  "order": 26,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "No decorrer de um projeto de desenvolvimento de software é compreensível que mudanças venham\na ocorrer, sejam por novos entendimentos dos atores envolvidos ou até mesmo de novas demandas\napresentadas pelos clientes. Nesta perspectiva, a Gestão de Configuração de Software estabelece\num conjunto de atividades para gerenciar alterações através de todo o ciclo de vida de um software.\n                                              PRESSMAN, R. S. Engenharia de Software: uma abordagem profissional. 8. ed.\n                                               Porto Alegre: Artmed Editora S.A. e McGraw-Hill Education, 2016 (adaptado).\n\nCom base no texto, assinale a opção correta acerca das atividades de gestão de configuração de\nsoftware.",
+  "valuePoints": null,
+  "sourcePage": 29,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Identificação de itens na configuração de software, gerenciamento de alterações, validação de versões e controle de qualidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Identificação de objetos na configuração de software, controle de versão, controle de alterações, auditoria de configuração e relatório de status.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "Gerência de projeto, gerência de configuração de software, ciclo de vida do projeto, processo de software e evolução das configurações.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Construção de modelo de requisitos, métricas para modelo de projeto, métricas de controle de versão e relatório de manutenção.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Identificação de alterações, controle de versão, mapeamento de alteração e notificação da alteração aos envolvidos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

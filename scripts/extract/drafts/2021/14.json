@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "14",
+  "order": 19,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um projeto de integração de um ERP com um CRM não implementou todos os serviços esperados e há falhas\nnos serviços já implementados. Uma auditoria avaliou a situação e identificou que há desentendimentos\nentre os membros da equipe; os membros da qualidade não compreendem o que deve ser avaliado;\ndemandas de novos solicitantes aparecem constantemente; e o patrocinador demora muito a responder\nàs solicitações da equipe. Tudo isso fez com que o projeto ficasse bastante atrasado e com orçamento\nexcedido.\nConsiderando o cenário descrito, o gerente de projeto deve priorizar o gerenciamento de",
+  "valuePoints": null,
+  "sourcePage": 22,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "custo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "tempo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "escopo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "qualidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "partes interessadas.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

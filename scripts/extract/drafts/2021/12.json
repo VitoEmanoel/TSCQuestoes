@@ -1,0 +1,45 @@
+{
+  "examYear": 2021,
+  "originalLabel": "12",
+  "order": 17,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O código Java, a seguir, contém a implementação     Uma fábrica de software está realizando entrevistas\nde uma Pilha utilizando a estratégia encadeada.     para contração de um profissional que esteja\n                                                    alinhado às exigências do atual mundo corporativo.\npublic class No{                                    Sabe-se que processos ágeis de desenvolvimento\n  public int dado;                                  têm se tornado essenciais para empresas que\n  public No prox;\n                                                    desejam realizar entregas rápidas e frequentes de\n  public No(int dado){\n    this.dado = dado;                               produtos e/ou serviços de software. Essa empresa\n  }                                                 possui uma equipe de desenvolvimento que faz\n}                                                   uso de processos ágeis como o Scrum e eXtreme\npublic class PilhaEncadeada{                        Programming (XP) e o acompanhamento por meio\n  private No topo;                                  do quadro Kanban. Sendo assim, um conjunto\n  public int pop(){                                 de características deve ser verificado durante a\n    if (topo == null)                               entrevista para garantir que o candidato a ser\n      return -1;                                    contratado possua conhecimentos necessários\n    No lixo = topo;                                 para atuar juntamente a esta equipe.\n    topo = topo.prox;\n    lixo.prox = null;                               Com base no texto e nos processos ágeis de\n    return lixo.dado;                               desenvolvimento de software, avalie as afirmações\n  }                                                 a seguir.\n                                                     I. Métodos Ágeis são baseados em ciclos\n     public int top(){                                    iterativo e incremental que se concentram\n       if (topo == null)                                  no desenvolvimento rápido e na flexibilidade\n         return -1;                                       às mudanças, com a participação do cliente\n       return (topo.dado);                                no processo de software.\n     }\n}                                                    II. Uma forte característica da XP é a garantia\nCom base no exposto, assinale a opção que possui          da qualidade do código produzido e, para\n                                                          isso, os desenvolvedores produzem testes\na implementação correta do método push para\n                                                          automatizados antes mesmo de codificar\nessa Pilha.                                               uma funcionalidade.",
+  "valuePoints": null,
+  "sourcePage": 20,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "public void push(int elemento){ III. O planejamento no Scrum é baseado na No novo = new No(elemento); if(topo == null) elaboração dos itens do product backlog, topo = novo; que é uma lista de funcionalidades desejadas else topo.prox = novo; pelo cliente, sendo o Scrum Master o } responsável por gerenciá-lo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "public void push(int elemento){ IV. O quadro Kanban permite monitorar a No novo = new No(elemento); topo = novo; evolução das tarefas necessárias durante } o processo ágil de desenvolvimento",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "public void push(int elemento){ de software, possibilitando um topo.dado = elemento; } acompanhamento de forma visual das",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "public void push(int elemento){ atividades em construção. No novo = new No(elemento); while (topo != null) É correto apenas o que se afirma em topo = topo.prox; topo.prox = novo; A II. }",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "public void push(int elemento){ B I e III. No novo = new No(elemento); C I, II e IV. novo.prox = topo; topo = novo; D I, III e IV. } E II, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": [
+    "Página com layout em duas colunas ou alternativas em imagem — texto extraído provavelmente está fora de ordem, revisar contra o PDF original."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "examYear": 2021,
+  "originalLabel": "11",
+  "order": 16,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "",
+  "valuePoints": null,
+  "sourcePage": 20,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": [
+    "Esperava 5 alternativas, encontrou 0 — revisar manualmente.",
+    "Página com layout em duas colunas ou alternativas em imagem — texto extraído provavelmente está fora de ordem, revisar contra o PDF original."
+  ]
+}

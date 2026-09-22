@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "26",
+  "order": 31,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Empreender em computação não se resume apenas ao fato de ter uma ideia sobre um aplicativo,\nimplementá-la e disponibilizá-la aos seus usuários finais. Esse conceito vai além, é preciso analisar uma\nsérie de variáveis, como questões sociais e humanísticas, profissionais, ambientais, legais, políticas e\ntecnológicas.\nDentre as ações necessárias para empreender em computação, é imprescindível observar a legislação vigente.\nNo Brasil, a Lei Geral de Proteção de Dados Pessoais (LGPD), n. 13.709/2018, dispõe sobre o tratamento de\ndados pessoais, inclusive nos meios digitais, por pessoa natural ou por pessoa jurídica de direito público\nou privado, com o objetivo de proteger os direitos fundamentais de liberdade e de privacidade e o livre\ndesenvolvimento da personalidade da pessoa natural.\nAcerca das providências dispostas no art. 2º da LGPD, assinale os fundamentos da disciplina da proteção\nde dados pessoais.",
+  "valuePoints": null,
+  "sourcePage": 34,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "O direito ao usuário; das obrigações das organizações nacionais ou estrangeiras; obrigatoriedade do consentimento; a livre iniciativa, a livre concorrência e a defesa do consumidor; os direitos humanos, o livre desenvolvimento da personalidade, a dignidade e o exercício da cidadania pelas pessoas naturais e regulação da Autoridade Nacional de Proteção de Dados Pessoais (ANPD).",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "O direito à revogação de um consentimento; a transferência de dados para outro fornecedor de serviços; a solicitação de remoção de dados pessoais; a inviolabilidade da intimidade, da honra e da imagem; o desenvolvimento econômico e tecnológico e inovação; a preservação da vida e da integridade física de uma pessoa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "O respeito à privacidade; obrigatoriedade do consentimento; os deveres e obrigações dos usuários finais; os deveres e obrigações das organizações nacionais ou estrangeiras; a observação ao código de defesa do consumidor; e, a obrigatoriedade do respeito à honra e à imagem.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "O direito ao anonimato; a liberdade de expressão; a inviolabilidade da intimidade; a adoção de medidas preventivas de segurança; o direito ao recurso e revisão; a administração de riscos e falhas; o estabelecimento de agentes de tratamento; e, regulação da Autoridade Nacional de Proteção de Dados Pessoais (ANPD).",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "O respeito à privacidade; a autodeterminação informativa; a liberdade de expressão, de informação, de comunicação e de opinião; a inviolabilidade da intimidade, da honra e da imagem; o desenvolvimento econômico e tecnológico e a inovação; a livre iniciativa, a livre concorrência e a defesa do consumidor; e, os direitos humanos, o livre desenvolvimento da personalidade, dignidade e o exercício da cidadania pelas pessoas naturais.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

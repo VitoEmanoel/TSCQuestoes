@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "27",
+  "order": 32,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O sistema de numeração, inserido na arquitetura e no funcionamento dos computadores, sempre foi\nmuito utilizado na área computacional e pode ser escrito em diferentes bases numéricas, como: binária,\noctal, decimal ou hexadecimal. Durante a execução dos programas, a Unidade Central de Processamento\n(CPU) trabalha com os dados e instruções convertidos para dois estados distintos: 0 (zero) e 1 (um), que\npodem ser entendidos como “com energia” e “sem energia”, a chamada linguagem binária ou 0 e 1.\nDurante o processamento dos dados, instruções e os dados são armazenados no formato binário na\nmemória principal do computador. A CPU, trabalhando com dados no formato binário, aumenta sua\ncapacidade e velocidade no processamento dos dados.\nAlguns exemplos dos dados, representados em diferentes bases, são utilizados nos sistemas\ncomputacionais diariamente: o endereçamento IP dos computadores em uma rede são configurados na\nbase decimal pontuada se for o IPv4, exemplo: 192.168.70.10; o número do endereço MAC-Address da\nplaca de rede do computador é hexadecimal, exemplo: 00-15-5D-01-F2-00; já o sistema octal foi muito\nutilizado na computação, como uma alternativa mais compacta do sistema binário, na programação em\nlinguagem de máquina.\nOs profissionais que atuam na área da Tecnologia da Informação (TI) precisam constantemente interpretar,\nfazer cálculos ou converter dados entre as bases binária, decimal, octal ou hexadecimal. A tabela abaixo\nmostra os dígitos, a notação e alguns exemplos nas bases numéricas: 2, 8, 10 e 16.\n\n     Sistema na Base                             Dígitos utilizados                            Notação e exemplos\nBinário - base 2                 0, 1                                                    (1001)2; (11011)2\nOctal - base 8                   0, 1, 2, 3, 4, 5, 6, 7                                  (27)8; (35)8; (16)8\nDecimal - base 10                0, 1, 2, 3, 4, 5, 6, 7, 8, 9                            (45)10; (120)10\nHexadecimal - base 16            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F          (1A)16; (48)16; (1E2)16\n                 STALLINGS, W. Arquitetura e Organização de Computadores. São Paulo: Pearson Education do Brasil, 2017 (adaptado).\n\nFazendo a conversão da soma de: (1001)2 + (15)8 + (FF)16, qual é o número equivalente na base decimal?",
+  "valuePoints": null,
+  "sourcePage": 35,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "(188)10",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "(215)10",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "(277)10",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "(316)10",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "(345)10",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

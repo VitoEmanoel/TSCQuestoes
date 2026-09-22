@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "2",
+  "order": 4,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "TEXTO I\n\n             Disponível em: https://www.facebook.com/embrapa/photos/a.609357055926350/733391400189581/?type=1&theater.\n                                                                                               Acesso em: 27 maio 2020.\n\nTEXTO II\nEm alguns países da Europa, permite-se que um produto de menor valor estético seja comercializado.\nEstamos falando de um pepino deformado ou de uma cebola pequena, mas não de um produto\ncontaminado com resíduos químicos ou agentes biológicos. No caso do Brasil, o problema vai além da\naparência, porque há hortaliças ruins – contaminadas, murchas, machucadas – que chegam às bancas\npara ser comercializadas.\nMas, se nos dois contextos há perda de alimentos e preconceito em relação às hortaliças fora do padrão\nvisual, mas boas para o consumo, quais seriam as alternativas para evitar o desperdício e melhorar a\nqualidade dos produtos? Para os pesquisadores do assunto, não adianta replicar a experiência europeia no\nBrasil, de exigir hortaliças esteticamente perfeitas, porque também teríamos produtos sendo desprezados\nainda na etapa de produção. Não devemos passar de um mercado pouco exigente, que gera desperdício\nno varejo e nas residências, para um mercado exigente que gera perda no campo.\nA solução do problema é conscientizar os diversos elos da cadeia produtiva, especialmente varejistas\ne consumidores, para que sejam esclarecidos sobre quais aspectos da aparência das hortaliças\ncomprometem a qualidade. Quanto maior a exigência do mercado por hortaliças de aparência perfeita,\nmaior o desperdício de alimentos. Por sua vez, quanto maior a exigência por hortaliças sem danos,\ncausados pela falta de cuidado e pela falta de higiene, menor será a perda de alimentos e maior a\nqualidade da alimentação da população brasileira.\n             Disponível em: https://www.embrapa.br/busca-de-noticias/-/noticia/29626389/manuseio-correto-preserva-a-qualidade-e\n                                                                   -a-vida-util-das-hortalicas. Acesso em: 27 maio 2020 (adaptado).\n\nConsiderando as informações apresentadas nos textos, avalie as asserções a seguir e a relação proposta\nentre elas.\n   I. O texto I sintetiza uma informação principal do texto II, ao apresentar critérios distintivos de\n      alterações visuais que têm efeitos puramente estéticos em produtos alimentícios daquelas que\n      têm implicações na qualidade desses produtos.\n                                                         PORQUE\n   II. O texto II divulga que o aumento das perdas na cadeia produtiva de hortaliças no Brasil\n       é proporcional à elevação de exigências dos consumidores pela aparência de produtos\n       agropecuários.\n\nA respeito dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 6,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "As asserções I e II são proposições falsas. DESENVOLVIMENTO DE SISTEMAS 7",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

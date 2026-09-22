@@ -1,0 +1,49 @@
+{
+  "examYear": 2021,
+  "originalLabel": "10",
+  "order": 15,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma fábrica adquiriu máquinas de costura industrial para a produção de jogos de toalhas de mesa e guardanapos\nde tecido com estampas quadriculadas. Cada quadrículo tem tamanho padrão de 5 cm X 5 cm. Para a configuração\nda costura, é preciso um programa de computador para criar um molde em que sejam informadas as quantidades\nde quadrículos por comprimento e por largura, além do desenho da estampa a ser costurada. Por exemplo,\npara um guardanapo de tecido que tenha 30 cm X 30 cm, com uma estampa representada pelo caractere “#”,\no seguinte molde precisa ser criado:\n\n                          #              #                 #                             5 cm\n\n                  #\n                          #\n                                 #\n                                         #\n                                                  #\n                                                           #                            #             5 cm\n\n                  #              #                #\n                          #              #                 #\n                  #              #                #\nComo uma toalha pode ter, no máximo, 250 cm de comprimento e 200 cm de largura, o programador\ndeclarou uma matriz char molde[40][50] para ser possível representar moldes cujas medidas\ncompreendam esses limites. Ele também implementou, entre outras, as seguintes funções:\n- criar_molde, para a qual os seguintes parâmetros são esperados, nessa ordem: uma referência à\nmatriz molde, o comprimento e a largura do tecido (em quantidades de quadrículos) e o caractere que\nrepresenta a estampa;\n- alternar_estampa, que tem a tarefa de controlar a disposição alternada das estampas no molde.\n\nConsiderando o cenário descrito, que alternativa a seguir apresenta a implementação correta das funções\ncriar_molde e alternar_estampa?",
+  "valuePoints": null,
+  "sourcePage": 18,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Grade/molde de estampa (5x5, padrão #) — prova pág. 18"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "char alternar_estampa(char estampa, char *proxima) { *proxima = *proxima == estampa ? ' ' : estampa; return *proxima; } void criar_molde(char molde[][50], int c, int l, char estampa) { char proxima = estampa; for (int i = 0; i < l; i++) for (int j = 0; j < c; j++) molde[i][j] = alternar_estampa(estampa, &proxima); }",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "char alternar_estampa(char estampa, char proxima) { proxima = proxima == estampa ? ' ' : estampa; return proxima; } void criar_molde(char molde[][50], int c, int l, char estampa) { char proxima = estampa; for (int i = 0; i < l; i++) for (int j = 0; j < c; j++) molde[i][j] = alternar_estampa(estampa, proxima); }",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "char alternar_estampa(char estampa, char *proxima) { return *proxima == estampa ? ' ' : estampa; } void criar_molde(char molde[][50], int c, int l, char estampa) { char proxima = estampa; for (int i = 0; i < l; i++) for (int j = 0; j < c; j++) molde[i][j] = alternar_estampa(estampa, &proxima); }",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "char alternar_estampa(char estampa, char *proxima) { *proxima = *proxima == estampa ? ' ' : estampa; return *proxima; } void criar_molde(char molde[][50], int c, int l, char estampa) { char proxima = estampa; for (int i = 0; i < l; i++) { for (int j = 0; j < c; j++) molde[i][j] = alternar_estampa(estampa, &proxima); proxima = molde[i][0]; } }",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "char alternar_estampa(char estampa, char proxima) { proxima = proxima == estampa ? ' ' : estampa; return proxima; } void criar_molde(char molde[][50], int c, int l, char estampa) { char proxima = estampa; for (int i = 0; i < l; i++) { for (int j = 0; j < c; j++) molde[i][j] = alternar_estampa(estampa, proxima); proxima = molde[i][0]; } }",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2021.md."]
+}

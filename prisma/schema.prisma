@@ -102,15 +102,18 @@ model AnswerStandard {
   subItem    String?
   criteriaMd String
   maxScore   Float?
+  assets     Asset[]
 }
 
 model Asset {
-  id         String   @id @default(cuid())
-  question   Question @relation(fields: [questionId], references: [id])
-  questionId String
-  kind       String
-  filePath   String
-  caption    String?
+  id               String          @id @default(cuid())
+  question         Question        @relation(fields: [questionId], references: [id])
+  questionId       String
+  answerStandard   AnswerStandard? @relation(fields: [answerStandardId], references: [id])
+  answerStandardId String?
+  kind             String
+  filePath         String
+  caption          String?
 }
 
 model Topic {

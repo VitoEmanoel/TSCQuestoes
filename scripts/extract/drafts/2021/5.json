@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "5",
+  "order": 7,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "TEXTO I\nSegundo o Ministério da Saúde, em 2017 o Brasil registrou uma média nacional de 5,7 óbitos para\n100 mil habitantes. Na população indígena, foi registrado um número de óbitos três vezes maior que\na média nacional – 15,2. Destes registros, 44,8% (aproximadamente, 6,8 óbitos), são suicídios de\ncrianças e adolescentes entre 10 e 19 anos. Esses dados contrastam com o panorama nacional,\nem que o maior índice é entre adolescentes e adultos de 15 a 20 anos.\n                           Disponível em: https://www.cvv.org.br/blog/o-suicidio-do-povo-indigena/. Acesso em: 30 de abr. 2020 (adaptado).\n\nTEXTO II\nEvidências apontam que, em determinadas minorias étnico-raciais, como os indígenas (aborígines ou\npopulações nativas), o suicídio entre crianças apresenta taxas bem mais elevadas do que as observadas\nna população geral. No Brasil, o enforcamento foi utilizado mais frequentemente entre indígenas do que\nentre não indígenas, não se observando, no primeiro grupo, suicídios por intoxicação ou por armas de\nfogo. O mapa a seguir apresenta a distribuição dos óbitos por suicídio entre crianças e adolescentes\nindígenas no Brasil, entre os anos de 2010 e 2014.\n\n     SOUZA, M. Mortalidade por suicídio entre crianças indígenas no Brasil. Caderno de Saúde Pública, v.35, Rio de Janeiro, 2019 (adaptado).\n\nConsiderando as informações apresentadas e o alto índice de suicídio da população indígena, avalie as\nafirmações a seguir.\n    I. O elevado índice de suicídios entre crianças e adolescentes indígenas no país evidencia a\n         necessidade de ações com foco nos direitos fundamentais desses indivíduos.\n    II. Os estados do Pará e de Tocantins são os que possuem os maiores índices de suicídio de indígenas\n         na faixa etária de 10 a 14 anos.\n    III. Os povos das tribos originárias do Brasil, no que tange a sua história e preservação cultural,\n         não estão amparados por direitos e garantias constitucionais.\n    IV. O estabelecimento de ações preventivas ao suicídio nas comunidades indígenas deve considerar\n         os elementos globais que afetam a população em geral, na faixa etária entre 15 e 20 anos.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 10,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

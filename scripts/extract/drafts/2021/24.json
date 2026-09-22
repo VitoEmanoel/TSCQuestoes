@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "24",
+  "order": 29,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Em razão da Covid-19, muitos estabelecimentos viram no delivery uma forma de manter os negócios\nfuncionando. As mudanças de hábitos dos brasileiros revelaram um aumento do interesse nesse tipo\nde serviço.\nNesse contexto, um restaurante solicitou o desenvolvimento de um sistema web que possibilite\ngerenciar automaticamente os pedidos de entrega. O sistema foi projetado com base em tecnologias\nweb e modelado com UML (Unified Modeling Language). Durante o processo de desenvolvimento\nforam descritos alguns itens importantes que merecem atenção no processo de teste de software.\nConsiderem as seguintes descrições definidas pelo analista de teste:\n     01 – Verificar se o método “Finalizar Pedido” da classe “Pedido” está funcionando corretamente.\n     02 – Garantir que o sistema funcione corretamente em diferentes navegadores de internet.\n     03 – O sistema deve passar por testes rigorosos na estrutura lógica interna do software.\n     04 – O sistema deve garantir, no mínimo, o registro de 100 pedidos simultâneos.\n     05 – O usuário deve testar o sistema em um ambiente controlado sob a supervisão dos desenvolvedores.\nConsiderando o texto e as descrições apresentadas, avalie as afirmações a seguir.\n    I. A descrição 01 deve ser verificada com teste unitário.\n    II. A descrição 02 deve ser executada com a abordagem caixa-branca.\n    III. A descrição 03 deve ser executada com a abordagem caixa-preta.\n    IV. A descrição 04 deve ser verificada com teste carga.\n    V. A descrição 05 deve ser classificada como teste alfa.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 32,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I, II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I, III e V.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, IV e V.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III, IV e V.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

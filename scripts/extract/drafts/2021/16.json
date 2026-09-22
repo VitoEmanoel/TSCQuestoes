@@ -1,0 +1,49 @@
+{
+  "examYear": 2021,
+  "originalLabel": "16",
+  "order": 21,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma ONG decidiu construir um hospital de campanha para tratamento de pacientes diagnosticados\ncom a Covid-19. Para auxiliar na gerência hospitalar, a ONG contratou alguns programadores voluntários\npara desenvolver um Sistema de Suporte à Decisão para Gestão Hospitalar. Esse sistema irá auxiliar no\nregistro de todos os procedimentos diários realizados no paciente que dá entrada no hospital, desde sua\ninternação até a saída, seja essa saída por recebimento de alta, por transferência ou óbito. O sistema foi\ntodo desenvolvido em Java de acordo com o Paradigma Orientado a Objetos. Durante o curto processo de\nanálise, devido à urgência, foram construídos diversos diagramas em UML (Unified Modeling Language).\nUm desses diagramas relaciona a interação entre os objetos do sistema, o Diagrama de Sequência.\nEsse diagrama é apresentado a seguir.\n\n Paciente                    Registro                  Leito                    Proﬁssional\n\n      1: Registro do\n      Paciente:\n      registraPaciente()                                       4: Consulta\n      2: Retorna o número         3: Consulta existência disponibilidade de UTI :\n          do paciente.            de leitos :                 consultaUTI()\n                                  consultaLeitos()\n                                                                               UTI\n                                   6: Leito Gerado             5: UTI gerada\n                                                                                     Laço\n       7: Realiza Intervenção : realizaIntervencao()                                        8: realizaIntervencao()\n                                                                                                        Intervencao\n                                                                                            9: Intervenção\n      10: Intervenção Realizada                                                                Realizada\n\n         11: Liberação do\n             Paciente:\n         liberaPaciente()\n          12: Libera Leito\n\nConsiderando o Diagrama de Sequência apresentado, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 24,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Diagrama de Sequência UML — prova pág. 24"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Leito é uma subclasse de UTI.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "O método registraPaciente() é implementado por Paciente.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Todos os objetos foram criados no instante de execução do Caso de Uso representado.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "O diagrama apresenta um erro ao não representar as mensagens de retorno depois da destruição dos objetos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "A mensagem 4 pode ser substituída pelo estereótipo <<create>> sem causar prejuízo à interpretação correta do Diagrama de Sequência representado.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2021.md."]
+}

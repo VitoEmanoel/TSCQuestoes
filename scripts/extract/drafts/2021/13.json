@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "13",
+  "order": 18,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Considere que as variáveis pilha e fila correspondem, respectivamente, às estruturas de dados do tipo\nPilha e Fila. Para testar as duas estruturas, um programador realizou a série de operações a seguir.\nPilha pilha = new Pilha();\nFila fila = new Fila();\npilha.push(‘A’);\npilha.push(‘B’);\npilha.push(‘C’);\nfila.enqueue(pilha.top());\nfila.enqueue(pilha.top());\nfila.enqueue(‘D’);\npilha.push(fila.dequeue());\nfila.enqueue(fila.dequeue());\nfila.enqueue(pilha.pop());\npilha.push(‘E’);\nfila.enqueue(‘E’);\npilha.pop();\nApós essas operações, ao imprimir o conteúdo de pilha e fila, respectivamente, seria exibido:",
+  "valuePoints": null,
+  "sourcePage": 21,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "pilha: topo → C → A → E. fila: início → D → A → A → E.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "pilha: topo →A. fila: início → D → B → C → E.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "pilha: topo → C → B → A. fila: início → D → C → C → E.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "pilha: topo → B → A. fila: início → D → B → C → E.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "pilha: topo → C → B → A. fila: início → D → B → C → E.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

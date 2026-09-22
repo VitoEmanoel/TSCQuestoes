@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "20",
+  "order": 25,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma secretaria municipal de esportes decidiu criar e disponibilizar um site que sirva como portal de\ncomunicação com pessoas da terceira idade. A finalidade é fornecer orientações que propiciem práticas\npara uma vida mais saudável, além de divulgar eventos esportivos ofertados pelo município para esse\npúblico-alvo. O projeto ainda prevê a interação entre os usuários do site, por meio da publicação de fotos,\nque podem ser curtidas e comentadas.\nA iniciativa de criação do site foi embasada em uma pesquisa mostrando que a maioria da população de\nterceira idade do município dispõe de acesso à internet, especialmente por meio de dispositivos móveis\n(smartphones e tablets), embora uma parcela dessa população prefira realizar o acesso com computadores\nde mesa e notebooks.\nConsiderando as informações do texto e as responsabilidades inerentes ao desenvolvimento do site,\navalie as afirmações a seguir.\n    I. A segurança no uso é um fator crítico de usabilidade a ser considerado no projeto de interface para\n         o site, tendo em vista que pessoas da terceira idade são temerosas quanto ao registro de dados\n         pessoais e confidenciais em sites e aplicativos.\n    II. A responsividade, que pressupõe o uso de valores relativos para definir as dimensões de elementos\n         na estilização de páginas HTML, deve ser considerada na construção do site, tendo em vista que o\n         acesso deve ocorrer através de dispositivos com diferentes tamanhos de tela.\n    III. A construção de protótipos pode antecipar problemas de design de interação e minimizar custos\n         de desenvolvimento e, por isso, é viável para estabelecer uma comunicação mais objetiva com o\n         público-alvo e assim possibilitar a validação de usabilidade e da experiência do usuário.\n    IV. O design participativo é um processo de design de Interação Humano-Computador (IHC) viável\n         para direcionar o projeto de interfaces e de experiência com o usuário do site, pois o público-alvo\n         tende a apresentar dificuldades no manuseio de tecnologias da informação e da comunicação.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 28,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

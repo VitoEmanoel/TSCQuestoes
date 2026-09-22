@@ -1,0 +1,30 @@
+{
+  "examYear": 2021,
+  "originalLabel": "D4",
+  "order": 12,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um analista de requisitos identificou as seguintes histórias de usuários para um sistema web de reserva\nde passagens de uma empresa aérea:\nHST 01: COMO cliente, GOSTARIA de me cadastrar no site da empresa informando meu e-mail, nome, CPF,\ntelefone e endereço PARA poder usar os serviços web da empresa.\nHST 02: COMO cliente, GOSTARIA de pesquisar por preços das passagens aéreas informando data, hora,\ncidade e aeroporto de ida e de volta PARA poder escolher uma opção de reserva que me interessa.\nHST 03: COMO cliente, GOSTARIA de confirmar uma reserva de passagem aérea selecionada, escolhendo\numa das formas de pagamento disponibilizada pela empresa PARA poder viajar para o local escolhido\nna reserva.\nHST 04: COMO cliente, GOSTARIA de fazer o check-in online da reserva PARA poder realizar meu embarque.\nTendo por base essas histórias de usuários, elabore um diagrama de classes da UML (Unified Modeling\nLanguage) para o sistema, identificando as classes (máximo seis), atributos e associações entre as classes\ncom as respectivas multiplicidades. Deverão ser representadas as reservas de ida e de volta como classes\nde uma associação do tipo generalização (herança) e também ser identificados pelo menos três métodos\npara a classe Reserva. Para as demais classes não é necessário identificar os métodos. Também não há\nnecessidade de identificar a multiplicidade dos atributos nas classes. (valor: 10,0 pontos).",
+  "valuePoints": 10,
+  "sourcePage": 15,
+  "needsAsset": true,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": null,
+      "criteriaMd": "O respondente deve elaborar um diagrama da UML para o sistema, contendo no mínimo, as classes,\natributos, métodos e associações a seguir:",
+      "maxScore": 10,
+      "assets": [
+        {
+          "kind": "diagram",
+          "filePath": "",
+          "caption": "Diagrama de Classes esperado — padrão de resposta pág. 4"
+        }
+      ]
+    }
+  ],
+  "tags": [],
+  "reviewNotes": ["Padrão de resposta precisa de imagem — ver docs/figuras-2021.md."]
+}

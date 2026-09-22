@@ -1,0 +1,30 @@
+{
+  "examYear": 2021,
+  "originalLabel": "D5",
+  "order": 13,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Com a finalidade de melhorar o atendimento e priorizar os casos mais urgentes, a direção de um hospital\ncriou um sistema de triagem em que um profissional da saúde classifica a ordem de atendimento com\nbase numa avaliação prévia do paciente, entregando-lhe um cartão numerado verde (V) ou amarelo (A),\nque define o menor ou maior grau de urgência da ocorrência, respectivamente. Para informatizar esse\nprocesso, o software desenvolvido tem como base o seguinte trecho de código-fonte:\n\n 1   struct lista {\n 2       int numero;\n 3       char cor;\n 4       struct lista* prox;\n 5   };\n 7   typedef struct lista Lista;\n 9   Lista* inserir_fim(Lista* l, Lista* no) {\n10       Lista* aux;\n12         no->prox = NULL;\n13         aux = l;\n14         while (aux->prox != NULL)\n15             aux = aux->prox;\n16         aux->prox = no;\n18         return l;\n19   }\n21   Lista* inserir(Lista* l, int numero, char cor) {\n22       Lista* no = (Lista*) malloc(sizeof(Lista));\n23       no->numero = numero;\n24       no->cor = cor;\n26         if (l == NULL) {\n27             no->prox = l;\n28             l = no;\n29         } else {\n30             if (no->cor == 'V')\n31                 l = inserir_fim(l, no);\n32             else\n33                 l = inserir_prioridade(l, no);\n34         }\n36         return l;\n37   }\n\nNa linha 21, a função inserir recebe o número e a cor do cartão entregue ao paciente na triagem.\nPacientes com cartão verde são inseridos no final da fila pela função inserir_fim (linhas 9-19).\nPacientes com cartão amarelo têm prioridade no atendimento e são inseridos no início da fila,\nem ordem de chegada, pela função inserir_prioridade. Portanto, se são entregues os cartões\n10-V, 11-V, 5-A, 12-V e 6-A, nessa ordem, a fila deve ficar assim organizada:\n\n             5 A            6 A              10 V              11 V              12 V\nConsiderando o processo de triagem descrito e o trecho de código-fonte apresentado, implemente a\nfunção inserir_prioridade conforme indicado.\nLista* inserir_prioridade(Lista* l, Lista* no)\n                                                                            (valor: 10,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 16,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Fila com cartões coloridos (verde/amarelo) — prova pág. 17"
+    }
+  ],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": null,
+      "criteriaMd": "O respondente deve implementar a função inserir_prioridade no código fonte apresentado. Assim,\na lógica do algoritmo deve atender a dois fundamentos básicos de inserção de nós em uma lista\nsimplesmente encadeada.\n1) INSERÇÃO NO INÍCIO: caso ainda não haja nenhum cartão amarelo na fila, o novo nó é inserido\n   no início, como primeiro elemento da fila;\n2) INSERÇÃO NO MEIO: se já houver cartões amarelos na fila, o novo nó é inserido no meio ou\n   no final da fila, a depender, respectivamente, da presença ou da ausência de algum cartão\n   verde; para ambos os casos, contudo, a lógica de inserção do nó é exatamente a mesma, pois as\n   variáveis ant e aux são usadas para percorrer a lista simultaneamente e atualizar as referências\n   (ponteiros) entre os nós.\n   É natural que o estudante siga essa sequência lógica e, portanto, espera-se que escreva a função\n\n   Observação: Serão aceitas respostas em outra linguagem de programação compatível ou\n   pseudo-código.",
+      "maxScore": 10,
+      "assets": []
+    }
+  ],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2021.md."]
+}

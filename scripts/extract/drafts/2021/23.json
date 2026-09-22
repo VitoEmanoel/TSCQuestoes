@@ -1,0 +1,49 @@
+{
+  "examYear": 2021,
+  "originalLabel": "23",
+  "order": 28,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A evolução de sistemas de software legados pode ser dividida em três categorias: manutenção,\nmodernização e substituição. De acordo com a figura a seguir, conforme o tempo aumenta, a quantidade\nde funcionalidades também cresce. No primeiro período de evolução a manutenção é realizada, pois as\nnecessidades de negócio são alteradas e o sistema precisa suprir as mudanças por meio da manutenção.\nNo segundo período é realizada a modernização do sistema, pois as necessidades de negócio continuam\na crescer, mas há mudanças mais significativas que se fazem necessárias. Além da substituição do sistema\nde software, nos casos em que o modelo de negócio não atende mais a necessidade da empresa,\na manutenção e modernização também não são mais suficientes.\n\n                                                        Segundo\n                                                       período de                                                Manutenção\n                                                       manutenção\n\n      Funcionalidade\n                                                                                                                 do segundo\n                                                                                                                  software\n\n                                                                                Modernização\n                                                       io\n                                                  egóc\n                                               eN\n                                           sd\n                                    da   de\n                                ssi                                                                      Substituição\n                           ce                               Manutenção\n                        Ne                                                                               do software\n\n                           1                                                                  re 2\n                       ftw\n                          are\n                                              Software é                                     Softwa\n                   So\n                                              construído\n\n                                                                    Tempo\n\n                          SEACORD, R. C.; PLAKOSH, D.; LEWIS, G. A. Modernizing Legancy Systems. Boston: Pearson Education, 2003 (adaptado).\n\nDe acordo com a figura apresentada e considerando um sistema de software implantado de ERP (Enterprise\nResource Planning - Planejamento de Recursos Empresariais) contendo um conjunto de módulos que\nintegra todos os departamentos existentes de uma empresa, observou-se a necessidade de criação de um\nrelatório gerencial de comissão da equipe de vendas. Nesse contexto, é correto afirmar que a manutenção\na ser realizada é",
+  "valuePoints": null,
+  "sourcePage": 31,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Gráfico de evolução do sistema legado — prova pág. 31"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "corretiva.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "evolutiva.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "funcional.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "preventiva.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "adaptativa.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2021.md."]
+}

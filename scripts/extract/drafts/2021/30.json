@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "30",
+  "order": 35,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Suponha que sua faculdade tendo, em sua rede de computadores, máquinas que compartilham arquivos\ne serviços, contratou você para uma consultoria de TI. Atualmente, na sala dos professores, existem\n3 máquinas ligadas à rede, com as configurações conforme a imagem a seguir. Porém, a estação de\ntrabalho “PROFESSORES01” não consegue enviar documentos para impressão em uma impressora,\ncorretamente instalada e compartilhada na estação de trabalho “PROFESSORES03”.\n\n                                 ENDEREÇO IP: 175.16.10.200\n                                 MÁSCARA DE SUB-REDE: 255.255.255.0\n                                 GATEWAY: 175.16.1.1\n             PROFESSORES 01\n\n                                 ENDEREÇO IP: 175.16.20.200\n                                 MÁSCARA DE SUB-REDE: 255.255.0.0\n                                 GATEWAY: 175.16.1.1\n             PROFESSORES 02\n\n                                 ENDEREÇO IP: 175.16.30.200\n                                 MÁSCARA DE SUB-REDE: 255.255.0.0\n                                 GATEWAY: 175.16.1.1\n             PROFESSORES 03\n\nNesse caso, que alteração deve ser realizada para que o problema seja resolvido?",
+  "valuePoints": null,
+  "sourcePage": 37,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Alterar o gateway da estação PROFESSORES03 para 175.16.10.200.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Alterar o endereço de IP da estação PROFESSORES01 para 175.16.30.200.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Alterar a máscara de sub-rede da estação PROFESSORES01 para 255.255.0.0.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "Alterar a máscara de sub-rede da estação PROFESSORES03 para 255.255.255.0.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Alterar o gateway da estação PROFESSORES01 para o endereço de IP 175.16.30.200.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

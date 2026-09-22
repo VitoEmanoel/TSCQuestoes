@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "32",
+  "order": 37,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um modelo de negócios descreve a lógica de criação, entrega e captura de valor por parte de uma\norganização. A ferramenta de geração de modelo de negócios Canvas, desenvolvida por Osterwalder,\ntem sido uma das mais utilizadas, principalmente entre as startups. O Canvas é dividido em nove\ncomponentes básicos, que cobrem as quatro áreas principais de um negócio: clientes, oferta, infraestrutura\ne viabilidade financeira. Os componentes são os seguintes: 1) segmentos de clientes; 2) proposta de valor;\n3) canais; 4) relacionamento com cliente; 5) fontes de receita; 6) recursos principais; 7) atividades-chave;\n8) parcerias principais; e 9) estrutura de custo.\n                           OSTERWALDER, A.; PIGNEUR, Y. Business Model Generation - Inovação em Modelos de Negócios:\n                            um manual para visionários, inovadores e revolucionários. Rio de Janeiro: Alta Books, 2011 (adaptado).\n\nDiante deste contexto, conclui-se que as startups",
+  "valuePoints": null,
+  "sourcePage": 39,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "financeiras desenvolvem primeiro o plano de negócios, para em seguida partir para o Canvas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "de big data utilizam o Canvas para a modelagem da validação da ideia de negócio, ou seja, do problema a ser resolvido.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "de educação dispensam a utilização do Canvas, ou seja, os modelos de negócios deste segmento já nascem validados.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "de logística utilizam o plano de negócios ao invés do Canvas, ou seja, elas nascem a partir de um produto mínimo viável (MVP).",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "de impacto social podem desconsiderar o componente 1 (segmentos de clientes), pois possuem somente um segmento.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

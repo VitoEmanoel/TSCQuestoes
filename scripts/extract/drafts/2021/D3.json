@@ -1,0 +1,24 @@
+{
+  "examYear": 2021,
+  "originalLabel": "D3",
+  "order": 11,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Considere a realização de uma pesquisa com 1 000 pessoas para obtenção das seguintes informações:\no valor da maior altura; o valor da menor altura; a média das alturas; quantas pessoas têm altura inferior\nà média das alturas.\nConsidere, ainda, que um programador foi selecionado para desenvolver um modelo de código que\nsoluciona o problema automatizando a coleta das alturas e a geração das informações.\nCom base nas informações apresentadas, desenvolva o código adequado para resolver o problema\nusando pseudocódigo ou uma linguagem de programação. (valor: 10,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 14,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": null,
+      "criteriaMd": "O respondente deve desenvolver o seguinte código:\nalgoritmo “pesquisa”\nvar altura[1000], menor, maior, total=0, media:real\nvar qtdmenor=0, ctpessoas: inteiro\ninicio\nleia altura[1]\nmenor = altura[1]\n\nmaior = altura[1]\ntotal = altura[1]\npara ctpessoas=2 até 1000 faça\n\n   leia (altura[ctpessoas])\n   total=total + altura[ctpessoas]\nfimpara\nmedia = total/1000\n\npara ctpessoas=1 até 1000 faça\n\n   se menor > altura[ctpessoas] então menor = altura[ctpessoas]\n   se maior < altura[ctpessoas] então maior = altura[ctpessoas]\n   se media > altura[ctpessoas] então qtdmenor = qtdmenor + 1\nfimpara\nescreva (“Maior = “, maior, “ Menor= “,menor,” Média= “,media, “ Quantidade de alturas menores que\na média= “,qtdmenor)",
+      "maxScore": 10,
+      "assets": []
+    }
+  ],
+  "tags": [],
+  "reviewNotes": []
+}

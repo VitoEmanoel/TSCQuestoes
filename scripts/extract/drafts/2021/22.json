@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "22",
+  "order": 27,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um ponto importante para fábricas de software é a garantia de que seus produtos e/ou serviços acompanhem\nas diversas mudanças ocasionadas pelo mundo corporativo. As restrições de orçamento ou cronograma,\nreestruturação do negócio, modificações de regras de negócio ou novas necessidades do cliente, geram\nmudanças inevitáveis. Nesse cenário, a utilização de um processo de Gerência de Configuração de Software\n(GCS) que contemple características necessárias para gerenciar e controlar a evolução de um software, através\ndo controle formal de versão e solicitação de mudanças, é extremamente importante.\nSobre o processo de Gerência de Configuração de Software (GCS), avalie as afirmações a seguir.\n    I. O controle de versão possibilita o compartilhamento de dados e a edição colaborativa, permitindo\n         a gestão de diferentes ramos de desenvolvimento e possibilitando a existência de diferentes\n         versões de forma simultânea.\n    II. A auditoria de configuração é uma atividade de garantia de qualidade do sistema que tem por\n         objetivo assegurar que a qualidade do software seja mantida quando feitas alterações requisitadas.\n    III. O relatório de status de configuração possui informações sobre o GCS, tendo por objetivo manter o\n         cliente informado sobre as alterações, e deve ser gerado ao final do processo.\n    IV. A GCS proporciona um conjunto de atividades de acompanhamento e controle de mudanças que é\n         iniciado logo depois que o software for fornecido ao cliente e colocado em operação.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 30,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

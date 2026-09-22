@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "35",
+  "order": 40,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma equipe de matemáticos foi contratada para proceder com a análise e especificação de critérios para\na identificação de potenciais clientes para uma empresa de seguros. Após a análise, a equipe determinou\nque deve-se considerar as seguintes variáveis:\na) ser maior de idade.\nb) possuir residência própria ou não.\nc) possuir algum parente que já possui seguro da companhia.\n\nEm função da análise realizada, a companhia pretende estipular a viabilidade ou não do seguro, além\nde decidir seu preço. A equipe contratada modelou cada variável identificada utilizando as seguintes\nfunções booleanas.\n\nI(x): função que verifica se a pessoa x é maior de idade.\nR(x): função que verifica se a pessoa x possui residência própria.\nP(x,y): função que verifica se as pessoas x e y são parentes.\nS(x): função que verifica se a pessoa x já possui seguro da companhia.\n\nApós essa modelagem matemática, a seguinte tabela foi obtida. Ela expressa, utilizando a notação de\nlógica quantitativa, os critérios para estabelecimento de viabilidade e eventuais preços de seguros a\nserem concedidos.\n\n                  Critério                                      Resultado\n\n                  ¬I(x)                                         Inviável\n\n                  I(x)Ù R(x) Ù$y (S(y) Ù P(x, y))               Viável, preço: R$200\n\n                  I(x)Ù ¬R(x) Ù$y (S(y) Ù P(x, y))              Viável, preço: R$300\n\n                  ¬I(x)Ú (R(x) Ù I (x))                         Viável, preço: R$500\n\nA tabela foi repassada à equipe de programadores, cenário comum em que profissionais de\ndiferentes áreas do conhecimento devem interagir a fim de obter as soluções desejadas. A solução\nfoi implementada utilizando a linguagem C. Considere que as funções I e R foram escritas e são\nbooleanas, operando de acordo com a definição dada pela equipe. A função “obtem” encapsula o\nfuncionamento das funções P e S. Ela percorre a base de dados da companhia e obtém um parente\nda pessoa apontada por “p” que possua o seguro, caso exista. Caso contrário, ela devolve NULL.\n\nvoid obtem_resultado (pessoa * p){\n     pessoa*y = NULL;\n     if(!I(p))\n             printf(“Inviável”);\n    else if (I(p)&&R(p)&&y=obtem(p))\n      printf(“Viável,preço:R$200”);\n else if(I(p)&&!R(p)&&y=obtem(p))\n printf(“Viável,preço:R$300”);\n else if(!I(p)||(R(p)&&I(p)))\n printf(“Viável,preço:“R$500”);\n}\nConsiderando as informações apresentadas, avalie as afirmações a seguir.\n    I. A tabela apresentada é ambígua, pois há pessoas para as quais a análise resultaria em dois\n         resultados diferentes.\n    II. Embora a tabela seja ambígua, não existe a possibilidade de o programa exibir mais de um resultado\n         para uma pessoa.\n    III. Segundo a tabela, não existe a possibilidade de pessoas sem residência própria serem contempladas\n         com o seguro.\n    IV. Segundo o funcionamento do programa, o seguro para uma pessoa menor de idade e sem\n         residência própria é viável e lhe custará R$500.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 42,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

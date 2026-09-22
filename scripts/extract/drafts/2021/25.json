@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "25",
+  "order": 30,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma determinada empresa do ramo de piscicultura solicitou a uma instituição especializada no\ndesenvolvimento de softwares de gestão a construção de um sistema que fosse capaz de gerenciar o\nprocesso de criação dos peixes, que começava ainda na fase de alevinos, estendia-se para a engorda,\nfinalizando na fase adulta com a venda do peixe. O sistema deveria disponibilizar funcionalidades\npara armazenar informações sobre toda a etapa da criação, mortandade e rações utilizadas na\nengorda dos peixes, viabilizando uma melhor tomada de decisão dos investidores. Como não havia\nnenhuma solução e a demanda por peixes estava aumentando, a empresa solicitou extrema urgência\nna construção da aplicação.\nConsiderando o processo de desenvolvimento de software que deverá ser utilizado para construir o\nsistema mencionado no texto, avalie as afirmações a seguir.\n    I. Para desenvolver o sistema, deve ser adotado um processo baseado no modelo cascata, pois ele\n       se adapta melhor a cenários com muitas mudanças.\n    II. Por se tratar de uma aplicação com escopo pequeno, o modelo espiral deverá ser utilizado\n        no desenvolvimento do sistema solicitado, já que reduzirá riscos por meio da prototipação de\n        especificações de cada fase dos peixes e diminuirá o tempo de entrega.\n    III. O modelo incremental deve ser utilizado na construção do software descrito no cenário, já que\n         partes do sistema referentes à fase inicial dos peixes poderiam ser disponibilizadas, enquanto as\n         demais estão nas etapas de concepção e desenvolvimento.\n    IV. Em razão da extrema urgência no desenvolvimento do software solicitado, a empresa deve elaborar\n        seu processo utilizando o modelo RAD (Rapid Application Development).\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 33,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "III e IV.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

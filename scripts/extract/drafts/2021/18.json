@@ -1,0 +1,43 @@
+{
+  "examYear": 2021,
+  "originalLabel": "18",
+  "order": 23,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A engenharia de requisitos é uma área que inclui quatro subprocessos relacionados de alto nível.\nEsses subprocessos são: 1) avaliação se o sistema será útil para a empresa (estudo de viabilidade);\n2) obtenção de requisitos (elicitação de requisitos); 3) conversão desses requisitos em alguma forma\npadrão (especificação); 4) verificação se os requisitos realmente definem o sistema que o cliente deseja\n(validação).\n                                SOMMERVILLE, I. Engenharia de Software. São Paulo: Pearson Addison-Wesley, 2017 (adaptado).\n\nUma equipe de Tecnologia da Informação de uma empresa de consultoria desenvolverá um software\nde Suporte Técnico para uma grande empresa fornecedora de equipamentos eletrônicos. O estudo de\nviabilidade do software já foi realizado e aprovado. A equipe de Tecnologia da Informação seguirá os três\nsubprocessos seguintes de alto nível de engenharia de requisitos descritos no texto de Sommerville, ou seja,\nos subprocessos de elicitação de requisitos, especificação e validação.\nPara esses três subprocessos, quais são os artefatos que podem ser utilizados por essa equipe de\nTecnologia da Informação?",
+  "valuePoints": null,
+  "sourcePage": 26,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Documento de entrevista com usuários; modelo de caso de uso para os requisitos funcionais; prototipação de telas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "Documento de estudo de viabilidade; modelo de caso de uso para os requisitos funcionais; prototipação de telas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Matriz de rastreabilidade; modelo de caso de uso para os requisitos não-funcionais; prototipação de telas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Documento de entrevista com usuários; modelo de caso de uso para os requisitos não-funcionais; matriz de rastreabilidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Documento de estudo de viabilidade; modelo de caso de uso para os requisitos funcionais; matriz de rastreabilidade.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}
