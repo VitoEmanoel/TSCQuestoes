@@ -1,0 +1,205 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum QuestionType {
+  OBJECTIVE
+  DISCURSIVE
+}
+
+enum QuestionArea {
+  FORMACAO_GERAL
+  COMPONENTE_ESPECIFICO
+}
+
+enum QuestionStatus {
+  VALID
+  ANULADA
+}
+
+enum UserRole {
+  ADMIN
+  STUDENT
+}
+
+enum AttemptMode {
+  FULL_EXAM
+  CUSTOM
+  ROOM
+}
+
+enum RevealPolicy {
+  IMMEDIATE
+  AT_END
+  MANUAL
+}
+
+enum RoomStatus {
+  OPEN
+  CLOSED
+}
+
+enum AttemptStatus {
+  IN_PROGRESS
+  SUBMITTED
+  GRADED
+}
+
+model Exam {
+  id                 String     @id @default(cuid())
+  year               Int
+  course             String     @default("Tecnologia em Análise e Desenvolvimento de Sistemas")
+  sourceProvaFile    String?
+  sourceGabaritoFile String?
+  sourcePadraoFile   String?
+  questions          Question[]
+
+  @@unique([year, course])
+}
+
+model Question {
+  id              String           @id @default(cuid())
+  exam            Exam             @relation(fields: [examId], references: [id])
+  examId          String
+  originalLabel   String
+  order           Int
+  type            QuestionType
+  area            QuestionArea
+  status          QuestionStatus   @default(VALID)
+  statementMd     String
+  valuePoints     Float?
+  sourcePage      Int?
+  options         Option[]
+  answerStandards AnswerStandard[]
+  assets          Asset[]
+  tags            QuestionTag[]
+  roomQuestions   RoomQuestion[]
+  attemptItems    AttemptItem[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@unique([examId, originalLabel])
+}
+
+model Option {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  letter     String
+  textMd     String
+  isCorrect  Boolean  @default(false)
+}
+
+model AnswerStandard {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  subItem    String?
+  criteriaMd String
+  maxScore   Float?
+}
+
+model Asset {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  kind       String
+  filePath   String
+  caption    String?
+}
+
+model Topic {
+  id        String        @id @default(cuid())
+  name      String        @unique
+  category  String?
+  questions QuestionTag[]
+}
+
+model QuestionTag {
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  topic      Topic    @relation(fields: [topicId], references: [id])
+  topicId    String
+
+  @@id([questionId, topicId])
+}
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  name           String?
+  passwordHash   String?
+  role           UserRole  @default(STUDENT)
+  attempts       Attempt[]
+  rooms          Room[]    @relation("RoomsCreated")
+  gradedAttempts Attempt[] @relation("GradedAttempts")
+  createdAt      DateTime  @default(now())
+}
+
+model Attempt {
+  id           String        @id @default(cuid())
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
+  mode         AttemptMode
+  examId       String?
+  room         Room?         @relation(fields: [roomId], references: [id])
+  roomId       String?
+  status       AttemptStatus @default(IN_PROGRESS)
+  revealPolicy RevealPolicy  @default(AT_END)
+  startedAt    DateTime      @default(now())
+  submittedAt  DateTime?
+  autoScore    Float?
+  finalScore   Float?
+  gradedBy     User?         @relation("GradedAttempts", fields: [gradedById], references: [id])
+  gradedById   String?
+  gradedAt     DateTime?
+  items        AttemptItem[]
+}
+
+model Room {
+  id             String         @id @default(cuid())
+  code           String         @unique
+  title          String
+  teacher        User           @relation("RoomsCreated", fields: [teacherId], references: [id])
+  teacherId      String
+  status         RoomStatus     @default(OPEN)
+  revealPolicy   RevealPolicy   @default(AT_END)
+  timeLimitSec   Int?
+  shuffleOptions Boolean        @default(false)
+  shuffleOrder   Boolean        @default(false)
+  questions      RoomQuestion[]
+  attempts       Attempt[]
+  createdAt      DateTime       @default(now())
+  expiresAt      DateTime?
+}
+
+model RoomQuestion {
+  room       Room     @relation(fields: [roomId], references: [id])
+  roomId     String
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  order      Int
+
+  @@id([roomId, questionId])
+}
+
+model AttemptItem {
+  id               String    @id @default(cuid())
+  attempt          Attempt   @relation(fields: [attemptId], references: [id])
+  attemptId        String
+  question         Question  @relation(fields: [questionId], references: [id])
+  questionId       String
+  selectedOptionId String?
+  isCorrect        Boolean?
+  answerText       String?
+  selfScore        Float?
+  teacherScore     Float?
+  teacherComment   String?
+  revealedAt       DateTime?
+  timeSpentSec     Int?
+}
