@@ -12,7 +12,8 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "extract:raw": "tsx scripts/extract/extract-raw-text.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

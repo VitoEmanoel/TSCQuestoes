@@ -1,6 +1,9 @@
 # Planejamento local do projeto (não vai para o repositório)
 docs/
 
+# Texto bruto extraído dos PDFs, regenerável a qualquer momento
+scripts/extract/raw/
+
 # Dependências e build (Node.js / Next.js)
 node_modules/
 .next/
