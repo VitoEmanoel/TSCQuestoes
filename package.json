@@ -23,7 +23,8 @@
     "extract:validate": "tsx scripts/extract/validate.ts",
     "security:check": "tsx scripts/security/check-admin-paths.ts",
     "security:attack": "tsx scripts/security/attack-suite.ts",
-    "security:serve": "next build && next start -p 3123"
+    "security:serve": "next build && AUTH_URL=http://localhost:3123 next start -p 3123",
+    "security:browser": "tsx scripts/security/browser-check.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
@@ -42,6 +43,7 @@
     "@types/nodemailer": "^8.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/ws": "^8.18.1",
     "dotenv": "^18.0.3",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
@@ -51,6 +53,7 @@
     "prisma": "^6.19.3",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
-    "typescript": "^5"
+    "typescript": "^5",
+    "ws": "^8.21.3"
   }
 }

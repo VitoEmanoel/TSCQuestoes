@@ -612,6 +612,93 @@ async function main() {
     `${existing.toFixed(0)} x ${missing.toFixed(0)} ms`,
   );
 
+  group("Cabeçalhos e cookies");
+  const loginPage = await fetch(`${BASE}/login`, { headers: { "x-forwarded-for": "10.60.0.1" } });
+  const html = await loginPage.text();
+  const csp = loginPage.headers.get("content-security-policy") ?? "";
+  const nonce = csp.match(/'nonce-([^']+)'/)?.[1] ?? "";
+  const scriptTags = [...html.matchAll(/<script\b[^>]*>/g)].map((match) => match[0]);
+  check(
+    "CSP da página tem nonce e todos os scripts o carregam",
+    nonce.length > 10 &&
+      scriptTags.length > 0 &&
+      scriptTags.every((tag) => tag.includes(`nonce="${nonce}"`)),
+    `${scriptTags.length} scripts`,
+  );
+  const second = (await fetch(`${BASE}/login`)).headers.get("content-security-policy") ?? "";
+  check("nonce muda a cada requisição", second.match(/'nonce-([^']+)'/)?.[1] !== nonce);
+  for (const directive of [
+    "default-src 'self'",
+    "'strict-dynamic'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+  ]) {
+    check(`CSP contém ${directive}`, csp.includes(directive));
+  }
+  check(
+    "CSP de produção não libera 'unsafe-inline' nem 'unsafe-eval' para scripts",
+    !/script-src[^;]*'unsafe-(inline|eval)'/.test(csp),
+  );
+  for (const path of ["/login", "/api/auth/csrf", "/assets/2017/1-1.png"]) {
+    const response = await fetch(`${BASE}${path}`);
+    const h = response.headers;
+    check(
+      `${path}: X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP`,
+      h.get("x-frame-options") === "DENY" &&
+        h.get("x-content-type-options") === "nosniff" &&
+        h.get("referrer-policy") === "same-origin" &&
+        Boolean(h.get("permissions-policy")?.includes("camera=()")) &&
+        h.get("cross-origin-opener-policy") === "same-origin",
+    );
+    check(`${path}: sem X-Powered-By`, !h.has("x-powered-by"));
+  }
+  const csrfResponse = await fetch(`${BASE}/api/auth/csrf`);
+  const csrfCookie = csrfResponse.headers
+    .getSetCookie()
+    .find((cookie) => cookie.startsWith("authjs.csrf-token="));
+  check(
+    "cookie CSRF é HttpOnly, SameSite=Lax e Path=/",
+    Boolean(
+      csrfCookie &&
+      /HttpOnly/i.test(csrfCookie) &&
+      /SameSite=Lax/i.test(csrfCookie) &&
+      /Path=\//i.test(csrfCookie),
+    ),
+    csrfCookie?.split(";").slice(1).join(";"),
+  );
+  const csrfToken = JSON.parse(await csrfResponse.text()).csrfToken;
+  const loginResponse = await fetch(`${BASE}/api/auth/callback/credentials`, {
+    method: "POST",
+    redirect: "manual",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      cookie: csrfCookie?.split(";")[0] ?? "",
+      origin: BASE,
+      "x-forwarded-for": "10.60.0.2",
+    },
+    body: new URLSearchParams({
+      email: studentEmail,
+      password: studentPassword,
+      csrfToken,
+      callbackUrl: "/",
+    }),
+  });
+  const sessionCookie = loginResponse.headers
+    .getSetCookie()
+    .find((cookie) => cookie.startsWith(`${SESSION_COOKIE}=`));
+  check(
+    "cookie de sessão é HttpOnly, SameSite=Lax e Path=/",
+    Boolean(
+      sessionCookie &&
+      /HttpOnly/i.test(sessionCookie) &&
+      /SameSite=Lax/i.test(sessionCookie) &&
+      /Path=\//i.test(sessionCookie),
+    ),
+    sessionCookie?.split(";").slice(1).join(";"),
+  );
+
   group("Vazamento de informação");
   reply = await anon.get("/pagina-que-nao-existe");
   check("404 não expõe detalhes internos", reply.status === 404 && noLeak(reply.body));
