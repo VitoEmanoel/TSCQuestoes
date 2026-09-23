@@ -42,23 +42,28 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
           >
             <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
               <ExamBadge year={question.exam.year} />
-              <span className="text-sm font-semibold">
+              <Link
+                href={`/questoes/${question.id}`}
+                className="text-sm font-semibold underline-offset-2 hover:underline"
+              >
                 {questionTitle(question.originalLabel, question.type)}
-              </span>
+              </Link>
               <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
                 {AREA_LABEL[question.area]}
               </span>
               <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
                 {TYPE_LABEL[question.type]}
               </span>
-              {question.tags.map((tag) => (
-                <span
-                  key={tag.topic.name}
-                  className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800"
-                >
-                  {tag.topic.name}
-                </span>
-              ))}
+              {question.tags
+                .filter((tag) => tag.topic.name !== AREA_LABEL[question.area])
+                .map((tag) => (
+                  <span
+                    key={tag.topic.name}
+                    className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800"
+                  >
+                    {tag.topic.name}
+                  </span>
+                ))}
               {question.status === "ANULADA" ? (
                 <span className="rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
                   Anulada

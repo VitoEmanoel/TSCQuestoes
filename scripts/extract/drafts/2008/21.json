@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "1 Algoritmo ENADE2008\n2 variaveis\n3    varA, varB, varC: inteiro\n4    varF : real\n5    varS : literal\n6    varL : logico\n7 inicio\n8    varS <- \"1000\"\n9    varA <- 4\n10   varF <- 3.5\n11   varC <- 0\n12   varL <- VERDADEIRO\n13   se((varC < varA) E varL OU (varS > varC)) entao\n14      varB <- varF/varA\n15    senao\n16      varB <- varA/varC\n17    fim se\n18 fim algoritmo\n\nO código acima",
+  "statementMd": "```\n1 Algoritmo ENADE2008\n2 variaveis\n3    varA, varB, varC: inteiro\n4    varF : real\n5    varS : literal\n6    varL : logico\n7 inicio\n8    varS <- \"1000\"\n9    varA <- 4\n10   varF <- 3.5\n11   varC <- 0\n12   varL <- VERDADEIRO\n13   se((varC < varA) E varL OU (varS > varC)) entao\n14      varB <- varF/varA\n15    senao\n16      varB <- varA/varC\n17    fim se\n18 fim algoritmo\n```\n\nO código acima",
   "valuePoints": null,
   "sourcePage": 13,
   "needsAsset": false,

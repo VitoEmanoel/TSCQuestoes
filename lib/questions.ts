@@ -130,3 +130,58 @@ export async function getFilterOptions() {
   ]);
   return { years: exams.map((exam) => exam.year), topics: topics.map((topic) => topic.name) };
 }
+
+export async function getQuestionDetail(id: string) {
+  const question = await prisma.question.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      examId: true,
+      originalLabel: true,
+      order: true,
+      type: true,
+      area: true,
+      status: true,
+      statementMd: true,
+      valuePoints: true,
+      sourcePage: true,
+      exam: { select: { year: true } },
+      tags: { select: { topic: { select: { name: true } } } },
+      assets: {
+        where: { answerStandardId: null },
+        orderBy: { filePath: "asc" },
+        select: { filePath: true, caption: true },
+      },
+      options: {
+        orderBy: { letter: "asc" },
+        select: { letter: true, textMd: true, isCorrect: true },
+      },
+      answerStandards: {
+        orderBy: { subItem: "asc" },
+        select: {
+          id: true,
+          subItem: true,
+          criteriaMd: true,
+          maxScore: true,
+          assets: { orderBy: { filePath: "asc" }, select: { filePath: true, caption: true } },
+        },
+      },
+    },
+  });
+  if (!question) {
+    return null;
+  }
+  const [previous, next] = await Promise.all([
+    prisma.question.findFirst({
+      where: { examId: question.examId, order: { lt: question.order } },
+      orderBy: { order: "desc" },
+      select: { id: true, originalLabel: true, type: true },
+    }),
+    prisma.question.findFirst({
+      where: { examId: question.examId, order: { gt: question.order } },
+      orderBy: { order: "asc" },
+      select: { id: true, originalLabel: true, type: true },
+    }),
+  ]);
+  return { question, previous, next };
+}

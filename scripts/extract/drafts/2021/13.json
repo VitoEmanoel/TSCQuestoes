@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Considere que as variáveis pilha e fila correspondem, respectivamente, às estruturas de dados do tipo\nPilha e Fila. Para testar as duas estruturas, um programador realizou a série de operações a seguir.\nPilha pilha = new Pilha();\nFila fila = new Fila();\npilha.push(‘A’);\npilha.push(‘B’);\npilha.push(‘C’);\nfila.enqueue(pilha.top());\nfila.enqueue(pilha.top());\nfila.enqueue(‘D’);\npilha.push(fila.dequeue());\nfila.enqueue(fila.dequeue());\nfila.enqueue(pilha.pop());\npilha.push(‘E’);\nfila.enqueue(‘E’);\npilha.pop();\nApós essas operações, ao imprimir o conteúdo de pilha e fila, respectivamente, seria exibido:",
+  "statementMd": "Considere que as variáveis pilha e fila correspondem, respectivamente, às estruturas de dados do tipo\nPilha e Fila. Para testar as duas estruturas, um programador realizou a série de operações a seguir.\n```\nPilha pilha = new Pilha();\nFila fila = new Fila();\npilha.push(‘A’);\npilha.push(‘B’);\npilha.push(‘C’);\nfila.enqueue(pilha.top());\nfila.enqueue(pilha.top());\nfila.enqueue(‘D’);\npilha.push(fila.dequeue());\nfila.enqueue(fila.dequeue());\nfila.enqueue(pilha.pop());\npilha.push(‘E’);\nfila.enqueue(‘E’);\npilha.pop();\n```\nApós essas operações, ao imprimir o conteúdo de pilha e fila, respectivamente, seria exibido:",
   "valuePoints": null,
   "sourcePage": 21,
   "needsAsset": false,

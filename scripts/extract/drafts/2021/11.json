@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "O código Java, a seguir, contém a implementação de uma Pilha utilizando a estratégia encadeada.\n\npublic class No{\n  public int dado;\n  public No prox;\n  public No(int dado){\n    this.dado = dado;\n  }\n}\npublic class PilhaEncadeada{\n  private No topo;\n  public int pop(){\n    if (topo == null)\n      return -1;\n    No lixo = topo;\n    topo = topo.prox;\n    lixo.prox = null;\n    return lixo.dado;\n  }\n\n  public int top(){\n    if (topo == null)\n      return -1;\n    return (topo.dado);\n  }\n}\n\nCom base no exposto, assinale a opção que possui a implementação correta do método push para essa Pilha.",
+  "statementMd": "O código Java, a seguir, contém a implementação de uma Pilha utilizando a estratégia encadeada.\n\n```\npublic class No{\n  public int dado;\n  public No prox;\n  public No(int dado){\n    this.dado = dado;\n  }\n}\npublic class PilhaEncadeada{\n  private No topo;\n  public int pop(){\n    if (topo == null)\n      return -1;\n    No lixo = topo;\n    topo = topo.prox;\n    lixo.prox = null;\n    return lixo.dado;\n  }\n\n  public int top(){\n    if (topo == null)\n      return -1;\n    return (topo.dado);\n  }\n}\n```\n\nCom base no exposto, assinale a opção que possui a implementação correta do método push para essa Pilha.",
   "valuePoints": null,
   "sourcePage": 20,
   "needsAsset": false,
@@ -13,27 +13,27 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "public void push(int elemento){\n   No novo = new No(elemento);\n   if(topo == null)\n      topo = novo;\n   else\n      topo.prox = novo;\n}",
+      "textMd": "```\npublic void push(int elemento){\n   No novo = new No(elemento);\n   if(topo == null)\n      topo = novo;\n   else\n      topo.prox = novo;\n}\n```",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "public void push(int elemento){\n   No novo = new No(elemento);\n   topo = novo;\n}",
+      "textMd": "```\npublic void push(int elemento){\n   No novo = new No(elemento);\n   topo = novo;\n}\n```",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "public void push(int elemento){\n   topo.dado = elemento;\n}",
+      "textMd": "```\npublic void push(int elemento){\n   topo.dado = elemento;\n}\n```",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "public void push(int elemento){\n   No novo = new No(elemento);\n   while (topo != null)\n      topo = topo.prox;\n   topo.prox = novo;\n}",
+      "textMd": "```\npublic void push(int elemento){\n   No novo = new No(elemento);\n   while (topo != null)\n      topo = topo.prox;\n   topo.prox = novo;\n}\n```",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "public void push(int elemento){\n   No novo = new No(elemento);\n   novo.prox = topo;\n   topo = novo;\n}",
+      "textMd": "```\npublic void push(int elemento){\n   No novo = new No(elemento);\n   novo.prox = topo;\n   topo = novo;\n}\n```",
       "isCorrect": true
     }
   ],

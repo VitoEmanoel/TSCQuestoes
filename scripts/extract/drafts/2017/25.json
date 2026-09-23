@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "O fragmento de código C++, a seguir, contém a implementação da inserção de um nó em uma árvore binária.\n...\nstruct noArvore {\n   int dado;\n   noArvore *esquerda;\n   noArvore *direita;\n};\nnoArvore *insere(noArvore *arvore, int valor) {\n   if (arvore == NULL) {\n      arvore = new noArvore;\n      arvore->esquerda = NULL;\n      arvore->direita = NULL;\n      arvore->dado = valor;\n   } else if(valor < arvore->dado) {\n        arvore->esquerda = insere (arvore->esquerda, valor);\n     }\n     else {\n        arvore->direita = insere (arvore->direita, valor);\n     }\n     return(arvore);\n}\n...\nCom base no exposto, assinale a opção que apresenta o fragmento de programa para imprimir os valores\ncontidos nos nós, percorrendo a árvore em pré-ordem.",
+  "statementMd": "O fragmento de código C++, a seguir, contém a implementação da inserção de um nó em uma árvore binária.\n```\n...\nstruct noArvore {\n   int dado;\n   noArvore *esquerda;\n   noArvore *direita;\n};\nnoArvore *insere(noArvore *arvore, int valor) {\n   if (arvore == NULL) {\n      arvore = new noArvore;\n      arvore->esquerda = NULL;\n      arvore->direita = NULL;\n      arvore->dado = valor;\n   } else if(valor < arvore->dado) {\n        arvore->esquerda = insere (arvore->esquerda, valor);\n     }\n     else {\n        arvore->direita = insere (arvore->direita, valor);\n     }\n     return(arvore);\n}\n...\n```\nCom base no exposto, assinale a opção que apresenta o fragmento de programa para imprimir os valores\ncontidos nos nós, percorrendo a árvore em pré-ordem.",
   "valuePoints": null,
   "sourcePage": 28,
   "needsAsset": false,
@@ -13,27 +13,27 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "void preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      cout << raiz->dado << \" \";\n      preorder(raiz->esquerda);\n      preorder(raiz->direita);\n   }\n}",
+      "textMd": "```\nvoid preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      cout << raiz->dado << \" \";\n      preorder(raiz->esquerda);\n      preorder(raiz->direita);\n   }\n}\n```",
       "isCorrect": true
     },
     {
       "letter": "B",
-      "textMd": "void preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      preorder(raiz->direita);\n      preorder(raiz->esquerda);\n      cout << raiz->dado << \" \";\n   }\n}",
+      "textMd": "```\nvoid preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      preorder(raiz->direita);\n      preorder(raiz->esquerda);\n      cout << raiz->dado << \" \";\n   }\n}\n```",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "void preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      preorder(raiz->esquerda);\n      cout << raiz->dado << \" \";\n      preorder(raiz->direita);\n   }\n}",
+      "textMd": "```\nvoid preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      preorder(raiz->esquerda);\n      cout << raiz->dado << \" \";\n      preorder(raiz->direita);\n   }\n}\n```",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "void preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      preorder(raiz->esquerda);\n      preorder(raiz->direita);\n      cout << raiz->dado << \" \";\n   }\n}",
+      "textMd": "```\nvoid preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      preorder(raiz->esquerda);\n      preorder(raiz->direita);\n      cout << raiz->dado << \" \";\n   }\n}\n```",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "void preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      preorder(raiz->direita);\n      cout << raiz->dado << \" \";\n      preorder(raiz->esquerda);\n   }\n}",
+      "textMd": "```\nvoid preorder(noArvore *raiz) {\n   if (raiz != NULL) {\n      preorder(raiz->direita);\n      cout << raiz->dado << \" \";\n      preorder(raiz->esquerda);\n   }\n}\n```",
       "isCorrect": false
     }
   ],

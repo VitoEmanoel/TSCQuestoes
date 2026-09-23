@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "ANULADA",
-  "statementMd": "CREATE TABLE JOGADOR (PSEUDONIMO VARCHAR(10) NOT NULL,\nNOME VARCHAR(25) NOT NULL,\nSENHA VARCHAR(6) NOT NULL,\nPRIMARY KEY (PSEUDONIMO));\n\nCREATE TABLE NIVEL(NIVEL NUMERIC(3) NOT NULL,\nNOMEPSEUD VARCHAR(10) NOT NULL,\nPONTOS NUMERIC(5) NOT NULL,\nBONUS NUMERIC(5) NOT NULL,\nPRIMARY KEY(NIVEL, NOMEPSEUD),\nFOREING KEY (NOMEPSEUD) REFERENCES PSEUDONIMO);\n\nA partir do script SQL de criação de um banco de dados acima,\nassinale a opção que apresenta comando SQL que permite obter\numa lista em ordem decrescente de quantidade de bônus e que\ncontenha somente o pseudônimo do jogador e seu bônus.",
+  "statementMd": "```\nCREATE TABLE JOGADOR (PSEUDONIMO VARCHAR(10) NOT NULL,\nNOME VARCHAR(25) NOT NULL,\nSENHA VARCHAR(6) NOT NULL,\nPRIMARY KEY (PSEUDONIMO));\n\nCREATE TABLE NIVEL(NIVEL NUMERIC(3) NOT NULL,\nNOMEPSEUD VARCHAR(10) NOT NULL,\nPONTOS NUMERIC(5) NOT NULL,\nBONUS NUMERIC(5) NOT NULL,\nPRIMARY KEY(NIVEL, NOMEPSEUD),\nFOREING KEY (NOMEPSEUD) REFERENCES PSEUDONIMO);\n```\n\nA partir do script SQL de criação de um banco de dados acima,\nassinale a opção que apresenta comando SQL que permite obter\numa lista em ordem decrescente de quantidade de bônus e que\ncontenha somente o pseudônimo do jogador e seu bônus.",
   "valuePoints": null,
   "sourcePage": 16,
   "needsAsset": false,

@@ -14,13 +14,13 @@
   "answerStandards": [
     {
       "subItem": "a",
-      "criteriaMd": "A resposta está no cálculo, armazenamento e escrita da variável Trigo.\n\nAtenção: os comentários (//) não são necessários na resposta dada pelo candidato.\n\ninício\n\n// declara variável do tipo vetor\ntipo Trigo = vetor [1..16] de inteiros;\n\n// declaração de variáveis simples\ninteiro: TotalTrigo, Indice1;\n\n// inicializa acumulador de total de trigo\nTotalTrigo <- 0;\n\n// Determinando a qtde de trigo em cada casa\npara Indice1 de 0 até 15 passo 1 faça\n    Trigo[Indice1 + 1] <- pot(2, Indice1);\n    TotalTrigo <- TotalTrigo + Trigo[Indice1 + 1];\nfimpara;\n\n// escrevendo a Rota Correta\npara Indice1 de 1 até 16 passo 1 faça\n    escreva(\"Quantidade de grãos de trigo na casa \", Indice1, \" = \", Trigo[Indice1]);\nfimpara;",
+      "criteriaMd": "A resposta está no cálculo, armazenamento e escrita da variável Trigo.\n\nAtenção: os comentários (//) não são necessários na resposta dada pelo candidato.\n\n```\ninício\n\n// declara variável do tipo vetor\ntipo Trigo = vetor [1..16] de inteiros;\n\n// declaração de variáveis simples\ninteiro: TotalTrigo, Indice1;\n\n// inicializa acumulador de total de trigo\nTotalTrigo <- 0;\n\n// Determinando a qtde de trigo em cada casa\npara Indice1 de 0 até 15 passo 1 faça\n    Trigo[Indice1 + 1] <- pot(2, Indice1);\n    TotalTrigo <- TotalTrigo + Trigo[Indice1 + 1];\nfimpara;\n\n// escrevendo a Rota Correta\npara Indice1 de 1 até 16 passo 1 faça\n    escreva(\"Quantidade de grãos de trigo na casa \", Indice1, \" = \", Trigo[Indice1]);\nfimpara;\n```",
       "maxScore": 8,
       "assets": []
     },
     {
       "subItem": "b",
-      "criteriaMd": "A resposta está no bom funcionamento da variável TotalTrigo.\n\nescreva(\"Total de grãos de trigo no tabuleiro = \", TotalTrigo);\n\nfim.",
+      "criteriaMd": "A resposta está no bom funcionamento da variável TotalTrigo.\n\n```\nescreva(\"Total de grãos de trigo no tabuleiro = \", TotalTrigo);\n\nfim.\n```",
       "maxScore": 2,
       "assets": []
     }
