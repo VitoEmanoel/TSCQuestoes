@@ -96,3 +96,79 @@ export function scoreItems(items: ScorableItem[]): ScoreSummary {
   }
   return summary;
 }
+
+export type TopicRow = {
+  topics: string[];
+  type: "OBJECTIVE" | "DISCURSIVE";
+  anulada: boolean;
+  answered: boolean;
+  correct: boolean;
+  selfScore: number | null;
+  maxPoints: number;
+};
+
+export type TopicPerformance = {
+  topic: string;
+  correct: number;
+  wrong: number;
+  blank: number;
+  total: number;
+  percent: number | null;
+  discursive: { total: number; blank: number; pending: number; points: number; max: number };
+};
+
+export function topicPerformance(rows: TopicRow[]): TopicPerformance[] {
+  const byTopic = new Map<string, TopicPerformance>();
+  for (const row of rows) {
+    if (row.anulada) {
+      continue;
+    }
+    for (const topic of new Set(row.topics)) {
+      const entry = byTopic.get(topic) ?? {
+        topic,
+        correct: 0,
+        wrong: 0,
+        blank: 0,
+        total: 0,
+        percent: null,
+        discursive: { total: 0, blank: 0, pending: 0, points: 0, max: 0 },
+      };
+      if (row.type === "OBJECTIVE") {
+        entry.total += 1;
+        if (!row.answered) {
+          entry.blank += 1;
+        } else if (row.correct) {
+          entry.correct += 1;
+        } else {
+          entry.wrong += 1;
+        }
+      } else {
+        entry.discursive.total += 1;
+        if (!row.answered) {
+          entry.discursive.blank += 1;
+        } else if (row.selfScore === null) {
+          entry.discursive.pending += 1;
+        } else {
+          entry.discursive.points += Math.min(Math.max(row.selfScore, 0), row.maxPoints);
+          entry.discursive.max += row.maxPoints;
+        }
+      }
+      byTopic.set(topic, entry);
+    }
+  }
+  const result = [...byTopic.values()].map((entry) => ({
+    ...entry,
+    percent: entry.total > 0 ? round((entry.correct / entry.total) * 100) : null,
+    discursive: {
+      ...entry.discursive,
+      points: round(entry.discursive.points),
+      max: round(entry.discursive.max),
+    },
+  }));
+  return result.sort(
+    (first, second) =>
+      (first.percent ?? Number.POSITIVE_INFINITY) - (second.percent ?? Number.POSITIVE_INFINITY) ||
+      second.total - first.total ||
+      first.topic.localeCompare(second.topic, "pt-BR"),
+  );
+}

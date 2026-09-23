@@ -2,6 +2,7 @@ import "server-only";
 import { randomInt } from "node:crypto";
 import type { Prisma, QuestionArea, QuestionType } from "@prisma/client";
 import { SCORED_QUESTION, summarize } from "@/lib/attempt-score";
+import { slotsFor, topicPerformance } from "@/lib/scoring";
 import { prisma } from "@/lib/prisma";
 
 export const MAX_SIMULADO_ANSWER_LENGTH = 5000;
@@ -505,4 +506,103 @@ export async function simuladoResult(userId: string, attemptId: string) {
     totalQuestions: ids.length,
     summary: summarize(attempt.items),
   };
+}
+
+export type ReviewOutcome = "correct" | "wrong" | "blank" | "anulada" | "discursive";
+
+export async function simuladoReview(userId: string, attemptId: string) {
+  const result = await simuladoResult(userId, attemptId);
+  if (!result) {
+    return null;
+  }
+  const ids = await questionIdsOf(result);
+  const questions = await prisma.question.findMany({
+    where: { id: { in: ids } },
+    select: {
+      ...SCORED_QUESTION,
+      tags: { select: { topic: { select: { name: true } } } },
+    },
+  });
+  const byId = new Map(questions.map((question) => [question.id, question]));
+  const answers = new Map(result.items.map((item) => [item.questionId, item]));
+  const rows = ids.flatMap((id, index) => {
+    const question = byId.get(id);
+    if (!question) {
+      return [];
+    }
+    const answer = answers.get(id) ?? null;
+    const correctLetter = question.options[0]?.letter ?? null;
+    const anulada = question.status === "ANULADA";
+    const answered =
+      question.type === "OBJECTIVE" ? Boolean(answer?.selectedLetter) : Boolean(answer);
+    const correct = answered && answer?.selectedLetter === correctLetter;
+    const outcome: ReviewOutcome = anulada
+      ? "anulada"
+      : !answered
+        ? "blank"
+        : question.type === "DISCURSIVE"
+          ? "discursive"
+          : correct
+            ? "correct"
+            : "wrong";
+    return [
+      {
+        position: index + 1,
+        id,
+        originalLabel: question.originalLabel,
+        type: question.type,
+        year: question.exam.year,
+        topics: question.tags.map((tag) => tag.topic.name),
+        selectedLetter: answer?.selectedLetter ?? null,
+        correctLetter: anulada ? null : correctLetter,
+        selfScore: answer?.selfScore ?? null,
+        maxPoints: slotsFor(question.valuePoints, question.answerStandards).reduce(
+          (sum, slot) => sum + slot.max,
+          0,
+        ),
+        anulada,
+        answered,
+        correct,
+        outcome,
+      },
+    ];
+  });
+  return {
+    result,
+    rows,
+    topics: topicPerformance(
+      rows.map((row) => ({
+        topics: row.topics,
+        type: row.type,
+        anulada: row.anulada,
+        answered: row.answered,
+        correct: row.correct,
+        selfScore: row.selfScore,
+        maxPoints: row.maxPoints,
+      })),
+    ),
+  };
+}
+
+export async function simuladoReviewItem(userId: string, attemptId: string, position: number) {
+  const result = await simuladoResult(userId, attemptId);
+  if (!result) {
+    return null;
+  }
+  const ids = await questionIdsOf(result);
+  const questionId = ids[position - 1];
+  if (!questionId) {
+    return null;
+  }
+  const [item, correct] = await Promise.all([
+    prisma.attemptItem.findFirst({
+      where: { attemptId, questionId },
+      select: { id: true, selectedLetter: true, answerText: true, selfScores: true },
+    }),
+    prisma.option.findFirst({
+      where: { questionId, isCorrect: true },
+      select: { letter: true },
+    }),
+  ]);
+  return { result, total: ids.length, questionId, item, correctLetter: correct?.letter ?? null };
 }

@@ -537,6 +537,20 @@ async function main() {
       15_000,
     );
     check("entregar mostra as em branco e leva à nota", blankShown && simDone);
+    const topicsShown = await page.evaluate<boolean>(
+      "document.body.textContent.includes('Onde estudar mais') && document.body.textContent.includes('Revisar')",
+    );
+    await page.evaluate(
+      "[...document.querySelectorAll('a')].find((a) => a.getAttribute('href')?.includes('/revisao?q=3')).click()",
+    );
+    const reviewOpened = await page.waitFor(
+      "location.search === '?q=3' && document.body.textContent.includes('alternativa correta é a')",
+      15_000,
+    );
+    check(
+      "resultado mostra temas para revisar e abre a revisão da questão",
+      topicsShown && reviewOpened,
+    );
     check(
       "simulado: nenhuma violação de CSP nem erro de JavaScript",
       cspViolations(phase).length === 0 && jsErrors(phase).length === 0,

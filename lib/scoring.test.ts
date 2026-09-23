@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { type ScorableItem, scoreItems, slotsFor } from "./scoring";
+import {
+  type ScorableItem,
+  scoreItems,
+  slotsFor,
+  type TopicRow,
+  topicPerformance,
+} from "./scoring";
 
 let clock = 0;
 
@@ -118,5 +124,72 @@ describe("slotsFor", () => {
       { key: "total", label: "Nota", max: 8 },
     ]);
     assert.deepEqual(slotsFor(null, []), [{ key: "total", label: "Nota", max: 10 }]);
+  });
+});
+
+function row(topics: string[], overrides: Partial<TopicRow> = {}): TopicRow {
+  return {
+    topics,
+    type: "OBJECTIVE",
+    anulada: false,
+    answered: true,
+    correct: true,
+    selfScore: null,
+    maxPoints: 10,
+    ...overrides,
+  };
+}
+
+describe("topicPerformance", () => {
+  it("conta certas, erradas e em branco por tema e ordena do pior para o melhor", () => {
+    const result = topicPerformance([
+      row(["Redes"]),
+      row(["Redes"], { correct: false }),
+      row(["Redes"], { answered: false, correct: false }),
+      row(["Banco de Dados"]),
+      row(["Banco de Dados"]),
+    ]);
+    assert.deepEqual(
+      result.map((entry) => [entry.topic, entry.correct, entry.wrong, entry.blank, entry.percent]),
+      [
+        ["Redes", 1, 1, 1, 33.33],
+        ["Banco de Dados", 2, 0, 0, 100],
+      ],
+    );
+  });
+
+  it("questão com dois temas conta nos dois; anulada não conta em nenhum", () => {
+    const result = topicPerformance([
+      row(["Programação", "Estrutura de Dados"], { correct: false }),
+      row(["Programação"], { anulada: true }),
+    ]);
+    assert.deepEqual(
+      result.map((entry) => [entry.topic, entry.total, entry.wrong]),
+      [
+        ["Programação", 1, 1],
+        ["Estrutura de Dados", 1, 1],
+      ].sort((a, b) => String(a[0]).localeCompare(String(b[0]), "pt-BR")),
+    );
+  });
+
+  it("discursivas somam autoavaliação e separam pendentes e em branco", () => {
+    const [entry] = topicPerformance([
+      row(["Engenharia"], { type: "DISCURSIVE", selfScore: 6, maxPoints: 10 }),
+      row(["Engenharia"], { type: "DISCURSIVE", selfScore: null }),
+      row(["Engenharia"], { type: "DISCURSIVE", answered: false }),
+    ]);
+    assert.equal(entry.percent, null);
+    assert.deepEqual(entry.discursive, { total: 3, blank: 1, pending: 1, points: 6, max: 10 });
+  });
+
+  it("temas só com discursivas ficam depois dos que têm porcentagem", () => {
+    const result = topicPerformance([
+      row(["Só discursiva"], { type: "DISCURSIVE", selfScore: 1 }),
+      row(["Objetiva"], { correct: true }),
+    ]);
+    assert.deepEqual(
+      result.map((entry) => entry.topic),
+      ["Objetiva", "Só discursiva"],
+    );
   });
 });

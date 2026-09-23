@@ -332,7 +332,7 @@ export async function saveSelfEvaluation(
   const item = await prisma.attemptItem.findFirst({
     where: {
       id: itemId,
-      attempt: { userId, mode: "PRACTICE" },
+      attempt: { userId, mode: { in: ["PRACTICE", "FULL_EXAM", "CUSTOM"] } },
       answerText: { not: null },
       revealedAt: { not: null },
     },

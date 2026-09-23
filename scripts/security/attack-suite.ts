@@ -2,6 +2,7 @@ import "dotenv/config";
 import { randomBytes } from "node:crypto";
 import { encode } from "@auth/core/jwt";
 import { PrismaClient } from "@prisma/client";
+import { slotsFor } from "../../lib/scoring";
 
 const BASE = process.env.ATTACK_BASE_URL ?? "http://localhost:3123";
 const MAILPIT = process.env.ATTACK_MAILPIT_URL ?? "http://localhost:8025/api/v1";
@@ -1629,6 +1630,108 @@ async function main() {
     expectedIds.length > 0 &&
       JSON.stringify([...(multiCreated?.questionIds ?? [])].sort()) === JSON.stringify(expectedIds),
     `${multiCreated?.questionIds.length} de ${expectedIds.length}`,
+  );
+
+  group("Resultado e revisão do simulado");
+  const simResultText = pageText((await answerer.get(`${simPath}/resultado`)).body);
+  const wrongTopics = (
+    await prisma.question.findUniqueOrThrow({
+      where: { id: secondObjective.id },
+      select: { tags: { select: { topic: { select: { name: true } } } } },
+    })
+  ).tags.map((tag) => tag.topic.name);
+  check(
+    "resultado mostra “Onde estudar mais” com o tema da questão errada para revisar",
+    simResultText.includes("Onde estudar mais") &&
+      wrongTopics.some((topic) => simResultText.includes(`${topic} Revisar`)),
+    wrongTopics.join(", "),
+  );
+  const wrongOnly = pageText((await answerer.get(`${simPath}/resultado?ver=erradas`)).body);
+  check(
+    "filtro “Erradas” lista só a errada",
+    (wrongOnly.match(/Errou Questão/g) ?? []).length === 1 &&
+      !wrongOnly.includes("Acertou Questão"),
+  );
+  const reviewWrong = await answerer.get(
+    `${simPath}/revisao?q=${exam2017.questions.indexOf(secondObjective) + 1}`,
+  );
+  check(
+    "revisão da questão errada mostra a marcada e a correta",
+    pageText(reviewWrong.body).includes(
+      `Você errou. Você marcou a ${rightOf(secondObjective) === "A" ? "B" : "A"}; a alternativa correta é a ${rightOf(secondObjective)}.`,
+    ),
+  );
+  reply = await intruder.get(`${simPath}/revisao?q=1`);
+  check("outro aluno não abre a revisão alheia", reply.status === 404);
+  const openDisc = await (async () => {
+    await build({ tipo: "DISCURSIVE", quantidade: "5" });
+    const created = await prisma.attempt.findFirstOrThrow({
+      where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+      orderBy: { startedAt: "desc" },
+      select: { id: true, questionIds: true },
+    });
+    return { ...created, path: `/simulados/${created.id}` };
+  })();
+  reply = await answerer.get(`${openDisc.path}/revisao?q=1`);
+  check(
+    "revisão de simulado ainda aberto não existe (sem padrão antes da entrega)",
+    reply.status === 404 && !pageText(reply.body).includes("Padrão de resposta oficial"),
+  );
+  await answerer.submitForm(`${openDisc.path}?q=1`, 'name="answerText"', {
+    answerText: "resposta aberta",
+  });
+  const openDiscItem = await prisma.attemptItem.findFirstOrThrow({
+    where: { attemptId: openDisc.id },
+    select: { id: true, questionId: true },
+  });
+  const slotsForQuestion = async (questionId: string) => {
+    const question = await prisma.question.findUniqueOrThrow({
+      where: { id: questionId },
+      select: { valuePoints: true, answerStandards: { select: { subItem: true, maxScore: true } } },
+    });
+    return slotsFor(question.valuePoints, question.answerStandards);
+  };
+  const scoreFields = async (questionId: string) =>
+    Object.fromEntries(
+      (await slotsForQuestion(questionId)).map((slot) => [`score_${slot.key}`, String(slot.max)]),
+    );
+  await postFields(answerer, discursivePath, {
+    ...selfEvalFields,
+    itemId: openDiscItem.id,
+    ...(await scoreFields(openDiscItem.questionId)),
+  });
+  check(
+    "autoavaliação em simulado ainda aberto é recusada",
+    (await prisma.attemptItem.findUniqueOrThrow({ where: { id: openDiscItem.id } })).selfScore ===
+      null,
+  );
+  const simDiscItem = await prisma.attemptItem.findFirstOrThrow({
+    where: { attemptId: simId, answerText: { not: null } },
+    select: { id: true, questionId: true },
+  });
+  const simDiscScores = await scoreFields(simDiscItem.questionId);
+  await postFields(intruder, discursivePath, {
+    ...selfEvalFields,
+    itemId: simDiscItem.id,
+    ...simDiscScores,
+  });
+  check(
+    "outro aluno não autoavalia a discursiva do simulado alheio",
+    (await prisma.attemptItem.findUniqueOrThrow({ where: { id: simDiscItem.id } })).selfScore ===
+      null,
+  );
+  const discPosition = exam2017.questions.indexOf(discursiveIn2017!) + 1;
+  const discReview = await answerer.get(`${simPath}/revisao?q=${discPosition}`);
+  await answerer.submitForm(`${simPath}/revisao?q=${discPosition}`, 'name="itemId"', simDiscScores);
+  const maxTotal = Object.values(simDiscScores).reduce((sum, value) => sum + Number(value), 0);
+  check(
+    "depois de entregar: revisão mostra o padrão e a autoavaliação é salva",
+    pageText(discReview.body).includes("Padrão de resposta oficial") &&
+      (await prisma.attemptItem.findUniqueOrThrow({ where: { id: simDiscItem.id } })).selfScore ===
+        maxTotal &&
+      pageText((await answerer.get(`${simPath}/resultado`)).body).includes(
+        `Discursivas autoavaliadas: ${maxTotal.toLocaleString("pt-BR")} de ${maxTotal.toLocaleString("pt-BR")} pontos`,
+      ),
   );
 
   await prisma.attemptItem.deleteMany({
