@@ -3,9 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdminImageManager } from "@/components/admin-image-manager";
 import { ExamBadge } from "@/components/exam-badge";
+import { PublishControls } from "@/components/publish-controls";
 import { QuestionEditor } from "@/components/question-editor";
 import { RichText } from "@/components/rich-text";
 import { IMAGE_ERROR_MESSAGE, type ImageError } from "@/lib/admin-images";
+import { openAttemptsWith, questionPublishProblems } from "@/lib/admin-publish";
 import { adminQuestion, allTopics } from "@/lib/admin-questions";
 import { resolveAssets } from "@/lib/assets";
 import { requireAdmin } from "@/lib/dal";
@@ -21,7 +23,12 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
     typeof erro === "string" && Object.hasOwn(IMAGE_ERROR_MESSAGE, erro)
       ? IMAGE_ERROR_MESSAGE[erro as ImageError]
       : null;
-  const [question, topics] = await Promise.all([adminQuestion(id), allTopics()]);
+  const [question, topics, problems, openAttempts] = await Promise.all([
+    adminQuestion(id),
+    allTopics(),
+    questionPublishProblems(id),
+    openAttemptsWith(id),
+  ]);
   if (!question) {
     notFound();
   }
@@ -89,6 +96,14 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
           </p>
         ) : null}
       </header>
+
+      <PublishControls
+        key={question.publishedAt ? "publicada" : "rascunho"}
+        questionId={question.id}
+        published={question.publishedAt !== null}
+        problems={problems}
+        openAttempts={openAttempts}
+      />
 
       <div className="grid gap-8 lg:grid-cols-2">
         <QuestionEditor

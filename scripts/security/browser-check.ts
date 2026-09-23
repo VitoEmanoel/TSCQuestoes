@@ -763,11 +763,28 @@ async function main() {
       input.files = transfer.files;
       form.submit();
     })()`);
+    await page.waitFor("location.search === '?imagem=ok'", 15_000);
+    await page.evaluate("document.querySelector('aside img')?.scrollIntoView()");
     const imageUploaded = await page.waitFor(
-      "location.search === '?imagem=ok' && document.body.textContent.includes('Imagem enviada') && document.body.textContent.includes('Marcadores de imagem no texto: 1 · imagens anexadas: 1') && [...document.querySelectorAll('aside img')].some((img) => img.complete && img.naturalWidth === 120)",
+      "document.body.textContent.includes('Imagem enviada') && document.body.textContent.includes('Marcadores de imagem no texto: 1 · imagens anexadas: 1') && [...document.querySelectorAll('aside img')].some((img) => img.complete && img.naturalWidth === 120)",
       15_000,
     );
-    check("admin envia imagem pelo painel e ela aparece na pré-visualização", imageUploaded);
+    const imageDetail = await page.evaluate<string>(
+      "JSON.stringify({ search: location.search, sent: document.body.textContent.includes('Imagem enviada'), counter: (document.body.textContent.match(/Marcadores de imagem no texto: \\d+ · imagens anexadas: \\d+/) || [''])[0], imgs: [...document.querySelectorAll('aside img')].map((img) => img.complete + ':' + img.naturalWidth) })",
+    );
+    check(
+      "admin envia imagem pelo painel e ela aparece na pré-visualização",
+      imageUploaded,
+      imageDetail,
+    );
+    await page.evaluate(
+      "[...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Publicar para os alunos')).click()",
+    );
+    const publishedOnScreen = await page.waitFor(
+      "document.body.textContent.includes('Publicada: os alunos veem esta questão')",
+      15_000,
+    );
+    check("admin publica a questão pelo botão", publishedOnScreen);
     check(
       "editor do admin: nenhuma violação de CSP nem erro de JavaScript",
       cspViolations(phase).length === 0 && jsErrors(phase).length === 0,

@@ -2475,6 +2475,149 @@ async function main() {
       captionPage.body.includes("&lt;img src=x onerror="),
   );
 
+  group("Publicar e despublicar");
+  const publishedAt = async (id: string) =>
+    (await prisma.question.findUniqueOrThrow({ where: { id }, select: { publishedAt: true } }))
+      .publishedAt;
+  const publishFields = await formFields(admin, editPath, 'name="acao" value="publicar"');
+  await postFields(answerer, editPath, publishFields);
+  await postFields(anonAdmin, editPath, publishFields);
+  check(
+    "aluno e visitante reaproveitando o “Publicar” do admin não publicam",
+    Object.keys(publishFields).some((key) => key.startsWith("$ACTION")) &&
+      (await publishedAt(editDraft.id)) === null,
+  );
+  const incomplete = await prisma.question.create({
+    data: {
+      examId: exam2017.id,
+      originalLabel: `${DRAFT_LABEL}-G`,
+      order: 994,
+      type: "OBJECTIVE",
+      area: "COMPONENTE_ESPECIFICO",
+      statementMd: "Incompleta\n\n(ver imagem anexa: figura que não existe)",
+      options: {
+        create: ["A", "B", "C", "D", "E"].map((letter) => ({
+          letter,
+          textMd: letter === "D" ? "" : `alt ${letter}`,
+          isCorrect: false,
+        })),
+      },
+      tags: { create: { topicId: soTopic.id } },
+    },
+    select: { id: true },
+  });
+  const incompletePath = `/admin/questoes/${incomplete.id}`;
+  const incompletePage = pageText((await admin.get(incompletePath)).body);
+  reply = await postFields(admin, incompletePath, {
+    ...(await formFields(admin, incompletePath, 'name="acao" value="publicar"')),
+  });
+  check(
+    "questão incompleta não publica e o painel lista as pendências",
+    (await publishedAt(incomplete.id)) === null &&
+      incompletePage.includes("Há alternativa sem texto.") &&
+      incompletePage.includes("Nenhuma alternativa marcada como correta.") &&
+      incompletePage.includes("O texto tem 1 marcador de imagem e só 0 imagens anexadas."),
+  );
+  reply = await postFields(admin, editPath, publishFields);
+  const studentSees = await answerer.get(`/questoes/${editDraft.id}`);
+  check(
+    "admin publica: aluno passa a ver a questão",
+    (await publishedAt(editDraft.id)) !== null && studentSees.status === 200,
+    `${studentSees.status}`,
+  );
+  await prisma.attemptItem.deleteMany({
+    where: { attempt: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" } },
+  });
+  await prisma.attempt.deleteMany({
+    where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+  });
+  await buildMulti([
+    ["tema", "Sistemas Operacionais"],
+    ["quantidade", "40"],
+  ]);
+  const withEdited = await prisma.attempt.findFirstOrThrow({
+    where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+    select: { id: true, questionIds: true },
+  });
+  const editedPosition = withEdited.questionIds.indexOf(editDraft.id) + 1;
+  const unpublishFields = await formFields(admin, editPath, 'name="acao" value="despublicar"');
+  await postFields(admin, editPath, unpublishFields);
+  const stillPublished = (await publishedAt(editDraft.id)) !== null;
+  const adminWarning = pageText((await admin.get(editPath)).body);
+  await postFields(admin, editPath, { ...unpublishFields, confirmacao: "sim" });
+  const hiddenAgain = await answerer.get(`/questoes/${editDraft.id}`);
+  const inSimulado = await answerer.get(`/simulados/${withEdited.id}?q=${editedPosition}`);
+  check(
+    "despublicar exige confirmação; depois o aluno não vê mais, mas o simulado já começado continua",
+    editedPosition > 0 &&
+      stillPublished &&
+      adminWarning.includes("1 simulado em andamento inclui esta questão") &&
+      (await publishedAt(editDraft.id)) === null &&
+      hiddenAgain.status === 404 &&
+      inSimulado.status === 200 &&
+      pageText(inSimulado.body).includes("<script>alert(1)</script>"),
+    `${editedPosition} ${stillPublished} ${hiddenAgain.status} ${inSimulado.status}`,
+  );
+  const bulkPath = `/admin/provas/${exam2017.id}`;
+  const bulkFields = await formFields(admin, bulkPath, 'name="examId"');
+  const postBulk = (client: Client, entries: [string, string][]) => {
+    const data = new FormData();
+    for (const [key, value] of Object.entries(bulkFields)) data.append(key, value);
+    for (const [key, value] of entries) data.append(key, value);
+    return client.request(bulkPath, { method: "POST", body: data }, { origin: BASE });
+  };
+  const exam2021Question = await prisma.question.findFirstOrThrow({
+    where: { examId: { not: exam2017.id } },
+    select: { id: true, publishedAt: true },
+  });
+  await postBulk(answerer, [
+    ["acao", "publicar"],
+    ["ids", editDraft.id],
+  ]);
+  const foreignBulk = await postBulk(admin, [
+    ["acao", "despublicar"],
+    ["confirmacao", "sim"],
+    ["ids", exam2021Question.id],
+  ]);
+  const tooMany = await postBulk(admin, [
+    ["acao", "publicar"],
+    ...Array.from({ length: 101 }, (_, index): [string, string] => [
+      "ids",
+      `a${String(index).padStart(12, "0")}`,
+    ]),
+  ]);
+  check(
+    "lote: aluno não publica, questão de outra prova e mais de 100 ids são recusados",
+    (await publishedAt(editDraft.id)) === null &&
+      (await publishedAt(exam2021Question.id))?.getTime() ===
+        exam2021Question.publishedAt?.getTime() &&
+      pageText(foreignBulk.body).includes("não pertence a esta prova") &&
+      pageText(tooMany.body).includes("Pedido inválido"),
+  );
+  reply = await postBulk(admin, [
+    ["acao", "publicar"],
+    ["ids", editDraft.id],
+    ["ids", incomplete.id],
+  ]);
+  const bulkText = pageText(reply.body);
+  check(
+    "lote publica as completas e pula as com pendência, dizendo o motivo",
+    (await publishedAt(editDraft.id)) !== null &&
+      (await publishedAt(incomplete.id)) === null &&
+      bulkText.includes("1 publicada") &&
+      bulkText.includes("1 com pendência") &&
+      bulkText.includes(`${DRAFT_LABEL}-G: Há alternativa sem texto.`),
+    bulkText.slice(bulkText.indexOf("publicada") - 20, bulkText.indexOf("publicada") + 160),
+  );
+  await postBulk(admin, [
+    ["acao", "despublicar"],
+    ["ids", editDraft.id],
+  ]);
+  check(
+    "lote de despublicar sem confirmação não faz nada",
+    (await publishedAt(editDraft.id)) !== null,
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });
