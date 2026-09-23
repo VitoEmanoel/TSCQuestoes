@@ -75,100 +75,108 @@ async function seedExam(year: string) {
     },
   });
 
-  let seededQuestions = 0;
+  let created = 0;
+  let kept = 0;
+
+  const topicIds = new Map(
+    (await prisma.topic.findMany({ select: { id: true, name: true } })).map((topic) => [
+      topic.name,
+      topic.id,
+    ]),
+  );
 
   for (const { draft } of loadDrafts(year)) {
-    const question = await prisma.question.upsert({
+    const existing = await prisma.question.findUnique({
       where: { examId_originalLabel: { examId: exam.id, originalLabel: draft.originalLabel } },
-      update: {
-        order: draft.order,
-        type: draft.type,
-        area: draft.area,
-        status: draft.status,
-        statementMd: draft.statementMd,
-        valuePoints: draft.valuePoints,
-        sourcePage: draft.sourcePage,
-      },
-      create: {
-        examId: exam.id,
-        originalLabel: draft.originalLabel,
-        order: draft.order,
-        type: draft.type,
-        area: draft.area,
-        status: draft.status,
-        statementMd: draft.statementMd,
-        valuePoints: draft.valuePoints,
-        sourcePage: draft.sourcePage,
-        publishedAt: new Date(),
-      },
+      select: { id: true },
     });
-
-    await prisma.asset.deleteMany({ where: { questionId: question.id } });
-    await prisma.answerStandard.deleteMany({ where: { questionId: question.id } });
-    await prisma.option.deleteMany({ where: { questionId: question.id } });
-    await prisma.questionTag.deleteMany({ where: { questionId: question.id } });
-
-    if (draft.options.length > 0) {
-      await prisma.option.createMany({
-        data: draft.options.map((option) => ({
-          questionId: question.id,
-          letter: option.letter,
-          textMd: option.textMd,
-          isCorrect: option.isCorrect,
-        })),
-      });
+    if (existing) {
+      kept += 1;
+      continue;
+    }
+    const missingTag = draft.tags.find((tagName) => !topicIds.has(tagName));
+    if (missingTag) {
+      throw new Error(
+        `Tag "${missingTag}" (questão ${year}/${draft.originalLabel}) não existe em Topic`,
+      );
     }
 
-    for (const answerStandard of draft.answerStandards) {
-      const created = await prisma.answerStandard.create({
+    await prisma.$transaction(async (tx) => {
+      const question = await tx.question.create({
         data: {
-          questionId: question.id,
-          subItem: answerStandard.subItem,
-          criteriaMd: answerStandard.criteriaMd,
-          maxScore: answerStandard.maxScore,
+          examId: exam.id,
+          originalLabel: draft.originalLabel,
+          order: draft.order,
+          type: draft.type,
+          area: draft.area,
+          status: draft.status,
+          statementMd: draft.statementMd,
+          valuePoints: draft.valuePoints,
+          sourcePage: draft.sourcePage,
+          publishedAt: new Date(),
         },
+        select: { id: true },
       });
 
-      for (const asset of answerStandard.assets) {
-        await prisma.asset.create({
+      if (draft.options.length > 0) {
+        await tx.option.createMany({
+          data: draft.options.map((option) => ({
+            questionId: question.id,
+            letter: option.letter,
+            textMd: option.textMd,
+            isCorrect: option.isCorrect,
+          })),
+        });
+      }
+
+      for (const answerStandard of draft.answerStandards) {
+        const standard = await tx.answerStandard.create({
           data: {
             questionId: question.id,
-            answerStandardId: created.id,
+            subItem: answerStandard.subItem,
+            criteriaMd: answerStandard.criteriaMd,
+            maxScore: answerStandard.maxScore,
+          },
+          select: { id: true },
+        });
+        for (const asset of answerStandard.assets) {
+          await tx.asset.create({
+            data: {
+              questionId: question.id,
+              answerStandardId: standard.id,
+              kind: asset.kind,
+              filePath: asset.filePath,
+              caption: asset.caption,
+            },
+          });
+        }
+      }
+
+      for (const asset of draft.assets) {
+        await tx.asset.create({
+          data: {
+            questionId: question.id,
             kind: asset.kind,
             filePath: asset.filePath,
             caption: asset.caption,
           },
         });
       }
-    }
 
-    for (const asset of draft.assets) {
-      await prisma.asset.create({
-        data: {
+      await tx.questionTag.createMany({
+        data: draft.tags.map((tagName) => ({
           questionId: question.id,
-          kind: asset.kind,
-          filePath: asset.filePath,
-          caption: asset.caption,
-        },
+          topicId: topicIds.get(tagName)!,
+        })),
       });
-    }
+    });
 
-    for (const tagName of draft.tags) {
-      const topic = await prisma.topic.findUnique({ where: { name: tagName } });
-      if (!topic) {
-        throw new Error(
-          `Tag "${tagName}" (questão ${year}/${draft.originalLabel}) não existe em Topic`,
-        );
-      }
-      await prisma.questionTag.create({
-        data: { questionId: question.id, topicId: topic.id },
-      });
-    }
-
-    seededQuestions += 1;
+    created += 1;
   }
 
-  console.log(`Exame ${year}: ${seededQuestions} questão(ões) seedada(s).`);
+  console.log(
+    `Exame ${year}: ${created} questão(ões) criada(s), ${kept} já existia(m) e não foi(ram) alterada(s).`,
+  );
 }
 
 async function main() {
