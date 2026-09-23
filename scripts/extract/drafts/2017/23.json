@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Um  software  com  defeito  pode  ser  consequência \nde problemas no levantamento dos requisitos, uma \nvez  que  o  requisito  pode  ser  ambíguo  porque  o \ncliente não estava convicto da sua real necessidade \nou porque a equipe o interpretou mal e registrou \numa  especificação  de  forma  incorreta.  Por  esses \nmotivos,  as  verificações,  as  validações  e  os  testes \nsão fundamentais para se certificar da qualidade do \nsoftware resultante.\nConsiderando  esse  contexto,  avalie  as  afirmações \na seguir.\n    I.  O  teste  funcional  certifica  se  o  software\n          desempenha  as  funções  especificadas  nos \n          requisitos.\n    II.  O  teste  de  desempenho  valida  a \n          conformidade da especificação do processo \n          de desenvolvimento de software.\n    III.  O  teste  de  aceitação  é  realizado  pelo \n          cliente  a  fim  de  validar  se  aquilo  que  foi \n          implementado é o que foi solicitado.\n    IV.  O  teste  de  instalação,  invariavelmente,  é \n          executado no local determinado pelo cliente \n          para instalação do software.\n    V. As  técnicas  de  verificação  e  validação  de \n          software asseguram que o sistema que está \n          sendo  desenvolvido  seja  adequado  ao  seu \n          propósito.\nÉ correto apenas o que se afirma em",
+  "statementMd": "Um software com defeito pode ser consequência\nde problemas no levantamento dos requisitos, uma\nvez que o requisito pode ser ambíguo porque o\ncliente não estava convicto da sua real necessidade\nou porque a equipe o interpretou mal e registrou\numa especificação de forma incorreta. Por esses\nmotivos, as verificações, as validações e os testes\nsão fundamentais para se certificar da qualidade do\nsoftware resultante.\nConsiderando esse contexto, avalie as afirmações\na seguir.\nI. O teste funcional certifica se o software\ndesempenha as funções especificadas nos\nrequisitos.\nII. O teste de desempenho valida a\nconformidade da especificação do processo\nde desenvolvimento de software.\nIII. O teste de aceitação é realizado pelo\ncliente a fim de validar se aquilo que foi\nimplementado é o que foi solicitado.\nIV. O teste de instalação, invariavelmente, é\nexecutado no local determinado pelo cliente\npara instalação do software.\nV. As técnicas de verificação e validação de\nsoftware asseguram que o sistema que está\nsendo desenvolvido seja adequado ao seu\npropósito.\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 27,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Qualidade de Software"],
   "reviewNotes": []
 }

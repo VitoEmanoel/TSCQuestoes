@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Na  área  de  desenvolvimento  de  software,  prazos, \ncustos  e  qualidade  são  questões  que  demandam \ngerenciamento,  para  que  se  evitem  atrasos, \nestouros  orçamentários  e  sistemas  que  não \natendam aos requisitos.\nSobre  o  modelo  CMMI,  avalie  as  asserções  a \nseguir e a relação proposta entre elas.\n   I.  O CMMI fornece diretrizes para a melhoria \n       dos processos e habilidades organizacionais, \n       incluindo  o  ciclo  de  vida  de  produtos  e \n       serviços, que abrange as fases de concepção, \n       desenvolvimento,  aquisição,  entrega  e \n       manutenção.\n                      PORQUE\n   II.  As  empresas  brasileiras  estão  aderindo \n        a  programas  de  fomento  à  melhoria \n        da  qualidade  de  software,  por  meio  da \n        aplicação do modelo de maturidade CMMI, \n        que  é  mais  direcionado  às  pequenas  e \n        médias empresas, apesar de também ser um \n        modelo aplicável em grandes organizações, \n        sejam elas públicas ou privadas.\nA respeito dessas asserções, assinale a opção correta.",
+  "statementMd": "Na área de desenvolvimento de software, prazos,\ncustos e qualidade são questões que demandam\ngerenciamento, para que se evitem atrasos,\nestouros orçamentários e sistemas que não\natendam aos requisitos.\nSobre o modelo CMMI, avalie as asserções a\nseguir e a relação proposta entre elas.\nI. O CMMI fornece diretrizes para a melhoria\ndos processos e habilidades organizacionais,\nincluindo o ciclo de vida de produtos e\nserviços, que abrange as fases de concepção,\ndesenvolvimento, aquisição, entrega e\nmanutenção.\nPORQUE\nII. As empresas brasileiras estão aderindo\na programas de fomento à melhoria\nda qualidade de software, por meio da\naplicação do modelo de maturidade CMMI,\nque é mais direcionado às pequenas e\nmédias empresas, apesar de também ser um\nmodelo aplicável em grandes organizações,\nsejam elas públicas ou privadas.\nA respeito dessas asserções, assinale a opção correta.",
   "valuePoints": null,
   "sourcePage": 20,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Qualidade de Software"],
   "reviewNotes": []
 }

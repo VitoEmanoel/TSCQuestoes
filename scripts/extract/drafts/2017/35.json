@@ -5,14 +5,14 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Em  um  sistema  web  para  venda  de  ingressos  para  shows  musicais,  a  equipe  de  marketing  solicitou  a \num web designer que, na página inicial, os links para a área de venda de ingressos de cada show fossem \nimagens, para tornar a navegação pelos conteúdos da página mais atrativa e para que o próprio link já \nservisse como material de divulgação.\n\n                       Navegador\n\n                          Slogan do site\n\n                                   145 x 95          145 x 95             145 x 95\n\n                                   145 x 95          145 x 95             145 x 95\n\nA partir do protótipo da página inicial apresentado e usando HTML, o web designer optou por implementar \ncada link de forma que a imagem forneça um texto informativo (por meio do atributo alt) para usuários \nque usem leitores de tela, conforme a seguir.\n<a href=\"link-area-venda-ingresso\">\n   <img src \"imagem-show.jpg\" alt \"identificação do show\" />\n</a>\nConsiderando  a  situação  apresentada,  o  uso  do  atributo  alt  e  aspectos  da  interação  humano-\ncomputador, pode-se afirmar que o web designer atendeu, em sua implementação, o requisito de",
+  "statementMd": "Em um sistema web para venda de ingressos para shows musicais, a equipe de marketing solicitou a\num web designer que, na página inicial, os links para a área de venda de ingressos de cada show fossem\nimagens, para tornar a navegação pelos conteúdos da página mais atrativa e para que o próprio link já\nservisse como material de divulgação.\n\n(ver imagem anexa: protótipo da página inicial — janela “Navegador” com o “Slogan do site” e seis imagens de 145 x 95 em duas linhas)\n\nA partir do protótipo da página inicial apresentado e usando HTML, o web designer optou por implementar\ncada link de forma que a imagem forneça um texto informativo (por meio do atributo alt) para usuários\nque usem leitores de tela, conforme a seguir.\n<a href=\"link-area-venda-ingresso\">\n   <img src=\"imagem-show.jpg\" alt=\"identificação do show\" />\n</a>\nConsiderando a situação apresentada, o uso do atributo alt e aspectos da interação humano-\ncomputador, pode-se afirmar que o web designer atendeu, em sua implementação, o requisito de",
   "valuePoints": null,
   "sourcePage": 39,
   "needsAsset": true,
   "assets": [
     {
       "kind": "image",
-      "filePath": "",
+      "filePath": "2017/35-1.png",
       "caption": "Protótipo da página inicial — prova pág. 39"
     }
   ],
@@ -39,11 +39,11 @@
     },
     {
       "letter": "E",
-      "textMd": "comunicabilidade, pois se uma imagem não comunica adequadamente a informação desejada, um texto alternativo deve complementar a respectiva informação, de forma que a interação com o sistema web não seja prejudicada. QUESTIONÁRIO DE PERCEPÇÃO DA PROVA As questões abaixo visam levantar sua opinião sobre a qualidade e a adequação da prova que você acabou de realizar. CARTÃO-RESPOSTA. As informações/instruções fornecidas para a resolução Formação Geral? A Muito fácil. A Sim, até excessivas. B Fácil. B Sim, em todas elas. C Médio. C Sim, na maioria delas. D D Sim, somente em algumas. E E Não, em nenhuma delas. Você se deparou com alguma dificuldade ao responder à prova. Qual? A Muito fácil. A Desconhecimento do conteúdo. B Fácil. B Forma diferente de abordagem do conteúdo. C Médio. C D D E E à prova. Considerando a extensão da prova, em relação ao tempo total, você considera que a prova foi A muito longa. você percebeu que B longa. A não estudou ainda a maioria desses conteúdos. C adequada. B estudou alguns desses conteúdos, mas não os aprendeu. D curta. C estudou a maioria desses conteúdos, mas não os aprendeu. E muito curta. D estudou e aprendeu muitos desses conteúdos. E estudou e aprendeu todos esses conteúdos. Os enunciados das questões da prova na parte de Qual foi o tempo gasto por você para concluir a prova? A Sim, todos. A Menos de uma hora. B Sim, a maioria. B Entre uma e duas horas. C Apenas cerca da metade. C Entre duas e três horas. D D Entre três e quatro horas. E Não, nenhum. E Quatro horas, e não consegui terminar. Os enunciados das questões da prova na parte de A Sim, todos. B Sim, a maioria. C Apenas cerca da metade. D E Não, nenhum.",
+      "textMd": "comunicabilidade, pois se uma imagem não comunica adequadamente a informação desejada, um texto alternativo deve complementar a respectiva informação, de forma que a interação com o sistema web não seja prejudicada.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
 }

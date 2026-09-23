@@ -5,14 +5,14 @@
   "type": "OBJECTIVE",
   "area": "FORMACAO_GERAL",
   "status": "VALID",
-  "statementMd": "Hidrogéis são materiais poliméricos em forma de pó, grão ou fragmentos semelhantes a pedaços de \nplástico maleável. Surgiram nos anos 1950, nos Estados Unidos da América e, desde então, têm sido \nusados na agricultura. Os hidrogéis ou polímeros hidrorretentores podem ser criados a partir de \npolímeros  naturais  ou  sintetizados  em  laboratório.  Os  estudos com polímeros naturais mostram \nque eles são viáveis ecologicamente, mas ainda não comercialmente.\nNo infográfico abaixo, explica-se como os polímeros naturais superabsorventes, quando misturados ao \nsolo, podem viabilizar culturas agrícolas em regiões áridas.\n\n                                   Disponível em: <http://www.revistapesquisa.fapesp.br>. Acesso em: 18 jul. 2017 (adaptado).\n\nA partir das informações apresentadas, assinale a opção correta.",
+  "statementMd": "Hidrogéis são materiais poliméricos em forma de pó, grão ou fragmentos semelhantes a pedaços de\nplástico maleável. Surgiram nos anos 1950, nos Estados Unidos da América e, desde então, têm sido\nusados na agricultura. Os hidrogéis ou polímeros hidrorretentores podem ser criados a partir de\npolímeros naturais ou sintetizados em laboratório. Os estudos com polímeros naturais mostram\nque eles são viáveis ecologicamente, mas ainda não comercialmente.\nNo infográfico abaixo, explica-se como os polímeros naturais superabsorventes, quando misturados ao\nsolo, podem viabilizar culturas agrícolas em regiões áridas.\n\n(ver imagem anexa: infográfico “Por dentro dos hidrogéis” — seco/hidratado, modelos comerciais, uso no plantio e na lavoura, e as vantagens do hidrogel)\n\nDisponível em: <http://www.revistapesquisa.fapesp.br>. Acesso em: 18 jul. 2017 (adaptado).\n\nA partir das informações apresentadas, assinale a opção correta.",
   "valuePoints": null,
   "sourcePage": 9,
   "needsAsset": true,
   "assets": [
     {
       "kind": "image",
-      "filePath": "",
+      "filePath": "2017/5-1.png",
       "caption": "Infográfico dos hidrogéis — prova pág. 9"
     }
   ],
@@ -44,6 +44,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
 }

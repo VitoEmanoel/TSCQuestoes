@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "As redes de computadores estão por toda parte. \nA internet é uma delas, assim como as várias redes \ndas  quais  ela  é  composta,  que  compartilham \nrecursos  por  meio  de  Sistemas  Distribuídos. \nComo  o  número  de  dispositivos  tem  crescido \nexponencialmente, em vez de paralelizar tarefas \nem  várias  máquinas,  tornou-se  cada  vez  mais \nimportante  empregar  sistemas  distribuídos, \ncomunicando  e  coordenando  dispositivos \ne,  assim,  contribuindo  para  o  cotidiano  de \nempresas, governos e demais instituições.\n   COULOURIS, G. et al. Sistemas Distribuídos: conceitos e projeto,\n                  5. ed. Porto Alegre: Bookman, 2013 (adaptado).\n\nNesse  contexto,  assinale  a  opção  que  apresenta \nexemplos atuais de sistemas distribuídos.",
+  "statementMd": "As redes de computadores estão por toda parte.\nA internet é uma delas, assim como as várias redes\ndas quais ela é composta, que compartilham\nrecursos por meio de Sistemas Distribuídos.\nComo o número de dispositivos tem crescido\nexponencialmente, em vez de paralelizar tarefas\nem várias máquinas, tornou-se cada vez mais\nimportante empregar sistemas distribuídos,\ncomunicando e coordenando dispositivos\ne, assim, contribuindo para o cotidiano de\nempresas, governos e demais instituições.\nCOULOURIS, G. et al. Sistemas Distribuídos: conceitos e projeto,\n5. ed. Porto Alegre: Bookman, 2013 (adaptado).\n\nNesse contexto, assinale a opção que apresenta\nexemplos atuais de sistemas distribuídos.",
   "valuePoints": null,
   "sourcePage": 23,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Redes de Computadores"],
   "reviewNotes": []
 }

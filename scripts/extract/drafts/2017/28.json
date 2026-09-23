@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Os  requisitos  de  um  sistema  consistem  nas  descrições  daquilo  que  o  sistema  deve  fazer,  dos  serviços \nque oferece e das restrições a seu funcionamento. Esses requisitos refletem as necessidades específicas \ndos clientes do sistema, como controlar um dispositivo, realizar um pedido ou encontrar informações. \nO processo de descobrir, analisar, documentar e verificar esses serviços e restrições é denominado de \nengenharia de requisitos.\n                                           SOMMERVILLE, I. Engenharia de software. 9. Ed. São Paulo: Pearson, 2011 (adaptado).\n\nTendo  o  texto  como  referência,  avalie  as  atribuições  listadas  a  seguir,  no  que  se  refere  à  etapa  de \nespecificação de requisitos em projetos de software.\n     I.  Identificar  as  expectativas  e  necessidades  dos  stakeholders  com  relação  ao  software  a  ser \n           desenvolvido.\n     II.  Distribuir os requisitos em categorias, explorar as relações entre eles e classificar sua importância \n           para os stakeholders.\n     III.  Produzir  um  documento  de  especificação  de  requisitos,  de  forma  que  todos  os  stakeholders\n           possam entendê-lo.\n     IV.  Examinar a especificação do software para assegurar que todos os requisitos foram definidos sem \n           inconsistências.\nSão atribuições na etapa de especificação de requisitos os itens",
+  "statementMd": "Os requisitos de um sistema consistem nas descrições daquilo que o sistema deve fazer, dos serviços\nque oferece e das restrições a seu funcionamento. Esses requisitos refletem as necessidades específicas\ndos clientes do sistema, como controlar um dispositivo, realizar um pedido ou encontrar informações.\nO processo de descobrir, analisar, documentar e verificar esses serviços e restrições é denominado de\nengenharia de requisitos.\nSOMMERVILLE, I. Engenharia de software. 9. Ed. São Paulo: Pearson, 2011 (adaptado).\n\nTendo o texto como referência, avalie as atribuições listadas a seguir, no que se refere à etapa de\nespecificação de requisitos em projetos de software.\nI. Identificar as expectativas e necessidades dos stakeholders com relação ao software a ser\ndesenvolvido.\nII. Distribuir os requisitos em categorias, explorar as relações entre eles e classificar sua importância\npara os stakeholders.\nIII. Produzir um documento de especificação de requisitos, de forma que todos os stakeholders\npossam entendê-lo.\nIV. Examinar a especificação do software para assegurar que todos os requisitos foram definidos sem\ninconsistências.\nSão atribuições na etapa de especificação de requisitos os itens",
   "valuePoints": null,
   "sourcePage": 32,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

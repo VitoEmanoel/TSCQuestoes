@@ -5,14 +5,14 @@
   "type": "DISCURSIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "A coordenação de gestão de pessoas (CGP) de uma empresa solicitou à equipe de TI que desenvolvesse \num aplicativo (app) para criação de uma rede social on-line que incentivasse os empregados a idealizar e \nexecutar projetos. A fim de realizar o levantamento de requisitos, a equipe de desenvolvimento se reuniu \ncom a CGP e alguns empregados e, para melhorar a comunicação entre os envolvidos, os analistas de \nsistemas da empresa optaram pela prototipação de telas do app, conforme os exemplos a seguir.\n\n             Protótipo 1                          Protótipo 2                         Protótipo 3 \nTendo-se usado a abordagem de prototipação, foram documentados os seguintes requisitos:\n     •  todo colaborador deve informar número de matrícula, nome, endereço de e-mail e senha de login\n        para se cadastrar no app e poder registrar projetos e enviar comentários; a coordenação de um \n        projeto é atribuída automaticamente ao colaborador que o registrar;\n     •  cada projeto pode ser classificado em uma de duas possíveis categorias: \"Melhoria de Processo\" \n        ou \"Social\"; além dos dados em comum para ambas as categorias, um projeto de \"Melhoria de \n        Processo\" deve ser alocado ao departamento (selecionado de uma lista) em que ele será aplicado \n        e  os  resultados  esperados  devem  ser  informados  (conforme  o  protótipo  1);  para  um  projeto \n        \"Social\", deve-se indicar o público beneficiário (conforme o protótipo 2);\n     •  uma vez registrado o projeto, qualquer colaborador pode visualizá-lo no app e registrar um ou mais \n        comentários para contribuir com o refinamento da ideia (conforme o protótipo 3); os comentários \n        são visualizados em ordem cronológica, por data e horário;\n     •  o coordenador do projeto pode incluir até três colaboradores para participarem da equipe.\n\nConsiderando a situação e as informações apresentadas, construa um diagrama de classe que esteja em \nconformidade com os requisitos, indicando os atributos de cada classe e as associações entre as classes. \n(valor: 10,0 pontos)",
+  "statementMd": "A coordenação de gestão de pessoas (CGP) de uma empresa solicitou à equipe de TI que desenvolvesse\num aplicativo (app) para criação de uma rede social on-line que incentivasse os empregados a idealizar e\nexecutar projetos. A fim de realizar o levantamento de requisitos, a equipe de desenvolvimento se reuniu\ncom a CGP e alguns empregados e, para melhorar a comunicação entre os envolvidos, os analistas de\nsistemas da empresa optaram pela prototipação de telas do app, conforme os exemplos a seguir.\n\n(ver imagem anexa: Protótipos 1, 2 e 3 das telas do app — “Novo projeto” de Melhoria de Processo, “Novo projeto” Social e a tela do projeto com equipe e comentários)\n\nTendo-se usado a abordagem de prototipação, foram documentados os seguintes requisitos:\n• todo colaborador deve informar número de matrícula, nome, endereço de e-mail e senha de login\npara se cadastrar no app e poder registrar projetos e enviar comentários; a coordenação de um\nprojeto é atribuída automaticamente ao colaborador que o registrar;\n• cada projeto pode ser classificado em uma de duas possíveis categorias: \"Melhoria de Processo\"\nou \"Social\"; além dos dados em comum para ambas as categorias, um projeto de \"Melhoria de\nProcesso\" deve ser alocado ao departamento (selecionado de uma lista) em que ele será aplicado\ne os resultados esperados devem ser informados (conforme o protótipo 1); para um projeto\n\"Social\", deve-se indicar o público beneficiário (conforme o protótipo 2);\n• uma vez registrado o projeto, qualquer colaborador pode visualizá-lo no app e registrar um ou mais\ncomentários para contribuir com o refinamento da ideia (conforme o protótipo 3); os comentários\nsão visualizados em ordem cronológica, por data e horário;\n• o coordenador do projeto pode incluir até três colaboradores para participarem da equipe.\n\nConsiderando a situação e as informações apresentadas, construa um diagrama de classe que esteja em\nconformidade com os requisitos, indicando os atributos de cada classe e as associações entre as classes.\n(valor: 10,0 pontos)",
   "valuePoints": 10,
   "sourcePage": 16,
   "needsAsset": true,
   "assets": [
     {
       "kind": "image",
-      "filePath": "",
+      "filePath": "2017/D5-1.png",
       "caption": "Protótipos 1, 2 e 3 — prova pág. 16"
     }
   ],
@@ -20,17 +20,17 @@
   "answerStandards": [
     {
       "subItem": null,
-      "criteriaMd": "O estudante deve construir um diagrama de classe conforme o apresentado a seguir.\n\nEspera-se que o estudante:\n\n -   Use o princípio de herança para distinguir as categorias de projetos.\n -   Especifique as duas associações necessárias entre as classes Colaborador e Projeto, para\n     representar os distintos papéis que um colaborador pode assumir; neste caso, é aceitável\n     que o estudante use agregação no lugar das associações “coordenador” e “participante”,\n     desde que especifique a classe Projeto como o “todo” e a classe Colaborador como a\n     “parte”, em ambos os papéis que assume.\n -   Crie uma classe de associação para representar os comentários, embora também seja\n     aceitável que o estudante crie a classe Comentario, associada às classes Colaborador e\n     Projeto, com associações que tenham multiplicidade 1 partindo-se dessas classes e\n     chegando à classe Comentario com multiplicidade 0..*.\n -   Crie a classe Departamento, a fim de que o departamento possa ser selecionado de uma\n     lista no cadastro de projetos de melhoria de processos.",
+      "criteriaMd": "O estudante deve construir um diagrama de classe conforme o apresentado a seguir.\n\n(ver imagem anexa: diagrama de classes esperado — Colaborador, Projeto com as especializações Melhoria e Social, Departamento e a classe de associação Comentario)\n\nEspera-se que o estudante:\n\n- Use o princípio de herança para distinguir as categorias de projetos.\n- Especifique as duas associações necessárias entre as classes Colaborador e Projeto, para\nrepresentar os distintos papéis que um colaborador pode assumir; neste caso, é aceitável\nque o estudante use agregação no lugar das associações “coordenador” e “participante”,\ndesde que especifique a classe Projeto como o “todo” e a classe Colaborador como a\n“parte”, em ambos os papéis que assume.\n- Crie uma classe de associação para representar os comentários, embora também seja\naceitável que o estudante crie a classe Comentario, associada às classes Colaborador e\nProjeto, com associações que tenham multiplicidade 1 partindo-se dessas classes e\nchegando à classe Comentario com multiplicidade 0..*.\n- Crie a classe Departamento, a fim de que o departamento possa ser selecionado de uma\nlista no cadastro de projetos de melhoria de processos.",
       "maxScore": 10,
       "assets": [
         {
           "kind": "diagram",
-          "filePath": "",
+          "filePath": "2017/D5-padrao-1.png",
           "caption": "Diagrama de classes esperado — padrão de resposta"
         }
       ]
     }
   ],
-  "tags": [],
-  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
 }

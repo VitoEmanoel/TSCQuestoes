@@ -5,14 +5,14 @@
   "type": "OBJECTIVE",
   "area": "FORMACAO_GERAL",
   "status": "VALID",
-  "statementMd": "Os britânicos decidiram sair da União Europeia (UE). A decisão do referendo abalou os mercados \nfinanceiros em meio às incertezas sobre os possíveis impactos dessa saída.\nOs gráficos a seguir apresentam, respectivamente, as contribuições dos países integrantes do bloco \npara a UE, em 2014, que somam € 144,9 bilhões de euros, e a comparação entre a contribuição do \nReino Unido para a UE e a contrapartida dos gastos da UE com o Reino Unido.\n\n Contribuições para a UE                                                                                                                    Reino Unido e UE\n Dados de 2014, em € bilhões                                                                                                                Dados de 2014, em € bilhões\n\n 50                                                                                                                                         15\n\n                                                                                                                        42,1                               11,3\n 40                                                                                                                                         10\n\n                                                                                                                                                                                  6,9\n\n 30                                                                                                                                          5\n       25,8\n\n 20               19,5\n\n                            14,3\n                                      11,3\n 10                                                  9,9\n                                                               6,3                                                                                    Contribuição do Reino Unido com a UE\n                                                                         3,8 3,6 3,5\n                                                                                                      2,6 2,2\n  0                                                                                                                                                   Gasto da UE com o Reino Unido\n\n                                                                                            Polônia\n                             Itália                                      Suécia\n                   França                                                         Bélgica             Áustria\n                                                     Espanha   Holanda\n       Alemanha                                                                                                 Dinamarca\n                                       Reino Unido                                                                          Outros países\n\n                                                                                                                       Disponível em: <http://www.g1.globo.com>. Acesso em: 6 set. 2017 (adaptado).\n\nConsiderando o texto e as informações apresentadas nos gráficos acima, assinale a opção correta.",
+  "statementMd": "Os britânicos decidiram sair da União Europeia (UE). A decisão do referendo abalou os mercados\nfinanceiros em meio às incertezas sobre os possíveis impactos dessa saída.\nOs gráficos a seguir apresentam, respectivamente, as contribuições dos países integrantes do bloco\npara a UE, em 2014, que somam € 144,9 bilhões de euros, e a comparação entre a contribuição do\nReino Unido para a UE e a contrapartida dos gastos da UE com o Reino Unido.\n\n(ver imagem anexa: dois gráficos de barras — “Contribuições para a UE, dados de 2014, em € bilhões”: Alemanha 25,8; França 19,5; Itália 14,3; Reino Unido 11,3; Espanha 9,9; Holanda 6,3; Suécia 3,8; Bélgica 3,6; Polônia 3,5; Áustria 2,6; Dinamarca 2,2; Outros países 42,1 — e “Reino Unido e UE, dados de 2014, em € bilhões”: contribuição do Reino Unido com a UE 11,3; gasto da UE com o Reino Unido 6,9)\n\nDisponível em: <http://www.g1.globo.com>. Acesso em: 6 set. 2017 (adaptado).\n\nConsiderando o texto e as informações apresentadas nos gráficos acima, assinale a opção correta.",
   "valuePoints": null,
   "sourcePage": 5,
   "needsAsset": true,
   "assets": [
     {
       "kind": "image",
-      "filePath": "",
+      "filePath": "2017/1-1.png",
       "caption": "Gráficos de barras (UE) — prova pág. 5"
     }
   ],
@@ -44,6 +44,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
 }

@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Nas  décadas  de  1970  e  1980,  muitos  sistemas \ncorporativos foram desenvolvidos com a linguagem \nCobol, utilizando o Sistema Gerenciador de Banco de \ndados ADABAS e arquivos indexados do tipo ISAM e \nVISAM. Alguns desses produtos de implementação \nforam, ou estão sendo, descontinuados pelos seus \nfabricantes.  Por  isso,  o  trabalho  de  reengenharia \ndesses  sistemas,  utilizando  linguagens  mais \nmodernas,  como  Python,  Java  ou  mesmo  C++, \nassociadas com sistemas de banco de dados mais \natuais, apresenta-se como uma boa oportunidade \nde negócios. \nConsiderando  esse  cenário,  avalie  as  afirmações \na seguir.\n   I.  A  dificuldade  de  reengenharia  de  sistemas \n        antigos deve-se ao fato de que, na maioria \n        das  vezes,  o  desenvolvedor  definia  o \n        sistema e esse já era o próprio processo da \n        organização.\n   II.  O custo de alteração para modernização de \n        uma  linha  de  código  em  Cobol  é  alto,  por \n        isso, fazer a manutenção desses sistemas é \n        menos despendioso.\n   III. Uma  estratégia  de  conversão  dos \n        referidos  sistemas  para  uma  linguagem \n        orientada  a  objetos  é  definir  uma \n        estrutura de classes e métodos e realizar \n        o refatoramento do código.\nÉ correto o que se afirma em",
+  "statementMd": "Nas décadas de 1970 e 1980, muitos sistemas\ncorporativos foram desenvolvidos com a linguagem\nCobol, utilizando o Sistema Gerenciador de Banco de\ndados ADABAS e arquivos indexados do tipo ISAM e\nVISAM. Alguns desses produtos de implementação\nforam, ou estão sendo, descontinuados pelos seus\nfabricantes. Por isso, o trabalho de reengenharia\ndesses sistemas, utilizando linguagens mais\nmodernas, como Python, Java ou mesmo C++,\nassociadas com sistemas de banco de dados mais\natuais, apresenta-se como uma boa oportunidade\nde negócios.\nConsiderando esse cenário, avalie as afirmações\na seguir.\nI. A dificuldade de reengenharia de sistemas\nantigos deve-se ao fato de que, na maioria\ndas vezes, o desenvolvedor definia o\nsistema e esse já era o próprio processo da\norganização.\nII. O custo de alteração para modernização de\numa linha de código em Cobol é alto, por\nisso, fazer a manutenção desses sistemas é\nmenos despendioso.\nIII. Uma estratégia de conversão dos\nreferidos sistemas para uma linguagem\norientada a objetos é definir uma\nestrutura de classes e métodos e realizar\no refatoramento do código.\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 27,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

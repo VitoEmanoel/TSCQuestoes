@@ -5,14 +5,14 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "No  desenvolvimento  de  um  sistema  de  automação  para  um  clube  recreativo,  serão  implementados \nmódulos  para  o  departamento  administrativo,  tais  como  os  módulos  de  cadastro  de  associados  e  de \ngestão  de  mensalidades.  Na  construção  desses  módulos,  algumas  regras  de  negócio  serão  aplicadas \nconforme o diagrama abaixo.\n\n                                                                                         Mensalidade\n       Tipo_Associado                             Associado                        - codigo : int\n - codigo : int                                - codigo : int                      - anomesreferencia : string\n - descricao : string                          - nome : string                     - valormensalidade : currency\n - valorMensalidade : currency   1      0..*   - endereco : string   1      1..*   - datavencimento : date\n                                               - telefone : string                 - valorpago : currency\n                                                                                   - datapagamento : date\n\nCom base nesse diagrama, avalie as afirmações a seguir.\n    I.  Haverá somente 12 mensalidades para cada associado, ou seja, as mensalidades do associado não \n          poderão ultrapassar os 12 meses do ano.\n    II.  Não existem associados sem mensalidades, nem mensalidades sem associado a elas relacionado.\n    III.  Alterando-se o valor da mensalidade definido para cada tipo de associado cadastrado, o sistema \n          automaticamente altera os valores das mensalidades geradas anteriormente.\n    IV.  Poderão existir tipos de associados que não terão nenhum associado relacionado a eles.\nÉ correto apenas o que se afirma em",
+  "statementMd": "No desenvolvimento de um sistema de automação para um clube recreativo, serão implementados\nmódulos para o departamento administrativo, tais como os módulos de cadastro de associados e de\ngestão de mensalidades. Na construção desses módulos, algumas regras de negócio serão aplicadas\nconforme o diagrama abaixo.\n\n(ver imagem anexa: diagrama de classes — Tipo_Associado (codigo, descricao, valorMensalidade) 1 — 0..* Associado (codigo, nome, endereco, telefone) 1 — 1..* Mensalidade (codigo, anomesreferencia, valormensalidade, datavencimento, valorpago, datapagamento))\n\nCom base nesse diagrama, avalie as afirmações a seguir.\nI. Haverá somente 12 mensalidades para cada associado, ou seja, as mensalidades do associado não\npoderão ultrapassar os 12 meses do ano.\nII. Não existem associados sem mensalidades, nem mensalidades sem associado a elas relacionado.\nIII. Alterando-se o valor da mensalidade definido para cada tipo de associado cadastrado, o sistema\nautomaticamente altera os valores das mensalidades geradas anteriormente.\nIV. Poderão existir tipos de associados que não terão nenhum associado relacionado a eles.\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 19,
   "needsAsset": true,
   "assets": [
     {
       "kind": "diagram",
-      "filePath": "",
+      "filePath": "2017/11-1.png",
       "caption": "Diagrama de classes — prova pág. 19"
     }
   ],
@@ -44,6 +44,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
 }

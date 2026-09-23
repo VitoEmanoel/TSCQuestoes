@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Após a implantação de um sistema em ambiente de \nprodução,  este  passa  para  a  fase  de  manutenção \ndentro  do  ciclo  de  vida  do  desenvolvimento  de \nsoftware.  Os  sistemas  geralmente  necessitam \nde  diversos  tipos  de  manutenção  durante  sua \nexistência.\nConsiderando a etapa de manutenção no processo \nde  desenvolvimento  de  software,  avalie  as \nafirmações a seguir.\n    I.  A fase de manutenção é uma parte explícita \n          do  modelo  em  cascata  do  processo  de \n          desenvolvimento de software.\n    II.  A  atualização  do  sistema  para  inserir \n          customizações  é  considerada  um  tipo  de \n          manutenção.\n    III.  A  depuração  do  programa  é  um  processo \n          específico da fase de desenvolvimento e um \n          tipo de manutenção.\n    IV.  O acréscimo de novas funções a um sistema \n          existente,  sem  perturbar  sua  operação,  é \n          considerado um tipo de manutenção.\n    V. A manutenção do sistema está relacionada \n          ao aumento do ciclo de vida do software.\nÉ correto apenas o que se afirma em",
+  "statementMd": "Após a implantação de um sistema em ambiente de\nprodução, este passa para a fase de manutenção\ndentro do ciclo de vida do desenvolvimento de\nsoftware. Os sistemas geralmente necessitam\nde diversos tipos de manutenção durante sua\nexistência.\nConsiderando a etapa de manutenção no processo\nde desenvolvimento de software, avalie as\nafirmações a seguir.\nI. A fase de manutenção é uma parte explícita\ndo modelo em cascata do processo de\ndesenvolvimento de software.\nII. A atualização do sistema para inserir\ncustomizações é considerada um tipo de\nmanutenção.\nIII. A depuração do programa é um processo\nespecífico da fase de desenvolvimento e um\ntipo de manutenção.\nIV. O acréscimo de novas funções a um sistema\nexistente, sem perturbar sua operação, é\nconsiderado um tipo de manutenção.\nV. A manutenção do sistema está relacionada\nao aumento do ciclo de vida do software.\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 23,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

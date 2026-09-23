@@ -5,7 +5,7 @@
   "type": "DISCURSIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Uma  empresa  de  cosméticos  comercializa  cinco  diferentes  tipos  de  produtos  e  os  armazena  em  uma \nestante de 40 x 40 posições. Em cada posição da estante, pode ficar armazenada apenas uma caixa com \num desses produtos. Para facilitar sua identificação, os produtos foram codificados da forma a seguir:\n                 1: xampu;\n                 2: condicionador;\n                 3: hidratante;\n                 4: tintura;\n                 5: demaquilante;\n                 0: vazio.\nNessa  situação  e  considerando  o  desenvolvimento  de  um  sistema  para  gerenciar  a  organização  dos \nprodutos na estante, estabeleceu-se a declaração de variáveis a seguir.\nVar\n       Estante: matriz [1..40][1..40] de inteiro\n       Produtos: vetor [0..5] de texto = {\"vazio\",\"xampu\",\"condicionador\",\n                                  \"hidratante\", \"tintura\", \"demaquilante\"}\n       Contador: vetor [0..5] de inteiro = {0,0,0,0,0,0}\n       i, j: inteiro\nCom base nessa declaração e considerando a codificação dos produtos exposta, faça o que se pede nos \nitens a seguir, apresentando as soluções em pseudocódigo ou em linguagem de programação.\na)  Escreva um trecho de código para ler os códigos dos produtos e armazená-los na matriz Estante.\n    (valor: 4,0 pontos)\nb)  Escreva um trecho de código para contar e imprimir a quantidade de caixas de cada tipo de produto \n    na estante. (valor: 6,0 pontos)",
+  "statementMd": "Uma empresa de cosméticos comercializa cinco diferentes tipos de produtos e os armazena em uma\nestante de 40 x 40 posições. Em cada posição da estante, pode ficar armazenada apenas uma caixa com\num desses produtos. Para facilitar sua identificação, os produtos foram codificados da forma a seguir:\n1: xampu;\n2: condicionador;\n3: hidratante;\n4: tintura;\n5: demaquilante;\n0: vazio.\nNessa situação e considerando o desenvolvimento de um sistema para gerenciar a organização dos\nprodutos na estante, estabeleceu-se a declaração de variáveis a seguir.\nVar\n       Estante: matriz [1..40][1..40] de inteiro\n       Produtos: vetor [0..5] de texto = {\"vazio\",\"xampu\",\"condicionador\",\n                                  \"hidratante\", \"tintura\", \"demaquilante\"}\n       Contador: vetor [0..5] de inteiro = {0,0,0,0,0,0}\n       i, j: inteiro\nCom base nessa declaração e considerando a codificação dos produtos exposta, faça o que se pede nos\nitens a seguir, apresentando as soluções em pseudocódigo ou em linguagem de programação.\na) Escreva um trecho de código para ler os códigos dos produtos e armazená-los na matriz Estante.\n(valor: 4,0 pontos)\nb) Escreva um trecho de código para contar e imprimir a quantidade de caixas de cada tipo de produto\nna estante. (valor: 6,0 pontos)",
   "valuePoints": 10,
   "sourcePage": 13,
   "needsAsset": false,
@@ -25,6 +25,6 @@
       "assets": []
     }
   ],
-  "tags": [],
+  "tags": ["Programação"],
   "reviewNotes": []
 }

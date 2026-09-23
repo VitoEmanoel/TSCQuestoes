@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Conceitualmente,  cada  processo  tem  sua  própria \nCPU (Central Processing Unit) virtual. É claro que, na \nrealidade, a CPU troca a execução, a todo momento, \nde  um  processo  para  outro,  mas,  para  entender \nesse  sistema,  é  muito  mais  fácil  pensar  em  um \nconjunto  de  processos  sendo  executados  (pseudo) \nparalelamente do que tentar controlar o modo como \na CPU faz esses chaveamentos.\n             TANENBAUM, A. S. Sistemas operacionais modernos.\n                     3. ed. São Paulo: Person, 2010 (adaptado).\nDe  acordo  com  o  exposto,  o  conceito  descrito \ndenomina-se",
+  "statementMd": "Conceitualmente, cada processo tem sua própria\nCPU (Central Processing Unit) virtual. É claro que, na\nrealidade, a CPU troca a execução, a todo momento,\nde um processo para outro, mas, para entender\nesse sistema, é muito mais fácil pensar em um\nconjunto de processos sendo executados (pseudo)\nparalelamente do que tentar controlar o modo como\na CPU faz esses chaveamentos.\nTANENBAUM, A. S. Sistemas operacionais modernos.\n3. ed. São Paulo: Person, 2010 (adaptado).\nDe acordo com o exposto, o conceito descrito\ndenomina-se",
   "valuePoints": null,
   "sourcePage": 23,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Sistemas Operacionais"],
   "reviewNotes": []
 }

@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Os  modelos  de  processo  foram  propostos  para \ntrazer  ordem  ao  caos  existente  na  área  de \ndesenvolvimento de software. A história mostra que \nesses  modelos  trouxeram  considerável  contribuição \nno trabalho da engenharia de software.\n        PRESSMAN, R. S. Engenharia de software: uma abordagem \n         profissional. 8. ed. Porto Alegre: AMGH, 2016 (adaptado).\n\nA  respeito  dos  modelos  de  processo,  avalie  as \nafirmações a seguir.\n     I.  São  atividades  do  modelo  incremental: \n           especificação, desenvolvimento e validação.\n     II.  No modelo espiral, a fase de modelagem é \n           responsável,  entre  outras  atividades,  pela \n           estimativa, cronograma e análise de risco.\n     III.  O  modelo  cascata  sugere  uma  abordagem \n           sequencial  e  sistemática  para  o \n           desenvolvimento  de  software, iniciando  na \n           especificação  de  requisitos  e  finalizando \n           com a entrega do software concluído.\nÉ correto o que se afirma em",
+  "statementMd": "Os modelos de processo foram propostos para\ntrazer ordem ao caos existente na área de\ndesenvolvimento de software. A história mostra que\nesses modelos trouxeram considerável contribuição\nno trabalho da engenharia de software.\nPRESSMAN, R. S. Engenharia de software: uma abordagem\nprofissional. 8. ed. Porto Alegre: AMGH, 2016 (adaptado).\n\nA respeito dos modelos de processo, avalie as\nafirmações a seguir.\nI. São atividades do modelo incremental:\nespecificação, desenvolvimento e validação.\nII. No modelo espiral, a fase de modelagem é\nresponsável, entre outras atividades, pela\nestimativa, cronograma e análise de risco.\nIII. O modelo cascata sugere uma abordagem\nsequencial e sistemática para o\ndesenvolvimento de software, iniciando na\nespecificação de requisitos e finalizando\ncom a entrega do software concluído.\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 26,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

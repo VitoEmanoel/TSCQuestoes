@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Em  uma  pesquisa  de  satisfação  com  notas  de  0  a \n10, sendo 0 muito insatisfeito e 10 muito satisfeito, \numa  empresa  construiu  uma  tabela,  mostrada  a \nseguir,  com  o  resumo  das  notas  atribuídas  pelos \nseus clientes aos serviços recebidos.\n                             QUANTIDADE\n                  NOTA\n                             DE CLIENTES\n                    0             0\n                    1             0\n                    2             0\n                    3             1\n                    4             2\n                    5             2\n                    6             2\n                    7             2\n                    8             2\n                    9             1\n                   10             0\nConsiderando  essa  situação  e  as  informações \napresentadas, avalie as afirmações a seguir.\n     I.  A média das notas dos clientes é igual a 6,0.\n     II.  A mediana das notas dos clientes é igual a 6,0.\n     III.  O  desvio  padrão  populacional  é  menor  do \n           que 3,0.\n     IV.  O conjunto de dados é amodal.\n     V. Um cliente que atribuiu nota 3,0 encontra-se \n           no 1º quartil.\nÉ correto apenas o que se afirma em",
+  "statementMd": "Em uma pesquisa de satisfação com notas de 0 a\n10, sendo 0 muito insatisfeito e 10 muito satisfeito,\numa empresa construiu uma tabela, mostrada a\nseguir, com o resumo das notas atribuídas pelos\nseus clientes aos serviços recebidos.\n\n| Nota | Quantidade de clientes |\n|---|---|\n| 0 | 0 |\n| 1 | 0 |\n| 2 | 0 |\n| 3 | 1 |\n| 4 | 2 |\n| 5 | 2 |\n| 6 | 2 |\n| 7 | 2 |\n| 8 | 2 |\n| 9 | 1 |\n| 10 | 0 |\n\nConsiderando essa situação e as informações\napresentadas, avalie as afirmações a seguir.\nI. A média das notas dos clientes é igual a 6,0.\nII. A mediana das notas dos clientes é igual a 6,0.\nIII. O desvio padrão populacional é menor do\nque 3,0.\nIV. O conjunto de dados é amodal.\nV. Um cliente que atribuiu nota 3,0 encontra-se\nno 1º quartil.\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 18,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Matemática e Lógica"],
   "reviewNotes": []
 }

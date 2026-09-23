@@ -5,14 +5,14 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "O seguinte diagrama de classe representa a modelagem de um serviço de transferência de materiais entre \nfuncionários de uma empresa.\n\n                                                                                                 Material\n     Funcionario                      RequisicaoTransferencia                 - material\n                                                                                           - descricao: string\n - nome: string                       - dataRequisicao: date                               - preco: double\n                       - origem                                     0..1           1..*\n\n   - destino\n\nConsiderando o diagrama de classe apresentado, avalie as afirmações a seguir.\n     I.  A classe Funcionario é abstrata.\n     II.  Uma RequisicaoTransferencia só existe se estiver vinculada a um Material.\n     III.  A classe Funcionario, em razão de sua associação, possui um atributo do tipo RequisicaoTransferencia.\n     IV.  Em  uma  implementação  da  classe  RequisicaoTransferencia,  é  necessário  adicionar  um  atributo \n          simples do tipo Material.\nÉ correto o que se afirma em",
+  "statementMd": "O seguinte diagrama de classe representa a modelagem de um serviço de transferência de materiais entre\nfuncionários de uma empresa.\n\n(ver imagem anexa: diagrama de classes — Funcionario (nome) associado a RequisicaoTransferencia (dataRequisicao) pelos papéis “origem” e “destino”; RequisicaoTransferencia 0..1 — 1..* Material (descricao, preco) pelo papel “material”)\n\nConsiderando o diagrama de classe apresentado, avalie as afirmações a seguir.\nI. A classe Funcionario é abstrata.\nII. Uma RequisicaoTransferencia só existe se estiver vinculada a um Material.\nIII. A classe Funcionario, em razão de sua associação, possui um atributo do tipo RequisicaoTransferencia.\nIV. Em uma implementação da classe RequisicaoTransferencia, é necessário adicionar um atributo\nsimples do tipo Material.\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 22,
   "needsAsset": true,
   "assets": [
     {
       "kind": "diagram",
-      "filePath": "",
+      "filePath": "2017/16-1.png",
       "caption": "Diagrama de classes — prova pág. 22"
     }
   ],
@@ -44,6 +44,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
 }

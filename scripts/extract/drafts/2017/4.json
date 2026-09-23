@@ -5,14 +5,14 @@
   "type": "OBJECTIVE",
   "area": "FORMACAO_GERAL",
   "status": "VALID",
-  "statementMd": "Sobre a televisão, considere a tirinha e o texto a seguir.\nTEXTO 1\n\n                                         Disponível em: <https://www.coletivando.files.wordpress.com>. Acesso em: 25 jul. 2015.\n\nTEXTO 2\nA televisão é este contínuo de imagens, em que o telejornal se confunde com o anúncio de pasta de \ndentes, que é semelhante à novela, que se mistura com a transmissão de futebol. Os programas mal \nse distinguem uns dos outros. O espetáculo consiste na própria sequência, cada vez mais vertiginosa, \nde imagens.\n                            PEIXOTO, N. B. As imagens de TV têm tempo? In: NOVAES, A. Rede imaginária: televisão e democracia. \n                                                                            São Paulo: Companhia das Letras, 1991 (adaptado).\n\nCom base nos textos 1 e 2, é correto afirmar que o tempo de recepção típico da televisão como veículo \nde comunicação estimula a",
+  "statementMd": "Sobre a televisão, considere a tirinha e o texto a seguir.\nTEXTO 1\n(ver imagem anexa: tirinha do Calvin e Haroldo sobre o “período curto de atenção” da televisão)\n\nDisponível em: <https://www.coletivando.files.wordpress.com>. Acesso em: 25 jul. 2015.\n\nTEXTO 2\nA televisão é este contínuo de imagens, em que o telejornal se confunde com o anúncio de pasta de\ndentes, que é semelhante à novela, que se mistura com a transmissão de futebol. Os programas mal\nse distinguem uns dos outros. O espetáculo consiste na própria sequência, cada vez mais vertiginosa,\nde imagens.\nPEIXOTO, N. B. As imagens de TV têm tempo? In: NOVAES, A. Rede imaginária: televisão e democracia.\nSão Paulo: Companhia das Letras, 1991 (adaptado).\n\nCom base nos textos 1 e 2, é correto afirmar que o tempo de recepção típico da televisão como veículo\nde comunicação estimula a",
   "valuePoints": null,
   "sourcePage": 8,
   "needsAsset": true,
   "assets": [
     {
       "kind": "image",
-      "filePath": "",
+      "filePath": "2017/4-1.png",
       "caption": "Tirinha (TEXTO 1) — prova pág. 8"
     }
   ],
@@ -44,6 +44,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
 }

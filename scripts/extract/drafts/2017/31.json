@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "À medida que o projeto de uma interface do usuário evolui, quatro questões de projeto comuns quase \nsempre  vêm  à  tona:  tempo  de  resposta  do  sistema,  recursos  de  ajuda  ao  usuário,  informações  de \ntratamento de erros e atribuição de nomes a comandos.\n                      PRESSMAN, R. S. Engenharia de software: uma abordagem profissional. 8. ed. São Paulo: AMGH, 2016 (adaptado).\n\nNesse contexto, avalie as afirmações a seguir, a respeito do projeto de interface e dos requisitos de software.\n    I.  A análise de interfaces tem por objetivo identificar o perfil dos usuários e auxiliar na especificação \n        do requisito não funcional de segurança pertinente ao perfil de acesso dos usuários.\n    II.  O requisito não funcional de segurança descreve as características relacionadas a inteligibilidade, \n         modo de usar ou operar o sistema.\n    III.  O requisito não funcional de confiabilidade descreve as características relacionadas ao tempo de \n          resposta para processamento de dados ou informações.\n    IV.  O  requisito  não  funcional  de  usabilidade  descreve  diretrizes  de  acessibilidade  para  pessoas \n         com deficiência.\nÉ correto apenas o que se afirma em",
+  "statementMd": "À medida que o projeto de uma interface do usuário evolui, quatro questões de projeto comuns quase\nsempre vêm à tona: tempo de resposta do sistema, recursos de ajuda ao usuário, informações de\ntratamento de erros e atribuição de nomes a comandos.\nPRESSMAN, R. S. Engenharia de software: uma abordagem profissional. 8. ed. São Paulo: AMGH, 2016 (adaptado).\n\nNesse contexto, avalie as afirmações a seguir, a respeito do projeto de interface e dos requisitos de software.\nI. A análise de interfaces tem por objetivo identificar o perfil dos usuários e auxiliar na especificação\ndo requisito não funcional de segurança pertinente ao perfil de acesso dos usuários.\nII. O requisito não funcional de segurança descreve as características relacionadas a inteligibilidade,\nmodo de usar ou operar o sistema.\nIII. O requisito não funcional de confiabilidade descreve as características relacionadas ao tempo de\nresposta para processamento de dados ou informações.\nIV. O requisito não funcional de usabilidade descreve diretrizes de acessibilidade para pessoas\ncom deficiência.\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 35,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

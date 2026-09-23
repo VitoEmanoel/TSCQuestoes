@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Um desenvolvedor de software recém-formado foi \ncontratado  para  a  implementação  de  um  projeto \nem  uma  empresa  e,  em  reunião,  recebeu  várias \nexplicações sobre como a gerência de configuração \nfuncionava. \nConsiderando  essa  situação,  avalie  as  afirmações \na  seguir,  referentes  às  informações  dadas  ao \ndesenvolvedor.\n    I.  Inicialmente,  para  ter  acesso  à  base  de \n          desenvolvimento,  o  profissional  deve \n          realizar  uma  operação  de  checkout  para \n          baixar  os  arquivos  do  projeto  que  estão \n          armazenados no servidor.\n    II.  Na  situação  em  que  mais  de  um \n          desenvolvedor  estiver  modificando  um \n          mesmo documento, ao se tentar realizar uma \n          operação  de  commit,  pode  ser  necessário \n          realizar uma operação de tag (release) para \n          resolução do conflito entre a versão local e \n          a  versão  mais  recente  no  repositório,  caso \n          algum desenvolvedor tenha submetido uma \n          mudança no documento previamente.\n    III.  No  desenvolvimento  de  um  novo  caso \n          de  uso,  em  que  diversos  arquivos  sejam \n          modificados,  é  recomendada  a  criação  de \n          uma ramificação (branch).\n    IV.  A  versão  estável  é  o  ramo  principal  de \n          desenvolvimento, que segue do começo do \n          desenvolvimento até o momento presente.\nÉ correto apenas o que se afirma em",
+  "statementMd": "Um desenvolvedor de software recém-formado foi\ncontratado para a implementação de um projeto\nem uma empresa e, em reunião, recebeu várias\nexplicações sobre como a gerência de configuração\nfuncionava.\nConsiderando essa situação, avalie as afirmações\na seguir, referentes às informações dadas ao\ndesenvolvedor.\nI. Inicialmente, para ter acesso à base de\ndesenvolvimento, o profissional deve\nrealizar uma operação de checkout para\nbaixar os arquivos do projeto que estão\narmazenados no servidor.\nII. Na situação em que mais de um\ndesenvolvedor estiver modificando um\nmesmo documento, ao se tentar realizar uma\noperação de commit, pode ser necessário\nrealizar uma operação de tag (release) para\nresolução do conflito entre a versão local e\na versão mais recente no repositório, caso\nalgum desenvolvedor tenha submetido uma\nmudança no documento previamente.\nIII. No desenvolvimento de um novo caso\nde uso, em que diversos arquivos sejam\nmodificados, é recomendada a criação de\numa ramificação (branch).\nIV. A versão estável é o ramo principal de\ndesenvolvimento, que segue do começo do\ndesenvolvimento até o momento presente.\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 26,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "A álgebra booleana possui um operador unário ~, \nconhecido como NÃO, e os operadores binários *\ne +, conhecidos como E e OU, respectivamente. \nA  tabela  verdade  é  utilizada  para  validar  uma \nfórmula  composta  de  operadores  da  álgebra \nbooleana.  A  seguir,  é  apresentada  a  tabela \nverdade  para  as  proposições  p,  q e r  diante  da \nfórmula G, em que V representa uma proposição \nverdadeira e F uma proposição falsa.\n\n              p       q       r       G\n              V       V       V        V\n              V       V       F        F\n              V       F       V        F\n              V       F       F        F\n              F       V       V        V\n              F       V       F        V\n              F       F       V        V\n              F       F       F        V\nConsiderando  as  informações  contidas  na  tabela \nacima  e  a  ordem  de  precedência  dos  operadores \nbooleanos,  a  fórmula  G  possui  a  mesma  tabela \nverdade da proposição",
+  "statementMd": "A álgebra booleana possui um operador unário ~,\nconhecido como NÃO, e os operadores binários *\ne +, conhecidos como E e OU, respectivamente.\nA tabela verdade é utilizada para validar uma\nfórmula composta de operadores da álgebra\nbooleana. A seguir, é apresentada a tabela\nverdade para as proposições p, q e r diante da\nfórmula G, em que V representa uma proposição\nverdadeira e F uma proposição falsa.\n\n| p | q | r | G |\n|---|---|---|---|\n| V | V | V | V |\n| V | V | F | F |\n| V | F | V | F |\n| V | F | F | F |\n| F | V | V | V |\n| F | V | F | V |\n| F | F | V | V |\n| F | F | F | V |\n\nConsiderando as informações contidas na tabela\nacima e a ordem de precedência dos operadores\nbooleanos, a fórmula G possui a mesma tabela\nverdade da proposição",
   "valuePoints": null,
   "sourcePage": 18,
   "needsAsset": false,
@@ -38,6 +38,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Matemática e Lógica"],
   "reviewNotes": []
 }
