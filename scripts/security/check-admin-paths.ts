@@ -10,7 +10,7 @@ const RULES: { name: string; pattern: RegExp; allowed: Set<string> }[] = [
   {
     name: "atribuição de papel ADMIN",
     pattern: /role\s*[:=]\s*["'`]ADMIN["'`]|UserRole\.ADMIN/g,
-    allowed: new Set([SEED]),
+    allowed: new Set([SEED, "scripts/security/attack-suite.ts"]),
   },
   {
     name: "chave app.allow_admin do trigger",

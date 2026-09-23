@@ -21,7 +21,8 @@
     "extract:parse:2008": "tsx scripts/extract/parsers/2008.ts",
     "extract:parse:2017": "tsx scripts/extract/parsers/2017.ts",
     "extract:validate": "tsx scripts/extract/validate.ts",
-    "security:check": "tsx scripts/security/check-admin-paths.ts"
+    "security:check": "tsx scripts/security/check-admin-paths.ts",
+    "security:attack": "tsx scripts/security/attack-suite.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
