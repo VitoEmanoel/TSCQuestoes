@@ -1,9 +1,15 @@
 import "server-only";
-import type { Prisma } from "@prisma/client";
+import { randomInt } from "node:crypto";
+import type { Prisma, QuestionArea, QuestionType } from "@prisma/client";
 import { SCORED_QUESTION, summarize } from "@/lib/attempt-score";
 import { prisma } from "@/lib/prisma";
 
 export const MAX_SIMULADO_ANSWER_LENGTH = 5000;
+export const MAX_CUSTOM_QUESTIONS = 40;
+export const MAX_OPEN_CUSTOM = 5;
+export const TIME_LIMIT_MINUTES = [15, 30, 60, 90, 120, 180, 240] as const;
+
+const SIMULADO_MODES = ["FULL_EXAM", "CUSTOM"] as const;
 
 export async function listReplayExams(userId: string) {
   const [exams, inProgress] = await Promise.all([
@@ -39,8 +45,13 @@ export async function startReplay(userId: string, examId: string): Promise<strin
   if (!exam) {
     return null;
   }
+  const questions = await prisma.question.findMany({
+    where: { examId },
+    orderBy: { order: "asc" },
+    select: { id: true },
+  });
   return prisma.$transaction(async (tx) => {
-    await tx.$queryRaw`SELECT 1 AS locked FROM pg_advisory_xact_lock(hashtext(${`simulado:${userId}`}))`;
+    await lockUser(tx, userId);
     const open = await tx.attempt.findFirst({
       where: { userId, mode: "FULL_EXAM", status: "IN_PROGRESS", examId },
       select: { id: true },
@@ -49,53 +60,167 @@ export async function startReplay(userId: string, examId: string): Promise<strin
       return open.id;
     }
     const created = await tx.attempt.create({
-      data: { userId, mode: "FULL_EXAM", examId, revealPolicy: "AT_END" },
+      data: {
+        userId,
+        mode: "FULL_EXAM",
+        examId,
+        revealPolicy: "AT_END",
+        questionIds: questions.map((question) => question.id),
+      },
       select: { id: true },
     });
     return created.id;
   });
 }
 
-async function ownedSimulado(userId: string, attemptId: string) {
-  const attempt = await prisma.attempt.findFirst({
-    where: { id: attemptId, userId, mode: "FULL_EXAM" },
-    select: { id: true, examId: true, status: true, startedAt: true, submittedAt: true },
-  });
-  if (!attempt?.examId) {
-    return null;
+async function lockUser(tx: Prisma.TransactionClient, userId: string) {
+  await tx.$queryRaw`SELECT 1 AS locked FROM pg_advisory_xact_lock(hashtext(${`simulado:${userId}`}))`;
+}
+
+export type CustomFilters = {
+  year?: number;
+  area?: QuestionArea;
+  type?: QuestionType;
+  topic?: string;
+  count: number;
+  minutes: number | null;
+};
+
+export type CreateCustomOutcome =
+  { status: "ok"; attemptId: string; picked: number } | { status: "empty" } | { status: "limit" };
+
+function shuffled<T>(items: T[]): T[] {
+  const copy = [...items];
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swap = randomInt(index + 1);
+    [copy[index], copy[swap]] = [copy[swap], copy[index]];
   }
-  return { ...attempt, examId: attempt.examId };
+  return copy;
+}
+
+export async function createCustomSimulado(
+  userId: string,
+  filters: CustomFilters,
+): Promise<CreateCustomOutcome> {
+  const candidates = await prisma.question.findMany({
+    where: {
+      status: "VALID",
+      ...(filters.year ? { exam: { year: filters.year } } : {}),
+      ...(filters.area ? { area: filters.area } : {}),
+      ...(filters.type ? { type: filters.type } : {}),
+      ...(filters.topic ? { tags: { some: { topic: { name: filters.topic } } } } : {}),
+    },
+    select: { id: true },
+  });
+  if (candidates.length === 0) {
+    return { status: "empty" };
+  }
+  const picked = shuffled(candidates.map((question) => question.id)).slice(0, filters.count);
+  return prisma.$transaction(async (tx) => {
+    await lockUser(tx, userId);
+    const open = await tx.attempt.count({
+      where: { userId, mode: "CUSTOM", status: "IN_PROGRESS" },
+    });
+    if (open >= MAX_OPEN_CUSTOM) {
+      return { status: "limit" } as const;
+    }
+    const created = await tx.attempt.create({
+      data: {
+        userId,
+        mode: "CUSTOM",
+        revealPolicy: "AT_END",
+        questionIds: picked,
+        timeLimitSec: filters.minutes ? filters.minutes * 60 : null,
+      },
+      select: { id: true },
+    });
+    return { status: "ok", attemptId: created.id, picked: picked.length } as const;
+  });
+}
+
+export async function openCustomSimulados(userId: string) {
+  const attempts = await prisma.attempt.findMany({
+    where: { userId, mode: "CUSTOM", status: "IN_PROGRESS" },
+    orderBy: { startedAt: "desc" },
+    select: {
+      id: true,
+      startedAt: true,
+      timeLimitSec: true,
+      questionIds: true,
+      _count: { select: { items: true } },
+    },
+  });
+  return attempts.map((attempt) => ({
+    id: attempt.id,
+    startedAt: attempt.startedAt,
+    timeLimitSec: attempt.timeLimitSec,
+    total: attempt.questionIds.length,
+    answered: attempt._count.items,
+  }));
+}
+
+async function examQuestionIds(examId: string | null): Promise<string[]> {
+  if (!examId) {
+    return [];
+  }
+  const questions = await prisma.question.findMany({
+    where: { examId },
+    orderBy: { order: "asc" },
+    select: { id: true },
+  });
+  return questions.map((question) => question.id);
+}
+
+async function questionIdsOf(attempt: { examId: string | null; questionIds: string[] }) {
+  return attempt.questionIds.length > 0 ? attempt.questionIds : examQuestionIds(attempt.examId);
 }
 
 export async function simuladoOverview(userId: string, attemptId: string) {
-  const attempt = await ownedSimulado(userId, attemptId);
+  const attempt = await prisma.attempt.findFirst({
+    where: { id: attemptId, userId, mode: { in: [...SIMULADO_MODES] } },
+    select: {
+      id: true,
+      mode: true,
+      examId: true,
+      questionIds: true,
+      status: true,
+      startedAt: true,
+      submittedAt: true,
+      timeLimitSec: true,
+    },
+  });
   if (!attempt) {
     return null;
   }
-  const [exam, items] = await Promise.all([
-    prisma.exam.findUniqueOrThrow({
-      where: { id: attempt.examId },
+  const ids = await questionIdsOf(attempt);
+  const [questions, items, exam] = await Promise.all([
+    prisma.question.findMany({
+      where: { id: { in: ids } },
       select: {
-        year: true,
-        questions: {
-          orderBy: { order: "asc" },
-          select: { id: true, originalLabel: true, type: true, status: true },
-        },
+        id: true,
+        originalLabel: true,
+        type: true,
+        status: true,
+        exam: { select: { year: true } },
       },
     }),
     prisma.attemptItem.findMany({
       where: { attemptId: attempt.id },
       select: { questionId: true, selectedLetter: true, answerText: true, answeredAt: true },
     }),
+    attempt.examId
+      ? prisma.exam.findUnique({ where: { id: attempt.examId }, select: { year: true } })
+      : Promise.resolve(null),
   ]);
+  const byId = new Map(questions.map((question) => [question.id, question]));
   const answers = new Map(items.map((item) => [item.questionId, item]));
   return {
     attempt,
-    year: exam.year,
-    questions: exam.questions.map((question) => ({
-      ...question,
-      answer: answers.get(question.id) ?? null,
-    })),
+    year: exam?.year ?? null,
+    questions: ids.flatMap((id) => {
+      const question = byId.get(id);
+      return question ? [{ ...question, answer: answers.get(id) ?? null }] : [];
+    }),
   };
 }
 
@@ -120,7 +245,7 @@ export async function simuladoQuestion(questionId: string) {
   });
 }
 
-type LockedAttempt = { examId: string | null; status: string };
+type LockedAttempt = { examId: string | null; questionIds: string[]; status: string };
 
 async function lockOwnedAttempt(
   tx: Prisma.TransactionClient,
@@ -128,8 +253,8 @@ async function lockOwnedAttempt(
   attemptId: string,
 ): Promise<LockedAttempt | null> {
   const rows = await tx.$queryRaw<LockedAttempt[]>`
-    SELECT "examId", status::text AS status FROM "Attempt"
-    WHERE id = ${attemptId} AND "userId" = ${userId} AND mode = 'FULL_EXAM'
+    SELECT "examId", "questionIds", status::text AS status FROM "Attempt"
+    WHERE id = ${attemptId} AND "userId" = ${userId} AND mode IN ('FULL_EXAM', 'CUSTOM')
     FOR UPDATE`;
   return rows[0] ?? null;
 }
@@ -144,14 +269,17 @@ export async function saveSimuladoAnswer(
 ): Promise<"ok" | "closed" | "invalid"> {
   return prisma.$transaction(async (tx) => {
     const attempt = await lockOwnedAttempt(tx, userId, attemptId);
-    if (!attempt?.examId) {
+    if (!attempt) {
       return "invalid";
     }
     if (attempt.status !== "IN_PROGRESS") {
       return "closed";
     }
-    const question = await tx.question.findFirst({
-      where: { id: questionId, examId: attempt.examId },
+    if (!(await questionIdsOf(attempt)).includes(questionId)) {
+      return "invalid";
+    }
+    const question = await tx.question.findUnique({
+      where: { id: questionId },
       select: { type: true, options: { select: { letter: true } } },
     });
     if (!question) {
@@ -192,7 +320,7 @@ export async function submitSimulado(
 ): Promise<"ok" | "closed" | "invalid"> {
   return prisma.$transaction(async (tx) => {
     const attempt = await lockOwnedAttempt(tx, userId, attemptId);
-    if (!attempt?.examId) {
+    if (!attempt) {
       return "invalid";
     }
     if (attempt.status !== "IN_PROGRESS") {
@@ -233,13 +361,21 @@ export async function submitSimulado(
 
 export async function simuladoResult(userId: string, attemptId: string) {
   const attempt = await prisma.attempt.findFirst({
-    where: { id: attemptId, userId, mode: "FULL_EXAM", status: { not: "IN_PROGRESS" } },
+    where: {
+      id: attemptId,
+      userId,
+      mode: { in: [...SIMULADO_MODES] },
+      status: { not: "IN_PROGRESS" },
+    },
     select: {
       id: true,
+      mode: true,
       examId: true,
+      questionIds: true,
       startedAt: true,
       submittedAt: true,
       autoScore: true,
+      timeLimitSec: true,
       items: {
         select: {
           questionId: true,
@@ -251,17 +387,19 @@ export async function simuladoResult(userId: string, attemptId: string) {
       },
     },
   });
-  if (!attempt?.examId) {
+  if (!attempt) {
     return null;
   }
-  const exam = await prisma.exam.findUniqueOrThrow({
-    where: { id: attempt.examId },
-    select: { year: true, _count: { select: { questions: true } } },
-  });
+  const [ids, exam] = await Promise.all([
+    questionIdsOf(attempt),
+    attempt.examId
+      ? prisma.exam.findUnique({ where: { id: attempt.examId }, select: { year: true } })
+      : Promise.resolve(null),
+  ]);
   return {
     ...attempt,
-    year: exam.year,
-    totalQuestions: exam._count.questions,
+    year: exam?.year ?? null,
+    totalQuestions: ids.length,
     summary: summarize(attempt.items),
   };
 }

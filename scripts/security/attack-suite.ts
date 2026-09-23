@@ -1320,6 +1320,131 @@ async function main() {
     ),
   );
 
+  group("Simulado personalizado");
+  const customOf = () =>
+    prisma.attempt.findMany({
+      where: { user: { email: studentEmail }, mode: "CUSTOM" },
+      orderBy: { startedAt: "asc" },
+      select: { id: true, status: true, questionIds: true, timeLimitSec: true, autoScore: true },
+    });
+  const build = (fields: Record<string, string>) =>
+    answerer.submitForm("/simulados", 'name="quantidade"', {
+      ano: "",
+      area: "",
+      tipo: "",
+      tema: "",
+      quantidade: "10",
+      tempo: "",
+      ...fields,
+    });
+  const forged: Record<string, string>[] = [
+    { quantidade: "999" },
+    { quantidade: "0" },
+    { quantidade: "-5" },
+    { quantidade: "2.5" },
+    { tempo: "7" },
+    { tempo: "99999" },
+    { tipo: "HACK" },
+    { area: "' OR 1=1 --" },
+    { ano: "abc" },
+    { tema: "x".repeat(500) },
+  ];
+  for (const fields of forged) {
+    await build(fields);
+  }
+  reply = await build({ tema: "Tema que não existe" });
+  check(
+    "valores forjados e filtros sem questão não criam simulado",
+    (await customOf()).length === 0 &&
+      pageText(reply.body).includes("Nenhuma questão válida com esses filtros"),
+  );
+  reply = await build({ ano: "2017", tipo: "OBJECTIVE", quantidade: "40", tempo: "30" });
+  let customs = await customOf();
+  const custom = customs[0];
+  const pickedQuestions = await prisma.question.findMany({
+    where: { id: { in: custom?.questionIds ?? [] } },
+    select: { status: true, type: true, exam: { select: { year: true } } },
+  });
+  check(
+    "sorteio respeita filtros, sem anuladas e sem repetir questão",
+    custom?.questionIds.length === validCount &&
+      new Set(custom.questionIds).size === validCount &&
+      pickedQuestions.length === validCount &&
+      pickedQuestions.every(
+        (question) =>
+          question.status === "VALID" &&
+          question.type === "OBJECTIVE" &&
+          question.exam.year === 2017,
+      ) &&
+      custom.timeLimitSec === 1800,
+    `${custom?.questionIds.length} de ${validCount}; tempo ${custom?.timeLimitSec}`,
+  );
+  const customPath = `/simulados/${custom?.id}`;
+  check(
+    "pediu mais do que existe: avisa quantas havia",
+    reply.location.endsWith(`${customPath}?pedidas=40`) &&
+      pageText((await answerer.get(reply.location.replace(BASE, ""))).body).includes(
+        `Você pediu 40 questões, mas só havia ${validCount} válidas`,
+      ),
+    reply.location,
+  );
+  const customItems = () =>
+    prisma.attemptItem.findMany({ where: { attemptId: custom?.id }, select: { id: true } });
+  const customForm = await formFields(answerer, `${customPath}?q=1`, 'name="letter"');
+  await postFields(answerer, `${customPath}?q=1`, {
+    ...customForm,
+    questionId: annulled?.id ?? "",
+    letter: "A",
+  });
+  await postFields(answerer, `${customPath}?q=1`, {
+    ...customForm,
+    questionId: exam2021.questions[0].id,
+    letter: "A",
+  });
+  check(
+    "questão fora do sorteio (anulada ou de outra prova) não é gravada",
+    (await customItems()).length === 0,
+  );
+  await postFields(intruder, `${customPath}?q=1`, { ...customForm, letter: "A" });
+  check(
+    "outro aluno não abre nem responde o simulado personalizado alheio",
+    (await intruder.get(customPath)).status === 404 && (await customItems()).length === 0,
+  );
+  const firstPicked = await prisma.question.findUniqueOrThrow({
+    where: { id: custom?.questionIds[0] },
+    select: { options: { where: { isCorrect: true }, select: { letter: true } } },
+  });
+  await postFields(answerer, `${customPath}?q=1`, {
+    ...customForm,
+    letter: firstPicked.options[0]?.letter ?? "A",
+  });
+  const customSubmit = await formFields(answerer, `${customPath}/entregar`, 'name="attemptId"');
+  await postFields(answerer, `${customPath}/entregar`, customSubmit);
+  customs = await customOf();
+  const customText = pageText((await answerer.get(`${customPath}/resultado`)).body);
+  check(
+    "entregar o personalizado dá a nota (1 de 1 = 100%) e conta as em branco",
+    customs[0]?.status === "SUBMITTED" &&
+      customs[0].autoScore === 100 &&
+      customText.includes("1 de 1 objetiva certa (100%)") &&
+      customText.includes(`${validCount - 1} questões ficaram em branco`),
+    customText.slice(
+      customText.indexOf("Simulado entregue"),
+      customText.indexOf("Simulado entregue") + 160,
+    ),
+  );
+  for (let index = 0; index < 7; index += 1) {
+    await build({ quantidade: "5" });
+  }
+  customs = await customOf();
+  reply = await build({ quantidade: "5" });
+  check(
+    "limite de 5 simulados personalizados abertos",
+    customs.filter((attempt) => attempt.status === "IN_PROGRESS").length === 5 &&
+      (await customOf()).length === customs.length &&
+      pageText(reply.body).includes("5 simulados personalizados em andamento"),
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });

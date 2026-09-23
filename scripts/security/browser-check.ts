@@ -546,6 +546,29 @@ async function main() {
         .slice(0, 200),
     );
 
+    phase = "simulado personalizado";
+    await page.goto(`${BASE}/simulados`);
+    await page.evaluate(`(() => {
+      const form = document.querySelector('select[name=quantidade]').form;
+      form.querySelector('select[name=tipo]').value = 'OBJECTIVE';
+      form.querySelector('select[name=quantidade]').value = '5';
+      form.querySelector('select[name=tempo]').value = '30';
+      [...form.querySelectorAll('button')].find((b) => b.textContent.includes('Montar simulado')).click();
+    })()`);
+    const customStarted = await page.waitFor(
+      "/^\\/simulados\\/[^/]+$/.test(location.pathname) && document.body.textContent.includes('0 de 5 respondidas') && document.body.textContent.includes('Tempo escolhido: 30 min') && document.body.textContent.includes('Simulado personalizado')",
+      15_000,
+    );
+    check("montar simulado personalizado (5 objetivas, 30 min)", customStarted);
+    check(
+      "simulado personalizado: nenhuma violação de CSP nem erro de JavaScript",
+      cspViolations(phase).length === 0 && jsErrors(phase).length === 0,
+      [...cspViolations(phase), ...jsErrors(phase)]
+        .map((e) => e.text)
+        .join(" | ")
+        .slice(0, 200),
+    );
+
     phase = "XSS simulado";
     await page.goto(`${BASE}/questoes`);
     const xss = await page.evaluate<{

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { submitSimuladoAction } from "@/app/actions/simulados";
-import { ExamBadge } from "@/components/exam-badge";
+import { SimuladoBadge } from "@/components/simulado-badge";
 import { requireUser } from "@/lib/dal";
 import { questionTitle } from "@/lib/questions";
 import { simuladoOverview } from "@/lib/simulados";
@@ -32,7 +32,7 @@ export default async function EntregarSimuladoPage(props: PageProps<"/simulados/
       </Link>
       <header className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
-          <ExamBadge year={overview.year} />
+          <SimuladoBadge year={overview.year} />
           <h1 className="text-2xl font-semibold tracking-tight">Entregar simulado</h1>
         </div>
         <p className="text-zinc-700 dark:text-zinc-300">
@@ -52,7 +52,9 @@ export default async function EntregarSimuladoPage(props: PageProps<"/simulados/
             {blank.map((question) => (
               <li key={question.id}>
                 <Link href={`${base}?q=${question.position}`} className="underline">
-                  {questionTitle(question.originalLabel, question.type)}
+                  {overview.year !== null
+                    ? questionTitle(question.originalLabel, question.type)
+                    : `Questão ${question.position}`}
                 </Link>
               </li>
             ))}

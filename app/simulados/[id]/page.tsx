@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
+import { formatMinutes, SimuladoBadge } from "@/components/simulado-badge";
 import { RichText } from "@/components/rich-text";
 import { SimuladoAnswerForm } from "@/components/simulado-answer-form";
 import { resolveAssets } from "@/lib/assets";
@@ -13,7 +14,7 @@ export const metadata: Metadata = { title: "Simulado — TSCQuestões" };
 
 export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) {
   const { id } = await props.params;
-  const { q } = await props.searchParams;
+  const { q, pedidas } = await props.searchParams;
   const user = await requireUser(`/simulados/${encodeURIComponent(id)}`);
   const overview = await simuladoOverview(user.id, id);
   if (!overview) {
@@ -34,14 +35,19 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
   const assets = await resolveAssets(question.assets);
   const answered = overview.questions.filter((item) => item.answer !== null).length;
   const base = `/simulados/${encodeURIComponent(id)}`;
+  const requestedCount = Number(Array.isArray(pedidas) ? pedidas[0] : pedidas);
+  const shortOfRequest =
+    Number.isInteger(requestedCount) && requestedCount > total ? requestedCount : null;
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
       <header className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <ExamBadge year={overview.year} />
-            <span className="font-semibold">Simulado — prova completa</span>
+            <SimuladoBadge year={overview.year} />
+            <span className="font-semibold">
+              {overview.year !== null ? "Simulado — prova completa" : "Simulado personalizado"}
+            </span>
           </div>
           <Link
             href={`${base}/entregar`}
@@ -52,7 +58,18 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
         </div>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
           {answered} de {total} respondidas.
+          {overview.attempt.timeLimitSec
+            ? ` Tempo escolhido: ${formatMinutes(overview.attempt.timeLimitSec)}.`
+            : null}
         </p>
+        {shortOfRequest ? (
+          <p
+            role="note"
+            className="rounded-md border border-sky-300 bg-sky-50 px-3 py-2 text-sm text-sky-900 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-200"
+          >
+            Você pediu {shortOfRequest} questões, mas só havia {total} válidas com esses filtros.
+          </p>
+        ) : null}
         <nav aria-label="Questões do simulado">
           <ol className="flex flex-wrap gap-1.5">
             {overview.questions.map((item, index) => {
@@ -67,10 +84,10 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
                   <Link
                     href={`${base}?q=${index + 1}`}
                     aria-current={isCurrent ? "step" : undefined}
-                    aria-label={`${questionTitle(item.originalLabel, item.type)}${item.answer ? ", respondida" : ", em branco"}`}
+                    aria-label={`${overview.year !== null ? questionTitle(item.originalLabel, item.type) : `Questão ${index + 1} de ${total}`}${item.answer ? ", respondida" : ", em branco"}`}
                     className={`flex h-8 min-w-8 items-center justify-center rounded-md border px-1.5 text-xs font-medium ${tone}`}
                   >
-                    {item.originalLabel}
+                    {overview.year !== null ? item.originalLabel : index + 1}
                   </Link>
                 </li>
               );
@@ -81,6 +98,7 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
 
       <section aria-label="Enunciado" className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2 text-xs">
+          {overview.year === null ? <ExamBadge year={current.exam.year} /> : null}
           <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
             {AREA_LABEL[question.area]}
           </span>

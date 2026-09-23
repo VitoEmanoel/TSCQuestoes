@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ExamBadge } from "@/components/exam-badge";
+import { SimuladoBadge } from "@/components/simulado-badge";
 import { requireUser } from "@/lib/dal";
 import { simuladoResult } from "@/lib/simulados";
 
@@ -28,7 +28,7 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
         ← Voltar para os simulados
       </Link>
       <header className="flex items-center gap-2">
-        <ExamBadge year={result.year} />
+        <SimuladoBadge year={result.year} />
         <h1 className="text-2xl font-semibold tracking-tight">Simulado entregue</h1>
       </header>
       <section

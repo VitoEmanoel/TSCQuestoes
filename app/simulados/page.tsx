@@ -1,14 +1,37 @@
 import type { Metadata } from "next";
 import { startReplayAction } from "@/app/actions/simulados";
+import Link from "next/link";
+import { CustomSimuladoForm } from "@/components/custom-simulado-form";
 import { ExamBadge } from "@/components/exam-badge";
+import { formatMinutes } from "@/components/simulado-badge";
 import { requireUser } from "@/lib/dal";
-import { listReplayExams } from "@/lib/simulados";
+import { AREA_LABEL, getFilterOptions, TYPE_LABEL } from "@/lib/questions";
+import {
+  listReplayExams,
+  MAX_CUSTOM_QUESTIONS,
+  openCustomSimulados,
+  TIME_LIMIT_MINUTES,
+} from "@/lib/simulados";
+
+const COUNTS = [5, 10, 15, 20, 30, MAX_CUSTOM_QUESTIONS];
+
+function formatWhen(date: Date): string {
+  return date.toLocaleString("pt-BR", {
+    dateStyle: "short",
+    timeStyle: "short",
+    timeZone: "America/Sao_Paulo",
+  });
+}
 
 export const metadata: Metadata = { title: "Simulados — TSCQuestões" };
 
 export default async function SimuladosPage() {
   const user = await requireUser("/simulados");
-  const exams = await listReplayExams(user.id);
+  const [exams, custom, { years, topics }] = await Promise.all([
+    listReplayExams(user.id),
+    openCustomSimulados(user.id),
+    getFilterOptions(),
+  ]);
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8">
@@ -54,6 +77,37 @@ export default async function SimuladosPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section aria-label="Simulado personalizado" className="flex flex-col gap-3">
+        <h2 className="text-lg font-semibold">Simulado personalizado</h2>
+        {custom.length > 0 ? (
+          <ul className="flex flex-col gap-2">
+            {custom.map((attempt) => (
+              <li
+                key={attempt.id}
+                className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-sm dark:border-sky-900 dark:bg-sky-950"
+              >
+                <span>
+                  Em andamento desde {formatWhen(attempt.startedAt)}: {attempt.answered} de{" "}
+                  {attempt.total} respondidas
+                  {attempt.timeLimitSec ? ` · ${formatMinutes(attempt.timeLimitSec)}` : null}
+                </span>
+                <Link href={`/simulados/${attempt.id}`} className="font-medium underline">
+                  Continuar
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        <CustomSimuladoForm
+          years={years}
+          topics={topics}
+          areas={Object.entries(AREA_LABEL).map(([value, label]) => ({ value, label }))}
+          types={Object.entries(TYPE_LABEL).map(([value, label]) => ({ value, label }))}
+          counts={COUNTS}
+          minutes={TIME_LIMIT_MINUTES}
+        />
       </section>
     </main>
   );

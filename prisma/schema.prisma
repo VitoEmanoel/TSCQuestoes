@@ -151,6 +151,8 @@ model Attempt {
   userId       String
   mode         AttemptMode
   examId       String?
+  questionIds  String[]      @default([])
+  timeLimitSec Int?
   room         Room?         @relation(fields: [roomId], references: [id])
   roomId       String?
   status       AttemptStatus @default(IN_PROGRESS)
