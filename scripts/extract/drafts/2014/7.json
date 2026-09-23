@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "FORMACAO_GERAL",
   "status": "VALID",
-  "statementMd": "O quadro a seguir apresenta a proporção (%)\nde trabalhadores por faixa de tempo gasto no\ndeslocamento casa-trabalho, no Brasil e em três\ncidades brasileiras.\n\nTempo de Brasil R'ºqe 5ão Curitiba\ndeslocamento Janeiro | Paulo\n\nAté cinco minutos | 12,70 5,80 5,10 7,80\n\nDe seis minutos\naté meia hora\nMais de meia hora\naté uma hora\nMais de uma hora\naté duas horas\nMais de duas\nhoras\n\n52,20 | 32,10 | 31,60 | 45,80\n\n23,600 | 33,50 | 34,60 | 32,40\n\n9,80 23,20 | 23,30 | 12,90\n\n1,80 5,50 5,30 1,20\n\nCENSO 2010/IBGE (adaptado).\n\nCom base nos dados apresentados e considerando a\ndistribuição da população trabalhadora nas cidades e\nas políticas públicas direcionadas à mobilidade urbana,\navalie as afirmações a seguir.\n\n|. A distribuição das pessoas por faixa de tempo\nde deslocamento casa-trabalho na região\nmetropolitana do Rio de Janeiro é próxima à que\nse verifica em São Paulo, mas não em Curitiba e\nna média brasileira.\n\nIl. Nas metrópoles, em geral, a maioria dos postos\nde trabalho está localizada nas áreas urbanas\ncentrais, e as residências da população de baixa\nrenda estão concentradas em áreas irregulares\nou na periferia, o que aumenta o tempo gasto por\nesta população no deslocamento casa-trabalho e\no custo do transporte.\n\nIll. As políticas públicas referentes a transportes\nurbanos, como, por exemplo, Bilhete Único\ne Veículo Leve sobre Trilhos (VLT), ao serem\nimplementadas, contribuem para redução do\n\ntempo gasto no deslocamento casa-trabalho e\ndo custo do transporte.\n\nÉ correto o que se afirma em",
+  "statementMd": "O quadro a seguir apresenta a proporção (%)\nde trabalhadores por faixa de tempo gasto no\ndeslocamento casa-trabalho, no Brasil e em três\ncidades brasileiras.\n\n| Tempo de deslocamento | Brasil | Rio de Janeiro | São Paulo | Curitiba |\n|---|---|---|---|---|\n| Até cinco minutos | 12,70 | 5,80 | 5,10 | 7,80 |\n| De seis minutos até meia hora | 52,20 | 32,10 | 31,60 | 45,80 |\n| Mais de meia hora até uma hora | 23,60 | 33,50 | 34,60 | 32,40 |\n| Mais de uma hora até duas horas | 9,80 | 23,20 | 23,30 | 12,90 |\n| Mais de duas horas | 1,80 | 5,50 | 5,30 | 1,20 |\n\nCENSO 2010/IBGE (adaptado).\n\nCom base nos dados apresentados e considerando a\ndistribuição da população trabalhadora nas cidades e\nas políticas públicas direcionadas à mobilidade urbana,\navalie as afirmações a seguir.\n\nI. A distribuição das pessoas por faixa de tempo\nde deslocamento casa-trabalho na região\nmetropolitana do Rio de Janeiro é próxima à que\nse verifica em São Paulo, mas não em Curitiba e\nna média brasileira.\n\nII. Nas metrópoles, em geral, a maioria dos postos\nde trabalho está localizada nas áreas urbanas\ncentrais, e as residências da população de baixa\nrenda estão concentradas em áreas irregulares\nou na periferia, o que aumenta o tempo gasto por\nesta população no deslocamento casa-trabalho e\no custo do transporte.\n\nIII. As políticas públicas referentes a transportes\nurbanos, como, por exemplo, Bilhete Único\ne Veículo Leve sobre Trilhos (VLT), ao serem\nimplementadas, contribuem para redução do\ntempo gasto no deslocamento casa-trabalho e\ndo custo do transporte.\n\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 8,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "|, apenas.",
+      "textMd": "I, apenas.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "Ill, apenas.",
+      "textMd": "III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "lell, apenas.",
+      "textMd": "I e II, apenas.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "Ilelll, apenas.",
+      "textMd": "II e III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "1L11el,. NNnA — recnococia EM ANÁLISE E",
+      "textMd": "I, II e III.",
       "isCorrect": true
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Formação Geral"],
   "reviewNotes": []
 }

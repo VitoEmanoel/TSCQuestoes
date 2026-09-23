@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Aengenharia de software considera diversos aspectos\npara a garantia da qualidade. Os requisitos funcionais\ndefinem como um sistema deverá se comportar\nem relação as suas funcionalidades básicas, já os\nrequisitos não funcionais avaliam outros aspectos do\nsoftware.\n\nSão exemplos de requisitos não funcionais a serem\nconsiderados em um software:",
+  "statementMd": "A engenharia de software considera diversos aspectos\npara a garantia da qualidade. Os requisitos funcionais\ndefinem como um sistema deverá se comportar\nem relação às suas funcionalidades básicas, já os\nrequisitos não funcionais avaliam outros aspectos do\nsoftware.\n\nSão exemplos de requisitos não funcionais a serem\nconsiderados em um software:",
   "valuePoints": null,
   "sourcePage": 21,
   "needsAsset": false,
@@ -18,12 +18,12 @@
     },
     {
       "letter": "B",
-      "textMd": "usabilidade, segurança, aceitaçãoeconfiabilidade.",
+      "textMd": "usabilidade, segurança, aceitação e confiabilidade.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "usabilidade, — segurança, — desempenho e confiabilidade.",
+      "textMd": "usabilidade, segurança, desempenho e confiabilidade.",
       "isCorrect": true
     },
     {
@@ -33,11 +33,11 @@
     },
     {
       "letter": "E",
-      "textMd": "usabilidade, confidencialidade, aceitação e confiabilidade. TECNOLOGIA EM ANÁLISE E DES| ENADE 2014",
+      "textMd": "usabilidade, confidencialidade, aceitação e confiabilidade.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

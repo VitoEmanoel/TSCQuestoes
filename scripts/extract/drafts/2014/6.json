@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "FORMACAO_GERAL",
   "status": "VALID",
-  "statementMd": "As mulheres frequentam mais os bancos escolares que os homens, dividem seu tempo entre o trabalho e os\ncuidados com a casa, geram renda familiar, porém continuam ganhando menos e trabalhando mais que os\nhomens.\n\nAs políticas de benefícios implementadas por empresas preocupadas em facilitar a vida das funcionárias que\ntêm criança pequena em casa já estão chegando ao Brasil. Acordos de horários flexíveis, programas como\nauxílio-creche, auxílio-babá e auxilio-amamentação são alguns dos benefícios oferecidos.\n\nDisponível em:<http://www1.folha.uol.com.br>. Acesso em: 30 jul. 2013 (adaptado).\n\nJORNADA MÉDIA TOTAL DE TRABALHO POR\nSEMANA NO BRASIL - (EM HORAS)\n\nmee égnos |208 NEE\ncom filhos\n\ncom filhos\n\nmulher cônjuge em\ncasal com filhos\no 10 20 30 40 50 60 70\nT T T T T T\n\nEAm tempo médio por semana dedicado aos afazeres domésticos\nmu tempo médio por semana dedicado ao trabalho remunerado\n\nDisponível em: <http://ipea.gov.br>. Acesso em: 30 jul. 2013.\n\nConsiderando o texto e o gráfico, avalie as afirmações a seguir.\n\nl. O somatório do tempo dedicado pelas mulheres aos afazeres domésticos e ao trabalho remunerado\né superior ao dedicado pelos homens, independentemente do formato da família.\n\nIll. O fragmento de texto e os dados do gráfico apontam para a necessidade de criação de políticas que\npromovam a igualdade entre os gêneros no que concerne, por exemplo, a tempo médio dedicado\nao trabalho e remuneração recebida.\n\nIll. No fragmento de reportagem apresentado, ressalta-se a diferença entre o tempo dedicado por\nmulheres e homens ao trabalho remunerado, sem alusão aos afazeres domésticos.\nÉ correto o que se afirma em",
+  "statementMd": "As mulheres frequentam mais os bancos escolares que os homens, dividem seu tempo entre o trabalho e os\ncuidados com a casa, geram renda familiar, porém continuam ganhando menos e trabalhando mais que os\nhomens.\n\nAs políticas de benefícios implementadas por empresas preocupadas em facilitar a vida das funcionárias que\ntêm criança pequena em casa já estão chegando ao Brasil. Acordos de horários flexíveis, programas como\nauxílio-creche, auxílio-babá e auxilio-amamentação são alguns dos benefícios oferecidos.\n\nDisponível em:<http://www1.folha.uol.com.br>. Acesso em: 30 jul. 2013 (adaptado).\n\n(ver imagem anexa: gráfico de barras horizontais \"Jornada média total de trabalho por semana no Brasil (em horas)\", por tipo de família)\n\nDisponível em: <http://ipea.gov.br>. Acesso em: 30 jul. 2013.\n\nConsiderando o texto e o gráfico, avalie as afirmações a seguir.\n\nI. O somatório do tempo dedicado pelas mulheres aos afazeres domésticos e ao trabalho remunerado\né superior ao dedicado pelos homens, independentemente do formato da família.\n\nII. O fragmento de texto e os dados do gráfico apontam para a necessidade de criação de políticas que\npromovam a igualdade entre os gêneros no que concerne, por exemplo, a tempo médio dedicado\nao trabalho e remuneração recebida.\n\nIII. No fragmento de reportagem apresentado, ressalta-se a diferença entre o tempo dedicado por\nmulheres e homens ao trabalho remunerado, sem alusão aos afazeres domésticos.\n\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 7,
   "needsAsset": true,
@@ -19,22 +19,22 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "|, apenas.",
+      "textMd": "I, apenas.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "Ill, apenas.",
+      "textMd": "III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "l ell, apenas.",
+      "textMd": "I e II, apenas.",
       "isCorrect": true
     },
     {
       "letter": "D",
-      "textMd": "ll elll, apenas.",
+      "textMd": "II e III, apenas.",
       "isCorrect": false
     },
     {
@@ -44,9 +44,6 @@
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": [
-    "OCR não capturou a alternativa E ('I, II e III.') — reconstruída manualmente a partir da imagem da prova pág. 7; conferir texto das demais alternativas (numerais romanos vieram como 'l'/'Ill').",
-    "Questão precisa de imagem — ver docs/figuras-2014.md."
-  ]
+  "tags": ["Formação Geral"],
+  "reviewNotes": ["Imagem já linkada (2014/6-1.png) — conferir enquadramento na tela de revisão."]
 }

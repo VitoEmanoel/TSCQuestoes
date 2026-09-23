@@ -33,11 +33,11 @@
     },
     {
       "letter": "E",
-      "textMd": "plano de gerenciamento de projetos. TECNOLOGIA EM ANÁLISE E DES| ENADE 2014",
+      "textMd": "plano de gerenciamento de projetos.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Governança e Gestão de TI"],
   "reviewNotes": []
 }

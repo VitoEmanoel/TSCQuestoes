@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Confome definido pelo Corpo de Conhecimento para Gerenciamento de Projeto de Software PMBOK,\num dos artefatos de maior importância dentro do planejamento de um projeto de software é a Estrutura\nAnalítica do Projeto (EAP).\n\nPMI. Um guia do conhecimento em gerenciamento de projetos. Guia PMBOK. 4 ed. EUA: Project Management Institute, 2008.\n\nA EAP apresentada na figura a seguir mapeia o processo de produção de um software de uma empresa e os\npacotes de trabalho que fazem parte desse projeto de software. Percebe-se que as atividades de “codificação”\ne “teste” não possuem pacotes de trabalho. A empresa Alfa optou por terceirizá-las para uma parceira em\numa operação de outsourcing.\n\n€Software de Controle Acadêmicã\nQ.\n\ná\n| | | | |\n\nGl Levantamento de Requisitos) (1.2 Projeto de Software) (L.B Codificação) (1.4 Teste) ÇL.S Implantação)\nFm Q.\n\nQ\n\nGl.l Pacote de inserção de dadoã 1.2.1 Pacote de inserção de dadoã 1.5.1 Pacote de inserção de dadã\n\n1.1.2 Pacote de relatórios 1.2.2 Pacote de relatórios 1.5.2 Pacote de relatórios\n\nAnalisando-se o EAP da empresa, conclui-se que as atividades de “codificação” e “teste”",
+  "statementMd": "Confome definido pelo Corpo de Conhecimento para Gerenciamento de Projeto de Software PMBOK,\num dos artefatos de maior importância dentro do planejamento de um projeto de software é a Estrutura\nAnalítica do Projeto (EAP).\n\nPMI. Um guia do conhecimento em gerenciamento de projetos. Guia PMBOK. 4 ed. EUA: Project Management Institute, 2008.\n\nA EAP apresentada na figura a seguir mapeia o processo de produção de um software de uma empresa e os\npacotes de trabalho que fazem parte desse projeto de software. Percebe-se que as atividades de “codificação”\ne “teste” não possuem pacotes de trabalho. A empresa Alfa optou por terceirizá-las para uma parceira em\numa operação de outsourcing.\n\n(ver imagem anexa: diagrama EAP \"Software de Controle Acadêmico\", com os ramos 1.1 Levantamento de\nRequisitos, 1.2 Projeto de Software, 1.3 Codificação, 1.4 Teste e 1.5 Implantação)\n\nAnalisando-se o EAP da empresa, conclui-se que as atividades de “codificação” e “teste”",
   "valuePoints": null,
   "sourcePage": 12,
   "needsAsset": true,
@@ -39,13 +39,11 @@
     },
     {
       "letter": "E",
-      "textMd": "não devem ser inseridas no planejamento do projeto, porque em um processo de software não é obrigatório que as atividades de “codificação” e “teste” estejam dentro de seu conjunto de atividades. MNnA — recnocosia Em ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
+      "textMd": "não devem ser inseridas no planejamento do projeto, porque em um processo de software não é obrigatório que as atividades de “codificação” e “teste” estejam dentro de seu conjunto de atividades.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": [
-    "Questão precisa de imagem — ver docs/figuras-2014.md."
-  ]
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": ["Imagem já linkada (2014/9-1.png) — conferir enquadramento na tela de revisão."]
 }

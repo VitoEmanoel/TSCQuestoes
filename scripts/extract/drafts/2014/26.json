@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "O serviço DNS (Domain Name System) traduz nomes\nalfanuméricos de hosts em endereços numéricos,\nde acordo com o protocolo |P (Internet Protocol).\nEssa ação é comumente chamada de resolução de\n\nendereço.\nTANENBAUM, A. S. Redes de Computadores.\nRio de Janeiro: Campus, 2003 (adaptado).\n\nConsidere um  conjunto de  computadores\nconectados em uma rede local, os quais têm à\nsua disposição um servidor DNS capaz de resolver\nendereços, sejam eles internos ou externos.\n\nNesse contexto, avalie as afirmações a seguir.\n\n|. O servidor DNS também executa funções de\ncliente DNS quando não é autoritativo para\ndeterminado endereço.\n\nIl. A adoção do IPv6 (Internet Protocol, versão 6)\ndispensará serviços de DNS, pois suas funções\nserão incorporadas pelo próprio protocolo |P.\n\nIIl. O cache DNS permite que determinada\nrequisição do cliente DNS possa ser resolvida\nsem que seja necessário recorrer a outro\nserviço DNS.\n\nIV. O protocolo DNS depende de um banco de\ndados distribuído.\n\nÉ correto apenas o que se afirma em",
+  "statementMd": "O serviço DNS (Domain Name System) traduz nomes\nalfanuméricos de hosts em endereços numéricos,\nde acordo com o protocolo IP (Internet Protocol).\nEssa ação é comumente chamada de resolução de\nendereço.\n\nTANENBAUM, A. S. Redes de Computadores.\nRio de Janeiro: Campus, 2003 (adaptado).\n\nConsidere um conjunto de computadores\nconectados em uma rede local, os quais têm à\nsua disposição um servidor DNS capaz de resolver\nendereços, sejam eles internos ou externos.\n\nNesse contexto, avalie as afirmações a seguir.\n\nI. O servidor DNS também executa funções de\ncliente DNS quando não é autoritativo para\ndeterminado endereço.\n\nII. A adoção do IPv6 (Internet Protocol, versão 6)\ndispensará serviços de DNS, pois suas funções\nserão incorporadas pelo próprio protocolo IP.\n\nIII. O cache DNS permite que determinada\nrequisição do cliente DNS possa ser resolvida\nsem que seja necessário recorrer a outro\nserviço DNS.\n\nIV. O protocolo DNS depende de um banco de\ndados distribuído.\n\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 21,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "iel.",
+      "textMd": "I e II.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "iel.",
+      "textMd": "I e III.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "ielv.",
+      "textMd": "II e IV.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "L eIV.",
+      "textMd": "I, III e IV.",
       "isCorrect": true
     },
     {
       "letter": "E",
-      "textMd": ",elv. voLvIMENTO DE sisremas — IMNIMNANWININ ENADE 2014",
+      "textMd": "II, III e IV.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Redes de Computadores"],
   "reviewNotes": []
 }

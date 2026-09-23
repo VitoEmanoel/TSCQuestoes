@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "A classe CountOccurrence escrita na linguagem\nJava, tem por objetivo localizar e contar quantas\nocorrências de um determinado valor existem em\num conjunto predeterminado de valores, retornando\na quantidade de vezes que um determinado valor se\nrepete no conjunto.\n\n1 public class CountConcurrence f(\n\n3 public boolean hasvalue(int searchvalue, int[] array, int i) f(\n\n4 if (i >= array.length)\n\n5 return false;\n\n7 if (array[i] == searchvalue)\n\n8 return true;\n\n9 else\n\n10 return hasvalue(searchvalue, array, i + 1);\nu )\n\n13 public int count(int countvalue, int[] array, int i) (\n\n14 if (!hasvalue(countvalue, array, i) || i >= array. length)\n15 return O;\n\n17 int c = O;\n\n18 if (array[i] == contValue)\n\n19 Cc++;\n\n21 c += count(countvalue, array, i);\n22 return c;\n\n25 public static void main(String[] args) (\n\n26 int[] array = (2, 3, 5, 6, 9, 7, 8, 8, 9);\n27 CountOccurrence co = new CountOccurrence();\n28 System.out .println(co.count(5, array, O));\n\nTECNOLOGIA EM ANÁLISE E DES|\n\nENADE 2014\n\nPara que o algoritmo funcione corretamente,\natendendo o requisito proposto, a mudança em sua\nestrutura que deve ser aplicada é",
+  "statementMd": "A classe CountOccurrence escrita na linguagem\nJava, tem por objetivo localizar e contar quantas\nocorrências de um determinado valor existem em\num conjunto predeterminado de valores, retornando\na quantidade de vezes que um determinado valor se\nrepete no conjunto.\n\n1 public class CountConcurrence {\n2\n3 public boolean hasValue(int searchValue, int[] array, int i) {\n4     if (i >= array.length)\n5         return false;\n6\n7     if (array[i] == searchValue)\n8         return true;\n9     else\n10         return hasValue(searchValue, array, i + 1);\n11 }\n12\n13 public int count(int countValue, int[] array, int i) {\n14     if (!hasValue(countValue, array, i) || i >= array.length)\n15         return 0;\n16\n17     int c = 0;\n18     if (array[i] == countValue)\n19         c++;\n20\n21     c += count(countValue, array, i);\n22     return c;\n23 }\n24\n25 public static void main(String[] args) {\n26     int[] array = {2, 3, 5, 6, 9, 7, 8, 8, 9};\n27     CountOccurrence co = new CountOccurrence();\n28     System.out.println(co.count(5, array, 0));\n29 }\n30 }\n\nPara que o algoritmo funcione corretamente,\natendendo o requisito proposto, a mudança em sua\nestrutura que deve ser aplicada é",
   "valuePoints": null,
   "sourcePage": 13,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "alterar alinha 15, de: return 0; para: return count (countvalue, array, O);",
+      "textMd": "alterar a linha 15, de: return 0; para: return count(countValue, array, 0);",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "alterar a linha 18, de: if (array[i]l == countValue) para: if (array[c] == countvalue)",
+      "textMd": "alterar a linha 18, de: if (array[i] == countValue) para: if (array[c] == countValue)",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "alteraralinha21,de:c += count (countVvalue, array, i);para:C += count(countValue, array, i + 1);",
+      "textMd": "alterar a linha 21, de: c += count(countValue, array, i); para: c += count(countValue, array, i + 1);",
       "isCorrect": true
     },
     {
       "letter": "D",
-      "textMd": "alterar a linha 14, de: if (!hasvalue(countvalue, array, 1i) || i >= array.length) para: If (i >= array.length)",
+      "textMd": "alterar a linha 14, de: if (!hasValue(countValue, array, i) || i >= array.length) para: if (i >= array.length)",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "alterar a linha 10, de: return hasValue(searchValue, array, i+1); para: return hasValue(searchvalue, array, i - 1); voLvIMENTO De sisremas — IMNIMNANMOINHO LD",
+      "textMd": "alterar a linha 10, de: return hasValue(searchValue, array, i + 1); para: return hasValue(searchValue, array, i - 1);",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Programação"],
   "reviewNotes": []
 }

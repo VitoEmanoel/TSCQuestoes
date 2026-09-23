@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "O modelo lógico de dados fornece uma visão da\nmaneira como os dados serão armazenados. A figura\na seguir representa o modelo lógico de um ambiente\nobservado em um escritório contábil.\n\nB cContripuinte CPF NT\n' ano exercicio DATE\n. ano base DATE\n\n<> endereco VARCHAR(60) . valor INT\n\n(/ telefone VARCHAR(15)\n\n[ CPFINT\nÀ nome VARCHAR(45)\n\n. restituicao ou pagamento BOOLEAN\nIndexes >\nRE\n\nIndexes >\n\nO Malha Fina Identificador INT\nA Contribuinte CPF INT\n\n. valor INT\n\n. quantidade de prestacoes INT\n\nIndexes >\n\n[) Identificador INT\nQ ano exercicio DATE\n\nIndexes »\nT\n\nEm relação ao modelo, avalie as afirmações a seguir.\n\n|. A entidade Declaração Imposto de Renda é\numa entidade fraca.\n\nIl. Orelacionamento entre Contribuinte e Malha\nFina é do tipo N:M (muitos para muitos).\n\nIll. O atributo CPF da entidade Contribuinte\ntem a função de chave estrangeira na\nentidade Declaração Imposto de Renda e no\nrelacionamento Contribuinte MalhaFina.\n\nIV. A entidade Malha Fina não possui chave\nprimária somente chave estrangeira.\n\nV. O relacionamento Contribuinte MalhaFina é\num relacionamento ternário.\n\nÉ correto apenas o que se afirma em",
+  "statementMd": "O modelo lógico de dados fornece uma visão da\nmaneira como os dados serão armazenados. A figura\na seguir representa o modelo lógico de um ambiente\nobservado em um escritório contábil.\n\n(ver imagem anexa: modelo lógico com Contribuinte, Declaração Imposto de Renda, Contribuinte_Malha Fina\ne Malha fina)\n\nEm relação ao modelo, avalie as afirmações a seguir.\n\nI. A entidade Declaração Imposto de Renda é\numa entidade fraca.\n\nII. O relacionamento entre Contribuinte e Malha\nFina é do tipo N:M (muitos para muitos).\n\nIII. O atributo CPF da entidade Contribuinte\ntem a função de chave estrangeira na\nentidade Declaração Imposto de Renda e no\nrelacionamento Contribuinte_MalhaFina.\n\nIV. A entidade Malha Fina não possui chave\nprimária somente chave estrangeira.\n\nV. O relacionamento Contribuinte_MalhaFina é\num relacionamento ternário.\n\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 19,
   "needsAsset": true,
@@ -19,33 +19,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "L11e.",
+      "textMd": "I, II e III.",
       "isCorrect": true
     },
     {
       "letter": "B",
-      "textMd": "LIlelv.",
+      "textMd": "I, II e IV.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "lLiVev.",
+      "textMd": "I, IV e V.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "1,I1evV.",
+      "textMd": "II, III e V.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": ", IVeV. VoLvIMENTO DE sisremas — MNMNA WINI LN ENADE 2014",
+      "textMd": "III, IV e V.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": [
-    "Questão precisa de imagem — ver docs/figuras-2014.md."
-  ]
+  "tags": ["Banco de Dados"],
+  "reviewNotes": ["Imagem já linkada (2014/21-1.png) — conferir enquadramento na tela de revisão."]
 }

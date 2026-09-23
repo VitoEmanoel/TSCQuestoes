@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Às vezes, garantia de qualidade significa\nsimplesmente a definição de procedimentos,\nprocessos e padrões que visam reforçar que a\nqualidade de software seja atingida. Em outros\ncasos, a garantia de qualidade também inclui todo\no gerenciamento de configuração, atividades de\nverificação e validação aplicados após o produto ter\nsido entregue por uma equipe de desenvolvimento.\n\nSOMMERVILLE, |. Engenharia de Software. 9. ed., São Paulo, 2011, p.455.\n\nQualquer alteração inserida no processo de\ndesenvolvimento de  software aumenta a\namplitude de erros e tende a descaracterizar\no projeto inicialmente planejado, afetando a\nqualidade do produto ou serviço. O controle e a\ngarantia da qualidade de software visam satisfazer\nas necessidades dos stakeholders; assegurar que\nos requisitos dos usuários sejam atendidos pelas\nespecificações dos produtos ou serviços; definir\nOos processos para que o desenvolvimento do\nsistema atenda esses requisitos; gerenciar versões,\nmudanças, releases e a construção do sistema. A fim\nde assegurar a garantia da qualidade do software\né indispensável definir um processo para controlar\na documentação elaborada durante o processo de\ndesenvolvimento.\n\nConsiderando essa situação, avalie as afirmações a seguir.\n\nl. As técnicas de verificação e validação de\nsoftware estabelecem a confiança de que\no sistema que esteja sendo desenvolvido é\nadequado ao seu propósito.\n\nll. A gerência de configuração provê pontos\nde controle sobre os artefatos produzidos e\nmodificados por diferentes recursos.\n\n1. O gerenciamento de mudanças deve\ndocumentar a detecção de bugs e problemas\nintroduzidos após a construção de uma nova\nversão do software.\n\nIV. Faz parte das atribuições da equipe de\ngarantia de qualidade examinar se os testes\ndo sistema proporcionam cobertura dos\nrequisitos e manter registros adequados do\nprocesso de teste.\n\nV. A revisão de software tem por objetivo\narmazenar os documentos num repositório\n\ncentral.\nÉ correto apenas o que se afirma em",
+  "statementMd": "Às vezes, garantia de qualidade significa\nsimplesmente a definição de procedimentos,\nprocessos e padrões que visam reforçar que a\nqualidade de software seja atingida. Em outros\ncasos, a garantia de qualidade também inclui todo\no gerenciamento de configuração, atividades de\nverificação e validação aplicados após o produto ter\nsido entregue por uma equipe de desenvolvimento.\n\nSOMMERVILLE, I. Engenharia de Software. 9. ed., São Paulo, 2011, p.455.\n\nQualquer alteração inserida no processo de\ndesenvolvimento de  software aumenta a\namplitude de erros e tende a descaracterizar\no projeto inicialmente planejado, afetando a\nqualidade do produto ou serviço. O controle e a\ngarantia da qualidade de software visam satisfazer\nas necessidades dos stakeholders; assegurar que\nos requisitos dos usuários sejam atendidos pelas\nespecificações dos produtos ou serviços; definir\nos processos para que o desenvolvimento do\nsistema atenda esses requisitos; gerenciar versões,\nmudanças, releases e a construção do sistema. A fim\nde assegurar a garantia da qualidade do software\né indispensável definir um processo para controlar\na documentação elaborada durante o processo de\ndesenvolvimento.\n\nConsiderando essa situação, avalie as afirmações a seguir.\n\nI. As técnicas de verificação e validação de\nsoftware estabelecem a confiança de que\no sistema que esteja sendo desenvolvido é\nadequado ao seu propósito.\n\nII. A gerência de configuração provê pontos\nde controle sobre os artefatos produzidos e\nmodificados por diferentes recursos.\n\nIII. O gerenciamento de mudanças deve\ndocumentar a detecção de bugs e problemas\nintroduzidos após a construção de uma nova\nversão do software.\n\nIV. Faz parte das atribuições da equipe de\ngarantia de qualidade examinar se os testes\ndo sistema proporcionam cobertura dos\nrequisitos e manter registros adequados do\nprocesso de teste.\n\nV. A revisão de software tem por objetivo\narmazenar os documentos num repositório\ncentral.\n\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 25,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "L11el.",
+      "textMd": "I, II e III.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "Lilelv.",
+      "textMd": "I, II e IV.",
       "isCorrect": true
     },
     {
       "letter": "C",
-      "textMd": "LIev",
+      "textMd": "I, III e V.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": ", IVevVv.",
+      "textMd": "II, IV e V.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "U IVev. voLvIMENTO DE sisremas — MNMNA WININNDO ENADE 2014",
+      "textMd": "III, IV e V.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Qualidade de Software"],
   "reviewNotes": []
 }

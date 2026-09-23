@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "FORMACAO_GERAL",
   "status": "VALID",
-  "statementMd": "Com a globalização da economia social por meio das organizações não governamentais, surgiu uma discussão\ndo conceito de empresa, de sua forma de concepção junto às organizações brasileiras e de suas práticas.\nCada vez mais, é necessário combinar as políticas públicas que priorizam modernidade e competividade\ncom o esforço de incorporação dos setores atrasados, mais intensivos de mão de obra.\n\nDisponível em: <http://unpan1.un.org>. Acesso em: 4 ago. 2014 (adaptado).\n\nA respeito dessa temática, avalie as afirmações a seguir.\n\nl. O terceiro setor é uma mistura dos dois setores econômicos clássicos da sociedade: o público,\nrepresentado pelo Estado, e o privado, representado pelo empresariado em geral.\n\nIl. É o terceiro setor que viabiliza o acesso da sociedade à educação e ao desenvolvimento de técnicas\nindustriais, econômicas, financeiras, políticas e ambientais.\n\nIll. A responsabilidade social tem resultado na alteração do perfil corporativo e estratégico das empresas,\nque têm reformulado a cultura e a filosofia que orientam as ações institucionais.\n\nEstá correto o que se afirma em",
+  "statementMd": "Com a globalização da economia social por meio das organizações não governamentais, surgiu uma discussão\ndo conceito de empresa, de sua forma de concepção junto às organizações brasileiras e de suas práticas.\nCada vez mais, é necessário combinar as políticas públicas que priorizam modernidade e competividade\ncom o esforço de incorporação dos setores atrasados, mais intensivos de mão de obra.\n\nDisponível em: <http://unpan1.un.org>. Acesso em: 4 ago. 2014 (adaptado).\n\nA respeito dessa temática, avalie as afirmações a seguir.\n\nI. O terceiro setor é uma mistura dos dois setores econômicos clássicos da sociedade: o público,\nrepresentado pelo Estado, e o privado, representado pelo empresariado em geral.\n\nII. É o terceiro setor que viabiliza o acesso da sociedade à educação e ao desenvolvimento de técnicas\nindustriais, econômicas, financeiras, políticas e ambientais.\n\nIII. A responsabilidade social tem resultado na alteração do perfil corporativo e estratégico das empresas,\nque têm reformulado a cultura e a filosofia que orientam as ações institucionais.\n\nEstá correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 4,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "|, apenas.",
+      "textMd": "I, apenas.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "1l, apenas.",
+      "textMd": "II, apenas.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "lelll, apenas.",
+      "textMd": "I e III, apenas.",
       "isCorrect": true
     },
     {
       "letter": "D",
-      "textMd": "Ilelll, apenas.",
+      "textMd": "II e III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "1L11el,. TNTNA — recnorosia Em ANÁLISE E DESENVOLVIMENTO DE SISTEMAS ENADE 2014",
+      "textMd": "I, II e III.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Formação Geral"],
   "reviewNotes": []
 }

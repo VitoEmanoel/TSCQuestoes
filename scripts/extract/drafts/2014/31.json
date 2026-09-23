@@ -5,39 +5,45 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Analise o fluxograma a seguir.\n\nDA ESARE\n\nEm relação à execução de testes de caixa branca\nsobre este fluxograma, avalie as afirmações a seguir.\nl. Os caminhos 1-2-3-4-5, 1-2-3-4-6, 1-2-3-7-9,\n1-2-3-7-8-9 formam um conjunto de caminhos\n\nde execução independentes.\n\nIl. Ocálculo de complexidade ciclomática fornece\na quantidade de caminhos independentes a\ntestar.\n\nIIl. Testes sobre caminhos independentes podem\nser executados em programas procedurais,\nmas não podem ser executados em programas\norientados a objetos.\n\nÉ correto o que se afirma em",
+  "statementMd": "Analise o fluxograma a seguir.\n\n(ver imagem anexa: fluxograma com Início -> 1 -> 2 -> 3 (decisão); 3 se ramifica para 7 (decisão) e 4\n(decisão); 7 se ramifica para 9 e 8 (decisão); 8 se ramifica para 9 e 5; 4 se ramifica para 5 e 6; 5 e 6 e 9\nlevam a Fim)\n\nEm relação à execução de testes de caixa branca\nsobre este fluxograma, avalie as afirmações a seguir.\n\nI. Os caminhos 1-2-3-4-5, 1-2-3-4-6, 1-2-3-7-9,\n1-2-3-7-8-9 formam um conjunto de caminhos\nde execução independentes.\n\nII. O cálculo de complexidade ciclomática fornece\na quantidade de caminhos independentes a\ntestar.\n\nIII. Testes sobre caminhos independentes podem\nser executados em programas procedurais,\nmas não podem ser executados em programas\norientados a objetos.\n\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 24,
-  "needsAsset": false,
-  "assets": [],
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2014/31-1.png",
+      "caption": "Fluxograma para teste de caminhos independentes — prova pág. 24"
+    }
+  ],
   "options": [
     {
       "letter": "A",
-      "textMd": "|, apenas.",
+      "textMd": "I, apenas.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "Ill, apenas.",
+      "textMd": "III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "lell, apenas.",
+      "textMd": "I e II, apenas.",
       "isCorrect": true
     },
     {
       "letter": "D",
-      "textMd": "ll elll, apenas.",
+      "textMd": "II e III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "111eI. L ESENVOLVIMENTO DE SISTEMAS",
+      "textMd": "I, II e III.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": []
+  "tags": ["Qualidade de Software"],
+  "reviewNotes": ["Imagem já linkada (2014/31-1.png) — conferir enquadramento na tela de revisão."]
 }

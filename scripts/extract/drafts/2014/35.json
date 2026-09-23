@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "José discutindo futebol com João declarou que se\no time X venceu o último jogo, então o time Y é\ncampeão. João depois de algumas horas descobriu\nque a declaração era falsa. Em consequência, teve\ncerteza de que é verdade que\n\nO o time X não venceu o último jogo e o time Y é\ncampeão.",
+  "statementMd": "José discutindo futebol com João declarou que se\no time X venceu o último jogo, então o time Y é\ncampeão. João depois de algumas horas descobriu\nque a declaração era falsa. Em consequência, teve\ncerteza de que é verdade que",
   "valuePoints": null,
   "sourcePage": 26,
   "needsAsset": false,
@@ -13,31 +13,33 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "o time X venceu o último jogo e o time Y não é campeão.",
+      "textMd": "o time X não venceu o último jogo e o time Y é campeão.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "ou o time X não venceu o último jogo ou o time Y é campeão.",
+      "textMd": "o time X venceu o último jogo e o time Y não é campeão.",
       "isCorrect": true
     },
     {
       "letter": "C",
-      "textMd": "o time X não venceu o último jogo e o time Y não é campeão.",
+      "textMd": "ou o time X não venceu o último jogo ou o time Y é campeão.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "se o time Y não é campeão, então o time X não venceu o último jogo. ) ESENVOLVIMENTO DE SISTEMAS ENADE 2014",
+      "textMd": "o time X não venceu o último jogo e o time Y não é campeão.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "UESTIONÁRIO DE PERCEPÇÃO DA PROVA As questões abaixo visam levantar sua opinião sobre a qualidade e a adequação da prova que você acabou de realizar. Assinale as alternativas correspondentes à sua opinião nos espaços apropriados do Caderno de Respostas.",
+      "textMd": "se o time Y não é campeão, então o time X não venceu o último jogo.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": []
+  "tags": ["Matemática e Lógica"],
+  "reviewNotes": [
+    "Extração automática tinha desalinhado as letras (opção A ficou colada no enunciado, e o título do questionário de percepção entrou como falsa opção E) — corrigido manualmente comparando com a imagem da prova pág. 26."
+  ]
 }

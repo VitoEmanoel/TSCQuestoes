@@ -5,7 +5,7 @@
   "type": "DISCURSIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Uma estrutura de dados do tipo pilha pode ser usada em um algoritmo que permite imprimir uma palavra de\nforma invertida. Exemplo: FELICIDADE deve ser impresso como EDADICILEF.\n\nUtilizando as variáveis declaradas abaixo:\n\npilha[1..50]: caractere;\n\ni, topo: inteiro;\n\npalavra: string;\n\nEm pseudocódigo, faça o que se pede nos itens a seguir.\n\na) Desenvolva a rotina push que inclui um elemento na pilha. (valor: 3,0 pontos)\nb) Desenvolva a rotina pop que retira um elemento da pilha. (valor: 3,0 pontos)\n\nc) Desenvolva a rotina que leia a palavra e, usando a pilha, a imprima de forma invertida. (valor: 4,0 pontos)\n\nCaso necessite de mais espaço, divida as linhas em duas ou três colunas.\n\nNTN — recnocosia Em ANÁLISE E DESENVOLVIMENTO DE SISTEMAS\n\nENADE 2014",
+  "statementMd": "Uma estrutura de dados do tipo pilha pode ser usada em um algoritmo que permite imprimir uma palavra de\nforma invertida. Exemplo: FELICIDADE deve ser impresso como EDADICILEF.\n\nUtilizando as variáveis declaradas abaixo:\n\npilha[1..50]: caractere;\n\ni, topo: inteiro;\n\npalavra: string;\n\nEm pseudocódigo, faça o que se pede nos itens a seguir.\n\na) Desenvolva a rotina push que inclui um elemento na pilha. (valor: 3,0 pontos)\nb) Desenvolva a rotina pop que retira um elemento da pilha. (valor: 3,0 pontos)\n\nc) Desenvolva a rotina que leia a palavra e, usando a pilha, a imprima de forma invertida. (valor: 4,0 pontos)\n\nCaso necessite de mais espaço, divida as linhas em duas ou três colunas.",
   "valuePoints": 10,
   "sourcePage": 10,
   "needsAsset": false,
@@ -31,6 +31,6 @@
       "assets": []
     }
   ],
-  "tags": [],
+  "tags": ["Estrutura de Dados e Algoritmos"],
   "reviewNotes": []
 }

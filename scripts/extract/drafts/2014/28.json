@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "A verificação e a validação de uma interface de\nusuário ocorre em três pontos distintos: análise,\nprojeto e teste. Considerando um cenário de uma\naplicação web, tal verificação pode ser realizada\natravés de testes de interface, testes de usabilidade\ne testes de compatibilidade.\n\nPRESSMAN, R. Engenharia de Software: Uma Abordagem\nProfissional, 7 ed., Mc Graw Hill, 2011 (adaptado).\n\nNesse contexto, avalie as afirmações a seguir.\n\n|. O teste de interface experimenta mecanismos\nde interação e valida aspectos estéticos\nda interface do usuário, apontando erros\nespecíficos de interface e erros na maneira\ncomo a interface implementa as semânticas\nde navegação, funcionalidade ou exibição de\nconteúdo.\n\nIl. O teste de usabilidade avalia o grau com o qual\nos usuários podem interagir efetivamente\ncom a aplicação e o grau em que a aplicação\ndirige as ações do usuário.\n\nIll. O primeiro passo no teste de compatibilidade\né definir uma série de configurações típicas\nencontradas do lado cliente e suas respectivas\nvariantes, identificando características como\nplataforma, sistema operacional e navegador.\n\nÉ correto o que se afirma em",
+  "statementMd": "A verificação e a validação de uma interface de\nusuário ocorre em três pontos distintos: análise,\nprojeto e teste. Considerando um cenário de uma\naplicação web, tal verificação pode ser realizada\natravés de testes de interface, testes de usabilidade\ne testes de compatibilidade.\n\nPRESSMAN, R. Engenharia de Software: Uma Abordagem\nProfissional, 7 ed., Mc Graw Hill, 2011 (adaptado).\n\nNesse contexto, avalie as afirmações a seguir.\n\nI. O teste de interface experimenta mecanismos\nde interação e valida aspectos estéticos\nda interface do usuário, apontando erros\nespecíficos de interface e erros na maneira\ncomo a interface implementa as semânticas\nde navegação, funcionalidade ou exibição de\nconteúdo.\n\nII. O teste de usabilidade avalia o grau com o qual\nos usuários podem interagir efetivamente\ncom a aplicação e o grau em que a aplicação\ndirige as ações do usuário.\n\nIII. O primeiro passo no teste de compatibilidade\né definir uma série de configurações típicas\nencontradas do lado cliente e suas respectivas\nvariantes, identificando características como\nplataforma, sistema operacional e navegador.\n\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 22,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "|, apenas.",
+      "textMd": "I, apenas.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "Ill, apenas.",
+      "textMd": "III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "lell, apenas.",
+      "textMd": "I e II, apenas.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "ll elll, apenas.",
+      "textMd": "II e III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "111eI. ESENVOLVIMENTO DE SISTEMAS",
+      "textMd": "I, II e III.",
       "isCorrect": true
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Qualidade de Software"],
   "reviewNotes": []
 }

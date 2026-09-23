@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "ENADE 2014\n\nLivro Empréstimo Aluno\n: ' - ' - : -\nliv cod : m emp cod i m matricula : m\n...................... on ee eeeeeeeeeedoeeoe. D\n\" ] 0 paPePPPPPPPPAPPANAePAPDPnPAgAaDADAOAS?\ntitúlo 1 varchar data emp : date TEME ! varchar\n'\ni ' j\n' '\nautor cod p int data dev ' date data nasc i date\n' L\n: D\n' '\nT aluno mat ' int\n'\n'\nAutor livro cod 0 int\naut cod E int\n]\n______________________ Loseseoo\n\n'\nnome : varchar\n\nO modelo de entidade relacionamento apresentado, representa de forma sucinta uma solução para\npersistência de dados de uma biblioteca. Considerando que um livro está emprestado quando possuir um\nregistro vinculado a ele na tabela “Emprestimo”, e essa tupla não possuir valor na coluna “data dev”, o\ncomando SQL que deve ser utilizado para listar os títulos dos livros disponíveis para empréstimo é",
+  "statementMd": "(ver imagem anexa: diagrama Entidade-Relacionamento com as entidades Livro, Empréstimo, Aluno e Autor)\n\nO modelo de entidade relacionamento apresentado, representa de forma sucinta uma solução para\npersistência de dados de uma biblioteca. Considerando que um livro está emprestado quando possuir um\nregistro vinculado a ele na tabela “Emprestimo”, e essa tupla não possuir valor na coluna “data dev”, o\ncomando SQL que deve ser utilizado para listar os títulos dos livros disponíveis para empréstimo é",
   "valuePoints": null,
   "sourcePage": 14,
   "needsAsset": true,
@@ -39,13 +39,11 @@
     },
     {
       "letter": "E",
-      "textMd": "select titulo from livro except select L.titulo from emprestimo e right join livro L on e.livro cod = L.liv cod where e.data dev is not null Nnn — recnocosia Em ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
+      "textMd": "select titulo from livro except select L.titulo from emprestimo e right join livro L on e.livro cod = L.liv cod where e.data dev is not null",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": [
-    "Questão precisa de imagem — ver docs/figuras-2014.md."
-  ]
+  "tags": ["Banco de Dados"],
+  "reviewNotes": ["Imagem já linkada (2014/11-1.png) — conferir enquadramento na tela de revisão."]
 }

@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Requisitos funcionais e não funcionais podem definir\ncaracterísticas e funcionalidades presentes na\ninterface a ser desenvolvida para um sistema.\n\nEm relação aos requisitos não funcionais, também\nchamados de requisitos de qualidade, avalie as\nafirmações a seguir.\n\n|. Sãolevantados e elicitados após os requisitos\nfuncionais, uma vez que os requisitos\nfuncionais determinarão as funcionalidades\nda interface.\n\nll. Sempre serão definidos de forma mais\nconcreta, através de requisitos funcionais,\numa vez que o usuário manipula na interface\nsomente as funcionalidades levantadas.\n\nIll. Podem — complementar os  reqguisitos\nfuncionais.\n\nÉ correto o que se afirma em",
+  "statementMd": "Requisitos funcionais e não funcionais podem definir\ncaracterísticas e funcionalidades presentes na\ninterface a ser desenvolvida para um sistema.\n\nEm relação aos requisitos não funcionais, também\nchamados de requisitos de qualidade, avalie as\nafirmações a seguir.\n\nI. São levantados e elicitados após os requisitos\nfuncionais, uma vez que os requisitos\nfuncionais determinarão as funcionalidades\nda interface.\n\nII. Sempre serão definidos de forma mais\nconcreta, através de requisitos funcionais,\numa vez que o usuário manipula na interface\nsomente as funcionalidades levantadas.\n\nIII. Podem complementar os requisitos\nfuncionais.\n\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 18,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "|l, apenas.",
+      "textMd": "II, apenas.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "Ill, apenas.",
+      "textMd": "III, apenas.",
       "isCorrect": true
     },
     {
       "letter": "C",
-      "textMd": "lell, apenas.",
+      "textMd": "I e II, apenas.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "lelll, apenas.",
+      "textMd": "I e III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "111eI. : ) ) ESENVOLVIMENTO DE SISTEMAS",
+      "textMd": "I, II e III.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

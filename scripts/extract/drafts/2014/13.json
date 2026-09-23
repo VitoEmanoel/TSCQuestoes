@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "AlLein.º 12.965, de 23 de abril de 2014, originalmente\ndenominada Marco Civil da Internet, estabelece\nprincípios, garantias, direitos e deveres para o uso\nda Internet no Brasil, contribuindo principalmente\nnas relações de consumo e segurança da informação\npessoal para com os prestadores de serviço de acesso\nà Internet.\n\nBRASIL. Lei n.º 12.965, de 23 de abril de 2014.\n\nSuponha que o cliente de determinado provedor\nde acesso à Internet contrata um serviço com\nvelocidade de conexão de 5 Megabits/s (Mbps),\nmas tem continuamente enfrentado problemas de\nperda de conexão e, adicionalmente, não obtém a\nvelocidade contratada, apesar de o cliente realizar\ntodos os pagamentos em dia.\n\nNessa situação, avalie as seguintes asserções e a\nrelação proposta entre elas.\n\nl. A manutenção da qualidade contratada da\nconexão à Internet é uma obrigação prevista\nno Marco Civil da Internet.\n\nPORQUE\n\nll. Não pode haver suspensão da conexão\nà Internet, salvo por débito diretamente\ndecorrente de sua utilização.\n\nA respeito dessas asserções, assinale a opção correta.",
+  "statementMd": "A Lei n.º 12.965, de 23 de abril de 2014, originalmente\ndenominada Marco Civil da Internet, estabelece\nprincípios, garantias, direitos e deveres para o uso\nda Internet no Brasil, contribuindo principalmente\nnas relações de consumo e segurança da informação\npessoal para com os prestadores de serviço de acesso\nà Internet.\n\nBRASIL. Lei n.º 12.965, de 23 de abril de 2014.\n\nSuponha que o cliente de determinado provedor\nde acesso à Internet contrata um serviço com\nvelocidade de conexão de 5 Megabits/s (Mbps),\nmas tem continuamente enfrentado problemas de\nperda de conexão e, adicionalmente, não obtém a\nvelocidade contratada, apesar de o cliente realizar\ntodos os pagamentos em dia.\n\nNessa situação, avalie as seguintes asserções e a\nrelação proposta entre elas.\n\nI. A manutenção da qualidade contratada da\nconexão à Internet é uma obrigação prevista\nno Marco Civil da Internet.\n\nPORQUE\n\nII. Não pode haver suspensão da conexão\nà Internet, salvo por débito diretamente\ndecorrente de sua utilização.\n\nA respeito dessas asserções, assinale a opção correta.",
   "valuePoints": null,
   "sourcePage": 15,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "As asserções | e |l são proposições verdadeiras, e a |l é uma justificativa correta da |.",
+      "textMd": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "As asserções | e |l são proposições verdadeiras, mas a |l não é uma justificativa correta da |.",
+      "textMd": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
       "isCorrect": true
     },
     {
       "letter": "C",
-      "textMd": "A asserção | é uma proposição verdadeira, e a |l é uma proposição falsa.",
+      "textMd": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "A asserção | é uma proposição falsa, e a |l é uma proposição verdadeira.",
+      "textMd": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "As asserções | e 1l são proposições falsas. voLvIMENTO DE sisremas — IMIIMNANWEINI NDA ENADE 2014",
+      "textMd": "As asserções I e II são proposições falsas.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Governança e Gestão de TI"],
   "reviewNotes": []
 }

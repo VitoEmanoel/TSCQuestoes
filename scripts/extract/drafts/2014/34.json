@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "O gerenciamento de projetos de sistemas é\nessencial para a engenharia de software. Um mau\ngerenciamento acarreta atraso na entrega do\nprograma, custo maior do que o programado e falha\nno atendimento aos requisitos. O quadro a seguir\nrepresenta de forma hipotética algumas tarefas\nde um projeto de desenvolvimento de software.\nEsse quadro mostra as atividades, sua duração e as\nrespectivas interdependências.\n\nTarefa Duração (dias) | Dependências\n\nT1 5 -\n\nT2 8 T1\n\nT3 2 T2\n\nT4 4 -\n\nT5 2 T13, T4\n\nT6 4 -\n\nT7 3 T5\n\nCom base na análise do quadro, o tempo mínimo\nnecessário para terminar o projeto é de",
+  "statementMd": "O gerenciamento de projetos de sistemas é\nessencial para a engenharia de software. Um mau\ngerenciamento acarreta atraso na entrega do\nprograma, custo maior do que o programado e falha\nno atendimento aos requisitos. O quadro a seguir\nrepresenta de forma hipotética algumas tarefas\nde um projeto de desenvolvimento de software.\nEsse quadro mostra as atividades, sua duração e as\nrespectivas interdependências.\n\n| Tarefa | Duração (dias) | Dependências |\n|---|---|---|\n| T1 | 5 | - |\n| T2 | 8 | T1 |\n| T3 | 2 | T2 |\n| T4 | 4 | - |\n| T5 | 2 | T3, T4 |\n| T6 | 4 | - |\n| T7 | 3 | T5 |\n\nCom base na análise do quadro, o tempo mínimo\nnecessário para terminar o projeto é de",
   "valuePoints": null,
   "sourcePage": 26,
   "needsAsset": false,
@@ -13,7 +13,7 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "13dias.",
+      "textMd": "13 dias.",
       "isCorrect": false
     },
     {
@@ -33,11 +33,11 @@
     },
     {
       "letter": "E",
-      "textMd": "28 dias. TTA — recnocosia em anáuSE",
+      "textMd": "28 dias.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Governança e Gestão de TI"],
   "reviewNotes": []
 }

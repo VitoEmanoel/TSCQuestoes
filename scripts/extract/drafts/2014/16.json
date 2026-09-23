@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Uma função é denominada recursiva quando\nela é chamada novamente dentro de seu corpo.\nImplementações recursivas tendem a ser menos\n\neficientes, porém facilitam a codificação e seu\nentendimento.\n\nCELES, W.; CERQUEIRA, R.; RANGEL, J. L. Introdução a estruturas de\ndados. Rio de Janeiro, 2004 (adaptado).\n\nConsidere a função recursiva f( ), a qual foi escrita\nem linguagem C:\n\n1 int f( int v[], int n) (\n\n2 if (n == O)\n\n3 return 0;\n\n4 else f\n\n5 int s;\n\n6 s = f( v, n-1);\n\n7 if (v[N-1] >O) s=s+ v[n-1];\n8 return s;\n\n9 +\n\n10 37\n\nSuponha que a função f() é acionada com os\nseguintes parâmetros de entrada:\n\nNesse caso, o valor de retorno da função f ( ) será",
+  "statementMd": "Uma função é denominada recursiva quando\nela é chamada novamente dentro de seu corpo.\nImplementações recursivas tendem a ser menos\n\neficientes, porém facilitam a codificação e seu\nentendimento.\n\nCELES, W.; CERQUEIRA, R.; RANGEL, J. L. Introdução a estruturas de\ndados. Rio de Janeiro, 2004 (adaptado).\n\nConsidere a função recursiva f( ), a qual foi escrita\nem linguagem C:\n\n1 int f(int v[], int n) {\n2     if (n == 0)\n3         return 0;\n4     else {\n5         int s;\n6         s = f(v, n-1);\n7         if (v[n-1] > 0) s = s + v[n-1];\n8         return s;\n9     }\n10 }\n\nSuponha que a função f() é acionada com os\nseguintes parâmetros de entrada:\n\nf({2, -4, 7, 0, -1, 4}, 6);\n\nNesse caso, o valor de retorno da função f ( ) será",
   "valuePoints": null,
   "sourcePage": 17,
   "needsAsset": false,
@@ -13,12 +13,12 @@
   "options": [
     {
       "letter": "A",
-      "textMd": ":.",
+      "textMd": "8.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "1o.",
+      "textMd": "10.",
       "isCorrect": false
     },
     {
@@ -28,16 +28,16 @@
     },
     {
       "letter": "D",
-      "textMd": "1i5.",
+      "textMd": "15.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "1. TECNOLOGIA EM ANÁLISE E DES| ENADE 2014",
+      "textMd": "18.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Programação"],
   "reviewNotes": []
 }

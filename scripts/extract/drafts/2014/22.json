@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "O modelo relacional representa o banco de dados\ncomo uma coleção de relações (tabelas). Na\nterminologia formal do modelo relacional, uma linha\néchamada de “tupla”, otítulo da coluna é denominado\n“atributo” e a tabela é chamada de “relação”. O tipo\nde dado que descreve os tipos de valores que podem\naparecer em cada coluna é denominado “domínio”.\nUm banco de dados relacional pode impor vários\ntipos de restrições nos dados armazenados.\n\nELMASRI, R.; NAVATHE, S. B. Sistema de Banco de Dados\nFundamentos e Aplicações. Rio de Janeiro: LTC, 2002.\n\nRestrições que permitem controlar situações como,\npor exemplo, “o salário de um empregado não deve\nexceder o salário do supervisor do empregado” e\nutilizam mecanismos chamados triggers (gatilhos) na\nsua implementação, são do tipo",
+  "statementMd": "O modelo relacional representa o banco de dados\ncomo uma coleção de relações (tabelas). Na\nterminologia formal do modelo relacional, uma linha\né chamada de “tupla”, o título da coluna é denominado\n“atributo” e a tabela é chamada de “relação”. O tipo\nde dado que descreve os tipos de valores que podem\naparecer em cada coluna é denominado “domínio”.\nUm banco de dados relacional pode impor vários\ntipos de restrições nos dados armazenados.\n\nELMASRI, R.; NAVATHE, S. B. Sistema de Banco de Dados\nFundamentos e Aplicações. Rio de Janeiro: LTC, 2002.\n\nRestrições que permitem controlar situações como,\npor exemplo, “o salário de um empregado não deve\nexceder o salário do supervisor do empregado” e\nutilizam mecanismos chamados triggers (gatilhos) na\nsua implementação, são do tipo",
   "valuePoints": null,
   "sourcePage": 20,
   "needsAsset": false,
@@ -33,11 +33,11 @@
     },
     {
       "letter": "E",
-      "textMd": "restrições de integridade semântica. TTNn —recnocosia em anáuSE",
+      "textMd": "restrições de integridade semântica.",
       "isCorrect": true
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Banco de Dados"],
   "reviewNotes": []
 }

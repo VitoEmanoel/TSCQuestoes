@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Considere o arranjo computacional apresentado a\n\nseguir.\nBase de\ndados |l\n\nAplicação |l\n\nRede pública\n\n\"=\nE=\n\nAplicação |\n\nDados Base de\npessoais dados |\n\nA característica fundamental esperada para tais\nsistemas de modo a ter o menor impacto sobre a\nexperiência do usuário final é",
+  "statementMd": "Considere o arranjo computacional apresentado a seguir.\n\n(ver imagem anexa: diagrama com Aplicação I e Aplicação II conectadas por uma rede pública, Base de\ndados I, Base de dados II e um computador cliente com acesso a Dados pessoais)\n\nA característica fundamental esperada para tais\nsistemas de modo a ter o menor impacto sobre a\nexperiência do usuário final é",
   "valuePoints": null,
   "sourcePage": 16,
   "needsAsset": true,
@@ -24,7 +24,7 @@
     },
     {
       "letter": "B",
-      "textMd": "alinguagem de programação orientada a eventos.",
+      "textMd": "a linguagem de programação orientada a eventos.",
       "isCorrect": false
     },
     {
@@ -39,13 +39,11 @@
     },
     {
       "letter": "E",
-      "textMd": "a independência quanto à disponibilidade de conexão à rede de comunicação de dados. ) ESENVOLVIMENTO DE SISTEMAS",
+      "textMd": "a independência quanto à disponibilidade de conexão à rede de comunicação de dados.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
-  "reviewNotes": [
-    "Questão precisa de imagem — ver docs/figuras-2014.md."
-  ]
+  "tags": ["Redes de Computadores"],
+  "reviewNotes": ["Imagem já linkada (2014/15-1.png) — conferir enquadramento na tela de revisão."]
 }

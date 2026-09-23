@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Nos anos 70, os sistemas executavam em\nmainframes com aplicativos escritos em linguagens\nestruturadas e com todas as funcionalidades em\num único módulo, com grande quantidade de\nlinhas de código. Acessos a bancos de dados não\nrelacionais, regras de negócios e tratamento de\ntelas para terminais “burros” ficavam no mesmo\nprograma.  Posteriormente, uma  importante\nmudança ocorreu: a substituição dos terminais\n“burros” por microcomputadores, permitindo\nque todo o tratamento da interface, e de algumas\nregras de negócios, passassem a ser feitas nas\nestações clientes. Surgiam as aplicações cliente-\nservidor. A partir dos anos 90, até os dias atuais,\nas mudanças foram mais radicais, os bancos de\ndados passaram a ser relacionais e distribuídos.\nAs linguagens passaram a ser orientadas a objetos,\ncuja modelagem encapsula dados e oferece\nfuncionalidades através de métodos. A interface\npassou a ser web. Vive-se a era das aplicações em\ntrês camadas.\n\nConsiderando a evolução da arquitetura de software\nde sistemas de informação, conforme citado no texto\nacima, avalie as seguintes afirmações.\n\nl. A separação dos sistemas em três camadas\nlógicas torna os sistemas mais complexos,\nrequerendo pessoal mais especializado.\n\nIl. A separação dos sistemas em três camadas\nlógicas torna os sistemas mais flexíveis,\npermitindo que as partes possam ser alteradas\nde forma independente.\n\nIll. A separação dos sistemas em três camadas\nlógicas aumentou o acoplamento, dificultando\na manutenção.\n\nÉ correto o que se afirma em",
+  "statementMd": "Nos anos 70, os sistemas executavam em\nmainframes com aplicativos escritos em linguagens\nestruturadas e com todas as funcionalidades em\num único módulo, com grande quantidade de\nlinhas de código. Acessos a bancos de dados não\nrelacionais, regras de negócios e tratamento de\ntelas para terminais “burros” ficavam no mesmo\nprograma.  Posteriormente, uma  importante\nmudança ocorreu: a substituição dos terminais\n“burros” por microcomputadores, permitindo\nque todo o tratamento da interface, e de algumas\nregras de negócios, passassem a ser feitas nas\nestações clientes. Surgiam as aplicações cliente-\nservidor. A partir dos anos 90, até os dias atuais,\nas mudanças foram mais radicais, os bancos de\ndados passaram a ser relacionais e distribuídos.\nAs linguagens passaram a ser orientadas a objetos,\ncuja modelagem encapsula dados e oferece\nfuncionalidades através de métodos. A interface\npassou a ser web. Vive-se a era das aplicações em\ntrês camadas.\n\nConsiderando a evolução da arquitetura de software\nde sistemas de informação, conforme citado no texto\nacima, avalie as seguintes afirmações.\n\nI. A separação dos sistemas em três camadas\nlógicas torna os sistemas mais complexos,\nrequerendo pessoal mais especializado.\n\nII. A separação dos sistemas em três camadas\nlógicas torna os sistemas mais flexíveis,\npermitindo que as partes possam ser alteradas\nde forma independente.\n\nIII. A separação dos sistemas em três camadas\nlógicas aumentou o acoplamento, dificultando\na manutenção.\n\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 18,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "|l, apenas.",
+      "textMd": "II, apenas.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "Ill, apenas.",
+      "textMd": "III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "lell, apenas.",
+      "textMd": "I e II, apenas.",
       "isCorrect": true
     },
     {
       "letter": "D",
-      "textMd": "lelll, apenas.",
+      "textMd": "I e III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": "1L11el,. TTAnA —recnocosia em anáuiSE",
+      "textMd": "I, II e III.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Casos de uso podem ser organizados agrupando-os\nem pacotes do mesmo modo como são organizadas\nas classes. Também podem ser organizados pela\nespecificação de relacionamentos de generalização,\ninclusão e extensão, existentes entre eles.\n\nJACOBSON, |.; BOOCH, G.; RUMBAUGH, J. UML - Guia Do\nUsuário. 1 ed. Campus, 2006 (adaptado).\n\nConsiderando os relacionamentos existentes entre\nOS Casos de uso, avalie as afirmações a seguir.\n\n|. Paracasos de uso, a generalização significa que\no caso de uso filho herda o comportamento e\no significado do caso de uso pai e no caso de\nuso filho deverá acrescentar ou sobrescrever\no comportamento de seu pai.\n\nIl. Umrelacionamento de inclusão entre casos de\nuso significa que o caso de uso base incorpora\nexplicitamente o comportamento de outro\ncaso de uso em uma localização especificada.\nO caso de uso base poderá permanecer\nisolado, mas, sob certas condições, seu\ncomportamento poderá ser incluído pelo\ncomportamento de outro caso de uso.\n\nIll. Um relacionamento estendido entre casos de\nuso significa que o caso de uso base incorpora\nimplicitamente o comportamento de outro\ncaso de uso em um local especificado\nindiretamente pelo caso de uso estendido.\nO caso de uso estendido nunca permanece\nisolado, mas é apenas instanciado como parte\nde alguma base maior que o estende.\n\nIV. Um relacionamento estendido é utilizado\npara a modelagem da parte de um caso de\nuso que o usuário poderá considerar como\num comportamento opcional do sistema e\npara a modelagem de um subfluxo separado,\nque é executado somente sob determinadas\ncondições.\n\nÉ correto apenas o que se afirma em",
+  "statementMd": "Casos de uso podem ser organizados agrupando-os\nem pacotes do mesmo modo como são organizadas\nas classes. Também podem ser organizados pela\nespecificação de relacionamentos de generalização,\ninclusão e extensão, existentes entre eles.\n\nJACOBSON, I.; BOOCH, G.; RUMBAUGH, J. UML - Guia Do\nUsuário. 1 ed. Campus, 2006 (adaptado).\n\nConsiderando os relacionamentos existentes entre\nos casos de uso, avalie as afirmações a seguir.\n\nI. Para casos de uso, a generalização significa que\no caso de uso filho herda o comportamento e\no significado do caso de uso pai e no caso de\nuso filho deverá acrescentar ou sobrescrever\no comportamento de seu pai.\n\nII. Um relacionamento de inclusão entre casos de\nuso significa que o caso de uso base incorpora\nexplicitamente o comportamento de outro\ncaso de uso em uma localização especificada.\nO caso de uso base poderá permanecer\nisolado, mas, sob certas condições, seu\ncomportamento poderá ser incluído pelo\ncomportamento de outro caso de uso.\n\nIII. Um relacionamento estendido entre casos de\nuso significa que o caso de uso base incorpora\nimplicitamente o comportamento de outro\ncaso de uso em um local especificado\nindiretamente pelo caso de uso estendido.\nO caso de uso estendido nunca permanece\nisolado, mas é apenas instanciado como parte\nde alguma base maior que o estende.\n\nIV. Um relacionamento estendido é utilizado\npara a modelagem da parte de um caso de\nuso que o usuário poderá considerar como\num comportamento opcional do sistema e\npara a modelagem de um subfluxo separado,\nque é executado somente sob determinadas\ncondições.\n\nÉ correto apenas o que se afirma em",
   "valuePoints": null,
   "sourcePage": 17,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "iel.",
+      "textMd": "I e II.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "ileiv",
+      "textMd": "I e IV.",
       "isCorrect": true
     },
     {
       "letter": "C",
-      "textMd": "iei,.",
+      "textMd": "II e III.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "L eIV.",
+      "textMd": "I, III e IV.",
       "isCorrect": false
     },
     {
       "letter": "E",
-      "textMd": ",elv. VoLvIMENTO De sisremas — IMNIMNANWINH N ENADE 2014",
+      "textMd": "II, III e IV.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Engenharia de Software"],
   "reviewNotes": []
 }

@@ -5,7 +5,7 @@
   "type": "OBJECTIVE",
   "area": "COMPONENTE_ESPECIFICO",
   "status": "VALID",
-  "statementMd": "Os termos inovação e empreendedorismo\ndizem respeito à prática da gestão e à mudança\ncriativa. A inovação preocupa-se, sobretudo,\ncom o desenvolvimento de produtos. Já o\nempreendedorismo dedica-se mais à questão da\ncriação de pequenas empresas.\n\nNesse contexto, avalie as afirmações a seguir.\n\n|. Inovação e sustentabilidade são processos\nantagônicos, já que a inovação contribui\nde forma importante para a degradação do\nmeio ambiente devido à sua associação com\no aumento do crescimento econômico e do\nconsumo.\n\nIl. A exploração de um problema social\ntransformado em uma oportunidade de\nnegócio visando a geração de lucro ao\nempreendedor é um dos principais objetivos\ndo empreendedorismo social.\n\nIll. Nem todo resultado de um processo criativo\nestá associado a uma inovação.\nÉ correto o que se afirma em",
+  "statementMd": "Os termos inovação e empreendedorismo\ndizem respeito à prática da gestão e à mudança\ncriativa. A inovação preocupa-se, sobretudo,\ncom o desenvolvimento de produtos. Já o\nempreendedorismo dedica-se mais à questão da\ncriação de pequenas empresas.\n\nNesse contexto, avalie as afirmações a seguir.\n\nI. Inovação e sustentabilidade são processos\nantagônicos, já que a inovação contribui\nde forma importante para a degradação do\nmeio ambiente devido à sua associação com\no aumento do crescimento econômico e do\nconsumo.\n\nII. A exploração de um problema social\ntransformado em uma oportunidade de\nnegócio visando a geração de lucro ao\nempreendedor é um dos principais objetivos\ndo empreendedorismo social.\n\nIII. Nem todo resultado de um processo criativo\nestá associado a uma inovação.\n\nÉ correto o que se afirma em",
   "valuePoints": null,
   "sourcePage": 20,
   "needsAsset": false,
@@ -13,31 +13,31 @@
   "options": [
     {
       "letter": "A",
-      "textMd": "|, apenas.",
+      "textMd": "I, apenas.",
       "isCorrect": false
     },
     {
       "letter": "B",
-      "textMd": "|l, apenas.",
+      "textMd": "II, apenas.",
       "isCorrect": false
     },
     {
       "letter": "C",
-      "textMd": "leilll, apenas.",
+      "textMd": "I e III, apenas.",
       "isCorrect": false
     },
     {
       "letter": "D",
-      "textMd": "ll elll, apenas.",
+      "textMd": "II e III, apenas.",
       "isCorrect": true
     },
     {
       "letter": "E",
-      "textMd": "111eI. ') ESENVOLVIMENTO DE SISTEMAS",
+      "textMd": "I, II e III.",
       "isCorrect": false
     }
   ],
   "answerStandards": [],
-  "tags": [],
+  "tags": ["Governança e Gestão de TI"],
   "reviewNotes": []
 }
