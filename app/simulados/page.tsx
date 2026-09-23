@@ -8,6 +8,7 @@ import { requireUser } from "@/lib/dal";
 import { AREA_LABEL, getFilterOptions, TYPE_LABEL } from "@/lib/questions";
 import {
   closeExpiredSimulados,
+  customCatalog,
   listReplayExams,
   MAX_CUSTOM_QUESTIONS,
   openCustomSimulados,
@@ -29,10 +30,11 @@ export const metadata: Metadata = { title: "Simulados — TSCQuestões" };
 export default async function SimuladosPage() {
   const user = await requireUser("/simulados");
   await closeExpiredSimulados(user.id);
-  const [exams, custom, { years, topics }] = await Promise.all([
+  const [exams, custom, { years, topics }, catalog] = await Promise.all([
     listReplayExams(user.id),
     openCustomSimulados(user.id),
     getFilterOptions(),
+    customCatalog(),
   ]);
 
   return (
@@ -121,6 +123,7 @@ export default async function SimuladosPage() {
           </ul>
         ) : null}
         <CustomSimuladoForm
+          catalog={catalog}
           years={years}
           topics={topics}
           areas={Object.entries(AREA_LABEL).map(([value, label]) => ({ value, label }))}

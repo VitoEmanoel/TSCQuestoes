@@ -99,6 +99,8 @@ export async function submitSimuladoAction(formData: FormData): Promise<void> {
 
 export type CustomSimuladoState = { error?: string };
 
+const MAX_FILTER_VALUES = 30;
+
 function pickKey<T extends string>(value: string | null, labels: Record<T, string>): T | undefined {
   return value && Object.hasOwn(labels, value) ? (value as T) : undefined;
 }
@@ -111,21 +113,26 @@ export async function createCustomSimuladoAction(
   if (!user) {
     return { error: "Sua sessão expirou. Entre novamente para montar o simulado." };
   }
-  const yearRaw = field(formData, "ano") ?? "";
+  const yearValues = formData.getAll("ano").filter((value) => value !== "");
+  const topicValues = formData.getAll("tema").filter((value) => value !== "");
   const areaRaw = field(formData, "area") ?? "";
   const typeRaw = field(formData, "tipo") ?? "";
-  const topicRaw = (field(formData, "tema") ?? "").trim();
   const count = Number(field(formData, "quantidade"));
   const minutesRaw = field(formData, "tempo") ?? "";
-  const year = yearRaw === "" ? undefined : Number(yearRaw);
+  const years = [...new Set(yearValues.map((value) => Number(value)))];
+  const topics = [
+    ...new Set(topicValues.map((value) => (typeof value === "string" ? value.trim() : ""))),
+  ];
   const area = pickKey(areaRaw, AREA_LABEL);
   const type = pickKey(typeRaw, TYPE_LABEL);
   const minutes = minutesRaw === "" ? null : Number(minutesRaw);
   if (
-    (year !== undefined && (!Number.isInteger(year) || year < 2000 || year > 2100)) ||
+    years.length > MAX_FILTER_VALUES ||
+    years.some((year) => !Number.isInteger(year) || year < 2000 || year > 2100) ||
+    topics.length > MAX_FILTER_VALUES ||
+    topics.some((topic) => topic.length === 0 || topic.length > 100) ||
     (areaRaw !== "" && !area) ||
     (typeRaw !== "" && !type) ||
-    topicRaw.length > 100 ||
     !Number.isInteger(count) ||
     count < 1 ||
     count > MAX_CUSTOM_QUESTIONS ||
@@ -136,10 +143,10 @@ export async function createCustomSimuladoAction(
     };
   }
   const outcome = await createCustomSimulado(user.id, {
-    year,
+    years,
     area,
     type,
-    topic: topicRaw || undefined,
+    topics,
     count,
     minutes,
   });

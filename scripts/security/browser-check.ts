@@ -548,13 +548,45 @@ async function main() {
 
     phase = "simulado personalizado";
     await page.goto(`${BASE}/simulados`);
+    const chipText = (label: string) =>
+      page.evaluate<string>(
+        `([...document.querySelectorAll('label')].find((l) => l.textContent.startsWith(${JSON.stringify(label)}))?.textContent ?? '')`,
+      );
+    const redesAll = await chipText("Redes de Computadores");
+    await page.evaluate(
+      `[...document.querySelectorAll('label')].find((l) => l.textContent.startsWith('2017')).click()`,
+    );
+    const valid2017 = await prisma.question.count({
+      where: { status: "VALID", exam: { year: 2017 } },
+    });
+    const countsReact = await page.waitFor(
+      `document.body.textContent.includes('${valid2017} questões disponíveis')`,
+    );
+    const redes2017 = await chipText("Redes de Computadores");
+    check(
+      "contagens por tema aparecem e mudam ao marcar um ano",
+      redesAll.includes("(6)") && countsReact && redes2017 !== redesAll,
+      `${redesAll} → ${redes2017}`,
+    );
+    await page.evaluate(
+      `[...document.querySelectorAll('label')].find((l) => l.textContent.startsWith('2017')).click()`,
+    );
     await page.evaluate(`(() => {
       const form = document.querySelector('select[name=quantidade]').form;
-      form.querySelector('select[name=tipo]').value = 'OBJECTIVE';
-      form.querySelector('select[name=quantidade]').value = '5';
-      form.querySelector('select[name=tempo]').value = '30';
-      [...form.querySelectorAll('button')].find((b) => b.textContent.includes('Montar simulado')).click();
+      const choose = (name, value) => {
+        const select = form.querySelector('select[name=' + name + ']');
+        const setter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value').set;
+        setter.call(select, value);
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      };
+      choose('tipo', 'OBJECTIVE');
+      choose('quantidade', '5');
+      choose('tempo', '30');
     })()`);
+    await page.waitFor("document.querySelector('select[name=quantidade]').value === '5'");
+    await page.evaluate(
+      "[...document.querySelector('select[name=quantidade]').form.querySelectorAll('button')].find((b) => b.textContent.includes('Montar simulado')).click()",
+    );
     const customStarted = await page.waitFor(
       "/^\\/simulados\\/[^/]+$/.test(location.pathname) && document.body.textContent.includes('0 de 5 respondidas') && document.body.textContent.includes('Tempo total: 30 min') && document.body.textContent.includes('Simulado personalizado')",
       15_000,

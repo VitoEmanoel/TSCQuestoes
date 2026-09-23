@@ -83,13 +83,38 @@ async function lockUser(tx: Prisma.TransactionClient, userId: string) {
 }
 
 export type CustomFilters = {
-  year?: number;
+  years: number[];
   area?: QuestionArea;
   type?: QuestionType;
-  topic?: string;
+  topics: string[];
   count: number;
   minutes: number | null;
 };
+
+export type CatalogEntry = {
+  year: number;
+  area: QuestionArea;
+  type: QuestionType;
+  topics: string[];
+};
+
+export async function customCatalog(): Promise<CatalogEntry[]> {
+  const questions = await prisma.question.findMany({
+    where: { status: "VALID" },
+    select: {
+      area: true,
+      type: true,
+      exam: { select: { year: true } },
+      tags: { select: { topic: { select: { name: true } } } },
+    },
+  });
+  return questions.map((question) => ({
+    year: question.exam.year,
+    area: question.area,
+    type: question.type,
+    topics: question.tags.map((tag) => tag.topic.name),
+  }));
+}
 
 export type CreateCustomOutcome =
   { status: "ok"; attemptId: string; picked: number } | { status: "empty" } | { status: "limit" };
@@ -110,10 +135,12 @@ export async function createCustomSimulado(
   const candidates = await prisma.question.findMany({
     where: {
       status: "VALID",
-      ...(filters.year ? { exam: { year: filters.year } } : {}),
+      ...(filters.years.length > 0 ? { exam: { year: { in: filters.years } } } : {}),
       ...(filters.area ? { area: filters.area } : {}),
       ...(filters.type ? { type: filters.type } : {}),
-      ...(filters.topic ? { tags: { some: { topic: { name: filters.topic } } } } : {}),
+      ...(filters.topics.length > 0
+        ? { tags: { some: { topic: { name: { in: filters.topics } } } } }
+        : {}),
     },
     select: { id: true },
   });

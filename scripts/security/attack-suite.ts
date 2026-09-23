@@ -1564,6 +1564,73 @@ async function main() {
     submittedLate.submittedAt?.getTime() === submittedLate.startedAt.getTime() + 15 * 60 * 1000,
   );
 
+  group("Filtros múltiplos do simulado personalizado");
+  const buildMulti = async (entries: [string, string][]) => {
+    const hidden = await formFields(answerer, "/simulados", 'name="quantidade"');
+    const data = new FormData();
+    for (const [key, value] of Object.entries(hidden)) {
+      data.append(key, value);
+    }
+    for (const [key, value] of entries) {
+      data.append(key, value);
+    }
+    return answerer.request("/simulados", { method: "POST", body: data }, { origin: BASE });
+  };
+  const openCustoms = () =>
+    prisma.attempt.findMany({
+      where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+      select: { id: true, questionIds: true },
+    });
+  const customsBefore = (await openCustoms()).length;
+  await buildMulti([
+    ...Array.from({ length: 31 }, (_, index): [string, string] => ["ano", String(2000 + index)]),
+    ["quantidade", "10"],
+  ]);
+  await buildMulti([
+    ["tema", "x".repeat(500)],
+    ["quantidade", "10"],
+  ]);
+  await buildMulti([
+    ["ano", "2017"],
+    ["ano", "abc"],
+    ["quantidade", "10"],
+  ]);
+  check(
+    "listas forjadas (31 anos, tema enorme, ano inválido no meio) não criam simulado",
+    (await openCustoms()).length === customsBefore,
+  );
+  const multiTopics = ["Redes de Computadores", "Sistemas Operacionais"];
+  const expectedIds = (
+    await prisma.question.findMany({
+      where: {
+        status: "VALID",
+        exam: { year: { in: [2014, 2017, 2021] } },
+        tags: { some: { topic: { name: { in: multiTopics } } } },
+      },
+      select: { id: true },
+    })
+  )
+    .map((question) => question.id)
+    .sort();
+  reply = await buildMulti([
+    ["ano", "2014"],
+    ["ano", "2017"],
+    ["ano", "2021"],
+    ["ano", "2017"],
+    ["tema", multiTopics[0]],
+    ["tema", multiTopics[1]],
+    ["quantidade", "40"],
+  ]);
+  const multiCreated = (await openCustoms()).find(
+    (attempt) => !reply.location || reply.location.includes(attempt.id),
+  );
+  check(
+    "vários anos e vários temas juntos: sorteia exatamente as que batem",
+    expectedIds.length > 0 &&
+      JSON.stringify([...(multiCreated?.questionIds ?? [])].sort()) === JSON.stringify(expectedIds),
+    `${multiCreated?.questionIds.length} de ${expectedIds.length}`,
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });
