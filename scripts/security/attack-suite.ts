@@ -795,6 +795,70 @@ async function main() {
     "ação de responder reaproveitada sem login não grava nada",
     (await itemsOf()).length === countBefore,
   );
+  group("Respostas discursivas");
+  const discursiveQuestion = await prisma.question.findFirst({
+    where: { exam: { year: 2017 }, originalLabel: "D4" },
+    select: { id: true },
+  });
+  const discursivePath = `/questoes/${discursiveQuestion?.id}`;
+  const beforeAnswer = await answerer.get(discursivePath);
+  check(
+    "padrão de resposta não vai para a página antes de responder",
+    !beforeAnswer.body.includes("desenfileirar() : texto") &&
+      !pageText(beforeAnswer.body).includes("Padrão de resposta oficial"),
+  );
+  await answerer.submitForm(discursivePath, 'name="answerText"', {
+    answerText: '<img src=x onerror="alert(1)"> resposta',
+  });
+  const revealed = await answerer.get(discursivePath);
+  check(
+    "HTML na resposta aparece escapado, sem virar elemento",
+    !revealed.body.includes('<img src=x onerror="alert(1)">') &&
+      revealed.body.includes("&lt;img src=x"),
+  );
+  const ownItem = await prisma.attemptItem.findFirst({
+    where: { attempt: { user: { email: studentEmail } }, answerText: { not: null } },
+    select: { id: true },
+  });
+  const invalidScores: Record<string, string>[] = [
+    { score_a: "7", score_b: "1" },
+    { score_a: "-1", score_b: "1" },
+    { score_a: "3", score_b: "1", score_z: "9" },
+  ];
+  for (const scores of invalidScores) {
+    await answerer.submitForm(discursivePath, 'name="itemId"', scores);
+  }
+  check(
+    "notas acima do máximo, negativas ou de item inexistente não são gravadas",
+    (
+      await prisma.attemptItem.findUnique({
+        where: { id: ownItem?.id },
+        select: { selfScore: true },
+      })
+    )?.selfScore === null,
+  );
+  await answerer.submitForm(discursivePath, 'name="itemId"', { score_a: "5", score_b: "4" });
+  const intruder = await createStudent(`intruso${TEST_DOMAIN}`, "senhaIntruso1", "10.62.0.1");
+  await intruder.submitForm(discursivePath, 'name="answerText"', { answerText: "minha" });
+  await intruder.submitForm(discursivePath, 'name="itemId"', {
+    itemId: ownItem?.id ?? "",
+    score_a: "0",
+    score_b: "0",
+  });
+  check(
+    "outro aluno não altera a autoavaliação alheia trocando o itemId (IDOR)",
+    (
+      await prisma.attemptItem.findUnique({
+        where: { id: ownItem?.id },
+        select: { selfScore: true },
+      })
+    )?.selfScore === 9,
+  );
+  check(
+    "outro aluno não vê a resposta alheia",
+    !(await intruder.get(discursivePath)).body.includes("onerror"),
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });

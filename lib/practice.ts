@@ -77,3 +77,102 @@ export async function lastObjectiveAnswer(userId: string, questionId: string) {
     select: { selectedLetter: true, isCorrect: true, answeredAt: true },
   });
 }
+
+export const MAX_ANSWER_LENGTH = 5000;
+
+export type ScoreSlot = { key: string; label: string; max: number };
+
+export async function scoreSlots(questionId: string): Promise<ScoreSlot[] | null> {
+  const question = await prisma.question.findUnique({
+    where: { id: questionId },
+    select: {
+      type: true,
+      valuePoints: true,
+      answerStandards: { orderBy: { subItem: "asc" }, select: { subItem: true, maxScore: true } },
+    },
+  });
+  if (!question || question.type !== "DISCURSIVE") {
+    return null;
+  }
+  const withSubItems = question.answerStandards.filter((standard) => standard.subItem !== null);
+  if (withSubItems.length > 0 && withSubItems.every((standard) => standard.maxScore !== null)) {
+    return withSubItems.map((standard) => ({
+      key: standard.subItem!,
+      label: `Item ${standard.subItem})`,
+      max: standard.maxScore!,
+    }));
+  }
+  const total =
+    question.answerStandards.length === 1 && question.answerStandards[0].maxScore !== null
+      ? question.answerStandards[0].maxScore
+      : (question.valuePoints ?? 10);
+  return [{ key: "total", label: "Nota", max: total }];
+}
+
+export async function answerDiscursive(
+  userId: string,
+  questionId: string,
+  answerText: string,
+): Promise<string | null> {
+  const question = await prisma.question.findUnique({
+    where: { id: questionId },
+    select: { type: true },
+  });
+  if (!question || question.type !== "DISCURSIVE") {
+    return null;
+  }
+  const now = new Date();
+  const item = await prisma.attemptItem.create({
+    data: {
+      attemptId: await practiceAttemptId(userId),
+      questionId,
+      answerText,
+      revealedAt: now,
+      answeredAt: now,
+    },
+    select: { id: true },
+  });
+  return item.id;
+}
+
+export async function lastDiscursiveAnswer(userId: string, questionId: string) {
+  return prisma.attemptItem.findFirst({
+    where: { questionId, attempt: { userId, mode: "PRACTICE" }, answerText: { not: null } },
+    orderBy: { answeredAt: "desc" },
+    select: { id: true, answerText: true, answeredAt: true, selfScore: true, selfScores: true },
+  });
+}
+
+export async function saveSelfEvaluation(
+  userId: string,
+  itemId: string,
+  scores: Record<string, number>,
+): Promise<{ total: number } | null> {
+  const item = await prisma.attemptItem.findFirst({
+    where: { id: itemId, attempt: { userId, mode: "PRACTICE" }, answerText: { not: null } },
+    select: { id: true, questionId: true },
+  });
+  if (!item) {
+    return null;
+  }
+  const slots = await scoreSlots(item.questionId);
+  if (!slots) {
+    return null;
+  }
+  const expected = new Set(slots.map((slot) => slot.key));
+  if (Object.keys(scores).some((key) => !expected.has(key))) {
+    return null;
+  }
+  for (const slot of slots) {
+    const value = scores[slot.key];
+    if (value === undefined || !Number.isFinite(value) || value < 0 || value > slot.max) {
+      return null;
+    }
+  }
+  const total = Math.round(slots.reduce((sum, slot) => sum + scores[slot.key], 0) * 100) / 100;
+  await prisma.attemptItem.update({
+    where: { id: item.id },
+    data: { selfScore: total, selfScores: scores },
+  });
+  return { total };
+}

@@ -2,11 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
+import { DiscursiveAnswerForm } from "@/components/discursive-answer-form";
 import { ObjectiveAnswer } from "@/components/objective-answer";
 import { RichText } from "@/components/rich-text";
+import { SelfEvaluationForm } from "@/components/self-evaluation-form";
 import { resolveAssets } from "@/lib/assets";
 import { requireUser } from "@/lib/dal";
-import { lastObjectiveAnswer } from "@/lib/practice";
+import {
+  lastDiscursiveAnswer,
+  lastObjectiveAnswer,
+  MAX_ANSWER_LENGTH,
+  scoreSlots,
+} from "@/lib/practice";
 import { AREA_LABEL, getQuestionDetail, questionTitle, TYPE_LABEL } from "@/lib/questions";
 
 export const metadata: Metadata = { title: "Questão — TSCQuestões" };
@@ -25,16 +32,22 @@ function describeLastAnswer(answer: {
   answeredAt: Date;
 }): string {
   const verdict = answer.isCorrect === null ? "" : answer.isCorrect ? " (acertou)" : " (errou)";
-  const when = answer.answeredAt.toLocaleString("pt-BR", {
+  const when = formatWhen(answer.answeredAt);
+  return `Sua última resposta: alternativa ${answer.selectedLetter}${verdict}, em ${when}.`;
+}
+
+function formatWhen(date: Date): string {
+  return date.toLocaleString("pt-BR", {
     dateStyle: "short",
     timeStyle: "short",
     timeZone: "America/Sao_Paulo",
   });
-  return `Sua última resposta: alternativa ${answer.selectedLetter}${verdict}, em ${when}.`;
 }
 
 export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
   const { id } = await props.params;
+  const { nova } = await props.searchParams;
+  const writingNew = nova === "1";
   const user = await requireUser(`/questoes/${encodeURIComponent(id)}`);
 
   const detail = await getQuestionDetail(id);
@@ -51,6 +64,10 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
   );
   const lastAnswer =
     question.type === "OBJECTIVE" ? await lastObjectiveAnswer(user.id, question.id) : null;
+  const lastWritten =
+    question.type === "DISCURSIVE" ? await lastDiscursiveAnswer(user.id, question.id) : null;
+  const slots = question.type === "DISCURSIVE" ? await scoreSlots(question.id) : null;
+  const revealed = Boolean(lastWritten) && !writingNew;
   const isAnulada = question.status === "ANULADA";
   const title = questionTitle(question.originalLabel, question.type);
 
@@ -113,32 +130,69 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
             }))}
           />
         </section>
-      ) : (
-        <details className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
-          <summary className="cursor-pointer font-medium">Ver resposta oficial</summary>
-          <div className="mt-4 flex flex-col gap-4">
+      ) : revealed && lastWritten ? (
+        <section aria-label="Sua resposta e o padrão oficial" className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+            <h2 className="font-semibold">Sua resposta</h2>
+            <p className="text-sm whitespace-pre-wrap">{lastWritten.answerText}</p>
+            <p className="text-xs text-zinc-500">
+              Enviada em {formatWhen(lastWritten.answeredAt)}.{" "}
+              <Link href={`/questoes/${question.id}?nova=1`} className="underline">
+                Escrever nova resposta
+              </Link>
+            </p>
+          </div>
+          <div className="flex flex-col gap-4 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+            <h2 className="font-semibold">Padrão de resposta oficial</h2>
             {standards.map((standard) => (
               <div key={standard.id} className="flex flex-col gap-2">
-                <h2 className="font-semibold">
-                  {standard.subItem ? `Item ${standard.subItem})` : "Padrão de resposta"}
-                  {standard.maxScore !== null ? (
-                    <span className="font-normal text-zinc-600 dark:text-zinc-400">
-                      {" "}
-                      — {formatPoints(standard.maxScore)}
-                    </span>
-                  ) : null}
-                </h2>
+                {standard.subItem || standard.maxScore !== null ? (
+                  <h3 className="font-medium">
+                    {standard.subItem ? `Item ${standard.subItem})` : "Resposta esperada"}
+                    {standard.maxScore !== null ? (
+                      <span className="font-normal text-zinc-600 dark:text-zinc-400">
+                        {" "}
+                        — {formatPoints(standard.maxScore)}
+                      </span>
+                    ) : null}
+                  </h3>
+                ) : null}
                 {standard.criteriaMd.trim() || standard.resolvedAssets.length > 0 ? (
                   <RichText source={standard.criteriaMd} assets={standard.resolvedAssets} />
                 ) : (
                   <p className="text-zinc-600 italic dark:text-zinc-400">
-                    O INEP não publicou padrão de resposta para esta questão.
+                    O INEP não publicou padrão de resposta para esta questão. Compare sua resposta
+                    com o enunciado e se autoavalie pelos critérios pedidos nele.
                   </p>
                 )}
               </div>
             ))}
           </div>
-        </details>
+          {slots ? (
+            <div className="flex flex-col gap-3 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+              <h2 className="font-semibold">Sua autoavaliação</h2>
+              {isAnulada ? (
+                <p className="text-sm text-amber-800 dark:text-amber-300">
+                  Esta questão foi anulada: a nota fica registrada, mas não conta no seu desempenho.
+                </p>
+              ) : null}
+              <SelfEvaluationForm
+                itemId={lastWritten.id}
+                slots={slots}
+                initial={(lastWritten.selfScores as Record<string, number> | null) ?? null}
+              />
+            </div>
+          ) : null}
+        </section>
+      ) : (
+        <section aria-label="Responder" className="flex flex-col gap-2">
+          <DiscursiveAnswerForm questionId={question.id} maxLength={MAX_ANSWER_LENGTH} />
+          {lastWritten ? (
+            <Link href={`/questoes/${question.id}`} className="text-sm underline">
+              Ver sua última resposta ({formatWhen(lastWritten.answeredAt)})
+            </Link>
+          ) : null}
+        </section>
       )}
 
       <nav aria-label="Navegação na prova" className="flex justify-between gap-4 text-sm">

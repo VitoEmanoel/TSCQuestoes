@@ -273,10 +273,6 @@ async function main() {
       `${images.loaded}/${images.total}`,
     );
     await page.goto(`${BASE}/questoes/${code?.id}`);
-    const opened = await page.evaluate<boolean>(
-      "(() => { const d = document.querySelector('details'); d.querySelector('summary').click(); return d.open; })()",
-    );
-    check("abrir a resposta oficial funciona", opened);
     check(
       "navegação autenticada: nenhuma violação de CSP",
       cspViolations(phase).length === 0,
@@ -363,6 +359,63 @@ async function main() {
     });
     await prisma.attempt.deleteMany({
       where: { mode: "PRACTICE", startedAt: { gte: answerStarted }, items: { none: {} } },
+    });
+
+    phase = "responder discursiva";
+    const discursiveStarted = new Date();
+    const discursive = await prisma.question.findFirst({
+      where: { exam: { year: 2017 }, originalLabel: "D4" },
+      select: { id: true },
+    });
+    await page.goto(`${BASE}/questoes/${discursive?.id}?nova=1`);
+    const hiddenBefore = await page.evaluate<boolean>(
+      "!document.body.textContent.includes('Padrão de resposta oficial')",
+    );
+    check("discursiva: padrão escondido antes de responder", hiddenBefore);
+    const typeInto = (selector: string, value: string) =>
+      page.evaluate(`(() => {
+        const element = document.querySelector(${JSON.stringify(selector)});
+        const setter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(element), 'value').set;
+        setter.call(element, ${JSON.stringify(value)});
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+      })()`);
+    await typeInto("#answerText", "A função desenfileirar retira o primeiro caminhoneiro.");
+    const counter = await page.waitFor("document.body.textContent.includes('54/5000 caracteres')");
+    check("contador de caracteres acompanha a digitação", counter);
+    await page.evaluate(
+      "[...document.querySelectorAll('main form button')].find((b) => b.textContent.includes('Enviar resposta')).click()",
+    );
+    const standardShown = await page.waitFor(
+      "document.body.textContent.includes('Padrão de resposta oficial') && document.body.textContent.includes('A função desenfileirar retira')",
+    );
+    check("enviar mostra a resposta ao lado do padrão oficial", standardShown);
+    await typeInto('input[name="score_a"]', "4.5");
+    await typeInto('input[name="score_b"]', "3");
+    const totalLive = await page.waitFor("document.body.textContent.includes('Total: 7,5 de 10')");
+    check("total da autoavaliação soma enquanto digita", totalLive);
+    await page.evaluate(
+      "[...document.querySelectorAll('main form button')].find((b) => b.textContent.includes('Salvar autoavaliação')).click()",
+    );
+    const saved = await page.waitFor(
+      "document.body.textContent.includes('Autoavaliação salva: 7,5 de 10')",
+    );
+    check("salvar autoavaliação confirma a nota", saved);
+    check(
+      "discursiva: nenhuma violação de CSP nem erro de JavaScript",
+      cspViolations(phase).length === 0 && jsErrors(phase).length === 0,
+      [...cspViolations(phase), ...jsErrors(phase)]
+        .map((e) => e.text)
+        .join(" | ")
+        .slice(0, 200),
+    );
+    await prisma.attemptItem.deleteMany({
+      where: {
+        answeredAt: { gte: discursiveStarted },
+        attempt: { user: { email: "admin@tscquestoes.local" } },
+      },
+    });
+    await prisma.attempt.deleteMany({
+      where: { mode: "PRACTICE", startedAt: { gte: discursiveStarted }, items: { none: {} } },
     });
 
     phase = "XSS simulado";

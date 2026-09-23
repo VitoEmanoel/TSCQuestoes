@@ -202,6 +202,7 @@ model AttemptItem {
   isCorrect        Boolean?
   answerText       String?
   selfScore        Float?
+  selfScores       Json?
   teacherScore     Float?
   teacherComment   String?
   revealedAt       DateTime?

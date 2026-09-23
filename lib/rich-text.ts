@@ -16,13 +16,15 @@ function splitCells(line: string): string[] {
     .map((cell) => cell.trim());
 }
 
+const ITEM_MARKER = /^(?:[a-z]\)\s|[ivx]+[.)]\s+\p{Lu})/u;
+
 export function unwrapLines(text: string): string {
   return text
     .split("\n")
     .map((line) => line.trim())
     .reduce<string[]>((lines, line) => {
       const previous = lines[lines.length - 1];
-      if (previous && line && /^\p{Ll}/u.test(line)) {
+      if (previous && line && /^\p{Ll}/u.test(line) && !ITEM_MARKER.test(line)) {
         lines[lines.length - 1] = previous.endsWith("-") ? previous + line : `${previous} ${line}`;
       } else {
         lines.push(line);
