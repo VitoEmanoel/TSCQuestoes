@@ -9,6 +9,24 @@ import { FormField } from "@/components/form-field";
 export function SignupForm() {
   const [state, action, pending] = useActionState<AuthFormState, FormData>(signup, {});
 
+  if (state.sentTo) {
+    return (
+      <div role="status" className="flex flex-col gap-3 text-sm">
+        <p className="text-base font-medium">Verifique seu e-mail</p>
+        <p>
+          Se o endereço <strong>{state.sentTo}</strong> puder ser usado, enviamos para ele as
+          instruções para ativar a conta. O link vale por 24 horas.
+        </p>
+        <p className="text-zinc-600 dark:text-zinc-400">
+          Não recebeu? Confira a caixa de spam ou aguarde alguns minutos antes de tentar de novo.
+        </p>
+        <Link href="/login" className="font-medium underline">
+          Ir para o login
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <form action={action} className="flex flex-col gap-4" noValidate>
       <FormField

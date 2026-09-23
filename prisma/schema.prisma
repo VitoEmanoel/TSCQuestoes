@@ -215,3 +215,16 @@ model LoginThrottle {
   lockedUntil DateTime?
   updatedAt   DateTime  @updatedAt
 }
+
+model PendingSignup {
+  id           String   @id @default(cuid())
+  email        String
+  name         String
+  passwordHash String
+  tokenHash    String   @unique
+  attempts     Int      @default(0)
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([email])
+}

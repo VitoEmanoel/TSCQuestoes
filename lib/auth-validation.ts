@@ -2,6 +2,7 @@ export type AuthFormState = {
   message?: string;
   errors?: Partial<Record<"name" | "email" | "password" | "confirmPassword", string>>;
   values?: { name?: string; email?: string };
+  sentTo?: string;
 };
 
 export type SignupInput = {

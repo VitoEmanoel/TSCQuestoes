@@ -34,6 +34,22 @@ export const IP_POLICY: ThrottlePolicy = {
   lockMemoryMs: 24 * 60 * MINUTE,
 };
 
+export const SIGNUP_EMAIL_POLICY: ThrottlePolicy = {
+  maxFailures: 3,
+  windowMs: 60 * MINUTE,
+  baseLockMs: 60 * MINUTE,
+  maxLockMs: 24 * 60 * MINUTE,
+  lockMemoryMs: 24 * 60 * MINUTE,
+};
+
+export const SIGNUP_IP_POLICY: ThrottlePolicy = {
+  maxFailures: 10,
+  windowMs: 60 * MINUTE,
+  baseLockMs: 60 * MINUTE,
+  maxLockMs: 24 * 60 * MINUTE,
+  lockMemoryMs: 24 * 60 * MINUTE,
+};
+
 export function isLocked(state: ThrottleState | null, now: Date): boolean {
   return Boolean(state?.lockedUntil && state.lockedUntil > now);
 }
@@ -74,7 +90,10 @@ export function applyFailure(
   };
 }
 
-export function throttleKey(kind: "email" | "ip", value: string): string {
+export function throttleKey(
+  kind: "email" | "ip" | "signup-email" | "signup-ip",
+  value: string,
+): string {
   return `${kind}:${createHash("sha256").update(value).digest("hex")}`;
 }
 
