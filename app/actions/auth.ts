@@ -2,7 +2,7 @@
 
 import { Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { AuthError } from "next-auth";
+import { AuthError, CredentialsSignin } from "next-auth";
 import { signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import {
@@ -13,6 +13,9 @@ import {
 } from "@/lib/auth-validation";
 
 function describeAuthError(error: AuthError): string {
+  if (error instanceof CredentialsSignin && error.code === "rate_limited") {
+    return "Muitas tentativas de login. Aguarde alguns minutos e tente novamente.";
+  }
   return error.type === "CredentialsSignin"
     ? "E-mail ou senha incorretos."
     : "Não foi possível entrar agora. Tente novamente.";

@@ -1,8 +1,24 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { normalizeEmail } from "@/lib/auth-validation";
+import {
+  anyLocked,
+  clearThrottle,
+  clientIp,
+  EMAIL_POLICY,
+  IP_POLICY,
+  isLocked,
+  recordFailure,
+  throttleKey,
+} from "@/lib/login-throttle";
 import { prisma } from "@/lib/prisma";
+
+export class TooManyAttempts extends CredentialsSignin {
+  code = "rate_limited";
+}
+
+const DUMMY_HASH = bcrypt.hashSync("senha-inexistente-para-tempo-constante", 10);
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
@@ -13,25 +29,37 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         email: {},
         password: {},
       },
-      authorize: async (credentials) => {
+      authorize: async (credentials, request) => {
         const email = normalizeEmail((credentials?.email as string | undefined) ?? null);
-        const password = credentials?.password as string | undefined;
+        const password = credentials?.password;
 
-        if (!email || !password) {
+        if (!email || typeof password !== "string" || password.length === 0) {
           return null;
+        }
+
+        const emailKey = throttleKey("email", email);
+        const ipKey = throttleKey("ip", clientIp(request.headers));
+
+        if (await anyLocked([emailKey, ipKey])) {
+          throw new TooManyAttempts();
         }
 
         const user = await prisma.user.findUnique({ where: { email } });
+        const passwordMatches = await bcrypt.compare(password, user?.passwordHash ?? DUMMY_HASH);
 
-        if (!user?.passwordHash) {
+        if (!user?.passwordHash || !passwordMatches) {
+          const [emailState, ipState] = await Promise.all([
+            recordFailure(emailKey, EMAIL_POLICY),
+            recordFailure(ipKey, IP_POLICY),
+          ]);
+          const now = new Date();
+          if (isLocked(emailState, now) || isLocked(ipState, now)) {
+            throw new TooManyAttempts();
+          }
           return null;
         }
 
-        const passwordMatches = await bcrypt.compare(password, user.passwordHash);
-
-        if (!passwordMatches) {
-          return null;
-        }
+        await clearThrottle(emailKey);
 
         return {
           id: user.id,

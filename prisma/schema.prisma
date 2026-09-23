@@ -206,3 +206,12 @@ model AttemptItem {
   revealedAt       DateTime?
   timeSpentSec     Int?
 }
+
+model LoginThrottle {
+  key         String    @id
+  failures    Int       @default(0)
+  lockCount   Int       @default(0)
+  windowStart DateTime  @default(now())
+  lockedUntil DateTime?
+  updatedAt   DateTime  @updatedAt
+}
