@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ExamBadge } from "@/components/exam-badge";
+import { PracticeSessionPanel } from "@/components/practice-session-panel";
 import { QuestionFiltersForm } from "@/components/question-filters";
 import { requireUser } from "@/lib/dal";
+import { practiceSession } from "@/lib/practice";
 import {
   AREA_LABEL,
   excerpt,
@@ -18,16 +20,22 @@ export const metadata: Metadata = { title: "Questões — TSCQuestões" };
 
 export default async function QuestionsPage(props: PageProps<"/questoes">) {
   const filters = parseQuestionFilters(await props.searchParams);
-  await requireUser(`/questoes${filtersToSearchParams(filters)}`);
+  const user = await requireUser(`/questoes${filtersToSearchParams(filters)}`);
 
-  const [{ items, total, page, pageCount }, { years, topics }] = await Promise.all([
+  const [{ items, total, page, pageCount }, { years, topics }, session] = await Promise.all([
     listQuestions(filters),
     getFilterOptions(),
+    practiceSession(user.id),
   ]);
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8">
       <h1 className="text-2xl font-semibold tracking-tight">Questões</h1>
+      <PracticeSessionPanel
+        policy={session.policy}
+        answered={session.answered}
+        pending={session.pending}
+      />
       <QuestionFiltersForm filters={filters} years={years} topics={topics} />
       <p className="text-sm text-zinc-600 dark:text-zinc-400" aria-live="polite">
         {total === 0

@@ -3,12 +3,27 @@
 import { useActionState, useState } from "react";
 import { answerDiscursiveAction, type DiscursiveAnswerState } from "@/app/actions/practice";
 
+const AFTER_SUBMIT = {
+  IMMEDIATE:
+    "Depois de enviar, o padrão de resposta oficial aparece para você comparar e se autoavaliar.",
+  AT_END: "O padrão de resposta oficial aparece quando você finalizar a sessão.",
+  MANUAL: "Depois de enviar, você abre o padrão de resposta oficial quando quiser.",
+};
+
+const SUBMIT_LABEL = {
+  IMMEDIATE: "Enviar resposta e ver o padrão",
+  AT_END: "Enviar resposta",
+  MANUAL: "Enviar resposta",
+};
+
 export function DiscursiveAnswerForm({
   questionId,
   maxLength,
+  policy,
 }: {
   questionId: string;
   maxLength: number;
+  policy: keyof typeof AFTER_SUBMIT;
 }) {
   const [state, action, pending] = useActionState<DiscursiveAnswerState, FormData>(
     answerDiscursiveAction,
@@ -34,8 +49,7 @@ export function DiscursiveAnswerForm({
         className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-base leading-relaxed text-zinc-900 outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-zinc-100"
       />
       <p id="answerText-help" className="text-sm text-zinc-500">
-        {length}/{maxLength} caracteres. Depois de enviar, o padrão de resposta oficial aparece para
-        você comparar e se autoavaliar.
+        {length}/{maxLength} caracteres. {AFTER_SUBMIT[policy]}
       </p>
       {state.error ? (
         <p role="alert" className="text-sm text-red-600 dark:text-red-400">
@@ -47,7 +61,7 @@ export function DiscursiveAnswerForm({
         disabled={pending}
         className="self-start rounded-md bg-zinc-900 px-4 py-2 font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
       >
-        {pending ? "Enviando..." : "Enviar resposta e ver o padrão"}
+        {pending ? "Enviando..." : SUBMIT_LABEL[policy]}
       </button>
     </form>
   );

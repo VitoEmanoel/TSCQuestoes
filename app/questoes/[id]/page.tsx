@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
 import { DiscursiveAnswerForm } from "@/components/discursive-answer-form";
 import { ObjectiveAnswer } from "@/components/objective-answer";
+import { RevealDiscursiveButton } from "@/components/reveal-discursive-button";
 import { RichText } from "@/components/rich-text";
 import { SelfEvaluationForm } from "@/components/self-evaluation-form";
 import { resolveAssets } from "@/lib/assets";
@@ -12,6 +13,8 @@ import {
   lastDiscursiveAnswer,
   lastObjectiveAnswer,
   MAX_ANSWER_LENGTH,
+  type PendingObjectiveResult,
+  practiceSession,
   scoreSlots,
 } from "@/lib/practice";
 import { AREA_LABEL, getQuestionDetail, questionTitle, TYPE_LABEL } from "@/lib/questions";
@@ -30,8 +33,16 @@ function describeLastAnswer(answer: {
   selectedLetter: string | null;
   isCorrect: boolean | null;
   answeredAt: Date;
+  revealedAt: Date | null;
 }): string {
-  const verdict = answer.isCorrect === null ? "" : answer.isCorrect ? " (acertou)" : " (errou)";
+  const verdict =
+    answer.revealedAt === null
+      ? " (aguardando correção)"
+      : answer.isCorrect === null
+        ? ""
+        : answer.isCorrect
+          ? " (acertou)"
+          : " (errou)";
   const when = formatWhen(answer.answeredAt);
   return `Sua última resposta: alternativa ${answer.selectedLetter}${verdict}, em ${when}.`;
 }
@@ -67,7 +78,19 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
   const lastWritten =
     question.type === "DISCURSIVE" ? await lastDiscursiveAnswer(user.id, question.id) : null;
   const slots = question.type === "DISCURSIVE" ? await scoreSlots(question.id) : null;
-  const revealed = Boolean(lastWritten) && !writingNew;
+  const session = await practiceSession(user.id);
+  const showingLast = Boolean(lastWritten) && !writingNew;
+  const revealed = showingLast && lastWritten?.revealedAt !== null;
+  const initialPending: PendingObjectiveResult | undefined =
+    lastAnswer && lastAnswer.revealedAt === null && lastAnswer.selectedLetter
+      ? {
+          status: "pending",
+          itemId: lastAnswer.id,
+          letter: lastAnswer.selectedLetter,
+          policy: lastAnswer.attempt.revealPolicy === "MANUAL" ? "MANUAL" : "AT_END",
+          answeredAt: lastAnswer.answeredAt.toISOString(),
+        }
+      : undefined;
   const isAnulada = question.status === "ANULADA";
   const title = questionTitle(question.originalLabel, question.type);
 
@@ -124,6 +147,7 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
           </p>
           <ObjectiveAnswer
             questionId={question.id}
+            initialPending={initialPending}
             options={question.options.map((option) => ({
               letter: option.letter,
               content: <RichText source={option.textMd} />,
@@ -184,9 +208,42 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
             </div>
           ) : null}
         </section>
+      ) : showingLast && lastWritten ? (
+        <section aria-label="Sua resposta" className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+            <h2 className="font-semibold">Sua resposta</h2>
+            <p className="text-sm whitespace-pre-wrap">{lastWritten.answerText}</p>
+            <p className="text-xs text-zinc-500">
+              Enviada em {formatWhen(lastWritten.answeredAt)}.{" "}
+              <Link href={`/questoes/${question.id}?nova=1`} className="underline">
+                Escrever nova resposta
+              </Link>
+            </p>
+          </div>
+          <p className="rounded-md border border-sky-300 bg-sky-50 px-3 py-2 text-sm text-sky-900 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-200">
+            {lastWritten.attempt.revealPolicy === "MANUAL" ? (
+              "Resposta registrada. Abra o padrão de resposta oficial quando quiser se autoavaliar."
+            ) : (
+              <>
+                Resposta registrada. O padrão de resposta oficial aparece quando você{" "}
+                <Link href="/questoes" className="underline">
+                  finalizar a sessão
+                </Link>
+                .
+              </>
+            )}
+          </p>
+          {lastWritten.attempt.revealPolicy === "MANUAL" ? (
+            <RevealDiscursiveButton itemId={lastWritten.id} />
+          ) : null}
+        </section>
       ) : (
         <section aria-label="Responder" className="flex flex-col gap-2">
-          <DiscursiveAnswerForm questionId={question.id} maxLength={MAX_ANSWER_LENGTH} />
+          <DiscursiveAnswerForm
+            questionId={question.id}
+            maxLength={MAX_ANSWER_LENGTH}
+            policy={session.policy}
+          />
           {lastWritten ? (
             <Link href={`/questoes/${question.id}`} className="text-sm underline">
               Ver sua última resposta ({formatWhen(lastWritten.answeredAt)})

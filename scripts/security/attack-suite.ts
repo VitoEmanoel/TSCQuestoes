@@ -859,6 +859,184 @@ async function main() {
     !(await intruder.get(discursivePath)).body.includes("onerror"),
   );
 
+  group("Política de revelar resposta");
+  const formFields = async (client: Client, path: string, marker: string) => {
+    const page = await client.get(path);
+    const form = [...page.body.matchAll(/<form\b[\s\S]*?<\/form>/g)]
+      .map((match) => match[0])
+      .find((candidate) => candidate.includes(marker));
+    const fields: Record<string, string> = {};
+    for (const match of (form ?? "").matchAll(
+      /<input type="hidden" name="([^"]+)"(?: value="([^"]*)")?\/>/g,
+    )) {
+      fields[decodeEntities(match[1])] = decodeEntities(match[2] ?? "");
+    }
+    return fields;
+  };
+  const postFields = (client: Client, path: string, fields: Record<string, string>) => {
+    const data = new FormData();
+    for (const [key, value] of Object.entries(fields)) {
+      data.append(key, value);
+    }
+    return client.request(path, { method: "POST", body: data }, { origin: BASE });
+  };
+  const policyOf = async () =>
+    (
+      await prisma.attempt.findFirst({
+        where: { user: { email: studentEmail }, mode: "PRACTICE", status: "IN_PROGRESS" },
+        select: { revealPolicy: true },
+      })
+    )?.revealPolicy;
+  const latestItem = (questionId: string | undefined) =>
+    prisma.attemptItem.findFirst({
+      where: { attempt: { user: { email: studentEmail } }, questionId },
+      orderBy: { answeredAt: "desc" },
+      select: { id: true, revealedAt: true, attemptId: true },
+    });
+  const leaksVerdict = (body: string) => {
+    const text = pageText(body);
+    return (
+      /correctLetter|isCorrect/.test(body) ||
+      text.includes("alternativa correta") ||
+      text.includes("Você acertou") ||
+      text.includes("(acertou)") ||
+      text.includes("(errou)")
+    );
+  };
+  const leaksStandard = (body: string) =>
+    body.includes("desenfileirar() : texto") ||
+    pageText(body).includes("Padrão de resposta oficial");
+
+  const selfEvalFields = await formFields(answerer, discursivePath, 'name="score_a"');
+  await answerer.submitForm("/questoes", 'name="policy"', { policy: "HACK" });
+  check("modo de correção inválido é recusado", (await policyOf()) === "IMMEDIATE");
+  await answerer.submitForm("/questoes", 'name="policy"', { policy: "MANUAL" });
+  check("aluno troca o modo para “quando eu pedir”", (await policyOf()) === "MANUAL");
+
+  reply = await answerer.submitForm(answerPath, 'name="letter"', { letter: wrongLetter });
+  const manualItem = await latestItem(objective?.id);
+  check(
+    "no modo manual, a resposta da ação não traz a correção",
+    !leaksVerdict(reply.body) && manualItem?.revealedAt === null,
+  );
+  const reloaded = await answerer.get(answerPath);
+  check(
+    "no modo manual, a página recarregada mostra “aguardando correção” sem o gabarito",
+    !leaksVerdict(reloaded.body) && pageText(reloaded.body).includes("aguardando correção"),
+  );
+  const revealObjectiveFields = await formFields(answerer, answerPath, 'name="itemId"');
+  reply = await postFields(intruder, answerPath, revealObjectiveFields);
+  check(
+    "outro aluno não revela a correção alheia com o itemId (IDOR)",
+    !leaksVerdict(reply.body) && (await latestItem(objective?.id))?.revealedAt === null,
+  );
+  await answerer.submitForm(`${discursivePath}?nova=1`, 'name="answerText"', {
+    answerText: "manual",
+  });
+  const manualDiscursive = await latestItem(discursiveQuestion?.id);
+  const pendingDiscursivePage = await answerer.get(discursivePath);
+  check(
+    "no modo manual, o padrão da discursiva não vai para a página antes de pedir",
+    !leaksStandard(pendingDiscursivePage.body) && manualDiscursive?.revealedAt === null,
+  );
+  await postFields(answerer, discursivePath, {
+    ...selfEvalFields,
+    itemId: manualDiscursive?.id ?? "",
+    score_a: "5",
+    score_b: "4",
+  });
+  check(
+    "autoavaliação antes de revelar o padrão não é gravada",
+    (
+      await prisma.attemptItem.findUnique({
+        where: { id: manualDiscursive?.id },
+        select: { selfScore: true },
+      })
+    )?.selfScore === null,
+  );
+  const revealDiscursiveFields = await formFields(answerer, discursivePath, 'name="itemId"');
+  await answerer.submitForm("/questoes", 'name="policy"', { policy: "IMMEDIATE" });
+  check("com respostas pendentes o modo não pode ser trocado", (await policyOf()) === "MANUAL");
+  reply = await answerer.submitForm(answerPath, 'name="itemId"', {});
+  check(
+    "o próprio aluno revela a objetiva quando pede",
+    pageText(reply.body).includes(
+      `Você errou. Você marcou a ${wrongLetter}; a alternativa correta é a ${rightLetter}.`,
+    ) && (await latestItem(objective?.id))?.revealedAt !== null,
+  );
+  await answerer.submitForm(discursivePath, 'name="itemId"', {});
+  check(
+    "o próprio aluno revela o padrão da discursiva quando pede",
+    leaksStandard((await answerer.get(discursivePath)).body),
+  );
+
+  await answerer.submitForm("/questoes", 'name="policy"', { policy: "AT_END" });
+  check("sem pendências o modo muda para “ao finalizar”", (await policyOf()) === "AT_END");
+  reply = await answerer.submitForm(answerPath, 'name="letter"', { letter: rightLetter });
+  const atEndItem = await latestItem(objective?.id);
+  check(
+    "ao finalizar: a resposta da ação e a página não trazem a correção",
+    !leaksVerdict(reply.body) &&
+      !leaksVerdict((await answerer.get(answerPath)).body) &&
+      atEndItem?.revealedAt === null,
+  );
+  reply = await postFields(answerer, answerPath, {
+    ...revealObjectiveFields,
+    itemId: atEndItem?.id ?? "",
+  });
+  check(
+    "ao finalizar: forjar o “Ver correção” pelo DevTools não revela antes do fim",
+    !leaksVerdict(reply.body) && (await latestItem(objective?.id))?.revealedAt === null,
+  );
+  await answerer.submitForm(`${discursivePath}?nova=1`, 'name="answerText"', {
+    answerText: "no fim",
+  });
+  const atEndDiscursive = await latestItem(discursiveQuestion?.id);
+  await postFields(answerer, discursivePath, {
+    ...revealDiscursiveFields,
+    itemId: atEndDiscursive?.id ?? "",
+  });
+  check(
+    "ao finalizar: forjar a revelação da discursiva não mostra o padrão antes do fim",
+    !leaksStandard((await answerer.get(discursivePath)).body) &&
+      (await latestItem(discursiveQuestion?.id))?.revealedAt === null,
+  );
+  await intruder.submitForm("/questoes", 'name="policy"', { policy: "AT_END" });
+  await intruder.submitForm(answerPath, 'name="letter"', { letter: "A" });
+  await intruder.submitForm("/questoes", "Finalizar sessão", {});
+  check(
+    "outro aluno finalizando a própria sessão não revela a do aluno",
+    (await latestItem(objective?.id))?.revealedAt === null,
+  );
+  reply = await answerer.submitForm("/questoes", "Finalizar sessão", {});
+  const finished = await prisma.attempt.findUnique({
+    where: { id: atEndItem?.attemptId },
+    select: {
+      status: true,
+      items: { where: { revealedAt: null }, select: { id: true } },
+    },
+  });
+  check(
+    "finalizar revela tudo e leva ao resultado da sessão",
+    finished?.status === "SUBMITTED" &&
+      finished.items.length === 0 &&
+      reply.location.includes(`/questoes/sessao/${atEndItem?.attemptId}`),
+    `status ${reply.status} → ${reply.location}`,
+  );
+  const resultPage = await answerer.get(`/questoes/sessao/${atEndItem?.attemptId}`);
+  check(
+    "resultado da sessão mostra acertos e o aluno volta a ver a correção",
+    pageText(resultPage.body).includes("1 de 1 objetiva certa") &&
+      pageText((await answerer.get(answerPath)).body).includes("(acertou)"),
+    pageText(resultPage.body).slice(0, 400),
+  );
+  reply = await intruder.get(`/questoes/sessao/${atEndItem?.attemptId}`);
+  check("outro aluno não abre o resultado da sessão alheia", reply.status === 404);
+  check(
+    "nova sessão continua com o modo escolhido",
+    (await answerer.get("/questoes")).body.includes('value="AT_END" selected=""'),
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });

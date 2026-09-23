@@ -5,12 +5,15 @@ import { createServer, type Server } from "node:http";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 import WebSocket from "ws";
 
 const BASE = process.env.ATTACK_BASE_URL ?? "http://localhost:3123";
 const DEBUG_PORT = 9333;
 const EVIL_PORT = 8765;
 const prisma = new PrismaClient();
+const TEST_EMAIL = "navegador@ataque.local";
+const TEST_PASSWORD = "senhaNavegador1";
 
 type LogEntry = { phase: string; text: string };
 const logs: LogEntry[] = [];
@@ -154,7 +157,22 @@ function startEvilSite(): Server {
   return server;
 }
 
+async function removeTestUser() {
+  await prisma.attemptItem.deleteMany({ where: { attempt: { user: { email: TEST_EMAIL } } } });
+  await prisma.attempt.deleteMany({ where: { user: { email: TEST_EMAIL } } });
+  await prisma.user.deleteMany({ where: { email: TEST_EMAIL } });
+}
+
 async function main() {
+  await removeTestUser();
+  await prisma.user.create({
+    data: {
+      email: TEST_EMAIL,
+      name: "Teste do Navegador",
+      role: "STUDENT",
+      passwordHash: await bcrypt.hash(TEST_PASSWORD, 10),
+    },
+  });
   const profile = mkdtempSync(join(tmpdir(), "tscq-chrome-"));
   const chrome: ChildProcess = spawn(
     findChrome(),
@@ -225,8 +243,8 @@ async function main() {
     phase = "login pelo navegador";
     await page.goto(`${BASE}/login`);
     await page.evaluate(`(() => {
-      document.querySelector('#email').value = 'admin@tscquestoes.local';
-      document.querySelector('#password').value = ${JSON.stringify(process.env.ADMIN_SEED_PASSWORD ?? "admin123")};
+      document.querySelector('#email').value = ${JSON.stringify(TEST_EMAIL)};
+      document.querySelector('#password').value = ${JSON.stringify(TEST_PASSWORD)};
       document.querySelector('main form').requestSubmit();
     })()`);
     const loggedIn = await page.waitFor(
@@ -256,7 +274,7 @@ async function main() {
     await page.evaluate(`(() => {
       document.querySelector('#ano').value = '2017';
       document.querySelector('#tipo').value = 'DISCURSIVE';
-      document.querySelector('main form').requestSubmit();
+      document.querySelector('#ano').form.requestSubmit();
     })()`);
     const filtered = await page.waitFor(
       "location.search.includes('ano=2017') && document.body.textContent.includes('5 questões encontradas')",
@@ -310,7 +328,7 @@ async function main() {
     const choose = (letter: string) =>
       page.evaluate(`(() => {
         document.querySelector('input[name=letter][value="${letter}"]').closest('label').click();
-        [...document.querySelectorAll('main form button')].find((button) => button.textContent.includes('Responder')).click();
+        [...document.querySelectorAll('main button')].find((button) => button.textContent.trim() === 'Responder').click();
       })()`);
     await choose(wrongLetter);
     const wrongShown = await page.waitFor(
@@ -332,7 +350,7 @@ async function main() {
         colors.disabled,
     );
     await page.evaluate(
-      "[...document.querySelectorAll('main form button')].find((button) => button.textContent.includes('Responder de novo')).click()",
+      "[...document.querySelectorAll('main button')].find((button) => button.textContent.includes('Responder de novo')).click()",
     );
     const reset = await page.waitFor(
       "!document.querySelector('main fieldset').disabled && ![...document.querySelectorAll('input[name=letter]')].some((radio) => radio.checked)",
@@ -354,7 +372,7 @@ async function main() {
     await prisma.attemptItem.deleteMany({
       where: {
         answeredAt: { gte: answerStarted },
-        attempt: { user: { email: "admin@tscquestoes.local" } },
+        attempt: { user: { email: TEST_EMAIL } },
       },
     });
     await prisma.attempt.deleteMany({
@@ -411,12 +429,71 @@ async function main() {
     await prisma.attemptItem.deleteMany({
       where: {
         answeredAt: { gte: discursiveStarted },
-        attempt: { user: { email: "admin@tscquestoes.local" } },
+        attempt: { user: { email: TEST_EMAIL } },
       },
     });
     await prisma.attempt.deleteMany({
       where: { mode: "PRACTICE", startedAt: { gte: discursiveStarted }, items: { none: {} } },
     });
+
+    phase = "política de revelar";
+    const clickButton = (label: string) =>
+      page.evaluate(
+        `[...document.querySelectorAll('main button')].find((b) => b.textContent.trim() === ${JSON.stringify(label)}).click()`,
+      );
+    const choosePolicy = async (policy: string) => {
+      await page.goto(`${BASE}/questoes`);
+      await page.evaluate(`(() => {
+        const select = document.querySelector('select[name=policy]');
+        select.value = ${JSON.stringify(policy)};
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      })()`);
+      await clickButton("Salvar");
+      return page.waitFor("document.body.textContent.includes('Modo de correção salvo.')");
+    };
+    check("escolher “quando eu pedir” na lista de questões", await choosePolicy("MANUAL"));
+    await page.goto(`${BASE}/questoes/${objective?.id}`);
+    await choose(wrongLetter);
+    const manualPending = await page.waitFor(
+      `document.body.textContent.includes('Resposta registrada: alternativa ${wrongLetter}.')`,
+    );
+    const manualHidden = await page.evaluate<boolean>(
+      "!document.documentElement.outerHTML.includes('correctLetter') && !document.body.textContent.includes('alternativa correta')",
+    );
+    check("quando eu pedir: responde sem ver a correção", manualPending && manualHidden);
+    await clickButton("Ver correção");
+    const manualRevealed = await page.waitFor(
+      `document.body.textContent.includes('Você errou. Você marcou a ${wrongLetter}; a alternativa correta é a ${correctLetter}.')`,
+    );
+    check("“Ver correção” mostra o resultado na hora", manualRevealed);
+    check("escolher “ao finalizar a sessão”", await choosePolicy("AT_END"));
+    await page.goto(`${BASE}/questoes/${objective?.id}`);
+    await choose(correctLetter);
+    const atEndPending = await page.waitFor(
+      "document.body.textContent.includes('A correção aparece quando você finalizar a sessão')",
+    );
+    const noRevealButton = await page.evaluate<boolean>(
+      "![...document.querySelectorAll('main button')].some((b) => b.textContent.includes('Ver correção'))",
+    );
+    check("ao finalizar: sem correção nem botão de revelar", atEndPending && noRevealButton);
+    await page.goto(`${BASE}/questoes`);
+    const pendingCount = await page.waitFor(
+      "document.body.textContent.includes('1 resposta nesta sessão, 1 aguardando correção')",
+    );
+    await clickButton("Finalizar sessão e ver resultado");
+    const sessionResult = await page.waitFor(
+      "location.pathname.startsWith('/questoes/sessao/') && document.body.textContent.includes('1 de 1 objetiva certa')",
+      15_000,
+    );
+    check("finalizar a sessão leva ao resultado com os acertos", pendingCount && sessionResult);
+    check(
+      "política de revelar: nenhuma violação de CSP nem erro de JavaScript",
+      cspViolations(phase).length === 0 && jsErrors(phase).length === 0,
+      [...cspViolations(phase), ...jsErrors(phase)]
+        .map((e) => e.text)
+        .join(" | ")
+        .slice(0, 200),
+    );
 
     phase = "XSS simulado";
     await page.goto(`${BASE}/questoes`);
@@ -473,6 +550,7 @@ async function main() {
       refused[0]?.text.slice(0, 120),
     );
   } finally {
+    await removeTestUser();
     evil.close();
     chrome.kill("SIGKILL");
     await sleep(300);

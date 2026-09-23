@@ -1,7 +1,18 @@
 import "server-only";
+import type { RevealPolicy } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
-export type ObjectiveResult = {
+export const REVEAL_POLICIES = ["IMMEDIATE", "AT_END", "MANUAL"] as const;
+
+export const REVEAL_POLICY_LABEL: Record<RevealPolicy, string> = {
+  IMMEDIATE: "Na hora",
+  AT_END: "Ao finalizar a sessão",
+  MANUAL: "Quando eu pedir",
+};
+
+export type RevealedObjectiveResult = {
+  status: "revealed";
+  itemId: string;
   letter: string;
   isCorrect: boolean | null;
   correctLetter: string | null;
@@ -9,27 +20,108 @@ export type ObjectiveResult = {
   answeredAt: string;
 };
 
-async function practiceAttemptId(userId: string): Promise<string> {
-  const existing = await prisma.attempt.findFirst({
+export type PendingObjectiveResult = {
+  status: "pending";
+  itemId: string;
+  letter: string;
+  policy: "AT_END" | "MANUAL";
+  answeredAt: string;
+};
+
+export type ObjectiveResult = RevealedObjectiveResult | PendingObjectiveResult;
+
+async function openPracticeAttempt(userId: string) {
+  return prisma.attempt.findFirst({
     where: { userId, mode: "PRACTICE", status: "IN_PROGRESS" },
     orderBy: { startedAt: "asc" },
-    select: { id: true },
+    select: { id: true, revealPolicy: true },
   });
-  if (existing) {
-    return existing.id;
-  }
-  const created = await prisma.attempt.create({
-    data: { userId, mode: "PRACTICE", revealPolicy: "IMMEDIATE" },
-    select: { id: true },
-  });
-  return created.id;
 }
 
-export async function answerObjective(
+async function lastPracticePolicy(userId: string): Promise<RevealPolicy> {
+  const previous = await prisma.attempt.findFirst({
+    where: { userId, mode: "PRACTICE" },
+    orderBy: { startedAt: "desc" },
+    select: { revealPolicy: true },
+  });
+  return previous?.revealPolicy ?? "IMMEDIATE";
+}
+
+async function currentPracticeAttempt(userId: string) {
+  const existing = await openPracticeAttempt(userId);
+  if (existing) {
+    return existing;
+  }
+  return prisma.attempt.create({
+    data: { userId, mode: "PRACTICE", revealPolicy: await lastPracticePolicy(userId) },
+    select: { id: true, revealPolicy: true },
+  });
+}
+
+export async function practiceSession(userId: string) {
+  const attempt = await openPracticeAttempt(userId);
+  if (!attempt) {
+    return { policy: await lastPracticePolicy(userId), answered: 0, pending: 0 };
+  }
+  const [answered, pending] = await Promise.all([
+    prisma.attemptItem.count({ where: { attemptId: attempt.id } }),
+    prisma.attemptItem.count({ where: { attemptId: attempt.id, revealedAt: null } }),
+  ]);
+  return { policy: attempt.revealPolicy, answered, pending };
+}
+
+export async function setRevealPolicy(
   userId: string,
-  questionId: string,
-  letter: string,
-): Promise<ObjectiveResult | null> {
+  policy: RevealPolicy,
+): Promise<"ok" | "pending"> {
+  const attempt = await currentPracticeAttempt(userId);
+  if (attempt.revealPolicy === policy) {
+    return "ok";
+  }
+  const [answered, pending] = await Promise.all([
+    prisma.attemptItem.count({ where: { attemptId: attempt.id } }),
+    prisma.attemptItem.count({ where: { attemptId: attempt.id, revealedAt: null } }),
+  ]);
+  if (pending > 0) {
+    return "pending";
+  }
+  if (answered === 0) {
+    await prisma.attempt.update({ where: { id: attempt.id }, data: { revealPolicy: policy } });
+    return "ok";
+  }
+  await prisma.$transaction([
+    prisma.attempt.update({
+      where: { id: attempt.id },
+      data: { status: "SUBMITTED", submittedAt: new Date() },
+    }),
+    prisma.attempt.create({ data: { userId, mode: "PRACTICE", revealPolicy: policy } }),
+  ]);
+  return "ok";
+}
+
+export async function finishPracticeSession(userId: string): Promise<string | null> {
+  const attempt = await openPracticeAttempt(userId);
+  if (!attempt || attempt.revealPolicy === "IMMEDIATE") {
+    return null;
+  }
+  if ((await prisma.attemptItem.count({ where: { attemptId: attempt.id } })) === 0) {
+    return null;
+  }
+  const now = new Date();
+  await prisma.$transaction([
+    prisma.attemptItem.updateMany({
+      where: { attemptId: attempt.id, revealedAt: null },
+      data: { revealedAt: now },
+    }),
+    prisma.attempt.update({
+      where: { id: attempt.id },
+      data: { status: "SUBMITTED", submittedAt: now },
+    }),
+  ]);
+  return attempt.id;
+}
+
+async function objectiveKey(questionId: string) {
   const question = await prisma.question.findUnique({
     where: { id: questionId },
     select: {
@@ -41,40 +133,125 @@ export async function answerObjective(
   if (!question || question.type !== "OBJECTIVE") {
     return null;
   }
-  if (!question.options.some((option) => option.letter === letter)) {
+  return {
+    letters: question.options.map((option) => option.letter),
+    isAnulada: question.status === "ANULADA",
+    correctLetter: question.options.find((option) => option.isCorrect)?.letter ?? null,
+  };
+}
+
+function revealedResult(
+  item: { id: string; selectedLetter: string | null; isCorrect: boolean | null; answeredAt: Date },
+  key: { isAnulada: boolean; correctLetter: string | null },
+): RevealedObjectiveResult {
+  return {
+    status: "revealed",
+    itemId: item.id,
+    letter: item.selectedLetter ?? "",
+    isCorrect: item.isCorrect,
+    correctLetter: key.isAnulada ? null : key.correctLetter,
+    isAnulada: key.isAnulada,
+    answeredAt: item.answeredAt.toISOString(),
+  };
+}
+
+export async function answerObjective(
+  userId: string,
+  questionId: string,
+  letter: string,
+): Promise<ObjectiveResult | null> {
+  const key = await objectiveKey(questionId);
+  if (!key || !key.letters.includes(letter)) {
     return null;
   }
-
-  const isAnulada = question.status === "ANULADA";
-  const correctLetter = question.options.find((option) => option.isCorrect)?.letter ?? null;
-  const isCorrect = isAnulada ? null : letter === correctLetter;
+  const attempt = await currentPracticeAttempt(userId);
+  const immediate = attempt.revealPolicy === "IMMEDIATE";
   const now = new Date();
-
-  await prisma.attemptItem.create({
+  const item = await prisma.attemptItem.create({
     data: {
-      attemptId: await practiceAttemptId(userId),
+      attemptId: attempt.id,
       questionId,
       selectedLetter: letter,
-      isCorrect,
-      revealedAt: now,
+      isCorrect: key.isAnulada ? null : letter === key.correctLetter,
+      revealedAt: immediate ? now : null,
       answeredAt: now,
     },
+    select: { id: true, selectedLetter: true, isCorrect: true, answeredAt: true },
   });
-
+  if (immediate) {
+    return revealedResult(item, key);
+  }
   return {
+    status: "pending",
+    itemId: item.id,
     letter,
-    isCorrect,
-    correctLetter: isAnulada ? null : correctLetter,
-    isAnulada,
+    policy: attempt.revealPolicy === "MANUAL" ? "MANUAL" : "AT_END",
     answeredAt: now.toISOString(),
   };
+}
+
+async function revealableItem(userId: string, itemId: string) {
+  return prisma.attemptItem.findFirst({
+    where: {
+      id: itemId,
+      attempt: {
+        userId,
+        mode: "PRACTICE",
+        OR: [{ revealPolicy: "MANUAL" }, { revealPolicy: "IMMEDIATE" }, { status: "SUBMITTED" }],
+      },
+    },
+    select: {
+      id: true,
+      questionId: true,
+      selectedLetter: true,
+      isCorrect: true,
+      answeredAt: true,
+      revealedAt: true,
+    },
+  });
+}
+
+export async function revealObjective(
+  userId: string,
+  itemId: string,
+): Promise<RevealedObjectiveResult | null> {
+  const item = await revealableItem(userId, itemId);
+  if (!item || item.selectedLetter === null) {
+    return null;
+  }
+  const key = await objectiveKey(item.questionId);
+  if (!key) {
+    return null;
+  }
+  if (item.revealedAt === null) {
+    await prisma.attemptItem.update({ where: { id: item.id }, data: { revealedAt: new Date() } });
+  }
+  return revealedResult(item, key);
+}
+
+export async function revealDiscursive(userId: string, itemId: string): Promise<string | null> {
+  const item = await revealableItem(userId, itemId);
+  if (!item || item.selectedLetter !== null) {
+    return null;
+  }
+  if (item.revealedAt === null) {
+    await prisma.attemptItem.update({ where: { id: item.id }, data: { revealedAt: new Date() } });
+  }
+  return item.questionId;
 }
 
 export async function lastObjectiveAnswer(userId: string, questionId: string) {
   return prisma.attemptItem.findFirst({
     where: { questionId, attempt: { userId, mode: "PRACTICE" }, selectedLetter: { not: null } },
     orderBy: { answeredAt: "desc" },
-    select: { selectedLetter: true, isCorrect: true, answeredAt: true },
+    select: {
+      id: true,
+      selectedLetter: true,
+      isCorrect: true,
+      answeredAt: true,
+      revealedAt: true,
+      attempt: { select: { revealPolicy: true } },
+    },
   });
 }
 
@@ -121,13 +298,14 @@ export async function answerDiscursive(
   if (!question || question.type !== "DISCURSIVE") {
     return null;
   }
+  const attempt = await currentPracticeAttempt(userId);
   const now = new Date();
   const item = await prisma.attemptItem.create({
     data: {
-      attemptId: await practiceAttemptId(userId),
+      attemptId: attempt.id,
       questionId,
       answerText,
-      revealedAt: now,
+      revealedAt: attempt.revealPolicy === "IMMEDIATE" ? now : null,
       answeredAt: now,
     },
     select: { id: true },
@@ -139,7 +317,15 @@ export async function lastDiscursiveAnswer(userId: string, questionId: string) {
   return prisma.attemptItem.findFirst({
     where: { questionId, attempt: { userId, mode: "PRACTICE" }, answerText: { not: null } },
     orderBy: { answeredAt: "desc" },
-    select: { id: true, answerText: true, answeredAt: true, selfScore: true, selfScores: true },
+    select: {
+      id: true,
+      answerText: true,
+      answeredAt: true,
+      revealedAt: true,
+      selfScore: true,
+      selfScores: true,
+      attempt: { select: { revealPolicy: true } },
+    },
   });
 }
 
@@ -149,7 +335,12 @@ export async function saveSelfEvaluation(
   scores: Record<string, number>,
 ): Promise<{ total: number } | null> {
   const item = await prisma.attemptItem.findFirst({
-    where: { id: itemId, attempt: { userId, mode: "PRACTICE" }, answerText: { not: null } },
+    where: {
+      id: itemId,
+      attempt: { userId, mode: "PRACTICE" },
+      answerText: { not: null },
+      revealedAt: { not: null },
+    },
     select: { id: true, questionId: true },
   });
   if (!item) {
@@ -175,4 +366,52 @@ export async function saveSelfEvaluation(
     data: { selfScore: total, selfScores: scores },
   });
   return { total };
+}
+
+export async function practiceSessionResults(userId: string, attemptId: string) {
+  const attempt = await prisma.attempt.findFirst({
+    where: { id: attemptId, userId, mode: "PRACTICE", status: "SUBMITTED" },
+    select: {
+      id: true,
+      revealPolicy: true,
+      startedAt: true,
+      submittedAt: true,
+      items: {
+        orderBy: { answeredAt: "asc" },
+        select: {
+          id: true,
+          selectedLetter: true,
+          isCorrect: true,
+          answerText: true,
+          selfScore: true,
+          answeredAt: true,
+          question: {
+            select: {
+              id: true,
+              originalLabel: true,
+              type: true,
+              status: true,
+              exam: { select: { year: true } },
+              options: { where: { isCorrect: true }, select: { letter: true } },
+            },
+          },
+        },
+      },
+    },
+  });
+  if (!attempt) {
+    return null;
+  }
+  const objectives = attempt.items.filter((item) => item.selectedLetter !== null);
+  const counted = objectives.filter((item) => item.question.status !== "ANULADA");
+  return {
+    ...attempt,
+    summary: {
+      objectives: objectives.length,
+      counted: counted.length,
+      correct: counted.filter((item) => item.isCorrect === true).length,
+      anuladas: objectives.length - counted.length,
+      discursives: attempt.items.length - objectives.length,
+    },
+  };
 }

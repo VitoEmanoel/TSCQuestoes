@@ -1,11 +1,17 @@
 "use client";
 
-import { type ReactNode, useActionState, useState } from "react";
-import { answerObjectiveAction, type ObjectiveAnswerState } from "@/app/actions/practice";
+import Link from "next/link";
+import { type ReactNode, useActionState, useId, useState } from "react";
+import {
+  answerObjectiveAction,
+  type ObjectiveAnswerState,
+  revealObjectiveAction,
+} from "@/app/actions/practice";
+import type { PendingObjectiveResult, RevealedObjectiveResult } from "@/lib/practice";
 
 type OptionView = { letter: string; content: ReactNode };
 
-function optionTone(letter: string, result: ObjectiveAnswerState["result"]): string {
+function optionTone(letter: string, result: RevealedObjectiveResult | undefined): string {
   if (!result) {
     return "border-zinc-200 hover:border-zinc-400 has-[:checked]:border-zinc-900 has-[:checked]:ring-2 has-[:checked]:ring-zinc-900/20 dark:border-zinc-800 dark:hover:border-zinc-600 dark:has-[:checked]:border-zinc-100";
   }
@@ -20,7 +26,26 @@ function optionTone(letter: string, result: ObjectiveAnswerState["result"]): str
   return "border-zinc-200 opacity-70 dark:border-zinc-800";
 }
 
-function ResultMessage({ result }: { result: NonNullable<ObjectiveAnswerState["result"]> }) {
+function PendingMessage({ result }: { result: PendingObjectiveResult }) {
+  return (
+    <p className="rounded-md border border-sky-300 bg-sky-50 px-3 py-2 text-sky-900 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-200">
+      Resposta registrada: alternativa {result.letter}.{" "}
+      {result.policy === "MANUAL" ? (
+        "Clique em “Ver correção” quando quiser saber se acertou."
+      ) : (
+        <>
+          A correção aparece quando você{" "}
+          <Link href="/questoes" className="underline">
+            finalizar a sessão
+          </Link>
+          .
+        </>
+      )}
+    </p>
+  );
+}
+
+function ResultMessage({ result }: { result: RevealedObjectiveResult }) {
   if (result.isAnulada) {
     return (
       <p className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200">
@@ -43,69 +68,110 @@ function ResultMessage({ result }: { result: NonNullable<ObjectiveAnswerState["r
 export function ObjectiveAnswer({
   questionId,
   options,
+  initialPending,
 }: {
   questionId: string;
   options: OptionView[];
+  initialPending?: PendingObjectiveResult;
 }) {
+  const formId = useId();
   const [state, action, pending] = useActionState<ObjectiveAnswerState, FormData>(
     answerObjectiveAction,
+    initialPending ? { result: initialPending } : {},
+  );
+  const [revealState, revealAction, revealing] = useActionState<ObjectiveAnswerState, FormData>(
+    revealObjectiveAction,
     {},
   );
   const [dismissed, setDismissed] = useState<string | null>(null);
-  const result = state.result && state.result.answeredAt !== dismissed ? state.result : undefined;
+  const current = state.result && state.result.answeredAt !== dismissed ? state.result : undefined;
+  const revealedNow =
+    revealState.result?.status === "revealed" &&
+    revealState.result.answeredAt !== dismissed &&
+    (!current || revealState.result.itemId === current.itemId)
+      ? revealState.result
+      : undefined;
+  const shown = revealedNow ?? current;
+  const revealed = shown?.status === "revealed" ? shown : undefined;
+  const awaiting = shown?.status === "pending" ? shown : undefined;
 
   return (
-    <form action={action} className="flex flex-col gap-3">
-      <input type="hidden" name="questionId" value={questionId} />
-      <fieldset disabled={Boolean(result) || pending} className="flex flex-col gap-2">
-        <legend className="sr-only">Alternativas</legend>
-        {options.map((option) => (
-          <label
-            key={option.letter}
-            className={`flex cursor-pointer gap-3 rounded-lg border p-3 transition-colors has-[:disabled]:cursor-default has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-zinc-900 dark:has-[:focus-visible]:outline-zinc-100 ${optionTone(option.letter, result)}`}
-          >
-            <input
-              type="radio"
-              name="letter"
-              value={option.letter}
-              defaultChecked={result?.letter === option.letter}
-              key={`${option.letter}-${result?.answeredAt ?? "novo"}`}
-              className="sr-only"
-              required
-            />
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white dark:bg-zinc-100 dark:text-zinc-900">
-              {option.letter}
-            </span>
-            <div className="min-w-0 flex-1">{option.content}</div>
-          </label>
-        ))}
-      </fieldset>
+    <div className="flex flex-col gap-3">
+      <form id={formId} action={action} className="flex flex-col gap-3">
+        <input type="hidden" name="questionId" value={questionId} />
+        <fieldset disabled={Boolean(shown) || pending} className="flex flex-col gap-2">
+          <legend className="sr-only">Alternativas</legend>
+          {options.map((option) => (
+            <label
+              key={option.letter}
+              className={`flex cursor-pointer gap-3 rounded-lg border p-3 transition-colors has-[:disabled]:cursor-default has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-zinc-900 dark:has-[:focus-visible]:outline-zinc-100 ${optionTone(option.letter, revealed)}`}
+            >
+              <input
+                type="radio"
+                name="letter"
+                value={option.letter}
+                defaultChecked={shown?.letter === option.letter}
+                key={`${option.letter}-${shown?.answeredAt ?? "novo"}`}
+                className="sr-only"
+                required
+              />
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white dark:bg-zinc-100 dark:text-zinc-900">
+                {option.letter}
+              </span>
+              <div className="min-w-0 flex-1">{option.content}</div>
+            </label>
+          ))}
+        </fieldset>
+      </form>
 
-      {state.error && !result ? (
+      {state.error && !shown ? (
         <p role="alert" className="text-sm text-red-600 dark:text-red-400">
           {state.error}
         </p>
       ) : null}
+      {revealState.error && awaiting ? (
+        <p role="alert" className="text-sm text-red-600 dark:text-red-400">
+          {revealState.error}
+        </p>
+      ) : null}
 
-      <div aria-live="polite">{result ? <ResultMessage result={result} /> : null}</div>
+      <div aria-live="polite">
+        {revealed ? <ResultMessage result={revealed} /> : null}
+        {awaiting ? <PendingMessage result={awaiting} /> : null}
+      </div>
 
-      {result ? (
-        <button
-          type="button"
-          onClick={() => setDismissed(result.answeredAt)}
-          className="self-start rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
-        >
-          Responder de novo
-        </button>
+      {shown ? (
+        <div className="flex flex-wrap gap-2">
+          {awaiting?.policy === "MANUAL" ? (
+            <form action={revealAction}>
+              <input type="hidden" name="itemId" value={awaiting.itemId} />
+              <button
+                type="submit"
+                disabled={revealing}
+                className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+              >
+                {revealing ? "Corrigindo..." : "Ver correção"}
+              </button>
+            </form>
+          ) : null}
+          <button
+            type="button"
+            onClick={() => setDismissed(shown.answeredAt)}
+            className="rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
+          >
+            Responder de novo
+          </button>
+        </div>
       ) : (
         <button
           type="submit"
+          form={formId}
           disabled={pending}
           className="self-start rounded-md bg-zinc-900 px-4 py-2 font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
         >
-          {pending ? "Corrigindo..." : "Responder"}
+          {pending ? "Enviando..." : "Responder"}
         </button>
       )}
-    </form>
+    </div>
   );
 }

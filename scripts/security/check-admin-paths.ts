@@ -4,7 +4,8 @@ import { join } from "node:path";
 const ROOT = process.cwd();
 const SCAN = ["app", "lib", "components", "auth.ts", "scripts", "prisma/seed.ts"];
 const SEED = "prisma/seed.ts";
-const USER_WRITERS = new Set(["app/actions/auth.ts", SEED]);
+const BROWSER_CHECK = "scripts/security/browser-check.ts";
+const USER_WRITERS = new Set(["app/actions/auth.ts", SEED, BROWSER_CHECK]);
 
 const RULES: { name: string; pattern: RegExp; allowed: Set<string> }[] = [
   {
@@ -62,6 +63,12 @@ function main() {
   for (const create of creates) {
     if (!/role:\s*"STUDENT"/.test(create[0])) {
       problems.push(`app/actions/auth.ts — criação de User sem role: "STUDENT" fixo`);
+    }
+  }
+  const browserCheck = readFileSync(join(ROOT, BROWSER_CHECK), "utf-8");
+  for (const create of browserCheck.matchAll(/prisma\.user\.create\(\{[\s\S]*?\n\s{2}\}\);/g)) {
+    if (!/role:\s*"STUDENT"/.test(create[0])) {
+      problems.push(`${BROWSER_CHECK} — criação de User sem role: "STUDENT" fixo`);
     }
   }
   if (/formData\.get\(\s*["']role["']\s*\)/.test(actions)) {
