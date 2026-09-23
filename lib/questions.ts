@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 
 export const PAGE_SIZE = 20;
 
+export const PUBLISHED = { publishedAt: { not: null } } satisfies Prisma.QuestionWhereInput;
+
 export const AREA_LABEL: Record<QuestionArea, string> = {
   FORMACAO_GERAL: "Formação Geral",
   COMPONENTE_ESPECIFICO: "Componente Específico",
@@ -100,6 +102,7 @@ function situationWhere(status: Situation | undefined): { status?: QuestionStatu
 
 function buildWhere(filters: QuestionFilters): Prisma.QuestionWhereInput {
   return {
+    ...PUBLISHED,
     ...(filters.year ? { exam: { year: filters.year } } : {}),
     ...(filters.area ? { area: filters.area } : {}),
     ...(filters.type ? { type: filters.type } : {}),
@@ -139,15 +142,24 @@ export async function listQuestions(filters: QuestionFilters) {
 
 export async function getFilterOptions() {
   const [exams, topics] = await Promise.all([
-    prisma.exam.findMany({ select: { year: true }, orderBy: { year: "desc" } }),
-    prisma.topic.findMany({ select: { name: true }, orderBy: { name: "asc" } }),
+    prisma.exam.findMany({
+      where: { questions: { some: PUBLISHED } },
+      select: { year: true },
+      orderBy: { year: "desc" },
+    }),
+    prisma.topic.findMany({
+      where: { questions: { some: { question: PUBLISHED } } },
+      select: { name: true },
+      orderBy: { name: "asc" },
+    }),
   ]);
   return { years: exams.map((exam) => exam.year), topics: topics.map((topic) => topic.name) };
 }
 
-export async function getQuestionDetail(id: string) {
-  const question = await prisma.question.findUnique({
-    where: { id },
+export async function getQuestionDetail(id: string, options: { publishedOnly?: boolean } = {}) {
+  const publishedOnly = options.publishedOnly ?? true;
+  const question = await prisma.question.findFirst({
+    where: { id, ...(publishedOnly ? PUBLISHED : {}) },
     select: {
       id: true,
       examId: true,
@@ -191,6 +203,7 @@ export async function getQuestionDetail(id: string) {
         examId: question.examId,
         type: question.type,
         status: "VALID",
+        ...PUBLISHED,
         order: { lt: question.order },
       },
       orderBy: { order: "desc" },
@@ -201,6 +214,7 @@ export async function getQuestionDetail(id: string) {
         examId: question.examId,
         type: question.type,
         status: "VALID",
+        ...PUBLISHED,
         order: { gt: question.order },
       },
       orderBy: { order: "asc" },

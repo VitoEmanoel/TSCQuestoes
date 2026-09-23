@@ -1,6 +1,7 @@
 import "server-only";
 import type { RevealPolicy } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { PUBLISHED } from "@/lib/questions";
 import { SCORED_QUESTION, scoreAttempt, summarize } from "@/lib/attempt-score";
 import { type ScoreSlot, slotsFor } from "@/lib/scoring";
 
@@ -128,9 +129,9 @@ export async function finishPracticeSession(userId: string): Promise<string | nu
   return attempt.id;
 }
 
-async function objectiveKey(questionId: string) {
-  const question = await prisma.question.findUnique({
-    where: { id: questionId },
+async function objectiveKey(questionId: string, publishedOnly: boolean) {
+  const question = await prisma.question.findFirst({
+    where: { id: questionId, ...(publishedOnly ? PUBLISHED : {}) },
     select: {
       type: true,
       status: true,
@@ -167,7 +168,7 @@ export async function answerObjective(
   questionId: string,
   letter: string,
 ): Promise<ObjectiveResult | null> {
-  const key = await objectiveKey(questionId);
+  const key = await objectiveKey(questionId, true);
   if (!key || !key.letters.includes(letter)) {
     return null;
   }
@@ -226,7 +227,7 @@ export async function revealObjective(
   if (!item || item.selectedLetter === null) {
     return null;
   }
-  const key = await objectiveKey(item.questionId);
+  const key = await objectiveKey(item.questionId, false);
   if (!key) {
     return null;
   }
@@ -286,8 +287,8 @@ export async function answerDiscursive(
   questionId: string,
   answerText: string,
 ): Promise<string | null> {
-  const question = await prisma.question.findUnique({
-    where: { id: questionId },
+  const question = await prisma.question.findFirst({
+    where: { id: questionId, ...PUBLISHED },
     select: { type: true },
   });
   if (!question || question.type !== "DISCURSIVE") {

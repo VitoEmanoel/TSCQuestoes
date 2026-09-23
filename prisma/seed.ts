@@ -99,6 +99,7 @@ async function seedExam(year: string) {
         statementMd: draft.statementMd,
         valuePoints: draft.valuePoints,
         sourcePage: draft.sourcePage,
+        publishedAt: new Date(),
       },
     });
 

@@ -4,6 +4,7 @@ import type { Prisma, QuestionArea, QuestionType } from "@prisma/client";
 import { SCORED_QUESTION, summarize } from "@/lib/attempt-score";
 import { slotsFor, topicPerformance } from "@/lib/scoring";
 import { prisma } from "@/lib/prisma";
+import { PUBLISHED } from "@/lib/questions";
 
 export const MAX_SIMULADO_ANSWER_LENGTH = 5000;
 export const MAX_CUSTOM_QUESTIONS = 40;
@@ -19,7 +20,7 @@ export async function listReplayExams(userId: string) {
       select: {
         id: true,
         year: true,
-        questions: { select: { type: true, status: true } },
+        questions: { where: PUBLISHED, select: { type: true, status: true } },
       },
     }),
     prisma.attempt.findMany({
@@ -27,18 +28,20 @@ export async function listReplayExams(userId: string) {
       select: { id: true, examId: true, _count: { select: { items: true } } },
     }),
   ]);
-  return exams.map((exam) => {
-    const open = inProgress.find((attempt) => attempt.examId === exam.id);
-    return {
-      id: exam.id,
-      year: exam.year,
-      total: exam.questions.length,
-      objectives: exam.questions.filter((question) => question.type === "OBJECTIVE").length,
-      discursives: exam.questions.filter((question) => question.type === "DISCURSIVE").length,
-      anuladas: exam.questions.filter((question) => question.status === "ANULADA").length,
-      openAttempt: open ? { id: open.id, answered: open._count.items } : null,
-    };
-  });
+  return exams
+    .filter((exam) => exam.questions.length > 0)
+    .map((exam) => {
+      const open = inProgress.find((attempt) => attempt.examId === exam.id);
+      return {
+        id: exam.id,
+        year: exam.year,
+        total: exam.questions.length,
+        objectives: exam.questions.filter((question) => question.type === "OBJECTIVE").length,
+        discursives: exam.questions.filter((question) => question.type === "DISCURSIVE").length,
+        anuladas: exam.questions.filter((question) => question.status === "ANULADA").length,
+        openAttempt: open ? { id: open.id, answered: open._count.items } : null,
+      };
+    });
 }
 
 export async function startReplay(
@@ -51,10 +54,13 @@ export async function startReplay(
     return null;
   }
   const questions = await prisma.question.findMany({
-    where: { examId },
+    where: { examId, ...PUBLISHED },
     orderBy: { order: "asc" },
     select: { id: true },
   });
+  if (questions.length === 0) {
+    return null;
+  }
   return prisma.$transaction(async (tx) => {
     await lockUser(tx, userId);
     const open = await tx.attempt.findFirst({
@@ -101,7 +107,7 @@ export type CatalogEntry = {
 
 export async function customCatalog(): Promise<CatalogEntry[]> {
   const questions = await prisma.question.findMany({
-    where: { status: "VALID" },
+    where: { status: "VALID", ...PUBLISHED },
     select: {
       area: true,
       type: true,
@@ -136,6 +142,7 @@ export async function createCustomSimulado(
   const candidates = await prisma.question.findMany({
     where: {
       status: "VALID",
+      ...PUBLISHED,
       ...(filters.years.length > 0 ? { exam: { year: { in: filters.years } } } : {}),
       ...(filters.area ? { area: filters.area } : {}),
       ...(filters.type ? { type: filters.type } : {}),
@@ -197,7 +204,7 @@ async function examQuestionIds(examId: string | null): Promise<string[]> {
     return [];
   }
   const questions = await prisma.question.findMany({
-    where: { examId },
+    where: { examId, ...PUBLISHED },
     orderBy: { order: "asc" },
     select: { id: true },
   });

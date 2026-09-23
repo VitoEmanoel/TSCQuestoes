@@ -75,6 +75,7 @@ model Question {
   statementMd     String
   valuePoints     Float?
   sourcePage      Int?
+  publishedAt     DateTime?
   options         Option[]
   answerStandards AnswerStandard[]
   assets          Asset[]
@@ -85,6 +86,7 @@ model Question {
   updatedAt       DateTime         @updatedAt
 
   @@unique([examId, originalLabel])
+  @@index([publishedAt])
 }
 
 model Option {

@@ -8,6 +8,7 @@ const BASE = process.env.ATTACK_BASE_URL ?? "http://localhost:3123";
 const MAILPIT = process.env.ATTACK_MAILPIT_URL ?? "http://localhost:8025/api/v1";
 const SESSION_COOKIE = "authjs.session-token";
 const TEST_DOMAIN = "@ataque.local";
+const DRAFT_LABEL = "RASCUNHO-ATAQUE";
 const prisma = new PrismaClient();
 
 type Result = { group: string; name: string; ok: boolean; detail: string };
@@ -226,6 +227,12 @@ async function cleanup() {
   });
   await prisma.attempt.deleteMany({ where: { user: { email: { endsWith: TEST_DOMAIN } } } });
   await prisma.user.deleteMany({ where: { email: { endsWith: TEST_DOMAIN } } });
+  const drafts = { originalLabel: { startsWith: DRAFT_LABEL } };
+  await prisma.attemptItem.deleteMany({ where: { question: drafts } });
+  await prisma.option.deleteMany({ where: { question: drafts } });
+  await prisma.questionTag.deleteMany({ where: { question: drafts } });
+  await prisma.answerStandard.deleteMany({ where: { question: drafts } });
+  await prisma.question.deleteMany({ where: drafts });
   await prisma.pendingSignup.deleteMany({ where: { email: { endsWith: TEST_DOMAIN } } });
   await prisma.loginThrottle.deleteMany({});
   await fetch(`${MAILPIT}/search?query=${encodeURIComponent(`to:${TEST_DOMAIN.slice(1)}`)}`, {
@@ -1824,6 +1831,146 @@ async function main() {
     paginationOk &&= response.status === 200 && noLeak(response.body);
   }
   check("paginação forjada no histórico não quebra a página", paginationOk);
+
+  group("Questões em rascunho (não publicadas)");
+  const SECRET = "ENUNCIADO-SECRETO-DO-RASCUNHO";
+  const soTopic = await prisma.topic.findUniqueOrThrow({
+    where: { name: "Sistemas Operacionais" },
+  });
+  const draftObjective = await prisma.question.create({
+    data: {
+      examId: exam2017.id,
+      originalLabel: `${DRAFT_LABEL}-O`,
+      order: 999,
+      type: "OBJECTIVE",
+      area: "COMPONENTE_ESPECIFICO",
+      statementMd: `${SECRET} objetiva`,
+      options: {
+        create: ["A", "B", "C", "D", "E"].map((letter) => ({
+          letter,
+          textMd: `alternativa ${letter}`,
+          isCorrect: letter === "A",
+        })),
+      },
+      tags: { create: { topicId: soTopic.id } },
+    },
+    select: { id: true },
+  });
+  const draftDiscursive = await prisma.question.create({
+    data: {
+      examId: exam2017.id,
+      originalLabel: `${DRAFT_LABEL}-D`,
+      order: 998,
+      type: "DISCURSIVE",
+      area: "COMPONENTE_ESPECIFICO",
+      statementMd: `${SECRET} discursiva`,
+      answerStandards: { create: { criteriaMd: `${SECRET} padrão` } },
+      tags: { create: { topicId: soTopic.id } },
+    },
+    select: { id: true },
+  });
+  const draftIds = [draftObjective.id, draftDiscursive.id];
+  const publishedSo = await prisma.question.count({
+    where: { publishedAt: { not: null }, tags: { some: { topicId: soTopic.id } } },
+  });
+  const soList = await answerer.get(
+    `/questoes?tema=${encodeURIComponent("Sistemas Operacionais")}&status=TODAS`,
+  );
+  check(
+    "rascunho não aparece na lista nem na contagem",
+    !soList.body.includes(SECRET) &&
+      pageText(soList.body).includes(`${publishedSo} questões encontradas`),
+  );
+  const detailReplies = await Promise.all(draftIds.map((id) => answerer.get(`/questoes/${id}`)));
+  check(
+    "abrir o rascunho pelo link direto dá 404 sem vazar o texto",
+    detailReplies.every((response) => response.status === 404 && !response.body.includes(SECRET)),
+  );
+  const lastObjective = await prisma.question.findFirstOrThrow({
+    where: { examId: exam2017.id, type: "OBJECTIVE", publishedAt: { not: null } },
+    orderBy: { order: "desc" },
+    select: { id: true },
+  });
+  const lastDiscursive = await prisma.question.findFirstOrThrow({
+    where: { examId: exam2017.id, type: "DISCURSIVE", publishedAt: { not: null } },
+    orderBy: { order: "desc" },
+    select: { id: true },
+  });
+  const neighbours = await Promise.all(
+    [lastObjective.id, lastDiscursive.id].map((id) => answerer.get(`/questoes/${id}`)),
+  );
+  check(
+    "“anterior/próxima” não leva ao rascunho",
+    neighbours.every((response) => draftIds.every((id) => !response.body.includes(id))),
+  );
+  await answerer.submitForm(answerPath, 'name="letter"', {
+    questionId: draftObjective.id,
+    letter: "A",
+  });
+  await answerer.submitForm(`${discursivePath}?nova=1`, 'name="answerText"', {
+    questionId: draftDiscursive.id,
+    answerText: "tentando responder o rascunho",
+  });
+  check(
+    "responder rascunho forjando o questionId não grava nada",
+    (await prisma.attemptItem.count({ where: { questionId: { in: draftIds } } })) === 0,
+  );
+  await prisma.attemptItem.deleteMany({
+    where: { attempt: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" } },
+  });
+  await prisma.attempt.deleteMany({
+    where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+  });
+  const simuladosPage = await answerer.get("/simulados");
+  const validPublishedSo = await prisma.question.count({
+    where: {
+      publishedAt: { not: null },
+      status: "VALID",
+      tags: { some: { topicId: soTopic.id } },
+    },
+  });
+  check(
+    "contagem do simulado personalizado ignora o rascunho",
+    pageText(simuladosPage.body).includes(`Sistemas Operacionais (${validPublishedSo})`) &&
+      !simuladosPage.body.includes(SECRET),
+    pageText(simuladosPage.body).match(/Sistemas Operacionais \(\d+\)/)?.[0],
+  );
+  await buildMulti([
+    ["tema", "Sistemas Operacionais"],
+    ["quantidade", "40"],
+  ]);
+  const drawn = await prisma.attempt.findFirstOrThrow({
+    where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+    orderBy: { startedAt: "desc" },
+    select: { questionIds: true },
+  });
+  await prisma.attempt.deleteMany({
+    where: {
+      user: { email: studentEmail },
+      mode: "FULL_EXAM",
+      examId: exam2017.id,
+      status: "IN_PROGRESS",
+    },
+  });
+  await answerer.submitForm("/simulados", `value="${exam2017.id}"`, {});
+  const replayWithDrafts = await prisma.attempt.findFirstOrThrow({
+    where: {
+      user: { email: studentEmail },
+      mode: "FULL_EXAM",
+      examId: exam2017.id,
+      status: "IN_PROGRESS",
+    },
+    select: { questionIds: true },
+  });
+  check(
+    "sorteio e prova completa não incluem rascunho",
+    drawn.questionIds.length === validPublishedSo &&
+      draftIds.every((id) => !drawn.questionIds.includes(id)) &&
+      replayWithDrafts.questionIds.length === 40 &&
+      draftIds.every((id) => !replayWithDrafts.questionIds.includes(id)) &&
+      pageText(simuladosPage.body).includes("40 questões"),
+    `sorteio ${drawn.questionIds.length}; prova ${replayWithDrafts.questionIds.length}`,
+  );
 
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },

@@ -33,7 +33,7 @@ export default async function SimuladoReviewPage(props: PageProps<"/simulados/[i
   if (!review) {
     notFound();
   }
-  const detail = await getQuestionDetail(review.questionId);
+  const detail = await getQuestionDetail(review.questionId, { publishedOnly: false });
   if (!detail) {
     notFound();
   }
