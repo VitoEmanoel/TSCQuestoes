@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import { normalizeEmail } from "@/lib/auth-validation";
 import { prisma } from "@/lib/prisma";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -13,7 +14,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        const email = credentials?.email as string | undefined;
+        const email = normalizeEmail((credentials?.email as string | undefined) ?? null);
         const password = credentials?.password as string | undefined;
 
         if (!email || !password) {
@@ -50,6 +51,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     session: async ({ session, token }) => {
       if (session.user) {
+        session.user.id = token.sub ?? "";
         session.user.role = token.role;
       }
       return session;
