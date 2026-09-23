@@ -11,6 +11,8 @@ const NOISE_PATTERNS: RegExp[] = [
   /^(\*[A-Z]?\d+\*\s+)?(\d+\s+)?TECNOLOGIA EM ANÁLISE E(\s+DESENVOLVIMENTO DE SISTEMAS)?(\s+MATÉRIA)?(\s+D)?(\s+\d+)?$/,
   /^\d+\s+MATÉRIA$/,
   /^ENVOLVIMENTO DE SISTEMAS$/i,
+  /^DESENVOLVIMENTO DE SISTEMAS(\s+\d+)?$/,
+  /^(FORMAÇÃO GERAL|COMPONENTE ESPECÍFICO)$/,
   /^EXAME NACIONAL DE DESEMPENHO DOS ESTUDANTES$/i,
   /^20\d{2}$/,
 ];
