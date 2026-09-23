@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ExamBadge } from "@/components/exam-badge";
 import { QuestionFiltersForm } from "@/components/question-filters";
 import { requireUser } from "@/lib/dal";
 import {
@@ -40,10 +41,10 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
             className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800"
           >
             <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
+              <ExamBadge year={question.exam.year} />
               <span className="text-sm font-semibold">
                 {questionTitle(question.originalLabel, question.type)}
               </span>
-              <span className="text-zinc-500">ENADE {question.exam.year}</span>
               <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
                 {AREA_LABEL[question.area]}
               </span>
