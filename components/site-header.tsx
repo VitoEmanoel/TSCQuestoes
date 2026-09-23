@@ -15,6 +15,14 @@ export async function SiteHeader() {
         </Link>
         {user ? (
           <div className="flex flex-wrap items-center gap-3 text-sm">
+            <nav aria-label="Principal" className="flex items-center gap-3">
+              <Link href="/questoes" className="font-medium underline-offset-2 hover:underline">
+                Questões
+              </Link>
+              <Link href="/simulados" className="font-medium underline-offset-2 hover:underline">
+                Simulados
+              </Link>
+            </nav>
             <span className="text-zinc-700 dark:text-zinc-300">{user.name ?? user.email}</span>
             <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
               {ROLE_LABEL[user.role]}

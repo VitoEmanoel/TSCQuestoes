@@ -495,6 +495,57 @@ async function main() {
         .slice(0, 200),
     );
 
+    phase = "simulado";
+    const exam2017 = await prisma.exam.findFirstOrThrow({
+      where: { year: 2017 },
+      select: { id: true },
+    });
+    await page.goto(`${BASE}/simulados`);
+    await page.evaluate(
+      `document.querySelector('input[name=examId][value="${exam2017.id}"]').form.querySelector('button').click()`,
+    );
+    const simStarted = await page.waitFor(
+      "/^\\/simulados\\/[^/]+$/.test(location.pathname) && document.body.textContent.includes('0 de 40 respondidas')",
+      15_000,
+    );
+    check("começar o simulado da prova de 2017", simStarted);
+    await page.goto(`${await page.evaluate<string>("location.href.split('?')[0]")}?q=3`);
+    await page.evaluate(`(() => {
+      document.querySelector('input[name=letter][value="B"]').closest('label').click();
+      [...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Salvar e ir para a próxima')).click();
+    })()`);
+    const movedOn = await page.waitFor(
+      "location.search === '?q=4' && document.body.textContent.includes('1 de 40 respondidas') && [...document.querySelectorAll('nav[aria-label=\"Questões do simulado\"] a')][2].getAttribute('aria-label').includes('respondida')",
+      15_000,
+    );
+    const simLeak = await page.evaluate<boolean>(
+      "document.documentElement.outerHTML.includes('isCorrect') || document.body.textContent.includes('alternativa correta')",
+    );
+    check(
+      "salvar marca a questão na grade e vai para a próxima, sem correção",
+      movedOn && !simLeak,
+    );
+    await page.goto(`${await page.evaluate<string>("location.href.split('?')[0]")}/entregar`);
+    const blankShown = await page.waitFor(
+      "document.body.textContent.includes('39 questões em branco')",
+    );
+    await page.evaluate(
+      "[...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Entregar e ver a nota')).click()",
+    );
+    const simDone = await page.waitFor(
+      "location.pathname.endsWith('/resultado') && document.body.textContent.includes('Simulado entregue')",
+      15_000,
+    );
+    check("entregar mostra as em branco e leva à nota", blankShown && simDone);
+    check(
+      "simulado: nenhuma violação de CSP nem erro de JavaScript",
+      cspViolations(phase).length === 0 && jsErrors(phase).length === 0,
+      [...cspViolations(phase), ...jsErrors(phase)]
+        .map((e) => e.text)
+        .join(" | ")
+        .slice(0, 200),
+    );
+
     phase = "XSS simulado";
     await page.goto(`${BASE}/questoes`);
     const xss = await page.evaluate<{

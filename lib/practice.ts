@@ -1,7 +1,8 @@
 import "server-only";
 import type { RevealPolicy } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { type ScoreSlot, scoreItems, slotsFor } from "@/lib/scoring";
+import { SCORED_QUESTION, scoreAttempt, summarize } from "@/lib/attempt-score";
+import { type ScoreSlot, slotsFor } from "@/lib/scoring";
 
 export const REVEAL_POLICIES = ["IMMEDIATE", "AT_END", "MANUAL"] as const;
 
@@ -360,63 +361,6 @@ export async function saveSelfEvaluation(
     data: { selfScore: total, selfScores: scores },
   });
   return { total };
-}
-
-const SCORED_QUESTION = {
-  id: true,
-  originalLabel: true,
-  type: true,
-  status: true,
-  valuePoints: true,
-  exam: { select: { year: true } },
-  options: { where: { isCorrect: true }, select: { letter: true } },
-  answerStandards: { select: { subItem: true, maxScore: true } },
-} as const;
-
-type ScoredRow = {
-  questionId: string;
-  answeredAt: Date;
-  selectedLetter: string | null;
-  selfScore: number | null;
-  question: {
-    type: "OBJECTIVE" | "DISCURSIVE";
-    status: "VALID" | "ANULADA";
-    valuePoints: number | null;
-    options: { letter: string }[];
-    answerStandards: { subItem: string | null; maxScore: number | null }[];
-  };
-};
-
-function summarize(rows: ScoredRow[]) {
-  return scoreItems(
-    rows.map((row) => ({
-      questionId: row.questionId,
-      type: row.question.type,
-      anulada: row.question.status === "ANULADA",
-      answeredAt: row.answeredAt,
-      selectedLetter: row.selectedLetter,
-      correctLetter: row.question.options[0]?.letter ?? null,
-      selfScore: row.selfScore,
-      maxPoints: slotsFor(row.question.valuePoints, row.question.answerStandards).reduce(
-        (sum, slot) => sum + slot.max,
-        0,
-      ),
-    })),
-  );
-}
-
-async function scoreAttempt(attemptId: string) {
-  const rows = await prisma.attemptItem.findMany({
-    where: { attemptId },
-    select: {
-      questionId: true,
-      answeredAt: true,
-      selectedLetter: true,
-      selfScore: true,
-      question: { select: SCORED_QUESTION },
-    },
-  });
-  return summarize(rows);
 }
 
 export async function practiceSessionResults(userId: string, attemptId: string) {

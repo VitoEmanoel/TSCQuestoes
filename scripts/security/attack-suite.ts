@@ -1117,6 +1117,209 @@ async function main() {
     `autoScore ${scored?.autoScore}; ${text.slice(text.indexOf("Finalizada"), text.indexOf("Finalizada") + 160)}`,
   );
 
+  group("Simulado (prova completa)");
+  const exam2017 = await prisma.exam.findFirstOrThrow({
+    where: { year: 2017 },
+    select: {
+      id: true,
+      questions: {
+        orderBy: { order: "asc" },
+        select: {
+          id: true,
+          type: true,
+          status: true,
+          options: { select: { letter: true, isCorrect: true } },
+        },
+      },
+    },
+  });
+  const exam2021 = await prisma.exam.findFirstOrThrow({
+    where: { year: 2021 },
+    select: { questions: { where: { type: "OBJECTIVE" }, take: 1, select: { id: true } } },
+  });
+  const simuladosOf = (email: string) =>
+    prisma.attempt.findMany({
+      where: { user: { email }, mode: "FULL_EXAM" },
+      select: { id: true, status: true, autoScore: true },
+    });
+  await answerer.submitForm("/simulados", `value="${exam2017.id}"`, { examId: "nao-existe" });
+  check(
+    "começar simulado de prova inexistente não cria nada",
+    (await simuladosOf(studentEmail)).length === 0,
+  );
+  reply = await answerer.submitForm("/simulados", `value="${exam2017.id}"`, {});
+  await answerer.submitForm("/simulados", `value="${exam2017.id}"`, {});
+  const startedSims = await simuladosOf(studentEmail);
+  const simId = startedSims[0]?.id ?? "";
+  const simPath = `/simulados/${simId}`;
+  check(
+    "começar duas vezes a mesma prova retoma o simulado em andamento",
+    startedSims.length === 1 && reply.location.endsWith(simPath),
+    `${startedSims.length} simulado(s); ${reply.location}`,
+  );
+  const exam2014 = await prisma.exam.findFirstOrThrow({
+    where: { year: 2014 },
+    select: { id: true },
+  });
+  const raceFields = await formFields(answerer, "/simulados", `value="${exam2014.id}"`);
+  await Promise.all(
+    Array.from({ length: 5 }, () => postFields(answerer, "/simulados", raceFields)),
+  );
+  const raced = await prisma.attempt.count({
+    where: { user: { email: studentEmail }, mode: "FULL_EXAM", examId: exam2014.id },
+  });
+  check("5 cliques simultâneos em “Começar” criam um simulado só", raced === 1, `${raced}`);
+  await prisma.attempt.deleteMany({
+    where: { user: { email: studentEmail }, mode: "FULL_EXAM", examId: exam2014.id },
+  });
+  const validObjectives = exam2017.questions.filter(
+    (question) => question.type === "OBJECTIVE" && question.status === "VALID",
+  );
+  const firstObjective = validObjectives[0];
+  const firstPosition = exam2017.questions.indexOf(firstObjective) + 1;
+  const annulledIn2017 = exam2017.questions.find((question) => question.status === "ANULADA");
+  const discursiveIn2017 = exam2017.questions.find((question) => question.type === "DISCURSIVE");
+  const simPage = await answerer.get(`${simPath}?q=${firstPosition}`);
+  check(
+    "gabarito não vai para a página do simulado",
+    !/isCorrect|correctLetter/.test(simPage.body) &&
+      !pageText(simPage.body).includes("alternativa correta"),
+  );
+  const discursivePage = await answerer.get(
+    `${simPath}?q=${exam2017.questions.indexOf(discursiveIn2017!) + 1}`,
+  );
+  check(
+    "padrão de resposta não vai para a página do simulado",
+    !pageText(discursivePage.body).includes("Padrão de resposta") &&
+      !discursivePage.body.includes("criteriaMd"),
+  );
+  const itemsOfSim = () =>
+    prisma.attemptItem.findMany({
+      where: { attemptId: simId },
+      select: { questionId: true, selectedLetter: true, answerText: true, isCorrect: true },
+    });
+  const rightOf = (question: (typeof exam2017.questions)[number]) =>
+    question.options.find((option) => option.isCorrect)?.letter ?? "A";
+  reply = await answerer.submitForm(`${simPath}?q=${firstPosition}`, 'name="letter"', {
+    letter: rightOf(firstObjective),
+    isCorrect: "true",
+  });
+  check(
+    "salvar resposta não devolve a correção e segue para a próxima",
+    !/isCorrect|correctLetter|acertou|errou/i.test(pageText(reply.body)) &&
+      reply.location.endsWith(`${simPath}?q=${firstPosition + 1}`),
+    `${reply.status} ${reply.location}`,
+  );
+  let simItems = await itemsOfSim();
+  check(
+    "resposta salva sem correção enquanto o simulado está aberto",
+    simItems.length === 1 && simItems[0].isCorrect === null,
+  );
+  await answerer.submitForm(`${simPath}?q=${firstPosition}`, 'name="letter"', {
+    letter: rightOf(firstObjective) === "A" ? "B" : "A",
+  });
+  await answerer.submitForm(`${simPath}?q=${firstPosition}`, 'name="letter"', {
+    letter: rightOf(firstObjective),
+  });
+  simItems = await itemsOfSim();
+  check(
+    "trocar a resposta atualiza a mesma linha (sem duplicar)",
+    simItems.length === 1 && simItems[0].selectedLetter === rightOf(firstObjective),
+  );
+  for (const letter of ["Z", "", "AB"]) {
+    await answerer.submitForm(`${simPath}?q=${firstPosition + 1}`, 'name="letter"', { letter });
+  }
+  await answerer.submitForm(`${simPath}?q=${firstPosition}`, 'name="letter"', {
+    questionId: exam2021.questions[0].id,
+    letter: "A",
+  });
+  await answerer.submitForm(`${simPath}?q=${firstPosition}`, 'name="letter"', {
+    answerText: "texto numa objetiva",
+    letter: "",
+  });
+  check(
+    "letra inválida, questão de outra prova e texto em objetiva não gravam nada",
+    JSON.stringify(await itemsOfSim()) === JSON.stringify(simItems),
+  );
+  reply = await intruder.get(simPath);
+  const intruderResult = await intruder.get(`${simPath}/resultado`);
+  check(
+    "outro aluno não abre o simulado alheio",
+    reply.status === 404 && intruderResult.status === 404,
+  );
+  const ownForm = await formFields(answerer, `${simPath}?q=${firstPosition}`, 'name="letter"');
+  await postFields(intruder, `${simPath}?q=${firstPosition}`, {
+    ...ownForm,
+    letter: rightOf(firstObjective) === "A" ? "B" : "A",
+  });
+  const submitFields = await formFields(answerer, `${simPath}/entregar`, 'name="attemptId"');
+  await postFields(intruder, `${simPath}/entregar`, submitFields);
+  check(
+    "outro aluno não responde nem entrega o simulado alheio (IDOR)",
+    JSON.stringify(await itemsOfSim()) === JSON.stringify(simItems) &&
+      (await simuladosOf(studentEmail))[0]?.status === "IN_PROGRESS",
+  );
+  const secondObjective = validObjectives[1];
+  await answerer.submitForm(
+    `${simPath}?q=${exam2017.questions.indexOf(secondObjective) + 1}`,
+    'name="letter"',
+    { letter: rightOf(secondObjective) === "A" ? "B" : "A" },
+  );
+  if (annulledIn2017) {
+    await answerer.submitForm(
+      `${simPath}?q=${exam2017.questions.indexOf(annulledIn2017) + 1}`,
+      'name="letter"',
+      { letter: "A" },
+    );
+  }
+  await answerer.submitForm(
+    `${simPath}?q=${exam2017.questions.indexOf(discursiveIn2017!) + 1}`,
+    'name="answerText"',
+    { answerText: "resposta do simulado" },
+  );
+  const beforeSubmit = pageText((await answerer.get(`${simPath}/entregar`)).body);
+  check(
+    "tela de entrega mostra quantas ficaram em branco",
+    beforeSubmit.includes(`Você respondeu 4 de ${exam2017.questions.length} questões`) &&
+      beforeSubmit.includes(`${exam2017.questions.length - 4} questões em branco`),
+  );
+  reply = await answerer.submitForm(`${simPath}/entregar`, 'name="attemptId"', {});
+  const submitted = (await simuladosOf(studentEmail))[0];
+  const graded = await itemsOfSim();
+  const resultText = pageText((await answerer.get(`${simPath}/resultado`)).body);
+  check(
+    "entregar corrige no servidor; anulada fica fora da nota (1 de 2 = 50%)",
+    submitted?.status === "SUBMITTED" &&
+      submitted.autoScore === 50 &&
+      reply.location.endsWith(`${simPath}/resultado`) &&
+      graded.filter((item) => item.isCorrect === true).length === 1 &&
+      resultText.includes("1 de 2 objetivas certas (50%)") &&
+      (!annulledIn2017 || resultText.includes("1 questão anulada pelo INEP ficou fora da nota")),
+    `autoScore ${submitted?.autoScore}; ${resultText.slice(resultText.indexOf("Simulado entregue"), resultText.indexOf("Simulado entregue") + 200)}`,
+  );
+  await postFields(answerer, `${simPath}?q=${firstPosition}`, {
+    ...ownForm,
+    letter: rightOf(firstObjective) === "A" ? "B" : "A",
+  });
+  await postFields(answerer, `${simPath}/entregar`, submitFields);
+  check(
+    "depois de entregar não dá para mudar resposta nem entregar de novo",
+    JSON.stringify(await itemsOfSim()) === JSON.stringify(graded) &&
+      (await simuladosOf(studentEmail))[0]?.autoScore === 50,
+  );
+  reply = await answerer.get(simPath);
+  check(
+    "simulado entregue redireciona para o resultado",
+    reply.status === 307 && reply.location.endsWith(`${simPath}/resultado`),
+    `${reply.status} ${reply.location}`,
+  );
+  check(
+    "resposta do simulado não aparece como “última resposta” do modo estudo",
+    !pageText((await answerer.get(`/questoes/${secondObjective.id}`)).body).includes(
+      "Sua última resposta",
+    ),
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });
