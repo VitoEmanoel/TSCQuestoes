@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BulkPublishForm } from "@/components/bulk-publish-form";
 import { ExamBadge } from "@/components/exam-badge";
+import { deleteExamAction } from "@/app/actions/admin-import";
+import { examDeletionBlockers } from "@/lib/admin-import";
 import { adminExamQuestions } from "@/lib/admin-questions";
 import { requireAdmin } from "@/lib/dal";
 import { excerpt, questionTitle } from "@/lib/questions";
@@ -12,10 +14,13 @@ export const metadata: Metadata = { title: "Questões da prova — Painel" };
 export default async function AdminExamPage(props: PageProps<"/admin/provas/[examId]">) {
   await requireAdmin();
   const { examId } = await props.params;
+  const { importada, erro } = await props.searchParams;
   const exam = await adminExamQuestions(examId);
   if (!exam) {
     notFound();
   }
+  const blockers = await examDeletionBlockers(exam.id);
+  const drafts = exam.questions.filter((question) => question.publishedAt === null).length;
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8">
@@ -26,6 +31,29 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
         <ExamBadge year={exam.year} />
         <h1 className="text-2xl font-semibold tracking-tight">Questões da prova de {exam.year}</h1>
       </header>
+      {importada === "1" ? (
+        <p
+          role="status"
+          className="rounded-md border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
+        >
+          Prova criada com {exam.questions.length} questões em rascunho. Abra cada uma para revisar,
+          escolher os temas, adicionar as imagens e publicar.
+        </p>
+      ) : null}
+      {erro === "confirmacao" || erro === "exclusao" ? (
+        <p
+          role="alert"
+          className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-200"
+        >
+          {erro === "confirmacao"
+            ? "Marque a confirmação para excluir a prova."
+            : "Não foi possível excluir: a prova tem questão publicada ou já foi usada por alunos."}
+        </p>
+      ) : null}
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        {exam.questions.length} questões · {exam.questions.length - drafts} publicadas · {drafts} em
+        rascunho
+      </p>
       <BulkPublishForm examId={exam.id}>
         <ul className="flex flex-col gap-2">
           {exam.questions.map((question) => (
@@ -78,6 +106,36 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
           ))}
         </ul>
       </BulkPublishForm>
+      <section
+        aria-label="Excluir prova"
+        className="flex flex-col gap-2 rounded-xl border border-red-200 p-4 dark:border-red-900"
+      >
+        <h2 className="font-semibold text-red-800 dark:text-red-300">Excluir prova</h2>
+        {blockers.total === 0 ? (
+          <form action={deleteExamAction} className="flex flex-wrap items-center gap-3 text-sm">
+            <input type="hidden" name="examId" value={exam.id} />
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="confirmacao" value="sim" required />
+              Apagar a prova de {exam.year} e as {exam.questions.length} questões dela
+            </label>
+            <button
+              type="submit"
+              className="rounded-md border border-red-400 px-3 py-1.5 font-medium text-red-800 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-950"
+            >
+              Excluir prova
+            </button>
+          </form>
+        ) : (
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            Não dá para excluir:{" "}
+            {blockers.published > 0 ? `${blockers.published} questões publicadas` : null}
+            {blockers.published > 0 && blockers.answered + blockers.replays > 0 ? " e " : null}
+            {blockers.answered + blockers.replays > 0 ? "já usada por alunos" : null}
+            {blockers.rooms > 0 ? " (e em salas virtuais)" : null}. Para desfazer um cadastro
+            errado, exclua antes de publicar qualquer questão.
+          </p>
+        )}
+      </section>
     </main>
   );
 }

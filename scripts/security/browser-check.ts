@@ -158,6 +158,7 @@ function startEvilSite(): Server {
 }
 
 const DRAFT_LABEL = "RASCUNHO-NAVEGADOR";
+const TEST_COURSE = "Curso de Teste do Navegador";
 
 async function removeTestUser() {
   const drafts = { originalLabel: DRAFT_LABEL };
@@ -173,6 +174,12 @@ async function removeTestUser() {
   }
   await prisma.asset.deleteMany({ where: { question: drafts } });
   await prisma.attemptItem.deleteMany({ where: { question: drafts } });
+  const testExams = { exam: { course: TEST_COURSE } };
+  await prisma.option.deleteMany({ where: { question: testExams } });
+  await prisma.answerStandard.deleteMany({ where: { question: testExams } });
+  await prisma.questionTag.deleteMany({ where: { question: testExams } });
+  await prisma.question.deleteMany({ where: testExams });
+  await prisma.exam.deleteMany({ where: { course: TEST_COURSE } });
   await prisma.option.deleteMany({ where: { question: drafts } });
   await prisma.questionTag.deleteMany({ where: { question: drafts } });
   await prisma.question.deleteMany({ where: drafts });
@@ -785,6 +792,51 @@ async function main() {
       15_000,
     );
     check("admin publica a questão pelo botão", publishedOnScreen);
+    await page.goto(`${BASE}/admin/provas/nova`);
+    await page.waitFor(
+      "(() => { const area = document.querySelector('#texto-prova'); return Boolean(area) && Object.keys(area).some((key) => key.startsWith('__reactProps')); })()",
+      15_000,
+    );
+    await page.evaluate(`(() => {
+      const fill = (selector, value) => {
+        const element = document.querySelector(selector);
+        const proto = element.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
+        Object.getOwnPropertyDescriptor(proto, 'value').set.call(element, value);
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      fill('input[name=ano]', '2098');
+      fill('input[name=curso]', ${JSON.stringify(TEST_COURSE)});
+      fill('#texto-prova', ${JSON.stringify(["QUESTÃO 1", "Pergunta de teste", "A um", "B dois", "C três", "D quatro", "E cinco", "QUESTÃO DISCURSIVA 1", "Explique. (valor: 10,0 pontos)"].join("\n"))});
+      fill('#texto-gabarito', 'QUESTÃO 1 C');
+    })()`);
+    await page.evaluate(
+      "[...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Analisar')).click()",
+    );
+    const previewShown = await page.waitFor(
+      "document.body.textContent.includes('2 questões encontradas') && document.body.textContent.includes('correta C') && ![...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Criar prova')).disabled",
+      15_000,
+    );
+    await page.evaluate(
+      "[...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Criar prova')).click()",
+    );
+    const examCreated = await page.waitFor(
+      "location.search === '?importada=1' && document.body.textContent.includes('Prova criada com 2 questões em rascunho')",
+      15_000,
+    );
+    await page.evaluate(`(() => {
+      const form = [...document.querySelectorAll('form')].find((f) => f.textContent.includes('Excluir prova'));
+      form.querySelector('input[name=confirmacao]').click();
+      [...form.querySelectorAll('button')].find((b) => b.textContent.includes('Excluir prova')).click();
+    })()`);
+    const examDeleted = await page.waitFor(
+      "location.pathname === '/admin' && document.body.textContent.includes('Prova excluída')",
+      15_000,
+    );
+    check(
+      "admin cadastra prova pelo painel (analisar → criar) e exclui",
+      previewShown && examCreated && examDeleted,
+      `prévia ${previewShown}, criada ${examCreated}, excluída ${examDeleted}`,
+    );
     check(
       "editor do admin: nenhuma violação de CSP nem erro de JavaScript",
       cspViolations(phase).length === 0 && jsErrors(phase).length === 0,

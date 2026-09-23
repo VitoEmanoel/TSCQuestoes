@@ -6,8 +6,9 @@ import { requireAdmin } from "@/lib/dal";
 
 export const metadata: Metadata = { title: "Painel — TSCQuestões" };
 
-export default async function AdminPage() {
+export default async function AdminPage(props: PageProps<"/admin">) {
   await requireAdmin();
+  const { excluida } = await props.searchParams;
   const exams = await adminExams();
 
   return (
@@ -18,6 +19,17 @@ export default async function AdminPage() {
           Escolha uma prova para revisar e editar as questões. O que você salvar aqui é a versão
           oficial que os alunos veem.
         </p>
+        <Link
+          href="/admin/provas/nova"
+          className="self-start rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+        >
+          Cadastrar prova nova
+        </Link>
+        {excluida === "1" ? (
+          <p role="status" className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+            Prova excluída.
+          </p>
+        ) : null}
       </header>
       <ul className="grid gap-3 sm:grid-cols-2">
         {exams.map((exam) => (

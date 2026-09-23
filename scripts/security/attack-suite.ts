@@ -12,6 +12,7 @@ const MAILPIT = process.env.ATTACK_MAILPIT_URL ?? "http://localhost:8025/api/v1"
 const SESSION_COOKIE = "authjs.session-token";
 const TEST_DOMAIN = "@ataque.local";
 const DRAFT_LABEL = "RASCUNHO-ATAQUE";
+const TEST_COURSE = "Curso de Teste da Suíte de Ataque";
 const UPLOAD_ROOT = process.env.UPLOAD_DIR ?? join(process.cwd(), "storage", "uploads");
 
 function uploadFiles(): string[] {
@@ -286,6 +287,23 @@ async function cleanup() {
   }
   await prisma.asset.deleteMany({ where: { question: drafts } });
   await prisma.attemptItem.deleteMany({ where: { question: drafts } });
+  const testExams = { exam: { course: TEST_COURSE } };
+  await prisma.attemptItem.deleteMany({ where: { question: testExams } });
+  await prisma.attempt.deleteMany({
+    where: {
+      examId: {
+        in: (
+          await prisma.exam.findMany({ where: { course: TEST_COURSE }, select: { id: true } })
+        ).map((exam) => exam.id),
+      },
+    },
+  });
+  await prisma.asset.deleteMany({ where: { question: testExams } });
+  await prisma.option.deleteMany({ where: { question: testExams } });
+  await prisma.answerStandard.deleteMany({ where: { question: testExams } });
+  await prisma.questionTag.deleteMany({ where: { question: testExams } });
+  await prisma.question.deleteMany({ where: testExams });
+  await prisma.exam.deleteMany({ where: { course: TEST_COURSE } });
   await prisma.option.deleteMany({ where: { question: drafts } });
   await prisma.questionTag.deleteMany({ where: { question: drafts } });
   await prisma.answerStandard.deleteMany({ where: { question: drafts } });
@@ -2616,6 +2634,148 @@ async function main() {
   check(
     "lote de despublicar sem confirmação não faz nada",
     (await publishedAt(editDraft.id)) !== null,
+  );
+
+  group("Cadastro de prova nova");
+  const importPath = "/admin/provas/nova";
+  const importProva = [
+    "QUESTÃO DISCURSIVA 1",
+    "Explique o conceito de teste. (valor: 10,0 pontos)",
+    "QUESTÃO 1",
+    "Enunciado da primeira <script>alert(9)</script>",
+    "A um",
+    "B dois",
+    "C três",
+    "D quatro",
+    "E cinco",
+    "QUESTÃO 2",
+    "Enunciado da segunda",
+    "A x",
+    "B y",
+    "C z",
+    "D w",
+    "E k",
+  ].join("\n");
+  const importGabarito = "QUESTÃO 1 B\nQUESTÃO 2 ANULADA";
+  const testExamsOf = () =>
+    prisma.exam.findMany({
+      where: { course: TEST_COURSE },
+      select: {
+        id: true,
+        year: true,
+        questions: { select: { id: true, originalLabel: true, publishedAt: true, status: true } },
+      },
+    });
+  const blockedImport = await Promise.all([answerer.get(importPath), anonAdmin.get(importPath)]);
+  check(
+    "aluno e visitante recebem 404 no cadastro de prova",
+    blockedImport.every((response) => response.status === 404),
+  );
+  const importFields = await formFields(admin, importPath, 'name="etapa"');
+  const postImport = (client: Client, fields: Record<string, string>) =>
+    postFields(client, importPath, {
+      ...importFields,
+      ano: "2099",
+      curso: TEST_COURSE,
+      prova: importProva,
+      gabarito: importGabarito,
+      padrao: "",
+      ...fields,
+    });
+  await postImport(answerer, { etapa: "criar" });
+  await postImport(anonAdmin, { etapa: "criar" });
+  check(
+    "aluno e visitante reaproveitando o formulário não criam prova",
+    Object.keys(importFields).some((key) => key.startsWith("$ACTION")) &&
+      (await testExamsOf()).length === 0,
+  );
+  const badImports: [string, Record<string, string>][] = [
+    ["ano inválido", { etapa: "criar", ano: "abc" }],
+    ["ano absurdo", { etapa: "criar", ano: "1500" }],
+    ["prova vazia", { etapa: "criar", prova: "   " }],
+    ["texto gigante", { etapa: "criar", prova: "x".repeat(300_001) }],
+    ["sem cabeçalhos", { etapa: "criar", prova: "texto solto sem questões" }],
+    ["etapa forjada", { etapa: "apagar-tudo" }],
+    ["curso vazio", { etapa: "criar", curso: "" }],
+  ];
+  for (const [, fields] of badImports) {
+    await postImport(admin, fields);
+  }
+  check("7 envios inválidos no cadastro não criam nada", (await testExamsOf()).length === 0);
+  reply = await postImport(admin, { etapa: "analisar" });
+  const previewText = pageText(reply.body);
+  check(
+    "“Analisar” mostra a prévia sem gravar nada",
+    previewText.includes("3 questões encontradas: 2 objetivas e 1 discursivas, 1 anuladas") &&
+      previewText.includes("correta B") &&
+      (await testExamsOf()).length === 0,
+    previewText.slice(previewText.indexOf("Prévia"), previewText.indexOf("Prévia") + 200),
+  );
+  reply = await postImport(admin, { etapa: "criar" });
+  const created = await testExamsOf();
+  check(
+    "“Criar” grava a prova com todas as questões em rascunho",
+    created.length === 1 &&
+      created[0].questions.length === 3 &&
+      created[0].questions.every((question) => question.publishedAt === null) &&
+      created[0].questions.find((question) => question.originalLabel === "2")?.status ===
+        "ANULADA" &&
+      reply.location.includes(`/admin/provas/${created[0].id}?importada=1`),
+    reply.location,
+  );
+  const createdExam = created[0];
+  const duplicate = await postImport(admin, { etapa: "criar" });
+  check(
+    "cadastrar a mesma prova de novo é recusado",
+    (await testExamsOf()).length === 1 &&
+      pageText(duplicate.body).includes("Já existe uma prova de 2099"),
+  );
+  const examAdminPage = await admin.get(`/admin/provas/${createdExam.id}`);
+  const studentList = pageText((await answerer.get("/questoes?ano=2099&status=TODAS")).body);
+  const studentSimulados = await answerer.get("/simulados");
+  check(
+    "prova nova em rascunho: HTML escapado no painel e invisível para o aluno",
+    !examAdminPage.body.includes("<script>alert(9)") &&
+      !examAdminPage.body.includes("<script alert(9)") &&
+      examAdminPage.body.includes("&lt;script alert(9)") &&
+      studentList.includes("Nenhuma questão encontrada") &&
+      !studentSimulados.body.includes(createdExam.id),
+  );
+  const examPath = `/admin/provas/${createdExam.id}`;
+  const deleteFields = await formFields(admin, examPath, ">Excluir prova</button>");
+  await postFields(answerer, examPath, { ...deleteFields, confirmacao: "sim" });
+  await postFields(admin, examPath, deleteFields);
+  check(
+    "excluir prova: aluno não consegue e admin precisa confirmar",
+    Object.keys(deleteFields).some((key) => key.startsWith("$ACTION")) &&
+      (await testExamsOf()).length === 1,
+  );
+  const firstImported = createdExam.questions.find((question) => question.originalLabel === "1")!;
+  const firstImportedPath = `/admin/questoes/${firstImported.id}`;
+  await postFields(
+    admin,
+    firstImportedPath,
+    await formFields(admin, firstImportedPath, 'name="acao" value="publicar"'),
+  );
+  reply = await postFields(admin, examPath, { ...deleteFields, confirmacao: "sim" });
+  check(
+    "prova com questão publicada não pode ser excluída",
+    (await publishedAt(firstImported.id)) !== null &&
+      (await testExamsOf()).length === 1 &&
+      reply.location.includes("erro=exclusao"),
+    reply.location,
+  );
+  await postFields(admin, firstImportedPath, {
+    ...(await formFields(admin, firstImportedPath, 'name="acao" value="despublicar"')),
+    confirmacao: "sim",
+  });
+  reply = await postFields(admin, examPath, { ...deleteFields, confirmacao: "sim" });
+  check(
+    "sem nada publicado, o admin exclui a prova e tudo dela",
+    (await testExamsOf()).length === 0 &&
+      (await prisma.question.count({ where: { examId: createdExam.id } })) === 0 &&
+      reply.location.includes("/admin?excluida=1"),
+    reply.location,
   );
 
   await prisma.attemptItem.deleteMany({
