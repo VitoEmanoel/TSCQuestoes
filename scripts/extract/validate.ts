@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseRichText } from "../../lib/rich-text";
 import type { QuestionDraft } from "./parsers/types";
 
 type Level = "error" | "warning";
@@ -57,6 +58,54 @@ function checkAssets(
   }
 }
 
+const PRIVATE_USE = /[\ue000-\uf8ff]/u;
+const COLUMN_GAP = /\S {3,}\S/g;
+
+function checkText(text: string, context: string, push: (level: Level, message: string) => void) {
+  const privateUse = text.match(PRIVATE_USE);
+  if (privateUse) {
+    push(
+      "error",
+      `${context}: caractere de uso privado U+${privateUse[0].codePointAt(0)!.toString(16).toUpperCase()} (marcador perdido da fonte do PDF)`,
+    );
+  }
+
+  let insideCode = false;
+  let fences = 0;
+  let tableLike = 0;
+  for (const line of text.split("\n")) {
+    if (line.trim() === "```") {
+      insideCode = !insideCode;
+      fences += 1;
+      tableLike = 0;
+      continue;
+    }
+    if (insideCode || line.trim().startsWith("|")) {
+      tableLike = 0;
+      continue;
+    }
+    const gaps = line.trim().match(COLUMN_GAP)?.length ?? 0;
+    if (gaps >= 2) {
+      tableLike += 1;
+      if (tableLike === 2) {
+        push(
+          "error",
+          `${context}: parece tabela em texto alinhado por espaços ("${line.trim().slice(0, 50)}") — converter para tabela markdown`,
+        );
+      }
+    } else if (line.trim()) {
+      tableLike = 0;
+    }
+  }
+  if (fences % 2 !== 0) {
+    push("error", `${context}: bloco de código com cerca \`\`\` sem fechamento`);
+  }
+}
+
+function countImageMarkers(text: string): number {
+  return parseRichText(text).filter((block) => block.kind === "image").length;
+}
+
 function validateDraft(file: string, draft: QuestionDraft): Issue[] {
   const issues: Issue[] = [];
   const push = (level: Level, message: string) => issues.push({ file, level, message });
@@ -98,6 +147,21 @@ function validateDraft(file: string, draft: QuestionDraft): Issue[] {
       `padrão de resposta${answerStandard.subItem ? ` (${answerStandard.subItem})` : ""}`,
       issues,
     );
+  }
+
+  checkText(draft.statementMd, "enunciado", push);
+  for (const option of draft.options) {
+    checkText(option.textMd, `alternativa ${option.letter}`, push);
+  }
+  for (const answerStandard of draft.answerStandards) {
+    const context = `padrão de resposta${answerStandard.subItem ? ` (${answerStandard.subItem})` : ""}`;
+    checkText(answerStandard.criteriaMd, context, push);
+    if (countImageMarkers(answerStandard.criteriaMd) > answerStandard.assets.length) {
+      push("error", `${context}: há mais marcadores de imagem do que imagens`);
+    }
+  }
+  if (countImageMarkers(draft.statementMd) > draft.assets.length) {
+    push("error", "enunciado: há mais marcadores de imagem do que imagens");
   }
 
   if (draft.type === "OBJECTIVE") {

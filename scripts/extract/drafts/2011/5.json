@@ -5,11 +5,17 @@
   "type": "OBJECTIVE",
   "area": "FORMACAO_GERAL",
   "status": "VALID",
-  "statementMd": "Desmatamento na Amazônia Legal. Disponível em: <www.imazon.org.br/mapas/desmatamento-mensal-2011>. Acesso em: 20 ago. 2011.\n\n    O ritmo de desmatamento na Amazônia Legal diminuiu no mês de junho de 2011, segundo levantamento feito pela\norganização ambiental brasileira Imazon (Instituto do Homem e Meio Ambiente da Amazônia). O relatório elaborado\npela ONG, a partir de imagens de satélite, apontou desmatamento de 99 km² no bioma em junho de 2011, uma redução\nde 42% no comparativo com junho de 2010. No acumulado entre agosto de 2010 e junho de 2011, o desmatamento foi\nde 1 534 km², aumento de 15% em relação a agosto de 2009 e junho de 2010. O estado de Mato Grosso foi responsável\npor derrubar 38% desse total e é líder no ranking do desmatamento, seguido do Pará (25%) e de Rondônia (21%).\n                                                       Disponível em: <http://www.imazon.org.br/imprensa/imazon-na-midia>. Acesso em: 20 ago. 2011(com adaptações).\n\nDe acordo com as informações do mapa e do texto,",
+  "statementMd": "(ver imagem anexa: mapa do desmatamento na Amazônia Legal — Imazon, SAD abril de 2011, com áreas de desmatamento, degradação, terras indígenas e unidades de conservação)\n\nDesmatamento na Amazônia Legal. Disponível em: <www.imazon.org.br/mapas/desmatamento-mensal-2011>. Acesso em: 20 ago. 2011.\n\n    O ritmo de desmatamento na Amazônia Legal diminuiu no mês de junho de 2011, segundo levantamento feito pela\norganização ambiental brasileira Imazon (Instituto do Homem e Meio Ambiente da Amazônia). O relatório elaborado\npela ONG, a partir de imagens de satélite, apontou desmatamento de 99 km² no bioma em junho de 2011, uma redução\nde 42% no comparativo com junho de 2010. No acumulado entre agosto de 2010 e junho de 2011, o desmatamento foi\nde 1 534 km², aumento de 15% em relação a agosto de 2009 e junho de 2010. O estado de Mato Grosso foi responsável\npor derrubar 38% desse total e é líder no ranking do desmatamento, seguido do Pará (25%) e de Rondônia (21%).\n                                                       Disponível em: <http://www.imazon.org.br/imprensa/imazon-na-midia>. Acesso em: 20 ago. 2011(com adaptações).\n\nDe acordo com as informações do mapa e do texto,",
   "valuePoints": null,
   "sourcePage": 4,
-  "needsAsset": false,
-  "assets": [],
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "image",
+      "filePath": "2011/5-1.png",
+      "caption": "Mapa do desmatamento — prova pág. 4"
+    }
+  ],
   "options": [
     {
       "letter": "A",

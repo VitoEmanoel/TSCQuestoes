@@ -21,7 +21,13 @@ type ColumnRangeConfig = { range: PageRange; fractions?: ColumnFractions };
 
 const TWO_COLUMN_PAGE_RANGES: Record<string, Record<string, ColumnRangeConfig[]>> = {
   "2011": {
-    prova: [{ range: [3, 3] }, { range: [5, 5] }, { range: [9, 18] }],
+    prova: [
+      { range: [3, 3] },
+      { range: [5, 5] },
+      { range: [9, 12] },
+      { range: [14, 16] },
+      { range: [18, 18] },
+    ],
   },
   "2014": {
     prova: [
