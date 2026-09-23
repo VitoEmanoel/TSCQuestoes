@@ -208,6 +208,48 @@ async function cleanup() {
   await fetch(`${MAILPIT}/messages`, { method: "DELETE" });
 }
 
+async function reachable(url: string): Promise<boolean> {
+  try {
+    await fetch(url, { redirect: "manual", signal: AbortSignal.timeout(3000) });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function preflight(): Promise<boolean> {
+  const problems: string[] = [];
+  if (!(await reachable(`${BASE}/api/auth/csrf`))) {
+    problems.push(
+      [
+        `O app não está respondendo em ${BASE}.`,
+        "  Em outro terminal, suba a versão de produção e deixe rodando:",
+        "    npm run security:serve",
+        "  (é o mesmo que `next build && next start -p 3123`; o modo `npm run dev` não serve,",
+        "  porque em desenvolvimento as páginas de erro mostram stack trace de propósito).",
+      ].join("\n"),
+    );
+  }
+  if (!(await reachable(`${MAILPIT}/messages`))) {
+    problems.push(
+      [
+        "O Mailpit não está respondendo em http://localhost:8025.",
+        "  Suba com: docker compose up -d mailpit",
+      ].join("\n"),
+    );
+  }
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+  } catch {
+    problems.push("O Postgres não está respondendo. Suba com: docker compose up -d postgres");
+  }
+  if (problems.length > 0) {
+    console.error(`\nNão dá para rodar a suíte ainda:\n\n${problems.join("\n\n")}\n`);
+    return false;
+  }
+  return true;
+}
+
 async function main() {
   const host = new URL(BASE).hostname;
   if (host !== "localhost" && host !== "127.0.0.1") {
@@ -215,6 +257,10 @@ async function main() {
   }
   const secret = process.env.AUTH_SECRET;
   if (!secret) throw new Error("AUTH_SECRET ausente no .env");
+  if (!(await preflight())) {
+    await prisma.$disconnect();
+    process.exit(2);
+  }
   await cleanup();
 
   const studentEmail = `aluno${TEST_DOMAIN}`;
