@@ -14,16 +14,18 @@ export const TYPE_LABEL: Record<QuestionType, string> = {
   DISCURSIVE: "Discursiva",
 };
 
-export const STATUS_LABEL: Record<QuestionStatus, string> = {
-  VALID: "Válida",
-  ANULADA: "Anulada",
-};
+export const SITUATION_LABEL = {
+  ANULADA: "Anuladas",
+  TODAS: "Todas",
+} as const;
+
+export type Situation = keyof typeof SITUATION_LABEL;
 
 export type QuestionFilters = {
   year?: number;
   area?: QuestionArea;
   type?: QuestionType;
-  status?: QuestionStatus;
+  status?: Situation;
   topic?: string;
   page: number;
 };
@@ -50,7 +52,7 @@ export function parseQuestionFilters(searchParams: SearchParams): QuestionFilter
     year: Number.isInteger(year) && year >= 2000 && year <= 2100 ? year : undefined,
     area: pick(first(searchParams.area), AREA_LABEL),
     type: pick(first(searchParams.tipo), TYPE_LABEL),
-    status: pick(first(searchParams.status), STATUS_LABEL),
+    status: pick(first(searchParams.status), SITUATION_LABEL),
     topic: first(searchParams.tema)?.slice(0, 100),
     page: Number.isInteger(page) && page >= 1 ? page : 1,
   };
@@ -89,19 +91,31 @@ export function excerpt(markdown: string, length = 220): string {
   return text.length > length ? `${text.slice(0, length).trimEnd()}…` : text;
 }
 
+function situationWhere(status: Situation | undefined): { status?: QuestionStatus } {
+  if (status === "TODAS") {
+    return {};
+  }
+  return { status: status === "ANULADA" ? "ANULADA" : "VALID" };
+}
+
 function buildWhere(filters: QuestionFilters): Prisma.QuestionWhereInput {
   return {
     ...(filters.year ? { exam: { year: filters.year } } : {}),
     ...(filters.area ? { area: filters.area } : {}),
     ...(filters.type ? { type: filters.type } : {}),
-    ...(filters.status ? { status: filters.status } : {}),
+    ...situationWhere(filters.status),
     ...(filters.topic ? { tags: { some: { topic: { name: filters.topic } } } } : {}),
   };
 }
 
 export async function listQuestions(filters: QuestionFilters) {
   const where = buildWhere(filters);
-  const total = await prisma.question.count({ where });
+  const [total, hiddenAnuladas] = await Promise.all([
+    prisma.question.count({ where }),
+    filters.status
+      ? Promise.resolve(0)
+      : prisma.question.count({ where: buildWhere({ ...filters, status: "ANULADA" }) }),
+  ]);
   const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const page = Math.min(filters.page, pageCount);
   const items = await prisma.question.findMany({
@@ -120,7 +134,7 @@ export async function listQuestions(filters: QuestionFilters) {
       tags: { select: { topic: { select: { name: true } } } },
     },
   });
-  return { items, total, page, pageCount };
+  return { items, total, page, pageCount, hiddenAnuladas };
 }
 
 export async function getFilterOptions() {
@@ -173,12 +187,22 @@ export async function getQuestionDetail(id: string) {
   }
   const [previous, next] = await Promise.all([
     prisma.question.findFirst({
-      where: { examId: question.examId, type: question.type, order: { lt: question.order } },
+      where: {
+        examId: question.examId,
+        type: question.type,
+        status: "VALID",
+        order: { lt: question.order },
+      },
       orderBy: { order: "desc" },
       select: { id: true, originalLabel: true, type: true },
     }),
     prisma.question.findFirst({
-      where: { examId: question.examId, type: question.type, order: { gt: question.order } },
+      where: {
+        examId: question.examId,
+        type: question.type,
+        status: "VALID",
+        order: { gt: question.order },
+      },
       orderBy: { order: "asc" },
       select: { id: true, originalLabel: true, type: true },
     }),

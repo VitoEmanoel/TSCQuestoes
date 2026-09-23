@@ -5,6 +5,7 @@ import { ExamBadge } from "@/components/exam-badge";
 import { requireUser } from "@/lib/dal";
 import { practiceSessionResults } from "@/lib/practice";
 import { questionTitle } from "@/lib/questions";
+import { latestPerQuestion } from "@/lib/scoring";
 
 export const metadata: Metadata = { title: "Resultado da sessão — TSCQuestões" };
 
@@ -28,6 +29,10 @@ export default async function PracticeSessionPage(props: PageProps<"/questoes/se
     notFound();
   }
   const { summary } = results;
+  const anuladas = summary.objectives.anuladas + summary.discursives.anuladas;
+  const items = latestPerQuestion(results.items).sort(
+    (first, second) => first.answeredAt.getTime() - second.answeredAt.getTime(),
+  );
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
@@ -45,32 +50,41 @@ export default async function PracticeSessionPage(props: PageProps<"/questoes/se
         aria-label="Resumo"
         className="flex flex-col gap-1 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800"
       >
-        {summary.objectives > 0 ? (
+        {summary.objectives.counted > 0 ? (
           <p className="text-lg font-semibold">
-            {summary.correct} de {summary.counted}{" "}
-            {summary.counted === 1 ? "objetiva certa" : "objetivas certas"}
+            {summary.objectives.correct} de {summary.objectives.counted}{" "}
+            {summary.objectives.counted === 1 ? "objetiva certa" : "objetivas certas"}
+            {summary.percent !== null ? ` (${formatScore(summary.percent)}%)` : null}
           </p>
         ) : null}
-        {summary.anuladas > 0 ? (
-          <p className="text-sm text-amber-800 dark:text-amber-300">
-            {summary.anuladas}{" "}
-            {summary.anuladas === 1
-              ? "resposta em questão anulada não conta"
-              : "respostas em questões anuladas não contam"}{" "}
-            no resultado.
-          </p>
-        ) : null}
-        {summary.discursives > 0 ? (
+        {summary.discursives.evaluated > 0 ? (
           <p className="text-sm text-zinc-700 dark:text-zinc-300">
-            {summary.discursives}{" "}
-            {summary.discursives === 1 ? "resposta discursiva" : "respostas discursivas"}: abra cada
-            uma para comparar com o padrão oficial e se autoavaliar.
+            Discursivas autoavaliadas: {formatScore(summary.discursives.points)} de{" "}
+            {formatScore(summary.discursives.max)} pontos.
+          </p>
+        ) : null}
+        {summary.discursives.unevaluated > 0 ? (
+          <p className="text-sm text-zinc-700 dark:text-zinc-300">
+            {summary.discursives.unevaluated}{" "}
+            {summary.discursives.unevaluated === 1
+              ? "discursiva ainda sem autoavaliação"
+              : "discursivas ainda sem autoavaliação"}
+            : abra para comparar com o padrão oficial e se avaliar.
+          </p>
+        ) : null}
+        {anuladas > 0 ? (
+          <p className="text-sm text-amber-800 dark:text-amber-300">
+            {anuladas}{" "}
+            {anuladas === 1
+              ? "questão anulada pelo INEP ficou fora da nota"
+              : "questões anuladas pelo INEP ficaram fora da nota"}
+            .
           </p>
         ) : null}
       </section>
 
       <ol className="flex flex-col gap-3">
-        {results.items.map((item) => {
+        {items.map((item) => {
           const isAnulada = item.question.status === "ANULADA";
           const correctLetter = item.question.options[0]?.letter ?? null;
           return (
@@ -92,7 +106,7 @@ export default async function PracticeSessionPage(props: PageProps<"/questoes/se
                   <p className="text-sm text-amber-800 dark:text-amber-300">
                     Você marcou a {item.selectedLetter}. Questão anulada: não conta.
                   </p>
-                ) : item.isCorrect ? (
+                ) : item.selectedLetter === correctLetter ? (
                   <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
                     Acertou: alternativa {item.selectedLetter}.
                   </p>
@@ -101,6 +115,10 @@ export default async function PracticeSessionPage(props: PageProps<"/questoes/se
                     Errou: você marcou a {item.selectedLetter}; a correta é a {correctLetter}.
                   </p>
                 )
+              ) : isAnulada ? (
+                <p className="text-sm text-amber-800 dark:text-amber-300">
+                  Resposta discursiva enviada. Questão anulada: não conta.
+                </p>
               ) : (
                 <p className="text-sm text-zinc-700 dark:text-zinc-300">
                   Resposta discursiva enviada.{" "}

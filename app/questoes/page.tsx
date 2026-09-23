@@ -22,11 +22,8 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
   const filters = parseQuestionFilters(await props.searchParams);
   const user = await requireUser(`/questoes${filtersToSearchParams(filters)}`);
 
-  const [{ items, total, page, pageCount }, { years, topics }, session] = await Promise.all([
-    listQuestions(filters),
-    getFilterOptions(),
-    practiceSession(user.id),
-  ]);
+  const [{ items, total, page, pageCount, hiddenAnuladas }, { years, topics }, session] =
+    await Promise.all([listQuestions(filters), getFilterOptions(), practiceSession(user.id)]);
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8">
@@ -41,6 +38,20 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
         {total === 0
           ? "Nenhuma questão encontrada com esses filtros."
           : `${total} ${total === 1 ? "questão encontrada" : "questões encontradas"}`}
+        {hiddenAnuladas > 0 ? (
+          <>
+            {" "}
+            · {hiddenAnuladas}{" "}
+            {hiddenAnuladas === 1 ? "anulada pelo INEP oculta" : "anuladas pelo INEP ocultas"} (
+            <Link
+              href={`/questoes${filtersToSearchParams(filters, { status: "ANULADA", page: 1 })}`}
+              className="underline"
+            >
+              ver
+            </Link>
+            )
+          </>
+        ) : null}
       </p>
       <ul className="flex flex-col gap-3">
         {items.map((question) => (

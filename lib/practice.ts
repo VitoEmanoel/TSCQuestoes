@@ -1,6 +1,7 @@
 import "server-only";
 import type { RevealPolicy } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { type ScoreSlot, scoreItems, slotsFor } from "@/lib/scoring";
 
 export const REVEAL_POLICIES = ["IMMEDIATE", "AT_END", "MANUAL"] as const;
 
@@ -92,7 +93,11 @@ export async function setRevealPolicy(
   await prisma.$transaction([
     prisma.attempt.update({
       where: { id: attempt.id },
-      data: { status: "SUBMITTED", submittedAt: new Date() },
+      data: {
+        status: "SUBMITTED",
+        submittedAt: new Date(),
+        autoScore: (await scoreAttempt(attempt.id)).percent,
+      },
     }),
     prisma.attempt.create({ data: { userId, mode: "PRACTICE", revealPolicy: policy } }),
   ]);
@@ -108,6 +113,7 @@ export async function finishPracticeSession(userId: string): Promise<string | nu
     return null;
   }
   const now = new Date();
+  const summary = await scoreAttempt(attempt.id);
   await prisma.$transaction([
     prisma.attemptItem.updateMany({
       where: { attemptId: attempt.id, revealedAt: null },
@@ -115,7 +121,7 @@ export async function finishPracticeSession(userId: string): Promise<string | nu
     }),
     prisma.attempt.update({
       where: { id: attempt.id },
-      data: { status: "SUBMITTED", submittedAt: now },
+      data: { status: "SUBMITTED", submittedAt: now, autoScore: summary.percent },
     }),
   ]);
   return attempt.id;
@@ -257,7 +263,7 @@ export async function lastObjectiveAnswer(userId: string, questionId: string) {
 
 export const MAX_ANSWER_LENGTH = 5000;
 
-export type ScoreSlot = { key: string; label: string; max: number };
+export type { ScoreSlot };
 
 export async function scoreSlots(questionId: string): Promise<ScoreSlot[] | null> {
   const question = await prisma.question.findUnique({
@@ -271,19 +277,7 @@ export async function scoreSlots(questionId: string): Promise<ScoreSlot[] | null
   if (!question || question.type !== "DISCURSIVE") {
     return null;
   }
-  const withSubItems = question.answerStandards.filter((standard) => standard.subItem !== null);
-  if (withSubItems.length > 0 && withSubItems.every((standard) => standard.maxScore !== null)) {
-    return withSubItems.map((standard) => ({
-      key: standard.subItem!,
-      label: `Item ${standard.subItem})`,
-      max: standard.maxScore!,
-    }));
-  }
-  const total =
-    question.answerStandards.length === 1 && question.answerStandards[0].maxScore !== null
-      ? question.answerStandards[0].maxScore
-      : (question.valuePoints ?? 10);
-  return [{ key: "total", label: "Nota", max: total }];
+  return slotsFor(question.valuePoints, question.answerStandards);
 }
 
 export async function answerDiscursive(
@@ -368,6 +362,63 @@ export async function saveSelfEvaluation(
   return { total };
 }
 
+const SCORED_QUESTION = {
+  id: true,
+  originalLabel: true,
+  type: true,
+  status: true,
+  valuePoints: true,
+  exam: { select: { year: true } },
+  options: { where: { isCorrect: true }, select: { letter: true } },
+  answerStandards: { select: { subItem: true, maxScore: true } },
+} as const;
+
+type ScoredRow = {
+  questionId: string;
+  answeredAt: Date;
+  selectedLetter: string | null;
+  selfScore: number | null;
+  question: {
+    type: "OBJECTIVE" | "DISCURSIVE";
+    status: "VALID" | "ANULADA";
+    valuePoints: number | null;
+    options: { letter: string }[];
+    answerStandards: { subItem: string | null; maxScore: number | null }[];
+  };
+};
+
+function summarize(rows: ScoredRow[]) {
+  return scoreItems(
+    rows.map((row) => ({
+      questionId: row.questionId,
+      type: row.question.type,
+      anulada: row.question.status === "ANULADA",
+      answeredAt: row.answeredAt,
+      selectedLetter: row.selectedLetter,
+      correctLetter: row.question.options[0]?.letter ?? null,
+      selfScore: row.selfScore,
+      maxPoints: slotsFor(row.question.valuePoints, row.question.answerStandards).reduce(
+        (sum, slot) => sum + slot.max,
+        0,
+      ),
+    })),
+  );
+}
+
+async function scoreAttempt(attemptId: string) {
+  const rows = await prisma.attemptItem.findMany({
+    where: { attemptId },
+    select: {
+      questionId: true,
+      answeredAt: true,
+      selectedLetter: true,
+      selfScore: true,
+      question: { select: SCORED_QUESTION },
+    },
+  });
+  return summarize(rows);
+}
+
 export async function practiceSessionResults(userId: string, attemptId: string) {
   const attempt = await prisma.attempt.findFirst({
     where: { id: attemptId, userId, mode: "PRACTICE", status: "SUBMITTED" },
@@ -380,21 +431,12 @@ export async function practiceSessionResults(userId: string, attemptId: string) 
         orderBy: { answeredAt: "asc" },
         select: {
           id: true,
+          questionId: true,
           selectedLetter: true,
-          isCorrect: true,
           answerText: true,
           selfScore: true,
           answeredAt: true,
-          question: {
-            select: {
-              id: true,
-              originalLabel: true,
-              type: true,
-              status: true,
-              exam: { select: { year: true } },
-              options: { where: { isCorrect: true }, select: { letter: true } },
-            },
-          },
+          question: { select: SCORED_QUESTION },
         },
       },
     },
@@ -402,16 +444,5 @@ export async function practiceSessionResults(userId: string, attemptId: string) 
   if (!attempt) {
     return null;
   }
-  const objectives = attempt.items.filter((item) => item.selectedLetter !== null);
-  const counted = objectives.filter((item) => item.question.status !== "ANULADA");
-  return {
-    ...attempt,
-    summary: {
-      objectives: objectives.length,
-      counted: counted.length,
-      correct: counted.filter((item) => item.isCorrect === true).length,
-      anuladas: objectives.length - counted.length,
-      discursives: attempt.items.length - objectives.length,
-    },
-  };
+  return { ...attempt, summary: summarize(attempt.items) };
 }

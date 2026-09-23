@@ -1,6 +1,6 @@
 import Form from "next/form";
 import Link from "next/link";
-import { AREA_LABEL, type QuestionFilters, STATUS_LABEL, TYPE_LABEL } from "@/lib/questions";
+import { AREA_LABEL, type QuestionFilters, SITUATION_LABEL, TYPE_LABEL } from "@/lib/questions";
 
 type Option = { value: string; label: string };
 
@@ -9,11 +9,13 @@ function FilterSelect({
   label,
   options,
   value,
+  emptyLabel = "Todos",
 }: {
   id: string;
   label: string;
   options: Option[];
   value?: string;
+  emptyLabel?: string;
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -26,7 +28,7 @@ function FilterSelect({
         defaultValue={value ?? ""}
         className="rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
       >
-        <option value="">Todos</option>
+        <option value="">{emptyLabel}</option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -73,7 +75,8 @@ export function QuestionFiltersForm({
         id="status"
         label="Situação"
         value={filters.status}
-        options={toOptions(STATUS_LABEL)}
+        options={toOptions(SITUATION_LABEL)}
+        emptyLabel="Válidas"
       />
       <div className="col-span-2 flex items-end gap-3 sm:col-span-1">
         <button

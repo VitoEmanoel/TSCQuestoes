@@ -1037,6 +1037,86 @@ async function main() {
     (await answerer.get("/questoes")).body.includes('value="AT_END" selected=""'),
   );
 
+  group("Questões anuladas");
+  const countOf = (where: Record<string, unknown>) =>
+    prisma.question.count({ where: { exam: { year: 2017 }, type: "OBJECTIVE", ...where } });
+  const [validCount, anuladaCount, allCount] = await Promise.all([
+    countOf({ status: "VALID" }),
+    countOf({ status: "ANULADA" }),
+    countOf({}),
+  ]);
+  const listText = async (query: string) =>
+    pageText((await answerer.get(`/questoes?ano=2017&tipo=OBJECTIVE${query}`)).body);
+  let text = await listText("");
+  check(
+    "lista padrão esconde as anuladas e avisa quantas estão ocultas",
+    text.includes(`${validCount} questões encontradas`) &&
+      text.includes(`${anuladaCount} anulada pelo INEP oculta`) &&
+      !text.includes("Anulada "),
+    text.slice(text.indexOf("encontrad") - 10, text.indexOf("encontrad") + 60),
+  );
+  text = await listText("&status=ANULADA");
+  check(
+    "filtro “Anuladas” mostra só as anuladas",
+    text.includes(`${anuladaCount} questão encontrada`),
+  );
+  text = await listText("&status=TODAS");
+  check(
+    "filtro “Todas” mostra válidas e anuladas",
+    text.includes(`${allCount} questões encontradas`),
+  );
+  text = await listText("&status=%27%20OR%201%3D1%20--");
+  check(
+    "valor forjado no filtro de situação cai no padrão (só válidas)",
+    text.includes(`${validCount} questões encontradas`),
+  );
+  const annulled = await prisma.question.findFirst({
+    where: { exam: { year: 2017 }, status: "ANULADA", type: "OBJECTIVE" },
+    select: { id: true, order: true, options: { select: { letter: true } } },
+  });
+  const [beforeAnnulled, afterAnnulled] = await Promise.all([
+    prisma.question.findFirst({
+      where: { exam: { year: 2017 }, type: "OBJECTIVE", order: { lt: annulled?.order } },
+      orderBy: { order: "desc" },
+      select: { id: true },
+    }),
+    prisma.question.findFirst({
+      where: { exam: { year: 2017 }, type: "OBJECTIVE", order: { gt: annulled?.order } },
+      orderBy: { order: "asc" },
+      select: { id: true },
+    }),
+  ]);
+  const neighbour = (await answerer.get(`/questoes/${beforeAnnulled?.id}`)).body;
+  check(
+    "“próxima” pula a anulada",
+    neighbour.includes(`href="/questoes/${afterAnnulled?.id}"`) &&
+      !neighbour.includes(`href="/questoes/${annulled?.id}"`),
+  );
+  reply = await answerer.get(`/questoes/${annulled?.id}`);
+  check(
+    "link direto da anulada continua abrindo, com o aviso",
+    reply.status === 200 && pageText(reply.body).includes("Questão anulada pelo INEP"),
+  );
+  await answerer.submitForm(answerPath, 'name="letter"', { letter: rightLetter });
+  await answerer.submitForm(`/questoes/${annulled?.id}`, 'name="letter"', {
+    letter: annulled?.options[0]?.letter ?? "A",
+  });
+  reply = await answerer.submitForm("/questoes", "Finalizar sessão", {});
+  const scoredId = reply.location.split("/").pop() ?? "";
+  const scored = await prisma.attempt.findUnique({
+    where: { id: scoredId },
+    select: { autoScore: true, _count: { select: { items: true } } },
+  });
+  text = pageText((await answerer.get(`/questoes/sessao/${scoredId}`)).body);
+  check(
+    "anulada fica fora da nota: 1 certa de 1 válida = 100%",
+    scored?.autoScore === 100 &&
+      scored._count.items === 2 &&
+      text.includes("1 de 1 objetiva certa (100%)") &&
+      text.includes("1 questão anulada pelo INEP ficou fora da nota"),
+    `autoScore ${scored?.autoScore}; ${text.slice(text.indexOf("Finalizada"), text.indexOf("Finalizada") + 160)}`,
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });
