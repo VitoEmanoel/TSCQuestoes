@@ -638,6 +638,22 @@ async function main() {
         .slice(0, 200),
     );
 
+    phase = "histórico";
+    await page.goto(`${BASE}/historico`);
+    const historyShown = await page.waitFor(
+      "document.body.textContent.includes('Evolução da nota') && document.querySelectorAll('ol[aria-label^=\"Notas dos últimos\"] li').length > 0 && document.body.textContent.includes('Tentativas encerradas')",
+      10_000,
+    );
+    check("histórico mostra a evolução e as tentativas", historyShown);
+    check(
+      "histórico: nenhuma violação de CSP nem erro de JavaScript",
+      cspViolations(phase).length === 0 && jsErrors(phase).length === 0,
+      [...cspViolations(phase), ...jsErrors(phase)]
+        .map((e) => e.text)
+        .join(" | ")
+        .slice(0, 200),
+    );
+
     phase = "XSS simulado";
     await page.goto(`${BASE}/questoes`);
     const xss = await page.evaluate<{

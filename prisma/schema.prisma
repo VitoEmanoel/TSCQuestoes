@@ -165,6 +165,8 @@ model Attempt {
   gradedById   String?
   gradedAt     DateTime?
   items        AttemptItem[]
+
+  @@index([userId, mode, status])
 }
 
 model Room {

@@ -172,3 +172,25 @@ export function topicPerformance(rows: TopicRow[]): TopicPerformance[] {
       first.topic.localeCompare(second.topic, "pt-BR"),
   );
 }
+
+export const TREND_MIN_ANSWERS = 4;
+export const TREND_MIN_DELTA = 10;
+
+export type Trend = "up" | "down" | "steady" | "unknown";
+
+export function trendOf(
+  older: { correct: number; total: number },
+  newer: { correct: number; total: number },
+): Trend {
+  if (older.total + newer.total < TREND_MIN_ANSWERS || older.total === 0 || newer.total === 0) {
+    return "unknown";
+  }
+  const delta = (newer.correct / newer.total - older.correct / older.total) * 100;
+  if (delta >= TREND_MIN_DELTA) {
+    return "up";
+  }
+  if (delta <= -TREND_MIN_DELTA) {
+    return "down";
+  }
+  return "steady";
+}

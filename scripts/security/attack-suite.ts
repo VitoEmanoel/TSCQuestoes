@@ -1734,6 +1734,97 @@ async function main() {
       ),
   );
 
+  group("Histórico");
+  const topicSection = (html: string) => {
+    const text = pageText(html);
+    const start = text.indexOf("Desempenho por tema");
+    return text.slice(start, text.indexOf("Tentativas encerradas", start));
+  };
+  const expectedTopics = async () => {
+    const items = await prisma.attemptItem.findMany({
+      where: {
+        attempt: {
+          user: { email: studentEmail },
+          mode: { in: ["PRACTICE", "FULL_EXAM", "CUSTOM"] },
+        },
+        selectedLetter: { not: null },
+        revealedAt: { not: null },
+        question: { status: "VALID" },
+      },
+      select: {
+        selectedLetter: true,
+        question: {
+          select: {
+            options: { where: { isCorrect: true }, select: { letter: true } },
+            tags: { select: { topic: { select: { name: true } } } },
+          },
+        },
+      },
+    });
+    const totals = new Map<string, { correct: number; total: number }>();
+    for (const item of items) {
+      for (const tag of item.question.tags) {
+        const entry = totals.get(tag.topic.name) ?? { correct: 0, total: 0 };
+        entry.total += 1;
+        if (item.selectedLetter === item.question.options[0]?.letter) entry.correct += 1;
+        totals.set(tag.topic.name, entry);
+      }
+    }
+    return totals;
+  };
+  const historyBefore = await answerer.get("/historico");
+  const expected = await expectedTopics();
+  const beforeSection = topicSection(historyBefore.body);
+  check(
+    "histórico por tema bate com o cálculo feito direto no banco",
+    historyBefore.status === 200 &&
+      expected.size > 0 &&
+      [...expected].every(([topic, { correct, total }]) => {
+        const at = beforeSection.indexOf(`${topic} `);
+        return (
+          at >= 0 &&
+          beforeSection.slice(at, at + topic.length + 60).includes(`${correct} de ${total} certas`)
+        );
+      }),
+    [...expected].map(([topic, value]) => `${topic} ${value.correct}/${value.total}`).join("; "),
+  );
+  const historyText = pageText(historyBefore.body);
+  check(
+    "histórico lista o simulado entregue com a nota",
+    historyText.includes("Prova completa 2017") &&
+      historyBefore.body.includes(`/simulados/${simId}/resultado`),
+  );
+  await build({ ano: "2017", tipo: "OBJECTIVE", quantidade: "5" });
+  const peekSim = await prisma.attempt.findFirstOrThrow({
+    where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+    orderBy: { startedAt: "desc" },
+    select: { id: true, questionIds: true },
+  });
+  const peekQuestion = await prisma.question.findUniqueOrThrow({
+    where: { id: peekSim.questionIds[0] },
+    select: { options: { where: { isCorrect: true }, select: { letter: true } } },
+  });
+  await answerer.submitForm(`/simulados/${peekSim.id}?q=1`, 'name="letter"', {
+    letter: peekQuestion.options[0]?.letter ?? "A",
+  });
+  check(
+    "resposta de simulado aberto não entra no histórico (não dá para espiar se acertou)",
+    topicSection((await answerer.get("/historico")).body) === beforeSection,
+  );
+  const intruderHistory = await intruder.get("/historico");
+  check(
+    "outro aluno não vê o histórico alheio",
+    intruderHistory.status === 200 &&
+      !intruderHistory.body.includes(simId) &&
+      !intruderHistory.body.includes(peekSim.id),
+  );
+  let paginationOk = true;
+  for (const pagina of ["-5", "abc", "99999", "1e9", "' OR 1=1 --"]) {
+    const response = await answerer.get(`/historico?pagina=${encodeURIComponent(pagina)}`);
+    paginationOk &&= response.status === 200 && noLeak(response.body);
+  }
+  check("paginação forjada no histórico não quebra a página", paginationOk);
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });

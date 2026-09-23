@@ -6,6 +6,7 @@ import {
   slotsFor,
   type TopicRow,
   topicPerformance,
+  trendOf,
 } from "./scoring";
 
 let clock = 0;
@@ -191,5 +192,18 @@ describe("topicPerformance", () => {
       result.map((entry) => entry.topic),
       ["Objetiva", "Só discursiva"],
     );
+  });
+});
+
+describe("trendOf", () => {
+  it("melhora, piora e estável comparando a metade antiga com a recente", () => {
+    assert.equal(trendOf({ correct: 1, total: 4 }, { correct: 3, total: 4 }), "up");
+    assert.equal(trendOf({ correct: 4, total: 4 }, { correct: 2, total: 4 }), "down");
+    assert.equal(trendOf({ correct: 2, total: 4 }, { correct: 2, total: 4 }), "steady");
+  });
+
+  it("poucas respostas: sem tendência", () => {
+    assert.equal(trendOf({ correct: 0, total: 1 }, { correct: 2, total: 2 }), "unknown");
+    assert.equal(trendOf({ correct: 0, total: 0 }, { correct: 5, total: 5 }), "unknown");
   });
 });
