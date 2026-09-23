@@ -28,6 +28,7 @@ enum UserRole {
 }
 
 enum AttemptMode {
+  PRACTICE
   FULL_EXAM
   CUSTOM
   ROOM
@@ -197,7 +198,7 @@ model AttemptItem {
   attemptId        String
   question         Question  @relation(fields: [questionId], references: [id])
   questionId       String
-  selectedOptionId String?
+  selectedLetter   String?
   isCorrect        Boolean?
   answerText       String?
   selfScore        Float?
@@ -205,6 +206,9 @@ model AttemptItem {
   teacherComment   String?
   revealedAt       DateTime?
   timeSpentSec     Int?
+  answeredAt       DateTime  @default(now())
+
+  @@index([attemptId, questionId])
 }
 
 model LoginThrottle {

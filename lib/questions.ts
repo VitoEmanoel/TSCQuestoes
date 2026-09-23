@@ -154,7 +154,7 @@ export async function getQuestionDetail(id: string) {
       },
       options: {
         orderBy: { letter: "asc" },
-        select: { letter: true, textMd: true, isCorrect: true },
+        select: { letter: true, textMd: true },
       },
       answerStandards: {
         orderBy: { subItem: "asc" },

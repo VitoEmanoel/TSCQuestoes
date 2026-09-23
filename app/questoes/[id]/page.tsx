@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
+import { ObjectiveAnswer } from "@/components/objective-answer";
 import { RichText } from "@/components/rich-text";
 import { resolveAssets } from "@/lib/assets";
 import { requireUser } from "@/lib/dal";
+import { lastObjectiveAnswer } from "@/lib/practice";
 import { AREA_LABEL, getQuestionDetail, questionTitle, TYPE_LABEL } from "@/lib/questions";
 
 export const metadata: Metadata = { title: "Questão — TSCQuestões" };
@@ -17,9 +19,23 @@ function formatPoints(value: number | null): string | null {
   return `${formatted} ${value === 1 ? "ponto" : "pontos"}`;
 }
 
+function describeLastAnswer(answer: {
+  selectedLetter: string | null;
+  isCorrect: boolean | null;
+  answeredAt: Date;
+}): string {
+  const verdict = answer.isCorrect === null ? "" : answer.isCorrect ? " (acertou)" : " (errou)";
+  const when = answer.answeredAt.toLocaleString("pt-BR", {
+    dateStyle: "short",
+    timeStyle: "short",
+    timeZone: "America/Sao_Paulo",
+  });
+  return `Sua última resposta: alternativa ${answer.selectedLetter}${verdict}, em ${when}.`;
+}
+
 export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
   const { id } = await props.params;
-  await requireUser(`/questoes/${encodeURIComponent(id)}`);
+  const user = await requireUser(`/questoes/${encodeURIComponent(id)}`);
 
   const detail = await getQuestionDetail(id);
   if (!detail) {
@@ -33,7 +49,8 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
       resolvedAssets: await resolveAssets(standard.assets),
     })),
   );
-  const correct = question.options.find((option) => option.isCorrect);
+  const lastAnswer =
+    question.type === "OBJECTIVE" ? await lastObjectiveAnswer(user.id, question.id) : null;
   const isAnulada = question.status === "ANULADA";
   const title = questionTitle(question.originalLabel, question.type);
 
@@ -83,37 +100,24 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
         ) : null}
       </section>
 
-      {question.options.length > 0 ? (
-        <section aria-label="Alternativas">
-          <ol className="flex flex-col gap-2">
-            {question.options.map((option) => (
-              <li
-                key={option.letter}
-                className="flex gap-3 rounded-lg border border-zinc-200 p-3 dark:border-zinc-800"
-              >
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold text-white dark:bg-zinc-100 dark:text-zinc-900">
-                  {option.letter}
-                </span>
-                <RichText source={option.textMd} className="min-w-0 flex-1" />
-              </li>
-            ))}
-          </ol>
+      {question.type === "OBJECTIVE" ? (
+        <section aria-label="Alternativas" className="flex flex-col gap-3">
+          <p className="min-h-5 text-sm text-zinc-600 dark:text-zinc-400">
+            {lastAnswer ? describeLastAnswer(lastAnswer) : null}
+          </p>
+          <ObjectiveAnswer
+            questionId={question.id}
+            options={question.options.map((option) => ({
+              letter: option.letter,
+              content: <RichText source={option.textMd} />,
+            }))}
+          />
         </section>
-      ) : null}
-
-      <details className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
-        <summary className="cursor-pointer font-medium">Ver resposta oficial</summary>
-        <div className="mt-4 flex flex-col gap-4">
-          {question.type === "OBJECTIVE" ? (
-            <p>
-              {isAnulada
-                ? "Questão anulada: não há alternativa correta oficial."
-                : correct
-                  ? `Gabarito oficial: alternativa ${correct.letter}.`
-                  : "Gabarito indisponível."}
-            </p>
-          ) : (
-            standards.map((standard) => (
+      ) : (
+        <details className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+          <summary className="cursor-pointer font-medium">Ver resposta oficial</summary>
+          <div className="mt-4 flex flex-col gap-4">
+            {standards.map((standard) => (
               <div key={standard.id} className="flex flex-col gap-2">
                 <h2 className="font-semibold">
                   {standard.subItem ? `Item ${standard.subItem})` : "Padrão de resposta"}
@@ -132,10 +136,10 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
                   </p>
                 )}
               </div>
-            ))
-          )}
-        </div>
-      </details>
+            ))}
+          </div>
+        </details>
+      )}
 
       <nav aria-label="Navegação na prova" className="flex justify-between gap-4 text-sm">
         {previous ? (

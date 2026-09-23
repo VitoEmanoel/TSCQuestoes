@@ -294,6 +294,77 @@ async function main() {
         .slice(0, 200),
     );
 
+    phase = "responder objetiva";
+    const answerStarted = new Date();
+    const objective = await prisma.question.findFirst({
+      where: { exam: { year: 2017 }, originalLabel: "1" },
+      select: { id: true, options: { select: { letter: true, isCorrect: true } } },
+    });
+    const correctLetter = objective?.options.find((option) => option.isCorrect)?.letter ?? "";
+    const wrongLetter = correctLetter === "A" ? "B" : "A";
+    await page.goto(`${BASE}/questoes/${objective?.id}`);
+    const leaked = await page.evaluate<boolean>(
+      "document.documentElement.outerHTML.includes('isCorrect') || document.body.textContent.includes('alternativa correta')",
+    );
+    check("antes de responder, o gabarito não está na página", !leaked);
+    const focusable = await page.evaluate<boolean>(
+      "(() => { const radio = document.querySelector('input[name=letter]'); radio.focus(); return document.activeElement === radio; })()",
+    );
+    check("alternativas alcançáveis pelo teclado", focusable);
+    const choose = (letter: string) =>
+      page.evaluate(`(() => {
+        document.querySelector('input[name=letter][value="${letter}"]').closest('label').click();
+        [...document.querySelectorAll('main form button')].find((button) => button.textContent.includes('Responder')).click();
+      })()`);
+    await choose(wrongLetter);
+    const wrongShown = await page.waitFor(
+      `document.body.textContent.includes('Você errou. Você marcou a ${wrongLetter}; a alternativa correta é a ${correctLetter}.')`,
+    );
+    const colors = await page.evaluate<{
+      chosen: string;
+      right: string;
+      disabled: boolean;
+    }>(`(() => {
+      const label = (letter) => document.querySelector('input[name=letter][value="' + letter + '"]').closest('label').className;
+      return { chosen: label("${wrongLetter}"), right: label("${correctLetter}"), disabled: document.querySelector('main fieldset').disabled };
+    })()`);
+    check(
+      "errar: mensagem com a certa, marcada em vermelho e certa em verde",
+      wrongShown &&
+        colors.chosen.includes("border-red-500") &&
+        colors.right.includes("border-emerald-500") &&
+        colors.disabled,
+    );
+    await page.evaluate(
+      "[...document.querySelectorAll('main form button')].find((button) => button.textContent.includes('Responder de novo')).click()",
+    );
+    const reset = await page.waitFor(
+      "!document.querySelector('main fieldset').disabled && ![...document.querySelectorAll('input[name=letter]')].some((radio) => radio.checked)",
+    );
+    check("'Responder de novo' libera as alternativas sem nada marcado", reset);
+    await choose(correctLetter);
+    const rightShown = await page.waitFor(
+      `document.body.textContent.includes('Você acertou! A alternativa correta é a ${correctLetter}.')`,
+    );
+    check("acertar: mensagem de acerto", rightShown);
+    check(
+      "responder: nenhuma violação de CSP nem erro de JavaScript",
+      cspViolations(phase).length === 0 && jsErrors(phase).length === 0,
+      [...cspViolations(phase), ...jsErrors(phase)]
+        .map((e) => e.text)
+        .join(" | ")
+        .slice(0, 200),
+    );
+    await prisma.attemptItem.deleteMany({
+      where: {
+        answeredAt: { gte: answerStarted },
+        attempt: { user: { email: "admin@tscquestoes.local" } },
+      },
+    });
+    await prisma.attempt.deleteMany({
+      where: { mode: "PRACTICE", startedAt: { gte: answerStarted }, items: { none: {} } },
+    });
+
     phase = "XSS simulado";
     await page.goto(`${BASE}/questoes`);
     const xss = await page.evaluate<{

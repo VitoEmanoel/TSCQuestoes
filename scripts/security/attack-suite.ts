@@ -35,6 +35,7 @@ function decodeEntities(value: string): string {
 function pageText(html: string): string {
   return decodeEntities(
     html
+      .replace(/<!--[\s\S]*?-->/g, "")
       .replace(/<script[\s\S]*?<\/script>/g, " ")
       .replace(/<[^>]+>/g, " ")
       .replace(/\s+/g, " "),
@@ -113,6 +114,23 @@ class Client {
       form.append(key, value);
     }
     return this.request(path, { method: "POST", body: form }, { origin: options.origin ?? BASE });
+  }
+
+  async submitForm(path: string, marker: string, fields: Record<string, string>): Promise<Reply> {
+    const page = await this.get(path);
+    const form = [...page.body.matchAll(/<form\b[\s\S]*?<\/form>/g)]
+      .map((match) => match[0])
+      .find((candidate) => candidate.includes(marker));
+    const data = new FormData();
+    for (const match of (form ?? "").matchAll(
+      /<input type="hidden" name="([^"]+)"(?: value="([^"]*)")?\/>/g,
+    )) {
+      data.append(decodeEntities(match[1]), decodeEntities(match[2] ?? ""));
+    }
+    for (const [key, value] of Object.entries(fields)) {
+      data.set(key, value);
+    }
+    return this.request(path, { method: "POST", body: data }, { origin: BASE });
   }
 
   async apiLogin(
@@ -202,10 +220,16 @@ function noLeak(body: string): boolean {
 }
 
 async function cleanup() {
+  await prisma.attemptItem.deleteMany({
+    where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
+  });
+  await prisma.attempt.deleteMany({ where: { user: { email: { endsWith: TEST_DOMAIN } } } });
   await prisma.user.deleteMany({ where: { email: { endsWith: TEST_DOMAIN } } });
   await prisma.pendingSignup.deleteMany({ where: { email: { endsWith: TEST_DOMAIN } } });
   await prisma.loginThrottle.deleteMany({});
-  await fetch(`${MAILPIT}/messages`, { method: "DELETE" });
+  await fetch(`${MAILPIT}/search?query=${encodeURIComponent(`to:${TEST_DOMAIN.slice(1)}`)}`, {
+    method: "DELETE",
+  });
 }
 
 async function reachable(url: string): Promise<boolean> {
@@ -698,6 +722,83 @@ async function main() {
     ),
     sessionCookie?.split(";").slice(1).join(";"),
   );
+
+  group("Respostas das questões");
+  const objective = await prisma.question.findFirst({
+    where: { exam: { year: 2017 }, originalLabel: "1" },
+    select: { id: true, options: { select: { letter: true, isCorrect: true } } },
+  });
+  const discursive = await prisma.question.findFirst({
+    where: { exam: { year: 2017 }, originalLabel: "D1" },
+    select: { id: true },
+  });
+  const rightLetter = objective?.options.find((option) => option.isCorrect)?.letter ?? "";
+  const wrongLetter = rightLetter === "A" ? "B" : "A";
+  const answerPath = `/questoes/${objective?.id}`;
+  const answerer = new Client("10.61.0.1");
+  await pageLogin(answerer, studentEmail, studentPassword);
+  const before = await answerer.get(answerPath);
+  check(
+    "gabarito não vai para a página antes de responder",
+    !before.body.includes("isCorrect") && !pageText(before.body).includes("alternativa correta"),
+  );
+  const itemsOf = () =>
+    prisma.attemptItem.findMany({
+      where: { attempt: { user: { email: studentEmail } } },
+      orderBy: { answeredAt: "asc" },
+      select: { selectedLetter: true, isCorrect: true },
+    });
+  reply = await answerer.submitForm(answerPath, 'name="letter"', {
+    letter: wrongLetter,
+    isCorrect: "true",
+    correctLetter: wrongLetter,
+  });
+  check(
+    "campos isCorrect/correctLetter forjados não mudam a correção",
+    pageText(reply.body).includes(
+      `Você errou. Você marcou a ${wrongLetter}; a alternativa correta é a ${rightLetter}.`,
+    ) &&
+      JSON.stringify(await itemsOf()) ===
+        JSON.stringify([{ selectedLetter: wrongLetter, isCorrect: false }]),
+  );
+  const countBefore = (await itemsOf()).length;
+  for (const letter of ["Z", "a", "AB", "' OR 1=1 --", ""]) {
+    await answerer.submitForm(answerPath, 'name="letter"', { letter });
+  }
+  await answerer.submitForm(answerPath, 'name="letter"', {
+    letter: "A",
+    questionId: discursive?.id ?? "",
+  });
+  await answerer.submitForm(answerPath, 'name="letter"', { letter: "A", questionId: "nao-existe" });
+  check(
+    "letras inválidas e questionId trocado não gravam nada",
+    (await itemsOf()).length === countBefore,
+  );
+  const loggedOutAnswer = new Client("10.61.0.2");
+  const answerForm = (await answerer.get(answerPath)).body;
+  const formHtml = [...answerForm.matchAll(/<form\b[\s\S]*?<\/form>/g)]
+    .map((match) => match[0])
+    .find((candidate) => candidate.includes('name="letter"'));
+  const anonymousData = new FormData();
+  for (const match of (formHtml ?? "").matchAll(
+    /<input type="hidden" name="([^"]+)"(?: value="([^"]*)")?\/>/g,
+  )) {
+    anonymousData.append(decodeEntities(match[1]), decodeEntities(match[2] ?? ""));
+  }
+  anonymousData.set("letter", rightLetter);
+  await loggedOutAnswer.request(
+    answerPath,
+    { method: "POST", body: anonymousData },
+    { origin: BASE },
+  );
+  check(
+    "ação de responder reaproveitada sem login não grava nada",
+    (await itemsOf()).length === countBefore,
+  );
+  await prisma.attemptItem.deleteMany({
+    where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
+  });
+  await prisma.attempt.deleteMany({ where: { user: { email: { endsWith: TEST_DOMAIN } } } });
 
   group("Vazamento de informação");
   reply = await anon.get("/pagina-que-nao-existe");
