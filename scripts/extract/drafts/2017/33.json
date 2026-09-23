@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "33",
+  "order": 38,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A ordenação por inserção funciona de modo semelhante à forma como algumas pessoas ordenam cartas de \nbaralho. Inicia-se com a mão esquerda vazia e as cartas empilhadas na mesa. Remove-se da pilha uma carta de \ncada vez, inserindo-a na posição correta na mão esquerda. Para se identificar a posição correta de uma carta, \ndeve-se compará-la com as cartas presentes na mão esquerda, no sentido da direita para a esquerda. Em todos \nos momentos, as cartas na mão esquerda estão ordenadas, tendo sido obtidas no topo da pilha da mesa.\n                              CORMEN, T. H. et al. Introduction to algorithms. 3. ed. Cambridge: The MIT Press, 2009 (adaptado).\n\nUm programador implementou um algoritmo de ordenação semelhante à forma de ordenação de cartas \ndescrita no texto. Ao realizar um teste com um vetor de nove posições (vetor[1..9]), verificou que o \nalgoritmo não funcionava corretamente.\n01 para i <- 2 até 9 faça\n02    valor <- vetor[i]\n03    j <- i – 1\n04    enquanto ((j >= 1) e (valor < vetor[j])) faça\n05       vetor[i] <- vetor[j]\n06          j <- j – 1\n07          se (j = 0) então\n08             interrompa\n09          fim se\n10   fim enquanto\n11    vetor[j + 1] <- valor\n12 fim para\nCom base nessas informações, assinale a opção em que se apresentam a linha e o respectivo comando \na ser substituído, para que o algoritmo ordene corretamente um vetor de inteiros de forma crescente.",
+  "valuePoints": null,
+  "sourcePage": 37,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Linha 01; para i <- 1 até 9 faça",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Linha 03; j <- i",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Linha 04; enquanto ((j >= 1) ou (valor < vetor[j])) faça",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Linha 05; vetor[j + 1] <- vetor[j]",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "Linha 11; vetor[j] <- valor",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

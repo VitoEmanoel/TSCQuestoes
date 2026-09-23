@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "12",
+  "order": 17,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "A  engenharia  de  requisitos,  do  ponto  de  vista  do \nprocesso  de  software,  é  uma  ação  de  engenharia \nde  software  importante,  que  se  inicia  durante \na  atividade  de  comunicação  e  continua  na  de \nmodelagem. Ela deve ser adaptada às necessidades \ndo processo, do projeto, do produto e das pessoas \nque estão realizando o trabalho.\n        PRESSMAN, R. S. Engenharia de software: uma abordagem \n         profissional. 8. ed. Porto Alegre: AMGH, 2016 (adaptado).\n\nConsidere os requisitos, a seguir, de um sistema para \numa universidade, na qual se pretenda gerenciar o \nsetor acadêmico.\n     •  R1:  o  sistema  deve  permitir  que  cada \n        professor realize o lançamento de notas das \n        turmas nas quais lecionou;\n     •  R2:  o  sistema  deverá  ser  desenvolvido  de \n        forma  a  possibilitar  seu  transporte  para \n        outro sistema operacional em, no máximo, \n        sessenta dias;\n     •  R3:  o  sistema  deve  permitir  que  um \n        estudante  realize  a  sua  matrícula  nas \n        disciplinas  oferecidas  em  um  semestre \n        letivo;\n     •  R4: o sistema atualiza a nota do estudante, \n        permitindo  sua  visualização,  em  até  dois \n        segundos  depois  do  momento  que  o \n        professor a registra;\n     •  R5:  o  sistema  deve  permitir  que  o  auxiliar \n        de  serviços  acadêmicos  realize  o  cadastro \n        de  um  estudante  em  não  mais  do  que  dez \n        minutos de orientação.\nNessa  situação,  representam  descrições  de \nrequisitos não funcionais apenas os requisitos",
+  "valuePoints": null,
+  "sourcePage": 20,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "R1, R2 e R3.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "R1, R2 e R5.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "R1, R3 e R4.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "R2, R4 e R5.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "R3, R4 e R5.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

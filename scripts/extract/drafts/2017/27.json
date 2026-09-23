@@ -1,0 +1,49 @@
+{
+  "examYear": 2017,
+  "originalLabel": "27",
+  "order": 32,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O diagrama de classe apresentado na figura a seguir mapeia um processo de um simulador de voo. \nNesse  diagrama,  é  utilizado  o  padrão  de  projeto  Strategy,  que  define  uma  família  de  algoritmos, \nencapsula cada um deles e os torna intercambiáveis. O padrão Strategy, que deixa o algoritmo variar \nindependentemente dos clientes que o utilizam, aplica o princípio de projeto: “programar para uma \ninterface, não para uma implementação”.\n                                     LARMAN, C. Utilizando UML e padrões: uma introdução à análise e ao projeto orientados a \n                                            objetos e ao desenvolvimento iterativo. Porto Alegre: Bookman, 2007 (adaptado).\n\nConsidere o diagrama de classe a seguir que descreve um simulador de voo.\n\n                                                                            <<interface>>\n                       Aviao                                                    Voar\n            Voar voarForma                                         voar()\n            Pousar pousarForma\n\n             perfomanceVoar()\n             performancePousar()\n             setVoar()                                        VoarDia                           VoarNoite\n             setPousar()\n                                                     voar()                            voar()\n             informarDados()\n\n                                                                            <<interface>>\n                                                                               Pousar\n\n                    Boeing757                                      pousar()\n\n               informarDados()\n\n               SimuladorBoeing757                         PousarDia                         PousarNoite\n\n              main()                                pousar()                           pousar()\n\nConsidere ainda o seguinte código em linguagem Java como implementação do simulador.\npublic interface Voar {\n   public void voar();\n}\npublic interface Pousar {\n   public void pousar();\n}\npublic class VoarDia implements Voar {\n   public void voar() {\n      System.out.println(“Voar durante o dia.”);\n   }\n}\npublic class VoarNoite implements Voar {\n   public void voar() {\n      System.out.println(“Voar durante a noite.”);\n   }\n}\npublic class PousarDia implements Pousar {\n   public void pousar() {\n      System.out.println(“Pousar durante o dia.”);\n   }\n}\n\npublic class PousarNoite implements Pousar {\n   public void pousar() {\n      System.out.println(“Pousar durante a noite.”);\n   }\n}\npublic abstract class Aviao {\n   Voar voarForma;\n   Pousar pousarForma;\n   public Aviao() {}\n   public abstract void informarDados();\n   public void performanceVoar() {\n      voarForma.voar();\n   }\n   public void performancePousar() {\n      pousarForma.pousar();\n   }\n   public void setVoar(Voar v) {\n      voarForma = v;\n   }\n   public void setPousar(Pousar p) {\n      pousarForma = p;\n   }\n}\npublic class Boeing757 extends Aviao {\n   public Boeing757() {\n      voarForma = new VoarDia();\n      pousarForma = new PousarDia();\n   }\n   public void informarDados() {\n      System.out.println(“Informando dados de um Boeing 757.”);\n   }\n}\npublic class SimuladorBoeing757 {\n   public static void main(String[] args) {\n      Boeing757 b757 = new Boeing757();\n      b757.performanceVoar();\n      b757.performancePousar();\n      b757.setVoar(new VoarNoite());\n      b757.setPousar(new PousarNoite());\n      b757.performanceVoar();\n      b757.performancePousar();\n   }\n}\nCom  base  no  diagrama  de  classe,  no  código  em  linguagem  Java  e  no  conceito  do  padrão  de  projeto \nStrategy, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 30,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Diagrama de classes — prova pág. 30"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "A classe Aviao implementa as interfaces Voar e Pousar.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "A classe Boeing757 não aplica o princípio de herança, uma vez que esse princípio já foi aplicado pela classe Aviao, nas interfaces Voar e Pousar.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Por implementarem as interfaces Voar e Pousar, as classes VoarDia, VoarNoite, PousarDia e PousarNoite também são uma interface.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Na classe SimuladorBoeing757, os métodos setVoar e setPousar são os responsáveis por aplicar, respectivamente, as saídas “Voar durante o dia” e “Pousar durante o dia” para as saídas “Voar durante a noite” e “Pousar durante a noite”.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "Quando for executada, a classe SimuladorBoeing757 apresentará um erro em tempo de execução porque os métodos setVoar e setPousar recebem respectivamente, como parâmetros, variáveis do tipo classe, o que não é permitido na orientação a objetos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+}

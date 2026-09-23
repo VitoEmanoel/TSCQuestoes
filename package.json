@@ -18,6 +18,7 @@
     "extract:parse:2011": "tsx scripts/extract/parsers/2011.ts",
     "extract:parse:2014": "tsx scripts/extract/parsers/2014.ts",
     "extract:parse:2008": "tsx scripts/extract/parsers/2008.ts",
+    "extract:parse:2017": "tsx scripts/extract/parsers/2017.ts",
     "extract:validate": "tsx scripts/extract/validate.ts"
   },
   "dependencies": {

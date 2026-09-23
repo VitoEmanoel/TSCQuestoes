@@ -1,0 +1,30 @@
+{
+  "examYear": 2017,
+  "originalLabel": "D4",
+  "order": 12,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma empresa trabalha na produção de concreto e terceiriza o serviço de transporte do produto. Os \ncaminhoneiros telefonam para a empresa e registram seu interesse pelo trabalho. Todas as manhãs, \nos caminhoneiros estacionam o caminhão no pátio da empresa e aguardam sua vez. O atendimento \nsegue o critério de ordem de chegada. Esse processo é, atualmente, controlado pela secretária, que \nutiliza sua agenda para gerenciar os motoristas diariamente. A empresa, que carrega, no máximo, 10 \ncaminhões por dia, pretende informatizar esse processo.\nPara  a  solução  do  problema,  apresenta-se,  a  seguir,  um  pseudocódigo  que  utiliza  o  conceito  de  fila, \nmantendo os elementos sempre nas primeiras posições do vetor.\nAlgoritmo Fila_Caminhoneiros\ninício\n   var\n        caminhoneiros : vetor[1..10] de texto\n        total : inteiro\n        procedimento inicializa()\n        início\n           total <- 0\n        fim\n        função estaVazia() : lógico\n        início\n           se (total = 0) então\n              retorna verdadeiro\n           senão\n              retorna falso\n           fim-se\n        fim\n        função estaCheia() : lógico\n        início\n           se (total >= 10) então\n              retorna verdadeiro\n           senão\n              retorna falso\n           fim-se\n        fim\n        procedimento enfileirar caminhoneiro : texto\n        início\n           se (estaCheia() = falso) então\n              total <- total + 1\n              caminhoneiros[total] <- caminhoneiro\n           senão\n              imprima(\"Fila cheia\")\n           fim-se\n        fim\nfim\n\nCom base nas informações apresentadas, faça o que se pede nos itens a seguir, expondo cada solução em \npseudocódigo ou em linguagem de programação.\na)  Implemente a função desenfileirar, que deve remover e retornar um elemento representado \n    por um caminhoneiro da fila ou a mensagem \"Fila vazia\" se não houver elementos. (valor: 6,0 pontos)\nb)  Implemente o procedimento mostrarFila, que deve apresentar a lista de elementos, ou seja, os \n    caminhoneiros que estão na fila. (valor: 4,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 14,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "O estudante deve apresentar um algoritmo tal como:\n\nFunção desenfileirar() : texto\n   var\n       retirado : texto\n       x : inteiro\n   inicio\n       Se(total = 0) então\n          retirado <- \"Fila vazia\"\n       Senão\n          retirado <- caminhoneiros[1]\n          total <- total - 1\n          Para(x <- 1 até total passo 1) faça\n             caminhoneiros[x] <- caminhoneiros[x+1]\n          fim-para\n       fim-se\n       retorna retirado\n   fim",
+      "maxScore": 6,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "O estudante deve apresentar um algoritmo tal como:\n\nProcedimento mostrarFila()\n   var\n       x : inteiro\n   início\n       Se(total = 0) então\n         imprima(\"Fila vazia\")\n       Senão\n          Para(x <- 1 até total passo 1) faça\n             imprima(caminhoneiros[x])\n          fim-para\n       fim-se\n   fim\n\nou\n\nProcedimento mostrarFila()\n   var\n       x : inteiro\n   início\n       Para(x <- 1 até total passo 1) faça\n         imprima(caminhoneiros[x])\n       fim-para\n   fim",
+      "maxScore": 4,
+      "assets": []
+    }
+  ],
+  "tags": [],
+  "reviewNotes": []
+}

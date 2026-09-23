@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "29",
+  "order": 34,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma pesquisa está sendo realizada para identificar a renda média de um grupo de profissionais, \nem função de algumas variáveis de interesse. As variáveis utilizadas são “possui ensino superior”, \n“possui pós-graduação” e “possui pelo menos 5 anos de experiência em sua área de atuação”. \nOs conjuntos de pessoas representados por essas variáveis são denotados A, B e C, respectivamente. \nDado que as variáveis não são mutuamente exclusivas, uma pessoa pode pertencer a mais de um \nconjunto. As expressões a seguir representam subconjuntos para os quais se deseja obter a renda \nmédia das pessoas a eles pertencentes, tarefa que será realizada posteriormente.\n    •  Expressão 1:  x ∈ A ∧ x ∉ (B ∪ C ) ;\n\n    •  Expressão 2: x ∈ A − (B ∪ C ) ;\n\n    •  Expressão 3:  x ∈ A ∧ x ∈ B ∧ x ∈ C .\n\nConsidere que, em função das expressões dadas, o seguinte programa em linguagem de programação C \nfoi escrito, para que posteriormente se realize os cálculos desejados. Considere, ainda, que A, B e C são \nestruturas de dados apropriadamente definidas e que contém as pessoas exatamente como especificado. \nA função contem opera sobre elas e devolve um valor booleano, indicando se a pessoa apontada por p\nexiste ou não na estrutura especificada.\nvoid determina_renda (pessoa *p) {\n    /* condição 1 */\n    if (contem (A, p) && !contem (B, p) && !contem (C, p)) {\n        //renda será determinada posteriormente\n    }\n    /* condição 2 */\n    else if (contem (A, p) || contem (B, p) || contem (C, p)) {\n        //renda será determinada posteriormente\n    }\n\n}\n\nCom base nessa situação e nas informações apresentadas, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 33,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "A condição 2 do programa é equivalente à expressão 3.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Pessoas com pós-graduação pertencem ao conjunto definido pela expressão 2.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A condição 1 do programa é verdadeira para todas as pessoas com ensino superior.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A condição 1 do programa e as expressões 1 e 2, que representam o mesmo subconjunto, são equivalentes.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "A condição 2 do programa define o conjunto de pessoas que tem ensino superior, pós-graduação e pelo menos cinco anos de experiência em sua área de atuação.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

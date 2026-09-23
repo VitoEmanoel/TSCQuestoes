@@ -1,0 +1,49 @@
+{
+  "examYear": 2017,
+  "originalLabel": "32",
+  "order": 37,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um  cliente  solicitou  a  uma  empresa  a  criação  de  um  banco  de  dados  para  armazenar  o  resultado  de \numa eleição presidencial, com dados sobre os partidos políticos, os candidatos e a votação obtida por \ncada  candidato  em  cada  unidade  da  federação.  O  seguinte  diagrama  de  Entidade-Relacionamento  foi \nelaborado como representação dos requisitos obtidos com o cliente.\n\n                                                       numero             nome         sigla\n\n                                            1                 1\n                             Candidato             Filia                 Partido\n\n                    numero               nome\n                                                                         Possui\n\n                                                                             N             partido\n\n                                                                         Votacao          votos\n\n                                                                                          estado\n\nAs tabelas a seguir contêm os dados registrados a partir do resultado dessa eleição.\n                      Partido                           Candidato                       Votação\n           número     nome         sigla        número       nome           partido      votos        estado\n             91      Partido 1       P1            91       Candidato 1           91     12 345        AC\n             92      Partido 2       P2            92       Candidato 2           91     98 323        PE\n             93      Partido 3       P3            93       Candidato 3           91   1 726 453       SP\n             94      Partido 4       P4            94       Candidato 4           92     98 463        AC\n             95      Partido 5       P5            95       Candidato 5           92    192 837        PE\n                                                                                 92   4 283 747       SP\n                                                                                 93     16 253        AC\n                                                                                 93    293 845        PE\n                                                                                 93   6 253 745       SP\n                                                                                 94     98 372        AC\n                                                                                 94    598 333        PE\n                                                                                 94   8 271 347       SP\n                                                                                 95     46 837        AC\n                                                                                 95    327 264        PE\n                                                                                 95   5 938 374       SP\n\nCom base nas informações e na situação apresentada, qual o comando SQL que seleciona corretamente \nos nomes dos candidatos, seus partidos e o total de votos de cada partido nessa eleição?",
+  "valuePoints": null,
+  "sourcePage": 36,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Diagrama Entidade-Relacionamento — prova pág. 36"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "SELECT c.nome, p.nome, SUM(v.votos) FROM Partido p, Candidato c, Votacao v WHERE c.numero = p.numero and v.partido = c.numero;",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "SELECT c.nome, p.nome, COUNT(v.votos) FROM Partido p, Candidato c, Votacao v WHERE c.numero = p.numero and v.partido = c.numero GROUP BY c.nome, p.nome;",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "SELECT c.nome, p.nome, SUM(v.votos) FROM Partido p, Candidato c, Votacao v WHERE c.numero = p.numero and v.partido = c.numero GROUP BY c.nome, p.nome;",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "SELECT c.nome, p.nome, v.votos FROM Partido p, Candidato c, Votacao v WHERE c.numero = p.numero and v.partido = c.numero GROUP BY c.nome, p.nome, SUM(v.votos);",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "SELECT c.nome, p.nome, COUNT(v.votos) FROM Partido p, Candidato c, Votacao v WHERE c.numero = p.numero and v.partido = c.numero GROUP BY c.nome, p.nome, v.votos;",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+}

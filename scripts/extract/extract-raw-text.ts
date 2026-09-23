@@ -11,6 +11,7 @@ import {
   ocrPageText,
   ocrTwoColumnPageText,
 } from "./parsers/text-utils";
+import { buildCipherWordMap, decodeCipherText } from "./parsers/glyph-cipher";
 
 const SOURCE_ROOT = join(process.cwd(), "ProvasEnadeADS");
 const OUTPUT_ROOT = join(process.cwd(), "scripts/extract/raw");
@@ -35,6 +36,9 @@ const TWO_COLUMN_PAGE_RANGES: Record<string, Record<string, ColumnRangeConfig[]>
   "2008": {
     prova: [{ range: [4, 4] }, { range: [9, 17] }],
   },
+  "2017": {
+    prova: [{ range: [18, 18] }, { range: [20, 21] }, { range: [23, 23] }, { range: [26, 27] }],
+  },
 };
 
 const COLUMN_FRACTIONS: Record<string, ColumnFractions> = {
@@ -43,10 +47,15 @@ const COLUMN_FRACTIONS: Record<string, ColumnFractions> = {
 
 const AUTO_COLUMN_DETECTION: Record<string, string[]> = {
   "2008": ["prova"],
+  "2017": ["prova"],
 };
 
 const OCR_EXTRACTION: Record<string, string[]> = {
   "2014": ["prova"],
+};
+
+const GLYPH_CIPHER_DECODING: Record<string, string[]> = {
+  "2017": ["prova"],
 };
 
 const HEADER_OVERRIDES: Record<string, Record<string, Record<number, string>>> = {
@@ -80,6 +89,7 @@ function extractWithColumnAwareness(
   defaultFractions: ColumnFractions,
   headerOverrides: Record<number, string>,
   autoDetect: boolean,
+  decodeCipher: boolean,
 ): string {
   const totalPages = getPdfPageCount(pdfPath);
   const pages: string[] = [];
@@ -100,6 +110,9 @@ function extractWithColumnAwareness(
         ? extractTwoColumnPageText(pdfPath, page, fractions)
         : extractPageText(pdfPath, page);
     }
+    if (decodeCipher) {
+      pageText = decodeCipherText(pageText, buildCipherWordMap(pdfPath, page));
+    }
     const override = headerOverrides[page];
     pages.push(override ? `${override}\n\n${pageText}` : pageText);
     console.log(`  página ${page}/${totalPages}${useOcr ? " (OCR)" : ""}`);
@@ -109,7 +122,11 @@ function extractWithColumnAwareness(
 }
 
 function main() {
-  for (const year of listDirs(SOURCE_ROOT)) {
+  const onlyYears = process.argv.slice(2);
+  const years = listDirs(SOURCE_ROOT).filter(
+    (year) => onlyYears.length === 0 || onlyYears.includes(year),
+  );
+  for (const year of years) {
     const yearPath = join(SOURCE_ROOT, year);
     const outputYearDir = join(OUTPUT_ROOT, year);
     mkdirSync(outputYearDir, { recursive: true });
@@ -122,8 +139,9 @@ function main() {
       const fractions = COLUMN_FRACTIONS[year] ?? DEFAULT_COLUMN_FRACTIONS;
       const headerOverrides = HEADER_OVERRIDES[year]?.[tipo] ?? {};
       const autoDetect = AUTO_COLUMN_DETECTION[year]?.includes(tipo) ?? false;
+      const decodeCipher = GLYPH_CIPHER_DECODING[year]?.includes(tipo) ?? false;
 
-      if (ranges || useOcr) {
+      if (ranges || useOcr || decodeCipher) {
         writeFileSync(
           outputPath,
           extractWithColumnAwareness(
@@ -133,6 +151,7 @@ function main() {
             fractions,
             headerOverrides,
             autoDetect,
+            decodeCipher,
           ),
         );
       } else {

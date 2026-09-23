@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "13",
+  "order": 18,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Na  área  de  desenvolvimento  de  software,  prazos, \ncustos  e  qualidade  são  questões  que  demandam \ngerenciamento,  para  que  se  evitem  atrasos, \nestouros  orçamentários  e  sistemas  que  não \natendam aos requisitos.\nSobre  o  modelo  CMMI,  avalie  as  asserções  a \nseguir e a relação proposta entre elas.\n   I.  O CMMI fornece diretrizes para a melhoria \n       dos processos e habilidades organizacionais, \n       incluindo  o  ciclo  de  vida  de  produtos  e \n       serviços, que abrange as fases de concepção, \n       desenvolvimento,  aquisição,  entrega  e \n       manutenção.\n                      PORQUE\n   II.  As  empresas  brasileiras  estão  aderindo \n        a  programas  de  fomento  à  melhoria \n        da  qualidade  de  software,  por  meio  da \n        aplicação do modelo de maturidade CMMI, \n        que  é  mais  direcionado  às  pequenas  e \n        médias empresas, apesar de também ser um \n        modelo aplicável em grandes organizações, \n        sejam elas públicas ou privadas.\nA respeito dessas asserções, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 20,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "As asserções I e II são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

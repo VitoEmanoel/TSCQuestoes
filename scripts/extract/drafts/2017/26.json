@@ -1,0 +1,49 @@
+{
+  "examYear": 2017,
+  "originalLabel": "26",
+  "order": 31,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Para  que  se  realize  a  multiplicação  de  probabilidades  com  maior  facilidade,  foi  desenvolvida, \nutilizando-se  o  padrão  MVC  (Model-View-Controller),  uma  calculadora  que  pode  ser  configurada \nde dois modos: comum e probabilista. No primeiro, as multiplicações ocorrem de forma ordinária. \nNo segundo, as multiplicações são feitas utilizando-se uma fórmula específica.\nA classe a seguir, escrita na linguagem Java, define o método multiplica. Ele é executado quando o \nbotão da multiplicação é pressionado, e recebe como parâmetro os valores que o usuário deseja usar na \noperação, além de possuir uma variável de instância do tipo CalculadoraController. O método \nalteraModo é encarregado de alterar a instância para a qual essa variável faz referência conforme o \nmodo selecionado pelo usuário. A instância interage com as partes do model apropriadas à solicitação \nrealizada pelo usuário. Quando o usuário deseja usar o modo probabilista, a variável modo tem o valor 1, \ncaso contrário, ela tem o valor 0.\npublic class Calculadora {\n\n    private CalculadoraController c;\n    private int modo;\n\n    public double multiplica (double[] valores) {\n       return c.multiplica (valores);\n    }\n\n    public void alteraModo () {\n\n       if ( modo == 1)\n          c = new ProbabilistaController();\n       else\n          c = new OrdinarioController();\n       }\n}\nO diagrama de classe que se segue mostra a hierarquia de controllers definida para a implementação \nda  calculadora  descrita.  A  hierarquia  de  classes  de  controle  representa  uma  família  de  algoritmos \nintercambiáveis,  por  isso,  o  comportamento  dos  componentes  da  view,  a  cada  instante,  pode  ser \ndinamicamente alterado, bastando trocar o tipo da instância referenciada pela variável c.\n                                                          CalculadoraController\n\n                                                + multiplica(valores : double[ ]) : double\n\n                                   ProbabilistaController                             OrdinarioController\n\n                         + multiplica(valores : double[ ]) : double       + multiplica(valores : double[ ]) : double\n\nConsiderando esse cenário, avalie as afirmações a seguir.\n    I.  A hierarquia exibida ilustra o uso do padrão de projetos Strategy.\n    II.  O padrão composto MVC define a existência de um único controller e, portanto, a solução proposta \n          não caracteriza o uso desse padrão.\n    III.  O  método  multiplica  da  classe  Calculadora chama  o  método  multiplica  de \n          CalculadoraController, o que caracteriza uma conversão de interfaces e, portanto, o uso \n          do padrão de projetos Adapter.\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 29,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Diagrama de classes — prova pág. 29"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "II, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e III, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "II e III, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+}

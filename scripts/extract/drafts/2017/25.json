@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "25",
+  "order": 30,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O fragmento de código C++, a seguir, contém a implementação da inserção de um nó em uma árvore binária.\n...\nstruct noArvore {\n   int dado;\n   noArvore *esquerda;\n   noArvore *direita;\n};\nnoArvore *insere(noArvore *arvore, int valor) {\n   if (arvore == NULL) {\n      arvore = new noArvore;\n      arvore->esquerda = NULL;\n      arvore->direita = NULL;\n      arvore->dado = valor;\n   } else if(valor < arvore->dado) {\n        arvore->esquerda = insere (arvore->esquerda, valor);\n     }\n     else {\n        arvore->direita = insere (arvore->direita, valor);\n     }\n     return(arvore);\n}\n...\nCom base no exposto, assinale a opção que apresenta o fragmento de programa para imprimir os valores \ncontidos nos nós, percorrendo a árvore em pré-ordem.",
+  "valuePoints": null,
+  "sourcePage": 28,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "void preorder(noArvore *raiz) { if (raiz != NULL) { cout << raiz->dado << \" \"; preorder(raiz->esquerda); preorder(raiz->direita); } }",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "void preorder(noArvore *raiz) { if (raiz != NULL) { preorder(raiz->direita); preorder(raiz->esquerda); cout << raiz->dado << \" \"; } }",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "void preorder(noArvore *raiz) { if (raiz != NULL) { preorder(raiz->esquerda); cout << raiz->dado << \" \"; preorder(raiz->direita); } }",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "void preorder(noArvore *raiz) { if (raiz != NULL) { preorder(raiz->esquerda); preorder(raiz->direita); cout << raiz->dado << \" \"; } }",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "void preorder(noArvore *raiz) { if (raiz != NULL) { preorder(raiz->direita); cout << raiz->dado << \" \"; preorder(raiz->esquerda); } }",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

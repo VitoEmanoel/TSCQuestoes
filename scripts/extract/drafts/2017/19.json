@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "19",
+  "order": 24,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Conceitualmente,  cada  processo  tem  sua  própria \nCPU (Central Processing Unit) virtual. É claro que, na \nrealidade, a CPU troca a execução, a todo momento, \nde  um  processo  para  outro,  mas,  para  entender \nesse  sistema,  é  muito  mais  fácil  pensar  em  um \nconjunto  de  processos  sendo  executados  (pseudo) \nparalelamente do que tentar controlar o modo como \na CPU faz esses chaveamentos.\n             TANENBAUM, A. S. Sistemas operacionais modernos.\n                     3. ed. São Paulo: Person, 2010 (adaptado).\nDe  acordo  com  o  exposto,  o  conceito  descrito \ndenomina-se",
+  "valuePoints": null,
+  "sourcePage": 23,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "thread.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "multiprocessador.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "multiprogramação.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "processo monothread.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "máquina de estados finitos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

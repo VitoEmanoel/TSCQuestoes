@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "2",
+  "order": 4,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Segundo o relatório da Organização das Nações Unidas para a Alimentação e a Agricultura de 2014, \na agricultura familiar produz cerca de 80% dos alimentos no mundo e é guardiã de aproximadamente 75% \nde  todos  os  recursos  agrícolas  do  planeta.  Nesse  sentido,  a  agricultura  familiar  é  fundamental  para  a \nmelhoria da sustentabilidade ecológica.\n                                                    Disponível em: <http://www.fao.org>. Acesso em: 29 ago. 2017 (adaptado).\n\nConsiderando as informações apresentadas no texto, avalie as afirmações a seguir.\n    I.  Os  principais  desafios  da  agricultura  familiar  estão  relacionados  à  segurança  alimentar, \n        à sustentabilidade ambiental e à capacidade produtiva.\n    II.  As  políticas  públicas  para  o  desenvolvimento  da  agricultura  familiar  devem  fomentar  a \n         inovação, respeitando o tamanho das propriedades, as tecnologias utilizadas, a integração \n         de mercados e as configurações ecológicas.\n    III. A maioria das propriedades agrícolas no mundo tem caráter familiar, entretanto o trabalho \n         realizado  nessas  propriedades  é  majoritariamente  resultante  da  contratação  de  mão  de \n         obra assalariada.\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 6,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "III, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e II, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "II e III, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

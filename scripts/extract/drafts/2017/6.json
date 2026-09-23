@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "6",
+  "order": 8,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "A  imigração  haitiana  para  o  Brasil  passou  a  ter  grande  repercussão  na  imprensa  a  partir  de  2010. \nDevido  ao  pior  terremoto  do  país,  muitos  haitianos  redescobriram  o  Brasil  como  rota  alternativa \npara migração. O país já havia sido uma alternativa para os haitianos desde 2004, e isso se deve à \nreorientação da política externa nacional para alcançar liderança regional nos assuntos humanitários.\nA  descoberta  e  a  preferência  pelo  Brasil  também  sofreram  influência  da  presença  do  exército \nbrasileiro no Haiti, que intensificou a relação de proximidade entre brasileiros e haitianos. Em meio \na esse clima amistoso, os haitianos presumiram que seriam bem acolhidos em uma possível migração \nao país que passara a liderar a missão da ONU.\nNo  entanto,  os  imigrantes  haitianos  têm  sofrido  ataques  xenofóbicos  por  parte  da  população \nbrasileira. Recentemente, uma das grandes cidades brasileiras serviu como palco para uma marcha \nanti-imigração, com demonstrações de um crescente discurso de ódio em relação a povos imigrantes \nmarginalizados.\nObserva-se,  na  maneira  como  esses  discursos  se  conformam,  que  a  reação  de  uma  parcela  dos \nbrasileiros aos imigrantes se dá em termos bem específicos: os que sofrem com a violência dos atos \nde xenofobia, em geral, são negros e têm origem em países mais pobres.\n                SILVA, C. A. S.; MORAES, M. T. A política migratória brasileira para refugiados e a imigração haitiana. Revista do Direito.\n                                                                     Santa Cruz do Sul, v. 3, n. 50, p. 98-117, set./dez. 2016 (adaptado).\n\nA partir das informações do texto, conclui-se que",
+  "valuePoints": null,
+  "sourcePage": 10,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "o processo de acolhimento dos imigrantes haitianos tem sido pautado por características fortemente associadas ao povo brasileiro: a solidariedade e o respeito às diferenças.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "as reações xenófobas estão relacionadas ao fato de que os imigrantes são concorrentes diretos para os postos de trabalho de maior prestígio na sociedade, aumentando a disputa por boas vagas de emprego.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "o acolhimento promovido pelos brasileiros aos imigrantes oriundos de países do leste europeu tende a ser semelhante ao oferecido aos imigrantes haitianos, pois no Brasil vigora a ideia de democracia racial e do respeito às etnias.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "o nacionalismo exacerbado de classes sociais mais favorecidas, no Brasil, motiva a rejeição aos imigrantes haitianos e a perseguição contra os brasileiros que pretendem morar fora do seu país em busca de melhores condições de vida.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "a crescente onda de xenofobia que vem se destacando no Brasil evidencia que o preconceito e a rejeição por parte dos brasileiros em relação aos imigrantes haitianos é pautada pela discriminação social e pelo racismo.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

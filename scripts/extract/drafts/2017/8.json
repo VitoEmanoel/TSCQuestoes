@@ -1,0 +1,49 @@
+{
+  "examYear": 2017,
+  "originalLabel": "8",
+  "order": 10,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Os  Objetivos  de  Desenvolvimento  Sustentável  (ODS)  compõem  uma  agenda  mundial  adotada \ndurante a Cúpula das Nações Unidas sobre o Desenvolvimento Sustentável, em setembro de 2015. \nNessa  agenda,  representada  na  figura  a  seguir,  são  previstas  ações  em  diversas  áreas  para  o \nestabelecimento de parcerias, grupos e redes que favoreçam o cumprimento desses objetivos.\n\n                                      Disponível em: <http://www.stockholmresilience.org>. Acesso em: 26 set. 2017 (adaptado).\n\nConsiderando que os ODS devem ser implementados por meio de ações que integrem a economia, \na sociedade e a biosfera, avalie as afirmações a seguir.\n    I.  O  capital  humano  deve  ser  capacitado  para  atender  às  demandas  por  pesquisa  e  inovação  em \n          áreas estratégicas para o desenvolvimento sustentável.\n    II.  A  padronização  cultural  dinamiza  a  difusão  do  conhecimento  científico  e  tecnológico  entre  as \n          nações para a promoção do desenvolvimento sustentável.\n    III.  Os países devem incentivar políticas de desenvolvimento do empreendedorismo e de atividades \n          produtivas com geração de empregos que garantam a dignidade da pessoa humana.\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 12,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "image",
+      "filePath": "",
+      "caption": "Objetivos de Desenvolvimento Sustentável — prova pág. 12"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "II, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "III, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e II, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I e III, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+}

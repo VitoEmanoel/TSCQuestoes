@@ -8,9 +8,9 @@ const NOISE_PATTERNS: RegExp[] = [
   /^RASCUNHO$/,
   /^\d{1,2}$/,
   /^\*[A-Z]?\d+\*$/,
-  /^(\*[A-Z]?\d+\*\s+)?(\d+\s+)?TECNOLOGIA EM ANÁLISE E(\s+DESENVOLVIMENTO DE SISTEMAS)?(\s+MATÉRIA)?(\s+D)?(\s+\d+)?$/,
+  /^(\*[A-Z]?\d+\*\s+)?(\d+\s+)?TECNOLOGIA EM ANÁLISE E(\s+DESENVOLVIMENTO DE SISTEMAS)?(\s+MATÉRIA)?(\s+DE?)?(\s+\d+)?$/,
   /^\d+\s+MATÉRIA$/,
-  /^ENVOLVIMENTO DE SISTEMAS$/i,
+  /^ENVOLVIMENTO DE SISTEMAS(\s+\d+)?$/i,
   /^DESENVOLVIMENTO DE SISTEMAS(\s+\d+)?$/,
   /^(FORMAÇÃO GERAL|COMPONENTE ESPECÍFICO)$/,
   /^EXAME NACIONAL DE DESEMPENHO DOS ESTUDANTES$/i,
@@ -186,18 +186,13 @@ export function buildPageMap(
   pdfPath: string,
   totalPages: number,
   labels: string[],
+  readPage: (page: number) => string = (page) => extractPageText(pdfPath, page),
 ): Map<string, number> {
   const pageMap = new Map<string, number>();
   const remaining = new Set(labels);
 
   for (let page = 1; page <= totalPages && remaining.size > 0; page += 1) {
-    const pageText = execFileSync(
-      "pdftotext",
-      ["-layout", "-f", String(page), "-l", String(page), pdfPath, "-"],
-      {
-        encoding: "utf-8",
-      },
-    );
+    const pageText = readPage(page);
 
     for (const label of Array.from(remaining)) {
       const number = label.startsWith("D") ? label.slice(1) : label;

@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "23",
+  "order": 28,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um  software  com  defeito  pode  ser  consequência \nde problemas no levantamento dos requisitos, uma \nvez  que  o  requisito  pode  ser  ambíguo  porque  o \ncliente não estava convicto da sua real necessidade \nou porque a equipe o interpretou mal e registrou \numa  especificação  de  forma  incorreta.  Por  esses \nmotivos,  as  verificações,  as  validações  e  os  testes \nsão fundamentais para se certificar da qualidade do \nsoftware resultante.\nConsiderando  esse  contexto,  avalie  as  afirmações \na seguir.\n    I.  O  teste  funcional  certifica  se  o  software\n          desempenha  as  funções  especificadas  nos \n          requisitos.\n    II.  O  teste  de  desempenho  valida  a \n          conformidade da especificação do processo \n          de desenvolvimento de software.\n    III.  O  teste  de  aceitação  é  realizado  pelo \n          cliente  a  fim  de  validar  se  aquilo  que  foi \n          implementado é o que foi solicitado.\n    IV.  O  teste  de  instalação,  invariavelmente,  é \n          executado no local determinado pelo cliente \n          para instalação do software.\n    V. As  técnicas  de  verificação  e  validação  de \n          software asseguram que o sistema que está \n          sendo  desenvolvido  seja  adequado  ao  seu \n          propósito.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 27,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I, III e V.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "II, III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "II, IV e V.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "I, II, III e V.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

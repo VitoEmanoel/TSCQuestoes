@@ -1,0 +1,30 @@
+{
+  "examYear": 2017,
+  "originalLabel": "D3",
+  "order": 11,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma  empresa  de  cosméticos  comercializa  cinco  diferentes  tipos  de  produtos  e  os  armazena  em  uma \nestante de 40 x 40 posições. Em cada posição da estante, pode ficar armazenada apenas uma caixa com \num desses produtos. Para facilitar sua identificação, os produtos foram codificados da forma a seguir:\n                 1: xampu;\n                 2: condicionador;\n                 3: hidratante;\n                 4: tintura;\n                 5: demaquilante;\n                 0: vazio.\nNessa  situação  e  considerando  o  desenvolvimento  de  um  sistema  para  gerenciar  a  organização  dos \nprodutos na estante, estabeleceu-se a declaração de variáveis a seguir.\nVar\n       Estante: matriz [1..40][1..40] de inteiro\n       Produtos: vetor [0..5] de texto = {\"vazio\",\"xampu\",\"condicionador\",\n                                  \"hidratante\", \"tintura\", \"demaquilante\"}\n       Contador: vetor [0..5] de inteiro = {0,0,0,0,0,0}\n       i, j: inteiro\nCom base nessa declaração e considerando a codificação dos produtos exposta, faça o que se pede nos \nitens a seguir, apresentando as soluções em pseudocódigo ou em linguagem de programação.\na)  Escreva um trecho de código para ler os códigos dos produtos e armazená-los na matriz Estante.\n    (valor: 4,0 pontos)\nb)  Escreva um trecho de código para contar e imprimir a quantidade de caixas de cada tipo de produto \n    na estante. (valor: 6,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 13,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": "a",
+      "criteriaMd": "O estudante deve apresentar um algoritmo tal como:\n\n/* Colocação dos produtos na estante */\nPara i de 1 até 40 passo 1 Faça\n   Para j de 1 até 40 passo 1 Faça\n      imprima \"Digite o código do produto da posição\", i , \" e \", j, \":\"\n      leia Estante[i][j]\n\n/* o Estudante pode ou não fazer a validação da entrada de dados aqui */\n\n      Se  (Estante[i][j]<0 ou Estante[i][j]>5)\n        imprima \"Codigo de produto invalido\"\n        j <- j-1\n      Fim_Se\n   Fim Para\nFim Para",
+      "maxScore": 4,
+      "assets": []
+    },
+    {
+      "subItem": "b",
+      "criteriaMd": "O estudante deve apresentar um algoritmo tal como:\n\n/* Trecho para contar a quantidade de cada tipo de produto, caso a entrada de\ndados tenha sido validada */\nPara i de 1 até 40 passo 1 Faça\n   Para j de 1 até 40 passo 1 Faça\n      Contador[Estante[i][j]]=Contador[Estante[i][j]]+1\n   Fim Para\nFim Para\n\n/* Caso o aluno não tenha validado a entrada de dados, o trecho de contagem\ndeve ser este abaixo, que verifica o código do produto antes de fazer a\ncontagem: */\nPara i de 1 até 40 passo 1 Faça\n   Para j de 1 até 40 passo 1 Faça\n      Se (Estante[i][j]>=0 e Estante[i][j]<=5)\n        Contador[Estante[i][j]]=Contador[Estante[i][j]]+1\n      Fim_Se\n   Fim Para\nFim Para\n\n/* imprimir a quantidade de caixas de cada tipo de produto na Estante */\nPara i de 1 até 5 passo 1 Faça\n   imprima \"Produto \", Produto[i], \" possui \", Contador[i], \" caixas na\nEstante\"\nFim Para",
+      "maxScore": 6,
+      "assets": []
+    }
+  ],
+  "tags": [],
+  "reviewNotes": []
+}

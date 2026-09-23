@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "22",
+  "order": 27,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um desenvolvedor de software recém-formado foi \ncontratado  para  a  implementação  de  um  projeto \nem  uma  empresa  e,  em  reunião,  recebeu  várias \nexplicações sobre como a gerência de configuração \nfuncionava. \nConsiderando  essa  situação,  avalie  as  afirmações \na  seguir,  referentes  às  informações  dadas  ao \ndesenvolvedor.\n    I.  Inicialmente,  para  ter  acesso  à  base  de \n          desenvolvimento,  o  profissional  deve \n          realizar  uma  operação  de  checkout  para \n          baixar  os  arquivos  do  projeto  que  estão \n          armazenados no servidor.\n    II.  Na  situação  em  que  mais  de  um \n          desenvolvedor  estiver  modificando  um \n          mesmo documento, ao se tentar realizar uma \n          operação  de  commit,  pode  ser  necessário \n          realizar uma operação de tag (release) para \n          resolução do conflito entre a versão local e \n          a  versão  mais  recente  no  repositório,  caso \n          algum desenvolvedor tenha submetido uma \n          mudança no documento previamente.\n    III.  No  desenvolvimento  de  um  novo  caso \n          de  uso,  em  que  diversos  arquivos  sejam \n          modificados,  é  recomendada  a  criação  de \n          uma ramificação (branch).\n    IV.  A  versão  estável  é  o  ramo  principal  de \n          desenvolvimento, que segue do começo do \n          desenvolvimento até o momento presente.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 26,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e III.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "14",
+  "order": 19,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O método do caminho crítico identifica a sequência \nde atividades que o gerente de projetos deve dar \nmais  atenção,  porque,  caso  uma  delas  atrase, \ntodo  o  projeto  estará  atrasado.  A  tabela  a  seguir \napresenta a estrutura de atividades de um projeto.\n\n                      Atividade             Duração \n   Atividade\n                    predecessora           em dias\n        A                 --                   3\n        B                 A                    5\n        C                 --                  12\n        D                 --                  4\n        E                 D                    2\n        F                 D                    5\n        G                 F                   7\n        H               E e G                 8\n        I                 B                   11\n        J              C, H e I               3\nA  partir  das  informações  apresentadas  na  tabela, \navalie as afirmações a seguir.\n    I.  O  caminho  crítico  é  composto  pelas \n          atividades A, B, I e J.\n    II.  O caminho crítico tem 27 dias.\n    III.  A atividade H faz parte do caminho crítico.\n    IV.  O  projeto  em  pauta  possui  dois  caminhos \n          críticos.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 21,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "II e III.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

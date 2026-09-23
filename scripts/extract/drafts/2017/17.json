@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "17",
+  "order": 22,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Após a implantação de um sistema em ambiente de \nprodução,  este  passa  para  a  fase  de  manutenção \ndentro  do  ciclo  de  vida  do  desenvolvimento  de \nsoftware.  Os  sistemas  geralmente  necessitam \nde  diversos  tipos  de  manutenção  durante  sua \nexistência.\nConsiderando a etapa de manutenção no processo \nde  desenvolvimento  de  software,  avalie  as \nafirmações a seguir.\n    I.  A fase de manutenção é uma parte explícita \n          do  modelo  em  cascata  do  processo  de \n          desenvolvimento de software.\n    II.  A  atualização  do  sistema  para  inserir \n          customizações  é  considerada  um  tipo  de \n          manutenção.\n    III.  A  depuração  do  programa  é  um  processo \n          específico da fase de desenvolvimento e um \n          tipo de manutenção.\n    IV.  O acréscimo de novas funções a um sistema \n          existente,  sem  perturbar  sua  operação,  é \n          considerado um tipo de manutenção.\n    V. A manutenção do sistema está relacionada \n          ao aumento do ciclo de vida do software.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 23,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "IV e V.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II, IV e V.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III, IV e V.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

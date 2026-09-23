@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "21",
+  "order": 26,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Os  modelos  de  processo  foram  propostos  para \ntrazer  ordem  ao  caos  existente  na  área  de \ndesenvolvimento de software. A história mostra que \nesses  modelos  trouxeram  considerável  contribuição \nno trabalho da engenharia de software.\n        PRESSMAN, R. S. Engenharia de software: uma abordagem \n         profissional. 8. ed. Porto Alegre: AMGH, 2016 (adaptado).\n\nA  respeito  dos  modelos  de  processo,  avalie  as \nafirmações a seguir.\n     I.  São  atividades  do  modelo  incremental: \n           especificação, desenvolvimento e validação.\n     II.  No modelo espiral, a fase de modelagem é \n           responsável,  entre  outras  atividades,  pela \n           estimativa, cronograma e análise de risco.\n     III.  O  modelo  cascata  sugere  uma  abordagem \n           sequencial  e  sistemática  para  o \n           desenvolvimento  de  software, iniciando  na \n           especificação  de  requisitos  e  finalizando \n           com a entrega do software concluído.\nÉ correto o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 26,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "II, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "III, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e II, apenas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I e III, apenas.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "I, II e III.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}

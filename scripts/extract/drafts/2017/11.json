@@ -1,0 +1,49 @@
+{
+  "examYear": 2017,
+  "originalLabel": "11",
+  "order": 16,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "No  desenvolvimento  de  um  sistema  de  automação  para  um  clube  recreativo,  serão  implementados \nmódulos  para  o  departamento  administrativo,  tais  como  os  módulos  de  cadastro  de  associados  e  de \ngestão  de  mensalidades.  Na  construção  desses  módulos,  algumas  regras  de  negócio  serão  aplicadas \nconforme o diagrama abaixo.\n\n                                                                                         Mensalidade\n       Tipo_Associado                             Associado                        - codigo : int\n - codigo : int                                - codigo : int                      - anomesreferencia : string\n - descricao : string                          - nome : string                     - valormensalidade : currency\n - valorMensalidade : currency   1      0..*   - endereco : string   1      1..*   - datavencimento : date\n                                               - telefone : string                 - valorpago : currency\n                                                                                   - datapagamento : date\n\nCom base nesse diagrama, avalie as afirmações a seguir.\n    I.  Haverá somente 12 mensalidades para cada associado, ou seja, as mensalidades do associado não \n          poderão ultrapassar os 12 meses do ano.\n    II.  Não existem associados sem mensalidades, nem mensalidades sem associado a elas relacionado.\n    III.  Alterando-se o valor da mensalidade definido para cada tipo de associado cadastrado, o sistema \n          automaticamente altera os valores das mensalidades geradas anteriormente.\n    IV.  Poderão existir tipos de associados que não terão nenhum associado relacionado a eles.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 19,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Diagrama de classes — prova pág. 19"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "II e IV.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "I, III e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+}

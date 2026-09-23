@@ -1,0 +1,49 @@
+{
+  "examYear": 2017,
+  "originalLabel": "34",
+  "order": 39,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "JOÃO GRILO: — Isso é coisa de seca. Acaba nisso, essa fome: ninguém pode ter menino e haja cavalo no \nmundo. A comida é mais barata e é coisa que se pode vender. Mas seu cavalo, como foi?\nCHICÓ: — Foi uma velha que me vendeu barato, porque ia se mudar, mas recomendou todo cuidado, \nporque o cavalo era bento. E só podia ser mesmo, porque cavalo bom como aquele eu nunca tinha visto.\n                                                 SUASSUNA, A. Auto da Compadecida. Rio de Janeiro: Agir, 2000 (adaptado).\n\nA seguir apresenta-se um modelo de dados elaborado a partir do diálogo entre Chicó e João Grilo.\n\n                         codigo      rg\n\n                                                  possui\n\n                       pessoa                                                      cavalo\n                                         (1,1)                      (0,1)\n\n                                  nome\n                                                           eBento?\n                        cpf\n                                                                      raca\n                                                                              codigo\n\nCom base no diálogo e no diagrama apresentados, avalie as afirmações a seguir.\n     I.  O Chicó e a velha poderão ser cadastrados na entidade pessoa.\n     II.  O Chicó e a velha poderão ter mais que um cavalo cadastrados.\n     III.  O atributo rg da entidade pessoa pode ter a função de chave primária nessa entidade.\n     IV.  O cavalo deverá ter no mínimo uma pessoa e uma pessoa poderá ser cadastrada sem a necessidade \n           de ter um cavalo.\nÉ correto apenas o que se afirma em",
+  "valuePoints": null,
+  "sourcePage": 38,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "",
+      "caption": "Diagrama Entidade-Relacionamento — prova pág. 38"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e IV.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "I, II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II, III e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+}

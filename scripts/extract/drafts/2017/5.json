@@ -1,0 +1,49 @@
+{
+  "examYear": 2017,
+  "originalLabel": "5",
+  "order": 7,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Hidrogéis são materiais poliméricos em forma de pó, grão ou fragmentos semelhantes a pedaços de \nplástico maleável. Surgiram nos anos 1950, nos Estados Unidos da América e, desde então, têm sido \nusados na agricultura. Os hidrogéis ou polímeros hidrorretentores podem ser criados a partir de \npolímeros  naturais  ou  sintetizados  em  laboratório.  Os  estudos com polímeros naturais mostram \nque eles são viáveis ecologicamente, mas ainda não comercialmente.\nNo infográfico abaixo, explica-se como os polímeros naturais superabsorventes, quando misturados ao \nsolo, podem viabilizar culturas agrícolas em regiões áridas.\n\n                                   Disponível em: <http://www.revistapesquisa.fapesp.br>. Acesso em: 18 jul. 2017 (adaptado).\n\nA partir das informações apresentadas, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 9,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "image",
+      "filePath": "",
+      "caption": "Infográfico dos hidrogéis — prova pág. 9"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "O uso do hidrogel, em caso de estiagem, propicia a mortalidade dos pés de café.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "O hidrogel criado a partir de polímeros naturais deve ter seu uso restrito a solos áridos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Os hidrogéis são usados em culturas agrícolas e florestais e em diferentes tipos de solos.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "O uso de hidrogéis naturais é economicamente viável em lavouras tradicionais de larga escala.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "O uso dos hidrogéis permite que as plantas sobrevivam sem a água da irrigação ou das chuvas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2017.md."]
+}

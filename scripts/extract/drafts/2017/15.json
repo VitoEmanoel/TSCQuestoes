@@ -1,0 +1,43 @@
+{
+  "examYear": 2017,
+  "originalLabel": "15",
+  "order": 20,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "ANULADA",
+  "statementMd": "Uma  empresa  multinacional  está  avaliando  um \nincidente de segurança ocorrido internamente com \no envolvimento de um de seus funcionários, o que \npoderá  ser  motivo  para  o  encerramento  de  seu \ncontrato. O referido funcionário estava realizando o \ncompartilhamento de senhas e também enviando \nmensagens  por  meio  do  serviço  de  correio \neletrônico da empresa, com o objetivo de difamar \ne caluniar outros colegas de trabalho.\n\nNessa  situação,  de  acordo  com  as  políticas \nde  segurança  que  definem  os  direitos  e  as \nresponsabilidades  de  cada  um  em  relação  à \nsegurança dos recursos computacionais que utiliza, \no funcionário violou a política de",
+  "valuePoints": null,
+  "sourcePage": 21,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "senhas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "backup.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "privacidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "uso aceitável.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "confidencialidade.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": [],
+  "reviewNotes": []
+}
