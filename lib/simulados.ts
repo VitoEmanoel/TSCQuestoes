@@ -277,7 +277,7 @@ export async function simuladoQuestion(questionId: string) {
       valuePoints: true,
       assets: {
         where: { answerStandardId: null },
-        orderBy: { filePath: "asc" },
+        orderBy: [{ position: "asc" }, { filePath: "asc" }],
         select: { filePath: true, caption: true },
       },
       options: { orderBy: { letter: "asc" }, select: { letter: true, textMd: true } },

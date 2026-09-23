@@ -85,12 +85,16 @@ export async function adminQuestion(id: string) {
           maxScore: true,
           criteriaMd: true,
           _count: { select: { assets: true } },
+          assets: {
+            orderBy: [{ position: "asc" }, { filePath: "asc" }],
+            select: { id: true, filePath: true, caption: true },
+          },
         },
       },
       assets: {
         where: { answerStandardId: null },
-        orderBy: { filePath: "asc" },
-        select: { filePath: true, caption: true },
+        orderBy: [{ position: "asc" }, { filePath: "asc" }],
+        select: { id: true, filePath: true, caption: true },
       },
       tags: { select: { topic: { select: { name: true } } } },
     },

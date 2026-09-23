@@ -1,5 +1,8 @@
 import "dotenv/config";
 import { randomBytes } from "node:crypto";
+import { existsSync, readdirSync, unlinkSync } from "node:fs";
+import { join } from "node:path";
+import { deflateSync } from "node:zlib";
 import { encode } from "@auth/core/jwt";
 import { PrismaClient } from "@prisma/client";
 import { slotsFor } from "../../lib/scoring";
@@ -9,6 +12,49 @@ const MAILPIT = process.env.ATTACK_MAILPIT_URL ?? "http://localhost:8025/api/v1"
 const SESSION_COOKIE = "authjs.session-token";
 const TEST_DOMAIN = "@ataque.local";
 const DRAFT_LABEL = "RASCUNHO-ATAQUE";
+const UPLOAD_ROOT = process.env.UPLOAD_DIR ?? join(process.cwd(), "storage", "uploads");
+
+function uploadFiles(): string[] {
+  return existsSync(UPLOAD_ROOT) ? readdirSync(UPLOAD_ROOT) : [];
+}
+
+function crc32(bytes: Buffer): number {
+  let crc = 0xffffffff;
+  for (const byte of bytes) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = (crc >>> 1) ^ (0xedb88320 & -(crc & 1));
+    }
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function pngChunk(type: string, data: Buffer): Buffer {
+  const length = Buffer.alloc(4);
+  length.writeUInt32BE(data.length);
+  const body = Buffer.concat([Buffer.from(type, "ascii"), data]);
+  const crc = Buffer.alloc(4);
+  crc.writeUInt32BE(crc32(body));
+  return Buffer.concat([length, body, crc]);
+}
+
+function makePng(width: number, height: number, seed = 0): Buffer {
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(width, 0);
+  header.writeUInt32BE(height, 4);
+  header[8] = 8;
+  header[9] = 2;
+  const rows = Buffer.alloc((width * 3 + 1) * height, seed % 256);
+  for (let row = 0; row < height; row += 1) {
+    rows[row * (width * 3 + 1)] = 0;
+  }
+  return Buffer.concat([
+    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+    pngChunk("IHDR", header),
+    pngChunk("IDAT", deflateSync(rows)),
+    pngChunk("IEND", Buffer.alloc(0)),
+  ]);
+}
 const prisma = new PrismaClient();
 
 type Result = { group: string; name: string; ok: boolean; detail: string };
@@ -228,6 +274,17 @@ async function cleanup() {
   await prisma.attempt.deleteMany({ where: { user: { email: { endsWith: TEST_DOMAIN } } } });
   await prisma.user.deleteMany({ where: { email: { endsWith: TEST_DOMAIN } } });
   const drafts = { originalLabel: { startsWith: DRAFT_LABEL } };
+  const draftAssets = await prisma.asset.findMany({
+    where: { question: drafts },
+    select: { filePath: true },
+  });
+  for (const asset of draftAssets) {
+    const name = asset.filePath.startsWith("uploads/") ? asset.filePath.slice(8) : null;
+    if (name && /^[a-f0-9]{24}\.(png|jpg)$/.test(name) && existsSync(join(UPLOAD_ROOT, name))) {
+      unlinkSync(join(UPLOAD_ROOT, name));
+    }
+  }
+  await prisma.asset.deleteMany({ where: { question: drafts } });
   await prisma.attemptItem.deleteMany({ where: { question: drafts } });
   await prisma.option.deleteMany({ where: { question: drafts } });
   await prisma.questionTag.deleteMany({ where: { question: drafts } });
@@ -2204,6 +2261,218 @@ async function main() {
       discStandards[1].subItem === "b" &&
       discStandards[1].maxScore === 4,
     JSON.stringify(discStandards.map((item) => [item.subItem, item.maxScore])),
+  );
+
+  group("Imagens pelo painel");
+  const upload = (
+    client: Client,
+    questionId: string,
+    file: { bytes: Buffer; name: string; type: string } | null,
+    fields: Record<string, string> = {},
+    headers: Record<string, string> = { origin: BASE, "sec-fetch-site": "same-origin" },
+  ) => {
+    const data = new FormData();
+    if (file) {
+      data.append(
+        "arquivo",
+        new Blob([new Uint8Array(file.bytes)], { type: file.type }),
+        file.name,
+      );
+    }
+    for (const [key, value] of Object.entries(fields)) {
+      data.append(key, value);
+    }
+    return client.request(
+      `/admin/imagens?questao=${encodeURIComponent(questionId)}`,
+      { method: "POST", body: data },
+      headers,
+    );
+  };
+  const assetsOf = (questionId: string) =>
+    prisma.asset.findMany({
+      where: { questionId },
+      orderBy: [{ answerStandardId: "asc" }, { position: "asc" }],
+      select: { id: true, filePath: true, position: true, caption: true, answerStandardId: true },
+    });
+  const goodPng = { bytes: makePng(40, 20), name: "figura.png", type: "image/png" };
+  const filesBefore = uploadFiles().length;
+  const denied = await Promise.all([
+    upload(answerer, editDraft.id, goodPng),
+    upload(anonAdmin, editDraft.id, goodPng),
+  ]);
+  check(
+    "aluno e visitante recebem 404 ao enviar imagem e nada é gravado",
+    denied.every((response) => response.status === 404) &&
+      (await assetsOf(editDraft.id)).length === 0 &&
+      uploadFiles().length === filesBefore,
+  );
+  reply = await upload(
+    admin,
+    editDraft.id,
+    goodPng,
+    {},
+    {
+      origin: "https://site-do-atacante.example",
+      "sec-fetch-site": "cross-site",
+    },
+  );
+  const crossSite = await upload(
+    admin,
+    editDraft.id,
+    goodPng,
+    {},
+    {
+      origin: BASE,
+      "sec-fetch-site": "cross-site",
+    },
+  );
+  check(
+    "envio vindo de outro site (CSRF) é recusado",
+    reply.location.includes("erro=origem") &&
+      crossSite.location.includes("erro=origem") &&
+      (await assetsOf(editDraft.id)).length === 0,
+    reply.location,
+  );
+  reply = await upload(admin, editDraft.id, goodPng, { legenda: "Figura enviada" });
+  const uploaded = await assetsOf(editDraft.id);
+  const uploadedName = uploaded[0]?.filePath.replace("uploads/", "") ?? "";
+  const served = await anonAdmin.request(`/imagens/${uploadedName}`);
+  const servedHeaders = await fetch(`${BASE}/imagens/${uploadedName}`);
+  check(
+    "admin envia PNG: gravado com nome aleatório e servido com tipo certo e nosniff",
+    reply.location.includes("imagem=ok") &&
+      uploaded.length === 1 &&
+      /^uploads\/[a-f0-9]{24}\.png$/.test(uploaded[0].filePath) &&
+      uploadFiles().includes(uploadedName) &&
+      served.status === 200 &&
+      servedHeaders.headers.get("content-type") === "image/png" &&
+      servedHeaders.headers.get("x-content-type-options") === "nosniff" &&
+      (servedHeaders.headers.get("content-security-policy") ?? "").includes("sandbox") &&
+      Buffer.from(await servedHeaders.arrayBuffer()).equals(goodPng.bytes),
+    `${reply.location} ${uploaded[0]?.filePath}`,
+  );
+  const hugeDims = makePng(1, 1);
+  hugeDims.writeUInt32BE(7000, 16);
+  hugeDims.writeUInt32BE(7000, 20);
+  const fakes: [string, { bytes: Buffer; name: string; type: string }][] = [
+    [
+      "texto com nome .png",
+      { bytes: Buffer.from("isto não é imagem"), name: "a.png", type: "image/png" },
+    ],
+    [
+      "SVG com script",
+      {
+        bytes: Buffer.from(
+          '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>',
+        ),
+        name: "a.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    [
+      "HTML disfarçado de JPEG",
+      {
+        bytes: Buffer.from("<html><script>alert(1)</script></html>"),
+        name: "a.jpg",
+        type: "image/jpeg",
+      },
+    ],
+    ["GIF", { bytes: Buffer.from("GIF89a\x01\x00\x01\x00"), name: "a.gif", type: "image/gif" }],
+    ["PNG de 7000×7000", { bytes: hugeDims, name: "big.png", type: "image/png" }],
+  ];
+  const acceptedFakes: string[] = [];
+  for (const [label, file] of fakes) {
+    const response = await upload(admin, editDraft.id, file);
+    if (!response.location.includes("erro=tipo"))
+      acceptedFakes.push(`${label} (${response.location})`);
+  }
+  const oversized = Buffer.concat([makePng(10, 10), Buffer.alloc(2.5 * 1024 * 1024)]);
+  reply = await upload(admin, editDraft.id, {
+    bytes: oversized,
+    name: "grande.png",
+    type: "image/png",
+  });
+  check(
+    "arquivos falsos, SVG, GIF, dimensões absurdas e acima de 2 MB são recusados",
+    acceptedFakes.length === 0 &&
+      reply.location.includes("erro=grande") &&
+      (await assetsOf(editDraft.id)).length === 1 &&
+      uploadFiles().length === filesBefore + 1,
+    `${acceptedFakes.join("; ")} | grande: ${reply.location}`,
+  );
+  const foreignAsset = await prisma.asset.findFirstOrThrow({
+    where: { questionId: { not: editDraft.id } },
+    select: { id: true, filePath: true },
+  });
+  const idorItem = await upload(admin, editDraft.id, goodPng, {
+    item: discDraft.answerStandards[0].id,
+  });
+  const idorReplace = await upload(admin, editDraft.id, goodPng, { substituir: foreignAsset.id });
+  check(
+    "anexar em item de outra questão ou substituir imagem alheia (IDOR) é recusado",
+    idorItem.location.includes("erro=alvo") &&
+      idorReplace.location.includes("erro=alvo") &&
+      (await prisma.asset.findUniqueOrThrow({ where: { id: foreignAsset.id } })).filePath ===
+        foreignAsset.filePath &&
+      uploadFiles().length === filesBefore + 1,
+  );
+  let traversalOk = true;
+  for (const path of [
+    "/imagens/..%2F..%2F.env",
+    "/imagens/%2e%2e%2fpackage.json",
+    `/imagens/${"0".repeat(24)}.png`,
+    `/imagens/${uploadedName.replace(".png", ".svg")}`,
+    "/imagens/figura.png",
+  ]) {
+    const response = await anonAdmin.request(path);
+    traversalOk &&= response.status === 404 && !response.body.includes("DATABASE_URL");
+  }
+  check("rota de imagens recusa path traversal e nomes fora do padrão", traversalOk);
+  for (let index = 0; index < 9; index += 1) {
+    await upload(admin, editDraft.id, { ...goodPng, bytes: makePng(8, 8, index + 1) });
+  }
+  reply = await upload(admin, editDraft.id, goodPng);
+  check(
+    "limite de 10 imagens por enunciado",
+    reply.location.includes("erro=limite") && (await assetsOf(editDraft.id)).length === 10,
+    reply.location,
+  );
+  const beforeRemove = await assetsOf(editDraft.id);
+  const removeFields = await formFields(admin, editPath, ">Remover</button>");
+  await postFields(answerer, editPath, removeFields);
+  check(
+    "aluno reaproveitando o “Remover” do admin não apaga nada",
+    Object.keys(removeFields).some((key) => key.startsWith("$ACTION")) &&
+      (await assetsOf(editDraft.id)).length === 10,
+    Object.keys(removeFields).join(","),
+  );
+  await postFields(admin, editPath, removeFields);
+  const afterRemove = await assetsOf(editDraft.id);
+  const removedName = beforeRemove[0].filePath.replace("uploads/", "");
+  check(
+    "admin remove: some do banco e do disco, e as posições se reorganizam",
+    afterRemove.length === 9 &&
+      !afterRemove.some((asset) => asset.id === beforeRemove[0].id) &&
+      !uploadFiles().includes(removedName) &&
+      afterRemove.map((asset) => asset.position).join(",") === "0,1,2,3,4,5,6,7,8",
+  );
+  const moveFields = await formFields(admin, editPath, 'name="direcao" value="down"');
+  await postFields(admin, editPath, moveFields);
+  const afterMove = await assetsOf(editDraft.id);
+  check(
+    "mover para baixo troca a ordem das duas primeiras imagens",
+    afterMove[0].id === afterRemove[1].id && afterMove[1].id === afterRemove[0].id,
+  );
+  const captionFields = await formFields(admin, editPath, 'name="legenda" value=');
+  await postFields(admin, editPath, {
+    ...captionFields,
+    legenda: '<img src=x onerror="alert(3)"> legenda',
+  });
+  const captionPage = await admin.get(editPath);
+  check(
+    "legenda com HTML fica escapada",
+    !captionPage.body.includes('<img src=x onerror="alert(3)">') &&
+      captionPage.body.includes("&lt;img src=x onerror="),
   );
 
   await prisma.attemptItem.deleteMany({

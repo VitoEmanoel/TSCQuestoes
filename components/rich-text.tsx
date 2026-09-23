@@ -27,6 +27,7 @@ function Figure({ asset, description }: { asset: ResolvedAsset; description?: st
         height={asset.height}
         alt={alt}
         sizes="(max-width: 768px) 100vw, 768px"
+        unoptimized={asset.uploaded}
         className="h-auto max-w-full rounded border border-zinc-200 bg-white dark:border-zinc-700"
       />
       {asset.caption ? (

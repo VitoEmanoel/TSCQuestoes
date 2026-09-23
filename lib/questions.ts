@@ -175,7 +175,7 @@ export async function getQuestionDetail(id: string, options: { publishedOnly?: b
       tags: { select: { topic: { select: { name: true } } } },
       assets: {
         where: { answerStandardId: null },
-        orderBy: { filePath: "asc" },
+        orderBy: [{ position: "asc" }, { filePath: "asc" }],
         select: { filePath: true, caption: true },
       },
       options: {
@@ -189,7 +189,10 @@ export async function getQuestionDetail(id: string, options: { publishedOnly?: b
           subItem: true,
           criteriaMd: true,
           maxScore: true,
-          assets: { orderBy: { filePath: "asc" }, select: { filePath: true, caption: true } },
+          assets: {
+            orderBy: [{ position: "asc" }, { filePath: "asc" }],
+            select: { filePath: true, caption: true },
+          },
         },
       },
     },

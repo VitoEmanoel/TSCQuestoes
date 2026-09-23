@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { type ChildProcess, execFileSync, spawn } from "node:child_process";
-import { mkdtempSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, rmSync, unlinkSync } from "node:fs";
 import { createServer, type Server } from "node:http";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -161,6 +161,17 @@ const DRAFT_LABEL = "RASCUNHO-NAVEGADOR";
 
 async function removeTestUser() {
   const drafts = { originalLabel: DRAFT_LABEL };
+  const uploadRoot = process.env.UPLOAD_DIR ?? join(process.cwd(), "storage", "uploads");
+  for (const asset of await prisma.asset.findMany({
+    where: { question: drafts },
+    select: { filePath: true },
+  })) {
+    const name = asset.filePath.startsWith("uploads/") ? asset.filePath.slice(8) : "";
+    if (/^[a-f0-9]{24}\.(png|jpg)$/.test(name) && existsSync(join(uploadRoot, name))) {
+      unlinkSync(join(uploadRoot, name));
+    }
+  }
+  await prisma.asset.deleteMany({ where: { question: drafts } });
   await prisma.attemptItem.deleteMany({ where: { question: drafts } });
   await prisma.option.deleteMany({ where: { question: drafts } });
   await prisma.questionTag.deleteMany({ where: { question: drafts } });
@@ -737,6 +748,26 @@ async function main() {
         savedText.startsWith("Texto novo digitado no navegador"),
       `login ${adminIn}, não salvo ${dirtyShown}, salvo ${savedShown}, banco "${savedText.slice(0, 40)}"`,
     );
+    await page.evaluate(`(async () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 120;
+      canvas.height = 60;
+      const context = canvas.getContext('2d');
+      context.fillStyle = '#1d4ed8';
+      context.fillRect(0, 0, 120, 60);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+      const form = [...document.querySelectorAll('form')].find((f) => f.textContent.includes('Adicionar imagem'));
+      const input = form.querySelector('input[type=file]');
+      const transfer = new DataTransfer();
+      transfer.items.add(new File([blob], 'figura.png', { type: 'image/png' }));
+      input.files = transfer.files;
+      form.submit();
+    })()`);
+    const imageUploaded = await page.waitFor(
+      "location.search === '?imagem=ok' && document.body.textContent.includes('Imagem enviada') && document.body.textContent.includes('Marcadores de imagem no texto: 1 · imagens anexadas: 1') && [...document.querySelectorAll('aside img')].some((img) => img.complete && img.naturalWidth === 120)",
+      15_000,
+    );
+    check("admin envia imagem pelo painel e ela aparece na pré-visualização", imageUploaded);
     check(
       "editor do admin: nenhuma violação de CSP nem erro de JavaScript",
       cspViolations(phase).length === 0 && jsErrors(phase).length === 0,

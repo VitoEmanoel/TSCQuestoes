@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AdminImageManager } from "@/components/admin-image-manager";
 import { ExamBadge } from "@/components/exam-badge";
 import { QuestionEditor } from "@/components/question-editor";
 import { RichText } from "@/components/rich-text";
+import { IMAGE_ERROR_MESSAGE, type ImageError } from "@/lib/admin-images";
 import { adminQuestion, allTopics } from "@/lib/admin-questions";
 import { resolveAssets } from "@/lib/assets";
 import { requireAdmin } from "@/lib/dal";
@@ -14,7 +16,11 @@ export const metadata: Metadata = { title: "Editar questão — Painel" };
 export default async function AdminQuestionPage(props: PageProps<"/admin/questoes/[id]">) {
   await requireAdmin();
   const { id } = await props.params;
-  const { salvo } = await props.searchParams;
+  const { salvo, imagem, erro } = await props.searchParams;
+  const imageError =
+    typeof erro === "string" && Object.hasOwn(IMAGE_ERROR_MESSAGE, erro)
+      ? IMAGE_ERROR_MESSAGE[erro as ImageError]
+      : null;
   const [question, topics] = await Promise.all([adminQuestion(id), allTopics()]);
   if (!question) {
     notFound();
@@ -64,6 +70,22 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
               timeZone: "America/Sao_Paulo",
             })}
             .
+          </p>
+        ) : null}
+        {imagem === "ok" ? (
+          <p
+            role="status"
+            className="rounded-md border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
+          >
+            Imagem enviada.
+          </p>
+        ) : null}
+        {imageError ? (
+          <p
+            role="alert"
+            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm font-medium text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-200"
+          >
+            {imageError}
           </p>
         ) : null}
       </header>
@@ -119,6 +141,34 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
           </div>
         </aside>
       </div>
+      <section aria-labelledby="imagens" className="flex flex-col gap-3">
+        <div className="flex flex-col gap-1">
+          <h2 id="imagens" className="text-lg font-semibold">
+            Imagens
+          </h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            A 1ª imagem entra no 1º marcador “(ver imagem anexa…)” do texto, a 2ª no 2º, e assim por
+            diante. Salve o texto antes de mexer nas imagens: enviar uma imagem recarrega a página.
+          </p>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <AdminImageManager
+            questionId={question.id}
+            answerStandardId={null}
+            title="Imagens do enunciado"
+            assets={question.assets}
+          />
+          {question.answerStandards.map((standard) => (
+            <AdminImageManager
+              key={standard.id}
+              questionId={question.id}
+              answerStandardId={standard.id}
+              title={`Imagens do padrão de resposta${standard.subItem ? ` — item ${standard.subItem})` : ""}`}
+              assets={standard.assets}
+            />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

@@ -24,3 +24,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.pem
+
+# Imagens enviadas pelo painel (ficam no disco do servidor e entram no backup)
+storage/
