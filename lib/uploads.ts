@@ -1,7 +1,7 @@
 import "server-only";
 import { randomBytes } from "node:crypto";
 import { mkdir, readFile, unlink, writeFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 
 export const MAX_UPLOAD_BYTES = 2 * 1024 * 1024;
 export const MAX_IMAGE_SIDE = 6000;
@@ -11,7 +11,7 @@ export const UPLOAD_PREFIX = "uploads/";
 export const UPLOAD_NAME = /^[a-f0-9]{24}\.(png|jpg)$/;
 
 export function uploadRoot(): string {
-  return resolve(process.env.UPLOAD_DIR ?? join(process.cwd(), "storage", "uploads"));
+  return process.env.UPLOAD_DIR || join(process.cwd(), "storage", "uploads");
 }
 
 export type ImageInfo = { type: "png" | "jpg"; width: number; height: number };

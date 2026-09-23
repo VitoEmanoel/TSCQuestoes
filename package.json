@@ -26,7 +26,8 @@
     "security:attack": "tsx scripts/security/attack-suite.ts",
     "security:serve": "next build && AUTH_URL=http://localhost:3123 next start -p 3123",
     "security:browser": "tsx scripts/security/browser-check.ts",
-    "test": "tsx --test lib/*.test.ts"
+    "test": "tsx --test lib/*.test.ts",
+    "e2e:painel": "next build && tsx scripts/e2e/painel-importa-prova.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
