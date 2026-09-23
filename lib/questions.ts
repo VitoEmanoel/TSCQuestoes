@@ -173,12 +173,12 @@ export async function getQuestionDetail(id: string) {
   }
   const [previous, next] = await Promise.all([
     prisma.question.findFirst({
-      where: { examId: question.examId, order: { lt: question.order } },
+      where: { examId: question.examId, type: question.type, order: { lt: question.order } },
       orderBy: { order: "desc" },
       select: { id: true, originalLabel: true, type: true },
     }),
     prisma.question.findFirst({
-      where: { examId: question.examId, order: { gt: question.order } },
+      where: { examId: question.examId, type: question.type, order: { gt: question.order } },
       orderBy: { order: "asc" },
       select: { id: true, originalLabel: true, type: true },
     }),
