@@ -1,5 +1,6 @@
 import "server-only";
 import { cache } from "react";
+import { redirect } from "next/navigation";
 import type { UserRole } from "@prisma/client";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
@@ -22,3 +23,11 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     select: { id: true, name: true, email: true, role: true },
   });
 });
+
+export async function requireUser(callbackUrl: string): Promise<CurrentUser> {
+  const user = await getCurrentUser();
+  if (!user) {
+    redirect(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+  }
+  return user;
+}
