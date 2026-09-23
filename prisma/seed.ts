@@ -33,15 +33,18 @@ async function seedTopicsAndAdmin() {
   const adminPassword = process.env.ADMIN_SEED_PASSWORD ?? "admin123";
   const passwordHash = await bcrypt.hash(adminPassword, 10);
 
-  await prisma.user.upsert({
-    where: { email: adminEmail },
-    update: {},
-    create: {
-      email: adminEmail,
-      name: "Administrador",
-      role: "ADMIN",
-      passwordHash,
-    },
+  await prisma.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT set_config('app.allow_admin', 'on', true)`;
+    await tx.user.upsert({
+      where: { email: adminEmail },
+      update: {},
+      create: {
+        email: adminEmail,
+        name: "Administrador",
+        role: "ADMIN",
+        passwordHash,
+      },
+    });
   });
 
   console.log(`Admin ok: ${adminEmail} / ${adminPassword}`);
