@@ -6,7 +6,7 @@ import type { QuestionDraft } from "./parsers/types";
 
 type Level = "error" | "warning";
 
-type Issue = {
+export type Issue = {
   file: string;
   level: Level;
   message: string;
@@ -106,7 +106,7 @@ function countImageMarkers(text: string): number {
   return parseRichText(text).filter((block) => block.kind === "image").length;
 }
 
-function validateDraft(file: string, draft: QuestionDraft): Issue[] {
+export function validateDraft(file: string, draft: QuestionDraft): Issue[] {
   const issues: Issue[] = [];
   const push = (level: Level, message: string) => issues.push({ file, level, message });
 
