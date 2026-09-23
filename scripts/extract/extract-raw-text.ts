@@ -4,6 +4,7 @@ import { join } from "node:path";
 import {
   type ColumnFractions,
   DEFAULT_COLUMN_FRACTIONS,
+  detectColumnGap,
   extractPageText,
   extractTwoColumnPageText,
   getPdfPageCount,
@@ -15,29 +16,33 @@ const SOURCE_ROOT = join(process.cwd(), "ProvasEnadeADS");
 const OUTPUT_ROOT = join(process.cwd(), "scripts/extract/raw");
 
 type PageRange = [number, number];
+type ColumnRangeConfig = { range: PageRange; fractions?: ColumnFractions };
 
-const TWO_COLUMN_PAGE_RANGES: Record<string, Record<string, PageRange[]>> = {
+const TWO_COLUMN_PAGE_RANGES: Record<string, Record<string, ColumnRangeConfig[]>> = {
   "2011": {
-    prova: [
-      [3, 3],
-      [5, 5],
-      [9, 18],
-    ],
+    prova: [{ range: [3, 3] }, { range: [5, 5] }, { range: [9, 18] }],
   },
   "2014": {
     prova: [
-      [6, 6],
-      [8, 8],
-      [13, 13],
-      [15, 22],
-      [23, 23],
-      [24, 26],
+      { range: [6, 6] },
+      { range: [8, 8] },
+      { range: [13, 13] },
+      { range: [15, 22] },
+      { range: [23, 23] },
+      { range: [24, 26] },
     ],
+  },
+  "2008": {
+    prova: [{ range: [4, 4] }, { range: [9, 17] }],
   },
 };
 
 const COLUMN_FRACTIONS: Record<string, ColumnFractions> = {
   "2014": { leftEnd: 857 / 1745, rightStart: 886 / 1745 },
+};
+
+const AUTO_COLUMN_DETECTION: Record<string, string[]> = {
+  "2008": ["prova"],
 };
 
 const OCR_EXTRACTION: Record<string, string[]> = {
@@ -64,29 +69,34 @@ function findPdf(path: string): string {
   return join(path, file);
 }
 
-function isTwoColumnPage(page: number, ranges: PageRange[]): boolean {
-  return ranges.some(([start, end]) => page >= start && page <= end);
+function findColumnConfig(page: number, ranges: ColumnRangeConfig[]): ColumnRangeConfig | null {
+  return ranges.find(({ range: [start, end] }) => page >= start && page <= end) ?? null;
 }
 
 function extractWithColumnAwareness(
   pdfPath: string,
-  ranges: PageRange[],
+  ranges: ColumnRangeConfig[],
   useOcr: boolean,
-  fractions: ColumnFractions,
+  defaultFractions: ColumnFractions,
   headerOverrides: Record<number, string>,
+  autoDetect: boolean,
 ): string {
   const totalPages = getPdfPageCount(pdfPath);
   const pages: string[] = [];
 
   for (let page = 1; page <= totalPages; page += 1) {
-    const twoColumn = isTwoColumnPage(page, ranges);
+    const columnConfig = findColumnConfig(page, ranges);
+    const fractions =
+      columnConfig?.fractions ??
+      (columnConfig && autoDetect ? detectColumnGap(pdfPath, page) : null) ??
+      defaultFractions;
     let pageText: string;
     if (useOcr) {
-      pageText = twoColumn
+      pageText = columnConfig
         ? ocrTwoColumnPageText(pdfPath, page, fractions)
         : ocrPageText(pdfPath, page);
     } else {
-      pageText = twoColumn
+      pageText = columnConfig
         ? extractTwoColumnPageText(pdfPath, page, fractions)
         : extractPageText(pdfPath, page);
     }
@@ -111,11 +121,19 @@ function main() {
       const useOcr = OCR_EXTRACTION[year]?.includes(tipo) ?? false;
       const fractions = COLUMN_FRACTIONS[year] ?? DEFAULT_COLUMN_FRACTIONS;
       const headerOverrides = HEADER_OVERRIDES[year]?.[tipo] ?? {};
+      const autoDetect = AUTO_COLUMN_DETECTION[year]?.includes(tipo) ?? false;
 
       if (ranges || useOcr) {
         writeFileSync(
           outputPath,
-          extractWithColumnAwareness(pdfPath, ranges ?? [], useOcr, fractions, headerOverrides),
+          extractWithColumnAwareness(
+            pdfPath,
+            ranges ?? [],
+            useOcr,
+            fractions,
+            headerOverrides,
+            autoDetect,
+          ),
         );
       } else {
         execFileSync("pdftotext", ["-layout", pdfPath, outputPath]);

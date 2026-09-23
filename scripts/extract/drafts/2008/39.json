@@ -1,0 +1,26 @@
+{
+  "examYear": 2008,
+  "originalLabel": "39",
+  "order": 39,
+  "type": "DISCURSIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma montadora de automóveis produz carros de luxo e esportivos. Um carro tem marca,\n         modelo, chassi e ano de fabricação. As partes de um carro possuem características como: nome,\n         quantidade, cor e preço. Um fornecedor da montadora tem CNPJ e razão social. O carro de luxo\n         possui sistema GPS; o carro esporte não possui sistema GPS e somente pode ser fabricado na cor\n         vermelha.\n\nCom base nessa situação, faça o que se pede a seguir.\n\nA Identifique e escreva o nome das classes correspondentes à situação apresentada.           (valor: 2,0 pontos)\n\nB Desenhe o diagrama de classes, contendo somente os nomes das classes e seus relacionamentos.\n                                                                                         (valor: 3,0 pontos)\n\nC Identifique e escreva para as classes seus atributos e métodos, utilizando os símbolos de visibilidade proposto na\n  UML. Os métodos devem estar com sua assinatura completa e obedecerem as regras de encapsulamento da\n  orientação a objetos.\n                                                                                                 (valor: 5,0 pontos)",
+  "valuePoints": 10,
+  "sourcePage": 20,
+  "needsAsset": false,
+  "assets": [],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": null,
+      "criteriaMd": "",
+      "maxScore": null,
+      "assets": []
+    }
+  ],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": [
+    "Não há padrão de resposta publicado pelo INEP para esta questão — revisar manualmente se necessário."
+  ]
+}

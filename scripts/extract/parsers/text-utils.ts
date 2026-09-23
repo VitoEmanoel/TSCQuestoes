@@ -39,6 +39,7 @@ export type HeaderMatch = {
 
 const DUAL_OBJECTIVE = /^QUESTÃO (\d+)\s{2,}QUESTÃO (\d+)$/;
 const DISCURSIVE_HEADER = /^QUESTÃO DISCURSIVA (\d+)/;
+const DISCURSIVE_HEADER_INLINE = /^QUESTÃO (\d+)\s*[–-]\s*DISCURSIVA\b/;
 const OBJECTIVE_HEADER = /^QUESTÃO (\d+)\b/;
 
 export function findHeaders(lines: string[]): HeaderMatch[] {
@@ -56,6 +57,16 @@ export function findHeaders(lines: string[]): HeaderMatch[] {
     const discursive = line.match(DISCURSIVE_HEADER);
     if (discursive) {
       headers.push({ label: `D${Number(discursive[1])}`, type: "DISCURSIVE", lineIndex });
+      return;
+    }
+
+    const discursiveInline = line.match(DISCURSIVE_HEADER_INLINE);
+    if (discursiveInline) {
+      headers.push({
+        label: String(Number(discursiveInline[1])),
+        type: "DISCURSIVE",
+        lineIndex,
+      });
       return;
     }
 
@@ -247,6 +258,85 @@ export function getPdfPageSize(pdfPath: string): { width: number; height: number
     throw new Error(`Não foi possível determinar o tamanho de página de ${pdfPath}`);
   }
   return { width: Number(match[1]), height: Number(match[2]) };
+}
+
+const BBOX_WORD = /xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="[\d.]+">([^<]*)</g;
+const HEADER_FOOTER_MARGIN = 40;
+const LINE_BUCKET = 2;
+const X_BUCKET = 1;
+
+export function detectColumnGap(pdfPath: string, page: number): ColumnFractions | null {
+  const bbox = execFileSync(
+    "pdftotext",
+    ["-bbox", "-f", String(page), "-l", String(page), pdfPath, "-"],
+    { encoding: "utf-8" },
+  );
+  const { width, height } = getPdfPageSize(pdfPath);
+
+  const searchStart = width * 0.3;
+  const searchEnd = width * 0.7;
+  const bucketCount = Math.ceil((searchEnd - searchStart) / X_BUCKET);
+  const lineBuckets = new Map<number, Set<number>>();
+
+  for (const match of bbox.matchAll(BBOX_WORD)) {
+    const xMin = Number(match[1]);
+    const yMin = Number(match[2]);
+    const xMax = Number(match[3]);
+    if (yMin < HEADER_FOOTER_MARGIN || yMin > height - HEADER_FOOTER_MARGIN) {
+      continue;
+    }
+    if (xMax <= searchStart || xMin >= searchEnd) {
+      continue;
+    }
+    const lineKey = Math.round(yMin / LINE_BUCKET);
+    const covered = lineBuckets.get(lineKey) ?? new Set<number>();
+    const from = Math.max(0, Math.floor((xMin - searchStart) / X_BUCKET));
+    const to = Math.min(bucketCount - 1, Math.ceil((xMax - searchStart) / X_BUCKET));
+    for (let b = from; b <= to; b += 1) {
+      covered.add(b);
+    }
+    lineBuckets.set(lineKey, covered);
+  }
+
+  const totalLines = lineBuckets.size;
+  if (totalLines < 5) {
+    return null;
+  }
+
+  const coverageCount = new Array(bucketCount).fill(0);
+  for (const covered of lineBuckets.values()) {
+    for (const b of covered) {
+      coverageCount[b] += 1;
+    }
+  }
+
+  const threshold = totalLines * 0.05;
+  let bestStart = -1;
+  let bestLength = 0;
+  let runStart = -1;
+
+  for (let b = 0; b < bucketCount; b += 1) {
+    if (coverageCount[b] <= threshold) {
+      if (runStart === -1) {
+        runStart = b;
+      }
+      if (b - runStart + 1 > bestLength) {
+        bestLength = b - runStart + 1;
+        bestStart = runStart;
+      }
+    } else {
+      runStart = -1;
+    }
+  }
+
+  if (bestStart === -1 || bestLength * X_BUCKET < 6) {
+    return null;
+  }
+
+  const leftEnd = searchStart + bestStart * X_BUCKET;
+  const rightStart = searchStart + (bestStart + bestLength) * X_BUCKET;
+
+  return { leftEnd: leftEnd / width, rightStart: rightStart / width };
 }
 
 export type ColumnFractions = { leftEnd: number; rightStart: number };

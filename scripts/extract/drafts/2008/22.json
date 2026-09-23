@@ -1,0 +1,45 @@
+{
+  "examYear": 2008,
+  "originalLabel": "22",
+  "order": 22,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "1 funcao busca(V[0..9] : inteiro, K : inteiro): inteiro\n2 variaveis\n\n3    C, F, K, M : inteiro\n4 inicio\n5    F <- 9\n6    [________________________]\n7    enquanto((V[M] <> K) ou (F > C))\n8      [_________________________]\n9      se(K < V[M]) entao\n10       F <- M - 1;\n11     senao\n12       [_________________________]\n13   fim enquanto\n14   se(V[M] <> K) entao\n15     retorne(0)\n16   senao\n17     retorne(M)\n18   fim se\n19 fim\n\n       O algoritmo representado pelo pseudocódigo\nacima está incompleto, pois faltam 3 linhas de código. A\nfunção busca desse algoritmo recebe um vetor ordenado\nde forma crescente e um valor a ser pesquisado. A partir\ndisso, essa função verificará se o número armazenado\nno ponto mediano do vetor é o número procurado. Se for\no número procurado, retornará o índice da posição do\nelemento no vetor e encerrará a busca. Se não for, a\nfunção segmentará o vetor em duas partes a partir do\nponto mediano, escolherá o segmento no qual o valor\nprocurado está inserido, e o processo se repetirá.\n\nA partir dessas informações, assinale a opção que\ncontém os comandos que completam, respectivamente,\nas linhas 6, 8 e 12 do algoritmo.",
+  "valuePoints": null,
+  "sourcePage": 13,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "C <- 0; M <- (C + F)/2; C <- M + 1",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "C <- 1; M <- (C + F)/2; C <- M - 1",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "C <- 0; C <- M + 1; M <- (C + F)/2",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "C <- 1; C <- M + 1; M <- (C + F)/2",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "C <- 1; M <- (C + F)/2; C <- M + 1",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Estrutura de Dados e Algoritmos"],
+  "reviewNotes": [
+    "Alternativas reconstruídas manualmente (blocos de pseudocódigo multilinha) — conferir com a imagem da prova pág. 11."
+  ]
+}

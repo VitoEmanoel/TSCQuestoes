@@ -1,0 +1,33 @@
+{
+  "examYear": 2008,
+  "originalLabel": "9",
+  "order": 9,
+  "type": "DISCURSIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "DIREITOS HUMANOS EM QUESTÃO\n\n(ver imagem anexa: foto de um braço erguido segurando um globo, com os dizeres \"Declaração\nUniversal dos Direitos do Homem\" escritos no antebraço)\n\n                                                                            O caráter universalizante dos direitos do homem (...) não\n                                                                     é da ordem do saber teórico, mas do operatório ou prático: eles\n                                                                     são invocados para agir, desde o princípio, em qualquer\n                                                                     situação dada.\n                                                                                                               François JULIEN, filósofo e sociólogo.\n\n                                                                     Neste ano, em que são comemorados os 60 anos da\n                                                                     Declaração Universal dos Direitos Humanos, novas\n                                                                     perspectivas e concepções incorporam-se à agenda pública\n                                                                     brasileira. Uma das novas perspectivas em foco é a visão mais\n                                                                     integrada dos direitos econômicos, sociais, civis, políticos e,\n                                                                     mais recentemente, ambientais, ou seja, trata-se da\n                                                                     integralidade ou indivisibilidade dos direitos humanos. Dentre as\n                                                                     novas concepções de direitos, destacam-se:\n\n                                                                     < a habitação como moradia digna e não apenas como\n                                                                           necessidade de abrigo e proteção;\n                                                                     < a segurança como bem-estar e não apenas como\n                                                                           necessidade de vigilância e punição;\n                                                                     < o trabalho como ação para a vida e não apenas como\n                                                                           necessidade de emprego e renda.\n\n                                                                     Tendo em vista o exposto acima, selecione uma das\n                                                                     concepções destacadas e esclareça por que ela representa um\n                                                                     avanço para o exercício pleno da cidadania, na perspectiva da\n                                                                     integralidade dos direitos humanos.\n                                                                     Seu texto deve ter entre 8 e 10 linhas.\n(valor: 10,0 pontos)\n\nLE MONDE Diplomatique Brasil. Ano 2, n. 7, fev. 2008, p. 31.",
+  "valuePoints": 10,
+  "sourcePage": 7,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "photo",
+      "filePath": "2008/9-1.png",
+      "caption": "Foto — prova pág. 5"
+    }
+  ],
+  "options": [],
+  "answerStandards": [
+    {
+      "subItem": null,
+      "criteriaMd": "",
+      "maxScore": 10,
+      "assets": []
+    }
+  ],
+  "tags": ["Formação Geral"],
+  "reviewNotes": [
+    "Não há padrão de resposta publicado pelo INEP para esta questão — revisar manualmente se necessário.",
+    "Imagem já linkada (2008/9-1.png) — conferir enquadramento na tela de revisão."
+  ]
+}

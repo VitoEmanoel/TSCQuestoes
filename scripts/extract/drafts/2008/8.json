@@ -1,0 +1,72 @@
+{
+  "examYear": 2008,
+  "originalLabel": "8",
+  "order": 8,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "O filósofo alemão Friedrich Nietzsche (1844-1900), talvez o pensador moderno mais incômodo e provocativo, influenciou\n\nvárias gerações e movimentos artísticos. O Expressionismo, que teve forte influência desse filósofo, contribuiu para o\n\npensamento contrário ao racionalismo moderno e ao trabalho mecânico, através do embate entre a razão e a fantasia.\n\nAs obras desse movimento deixam de priorizar o padrão de beleza tradicional para enfocar a instabilidade da vida,\n\nmarcada por angústia, dor, inadequação do artista diante da realidade.\n\nDas obras a seguir, a que reflete esse enfoque artístico é\n\n(ver imagens anexas: A — Homem idoso na poltrona, Rembrandt van Rijn; B — Figura e borboleta, Milton\nDacosta; C — O grito, Edvard Munch; D — Menino mordido por um lagarto, Caravaggio; E — Abaporu,\nTarsila do Amaral)",
+  "valuePoints": null,
+  "sourcePage": 6,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "photo",
+      "filePath": "2008/8-1.png",
+      "caption": "Obra A — prova pág. 4"
+    },
+    {
+      "kind": "photo",
+      "filePath": "2008/8-2.png",
+      "caption": "Obra B — prova pág. 4"
+    },
+    {
+      "kind": "photo",
+      "filePath": "2008/8-3.png",
+      "caption": "Obra C — prova pág. 4"
+    },
+    {
+      "kind": "photo",
+      "filePath": "2008/8-4.png",
+      "caption": "Obra D — prova pág. 4"
+    },
+    {
+      "kind": "photo",
+      "filePath": "2008/8-5.png",
+      "caption": "Obra E — prova pág. 4"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "(obra — ver imagem anexa) Homem idoso na poltrona, Rembrandt van Rijn.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "(obra — ver imagem anexa) Figura e borboleta, Milton Dacosta.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "(obra — ver imagem anexa) O grito, Edvard Munch.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "(obra — ver imagem anexa) Menino mordido por um lagarto, Caravaggio.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "(obra — ver imagem anexa) Abaporu, Tarsila do Amaral.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": [
+    "As 5 alternativas são obras de arte (imagem) — texto reconstruído manualmente a partir dos créditos.",
+    "Questão precisa de imagem — ver docs/figuras-2008.md."
+  ]
+}

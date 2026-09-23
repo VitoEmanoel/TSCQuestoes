@@ -1,0 +1,49 @@
+{
+  "examYear": 2008,
+  "originalLabel": "13",
+  "order": 13,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "(ver imagem anexa: diagrama de sequência UML com os objetos Aplicativo, API, Gerenciador Arquivos,\nControlador Acesso e Acionador Dispositivo)\n\nCom relação ao diagrama acima, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 9,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2008/13-1.png",
+      "caption": "Diagrama de sequência UML — prova pág. 7"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Para economizar tempo e memória, as mensagens de retorno 7: dados e 15: dados poderiam ser mescladas em uma única mensagem.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "O objeto Controlador Acesso utiliza uma estrutura de repetição para verificar os atributos de acesso a um arquivo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A mensagem 5: obterACL( ) pode levar à repetição da chamada 4: lerPermissao( ).",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Sempre que um Aplicativo fizer uma leitura, será construído e destruído um objeto Controlador Acesso.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "A mensagem 3: preparar( ) ocorre simultaneamente (em paralelo) à mensagem 4: lerpermissao( ).",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": ["Imagem já linkada (2008/13-1.png) — conferir enquadramento na tela de revisão."]
+}

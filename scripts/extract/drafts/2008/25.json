@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "25",
+  "order": 25,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Durante as eleições o eleitor deverá\ncomparecer à sua seção e zona, munido de um\ndocumento válido. Ao chegar ao local, apresenta o\ndocumento ao mesário, que verifica se o eleitor\nestá apto a votar. Caso afirmativo, o mesário\ninforma ao sistema o número do título de eleitor. O\nsistema valida o título e habilita o voto eletrônico\npara o eleitor. O eleitor informa os números de seus\ncandidatos, podendo anular ou confirmar seu voto.\nAo final do dia, termina o processo eleitoral da\nseção, o mesário finaliza o sistema, que gera os\ndados em tela ou em papel do resultado da urna,\nlistando os votos para cada candidato. A totalização\ndas urnas ocorre em um processo distinto em que\no resultado final da eleição é apresentado à\npopulação.\n\nPartindo dessa descrição, assinale a opção correta\nque     corresponde      à     modelagem     conceitual,\nutilizando diagrama de caso de uso com UML.",
+  "valuePoints": null,
+  "sourcePage": 14,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Verificar o Documento do eleitor e Habilitar o Voto Eletrônico são casos de uso.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "No processo eleitoral da seção, os atores são: Eleitor, Mesário e População.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "O caso de uso Informar Título tem uma associação do tipo <<extends>> com o caso de uso Validar Título.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "O caso de uso Informar Número Candidato tem uma associação do tipo <<extends>> com os casos de uso Anular Voto e Confirmar Voto.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "Gerar Dados em Tela e Gerar Dados em Papel têm uma associação do tipo <<implements>> com o caso de uso Gerar Dados.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

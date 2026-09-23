@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "33",
+  "order": 33,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Após atuar como programador em uma\nempresa de desenvolvimento de software por\naproximadamente 10 anos, um funcionário que se\ndestacou por nunca atrasar um cronograma foi\nnomeado gerente de projetos. Ao assumir o\nprimeiro projeto, o funcionário foi informado que\nsua principal responsabilidade era a realização da\nentrega conforme o cronograma estabelecido no\ncontrato. Para o gerenciamento de tempo, o\ngerente de projetos irá utilizar o PMBOK.\n\nConsiderando essa situação, é correto afirmar que\no gerente de projetos deverá coordenar processos\nde",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "planejamento, garantia e controle da qualidade.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "definição e seqüenciamento de atividades, estimativa de recursos e duração da atividade, desenvolvimento e controle do cronograma.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "planejamento, definição, verificação e controle do escopo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "estimativa de custos, realização do orçamento e controle de custos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "planejamento de compra e contratações, seleção de fornecedores e encerramento do contrato.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Governança e Gestão de TI"],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "36",
+  "order": 36,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Após realizar uma análise de mercado em busca de soluções para aprimorar o seu negócio, uma empresa adquiriu\num sistema de ERP (enterprise resource planning) contendo um conjunto de módulos que integra todos os departamentos\nexistentes. Após um ano de utilização, houve uma mudança na legislação e, para atender as novas exigências, foi\nnecessária uma manutenção no sistema ERP.\n\nConsiderando essa situação hipotética, é correto afirmar que a empresa irá realizar uma manutenção",
+  "valuePoints": null,
+  "sourcePage": 18,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "corretiva.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "adaptativa.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "aperfeiçoadora.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "preventiva.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "perfectiva.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Governança e Gestão de TI"],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "30",
+  "order": 30,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "ANULADA",
+  "statementMd": "CREATE TABLE JOGADOR (PSEUDONIMO VARCHAR(10) NOT NULL,\nNOME VARCHAR(25) NOT NULL,\nSENHA VARCHAR(6) NOT NULL,\nPRIMARY KEY (PSEUDONIMO));\n\nCREATE TABLE NIVEL(NIVEL NUMERIC(3) NOT NULL,\nNOMEPSEUD VARCHAR(10) NOT NULL,\nPONTOS NUMERIC(5) NOT NULL,\nBONUS NUMERIC(5) NOT NULL,\nPRIMARY KEY(NIVEL, NOMEPSEUD),\nFOREING KEY (NOMEPSEUD) REFERENCES PSEUDONIMO);\n\nA partir do script SQL de criação de um banco de dados acima,\nassinale a opção que apresenta comando SQL que permite obter\numa lista em ordem decrescente de quantidade de bônus e que\ncontenha somente o pseudônimo do jogador e seu bônus.",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "SELECT NOME BONUS, FROM JOGADOR, NIVEL ORDER BY NIVEL.BONUS DESC",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "SELECT * FROM JOGADOR, NIVEL WHERE JOGADOR.PSEUDONIMO = NIVEL.NOMEPSEUD ORDER BY NIVEL.BONUS DESC",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "SELECT NOME, BONUS FROM JOGADOR, NIVEL WHERE JOGADOR.PSEUDONIMO = NIVEL.NOMEPSEUD ORDER BY NIVEL.BONUS DESC",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "SELECT NOME, PONTOS FROM JOGADOR, NIVEL WHERE JOGADOR.PSEUDONIMO = NIVEL.NOMEPSEUD ORDEY BY NIVEL.BONUS DESC",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "SELECT DISTINCT NOME, PONTOS FROM JOGADOR, NIVEL WHERE JOGADOR.PSEUDONIMO = NIVEL.NOMEJOGADOR ORDER BY NIVEL.BONUS DESC",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Banco de Dados"],
+  "reviewNotes": []
+}

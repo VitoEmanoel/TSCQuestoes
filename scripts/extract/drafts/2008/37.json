@@ -1,0 +1,49 @@
+{
+  "examYear": 2008,
+  "originalLabel": "37",
+  "order": 37,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "As comunicações de um software cliente com o respectivo servidor instalado em um equipamento em uma LAN\n(local area network) apresentam lentidão. Após várias reclamações dos usuários, o responsável pelo software e o gerente\nde redes foram convocados para analisar o problema. A partir de uma análise da topologia da rede, foi identificado que\no departamento possuía 45 microcomputadores clientes na mesma LAN, interligados ao servidor por meio de um único\nhub, conforme ilustrado na figura a seguir. Concluiu-se que o problema de lentidão estava relacionado ao elevado número\nde colisões na LAN.\n\n(ver imagem anexa: diagrama de rede com clientes 1 a 45 conectados a um hub, que se conecta a um\nservidor)\n\nA solução correta para esse problema hipotético é a substituição do hub por",
+  "valuePoints": null,
+  "sourcePage": 18,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2008/37-1.png",
+      "caption": "Diagrama de rede — prova pág. 16"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "outros 4 hubs interligados contendo, cada um, menos portas de conexão, o que resultaria na diminuição do volume de colisões na LAN e aumentaria o desempenho da rede.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "um switch, que permitiria a diminuição do volume de colisões e uma melhoria no desempenho da rede.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "um switch, que traria benefícios relacionados ao desempenho da rede, uma vez que o número de colisões permaneceria inalterado.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "um switch, que diminuiria o desempenho da rede, uma vez que aumentaria o volume de colisões.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "um switch, que aumentaria o volume de colisões e melhoraria o desempenho da rede.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Redes de Computadores"],
+  "reviewNotes": ["Imagem já linkada (2008/37-1.png) — conferir enquadramento na tela de revisão."]
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "21",
+  "order": 21,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "1 Algoritmo ENADE2008\n2 variaveis\n3    varA, varB, varC: inteiro\n4    varF : real\n5    varS : literal\n6    varL : logico\n7 inicio\n8    varS <- \"1000\"\n9    varA <- 4\n10   varF <- 3.5\n11   varC <- 0\n12   varL <- VERDADEIRO\n13   se((varC < varA) E varL OU (varS > varC)) entao\n14      varB <- varF/varA\n15    senao\n16      varB <- varA/varC\n17    fim se\n18 fim algoritmo\n\nO código acima",
+  "valuePoints": null,
+  "sourcePage": 13,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "não apresenta erros de nenhum tipo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "apresenta erros de atribuição de tipo inválido, divisão por zero e expressão relacional inválida.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "apresenta erros de atribuição de tipo inválido, divisão por zero e estrutura condicional.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "apresenta erros de estrutura condicional e expressão relacional inválida.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "apresenta somente erro de divisão por zero.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Programação"],
+  "reviewNotes": []
+}

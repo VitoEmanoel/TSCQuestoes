@@ -1,0 +1,49 @@
+{
+  "examYear": 2008,
+  "originalLabel": "2",
+  "order": 2,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Quando o homem não trata bem a natureza, a\n       natureza não trata bem o homem.\n    Essa afirmativa reitera a necessária interação das\ndiferentes espécies, representadas na imagem a seguir.\n\n                      Disponível em http://curiosidades.spaceblog.com.br.\n                                                  Acesso em 10 out. 2008.\n\nDepreende-se dessa imagem a",
+  "valuePoints": null,
+  "sourcePage": 4,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "photo",
+      "filePath": "2008/2-1.png",
+      "caption": "Colagem — prova pág. 2"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "atuação do homem na clonagem de animais pré-históricos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "exclusão do homem na ameaça efetiva à sobrevivência do planeta.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "ingerência do homem na reprodução de espécies em cativeiro.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "mutação das espécies pela ação predatória do homem.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "responsabilidade do homem na manutenção da biodiversidade.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2008.md."]
+}

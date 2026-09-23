@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "35",
+  "order": 35,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma livraria usa um sistema informatizado para realizar\nvendas pela Internet. Optou-se por um sistema gerenciador de\nbanco de dados, no qual aplicaram-se regras de corretude e\nintegridade. Cada cliente se cadastra, faz login no sistema e escolhe\ntítulos. Os livros são colocados em um carrinho de compras até que\no cliente confirme ou descarte o pedido. As tabelas do sistema são:\nclientes, livros, carrinho, vendas. Dois clientes acessam o\nsítio no mesmo horário e escolhem alguns livros. O estado do\nsistema nesse instante é representado na tabela seguir.\n\n| cliente | | |\n|---|---|---|\n| | Benjamim | Alice |\n| livros | Cálculo I, Estatística básica, Inglês intermediário | Estatística básica, História geral |\n\n         A livraria possui um único exemplar do livro Estatística\nbásica. O computador usado por Alice sofre uma pane de energia\nantes que ela confirme o pedido. No mesmo instante também ocorre\numa pane de energia no computador da loja. Em seguida, o\ncomputador de Alice e o computador da loja voltam a ter energia e\na funcionar. Ela volta ao sistema e retoma seu carrinho de compras\nintacto.\n\nCom relação a essa situação, julgue os itens seguintes.\n\nI     A consistência de uma tabela do banco de dados foi violada\n      temporariamente, para disponibilizar dois exemplares do livro\n      Estatística básica.\nII Como o pedido de Alice continuou válido apesar da interrupção,\n      o sistema gerenciador de banco de dados não emprega\n      atomicidade.\nIII Todas as transações devem ser fechadas depois do retorno da\n      energia, para que os clientes possam recuperar seus carrinhos\n      de compras.\n\nAssinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 17,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Apenas um item está certo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Apenas os itens I e II estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Apenas os itens I e III estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Apenas os itens II e III estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Nenhum item está certo.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Banco de Dados"],
+  "reviewNotes": []
+}

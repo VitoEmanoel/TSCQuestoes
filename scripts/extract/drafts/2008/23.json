@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "23",
+  "order": 23,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Com relação à forma como o RUP trata a análise de requisitos,\nassinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 14,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "A análise de requisitos ocorre na fase de construção, quando são descritos todos os casos de uso, e em seguida modelados por meio de diagramas de casos de uso UML.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "A análise de requisitos ocorre na fase de elaboração, em que são feitas entrevistas com usuários e definição do escopo do projeto.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A maior parte da análise de requisitos ocorre durante a fase de elaboração.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "Por se tratar de um processo iterativo e evolutivo, a análise de requisitos ocorre na fase de construção juntamente com a programação, o que permite que os requisitos sejam revistos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "A análise de requisitos deve acontecer antes da programação e testes do sistema, não podendo sofrer alterações a partir do momento que estejam definidos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

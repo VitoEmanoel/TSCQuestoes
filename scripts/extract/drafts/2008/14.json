@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "14",
+  "order": 14,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "SUBROTINA xis()\n   i = 0\n   ENQUANTO (i < Gn) FACA\n         i = i + 1\n         SE (calc(i) <= Gn) ENTAO\n               f1(i)\n         SENAO\n               f2(i)\n         FIM SE\n   FIM ENQUANTO\n   Imprima(\"ok\")\nFIM SUBROTINA\n\nCom relação ao código acima, considere que:\n< a variável i é local e a variável Gn é global;\n< não há nenhum tipo de documentação ou\n    código fonte além do mostrado;\n< a subrotina xis() faz parte de um programa;\n< o critério de aceitação do teste é: a subrotina\n    xis() não entra em laço infinito.\n\nNa situação apresentada, é correto\n\nI   aplicar testes de caixa branca às rotinas\n    calc(), f1() e f2() e, em seguida, usar o\n    resultado para fazer um teste de mesa da\n    subrotina xis().\nII aplicar testes de caixa preta que forcem a\n    chamada a xis()         e depois medir a\n    porcentagem de sucesso da subrotina xis().\nIII aplicar testes de caixa preta isoladamente ao\n    código objeto das sub-rotinas calc(), f1()\n    e f2() antes de aplicar um teste que envolva\n    a subrotina xis().\n\nAssinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 10,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Apenas um item está certo.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "Apenas os itens I e II estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Apenas os itens I e III estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Apenas os itens II e III estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Todos os itens estão certos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Qualidade de Software"],
+  "reviewNotes": []
+}

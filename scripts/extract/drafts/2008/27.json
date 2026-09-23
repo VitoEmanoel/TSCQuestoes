@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "27",
+  "order": 27,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Os termos da seqüência de Fibonacci são definidos por:\n\nFibonacci(0) = 0\nFibonacci(1) = 1\nFibonacci(n) = Fibonacci(n-1) + Fibonacci(n-2)\n\nUma solução recursiva para o cálculo do i-ésimo termo da\nseqüência é dada pela função a seguir.\n1   funcao fibonacci(inteiro longo n)\n2     se((n=0) OU (n=1)) entao\n3        retorne n\n4     senao\n5       retorne fibonacci(n-1) + fibonacci(n-2)\n6     fim se\n7   fim\n\nAcerca da execução recursiva dessa função, assinale a opção\nincorreta.",
+  "valuePoints": null,
+  "sourcePage": 15,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "À medida que o valor de n cresce, há um aumento no número de chamadas recursivas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Na linha 4, a ordem de execução é calcular o valor para fibonacci(n-1) e somente depois calcular o valor para fibonacci(n-2).",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "O método recursivo é o mais eficiente para o cálculo do i-ésimo termo da seqüência de Fibonacci, pois realiza duas chamadas por passo da recursão, cada uma mais simples do que a chamada original.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "As condições de parada da recursão são: o valor de n é 0 ou o valor de n é 1.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "O uso da recursão para o problema da série de Fibonacci não é indicado, pois ele gera rapidamente uma explosão de chamadas do método.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Programação"],
+  "reviewNotes": []
+}

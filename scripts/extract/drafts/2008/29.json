@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "29",
+  "order": 29,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Considere a sentença a seguir.\n\nSe Maria for ao aniversário, João irá e ficará feliz,\nmas Maria ficará infeliz, ou, se João não for ao\naniversário, Maria irá e ficará feliz, mas João ficará\ninfeliz.\n\nConsidere as seguintes proposições: P: João vai ao\naniversário; Q: Maria vai ao aniversário; R: João\nfeliz; e S: Maria feliz. Assinale a opção que contém\nfórmula de lógica proposicional com uma\nrepresentação válida para a sentença proposta.\nQuanto à notação dos operadores, considere:\njunção = ∧; disjunção = ∨; negação = ¬;\nimplica = →.",
+  "valuePoints": null,
+  "sourcePage": 15,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "((Q → (P ∧ R)) → ¬S) ∨ ((¬P → (Q ∧ S)) → R)",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "((¬Q → (P ∧ R)) → S) ∨ ((P → (Q ∧ S)) → ¬R)",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "((Q → (P ∧ R)) → ¬S) ∨ ((¬P → (Q ∧ S)) → ¬R)",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "((¬Q → (P ∧ R)) → ¬S) ∨ ((¬P → (Q ∧ S)) → ¬R)",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "((Q → (P ∧ R)) → S) ∨ ((¬P → (Q ∧ S)) → R)",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Matemática e Lógica"],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "32",
+  "order": 32,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Com relação a conceitos de orientação a objetos,\njulgue os seguintes itens.\n\nI   As variáveis ou métodos declarados com\n    modificador de acesso private só são\n    acessíveis a métodos da classe em que são\n    declarados.\nII Uma classe deve possuir uma única\n    declaração de método construtor.\nIII Uma instância de uma classe abstrata herda\n    atributos e métodos de sua superclasse direta.\nIV O polimorfismo permite substituir a lógica\n    condicional múltipla (lógica switch ou faça\n    caso).\n\nEstão certos apenas os itens",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "I e IV.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

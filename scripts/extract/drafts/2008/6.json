@@ -1,0 +1,49 @@
+{
+  "examYear": 2008,
+  "originalLabel": "6",
+  "order": 6,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "CENTROS URBANOS MEMBROS DO GRUPO “ENERGIA-CIDADES”\n\n(ver imagem anexa: mapa da Europa com os centros urbanos membros do grupo)\n\nLE MONDE Diplomatique Brasil. Atlas do Meio Ambiente, 2008, p. 82.\n\nNo mapa, registra-se uma prática exemplar para que as cidades se tornem sustentáveis de fato, favorecendo as trocas\nhorizontais, ou seja, associando e conectando territórios entre si, evitando desperdícios no uso de energia.\n\nEssa prática exemplar apóia-se, fundamentalmente, na",
+  "valuePoints": null,
+  "sourcePage": 5,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "map",
+      "filePath": "2008/6-1.png",
+      "caption": "Mapa — prova pág. 3"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "centralização de decisões políticas.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "atuação estratégica em rede.",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "fragmentação de iniciativas institucionais.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "hierarquização de autonomias locais.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "unificação regional de impostos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": ["Imagem já linkada (2008/6-1.png) — conferir enquadramento na tela de revisão."]
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "34",
+  "order": 34,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Um mercado que comercializa alimentos\nhortifrutigranjeiros faz compras diárias de diversas\nfazendas e enfrenta prejuízos decorrentes da falta\nde controle relacionada ao prazo de validade de\nseus produtos. Para resolver esse problema, o\nproprietário resolve investir em informatização,\nque proporcionará o controle do prazo de validade\na partir da data da compra do produto. A\nmodelagem de dados proposta pelo profissional\ncontratado apresenta três tabelas, ilustradas a\nseguir, sendo que o atributo Código nas tabelas\nProduto e Fazenda são unívocos.\n\n| Produto | Estoque | Fazenda |\n|---|---|---|\n| Código | Produto | Código |\n| Tipo de Produto | Fazenda | Nome |\n| Descrição | Data da compra | Endereço |\n| | Validade do Produto | Telefone |\n| | Quantidade | |\n\nA partir das informações acima, é correto concluir\nque",
+  "valuePoints": null,
+  "sourcePage": 17,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "o relacionamento entre as tabelas Produto e Estoque é do tipo um-para-muitos.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "o campo Produto na tabela Estoque não pode fazer parte da chave nesta tabela e corresponde ao campo Descrição na tabela Produto.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "o campo Fazenda na tabela Estoque deverá ser a chave primária nesta tabela e corresponde ao campo Código na tabela Fazenda.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "o campo Código é chave primária na tabela Produto e identifica a fazenda fornecedora do produto.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "a tupla {produto, fazenda} deverá ser usada como a chave primária da tabela Estoque.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Banco de Dados"],
+  "reviewNotes": []
+}

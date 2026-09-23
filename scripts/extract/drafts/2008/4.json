@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "4",
+  "order": 4,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "CIDADÃS DE SEGUNDA CLASSE?\n\nAs melhores leis a favor das mulheres de cada\npaís-membro da União Européia estão sendo reunidas por\nespecialistas. O objetivo é compor uma legislação\ncontinental capaz de contemplar temas que vão da\ncontracepção à eqüidade salarial, da prostituição à\naposentadoria. Contudo, uma legislação que assegure a\ninclusão social das cidadãs deve contemplar outros temas,\nalém dos citados.\n\nSão dois os temas mais específicos para essa legislação:",
+  "valuePoints": null,
+  "sourcePage": 4,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "aborto e violência doméstica.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "cotas raciais e assédio moral.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "educação moral e trabalho.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "estupro e imigração clandestina.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "liberdade de expressão e divórcio.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

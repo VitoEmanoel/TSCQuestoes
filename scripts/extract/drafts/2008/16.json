@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "16",
+  "order": 16,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O rational unified process (RUP) é um processo de engenharia de\nsoftware cujo objetivo é assegurar a produção de software de alta\nqualidade, satisfazendo as necessidades dos usuários no prazo e nos\ncustos previstos. O RUP contém uma estrutura que pode ser\nadaptada e estendida, pois é formado por duas estruturas principais,\ndenominadas dimensões, que representam os aspectos dinâmicos\ne estáticos do processo. O aspecto dinâmico é expresso em ciclos,\nfases, iterações e marcos. O estático, por sua vez, contém as\ndisciplinas, os fluxos, os artefatos e os trabalhadores. Com base na\niteração do RUP, julgue as asserções a seguir.\n\nA cada iteração das fases do RUP, geram-se ou não artefatos de\nsoftware\n\nporque\n\nos artefatos produzidos dependem da ênfase que é dada a cada\ndisciplina.\n\nAssinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 10,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "As duas asserções são proposições verdadeiras, mas a segunda não é justificativa correta da primeira.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "A primeira asserção é uma proposição verdadeira, e a segunda, uma proposição falsa.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A primeira asserção é uma proposição falsa, e a segunda, uma proposição verdadeira.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "Tanto a primeira quanto a segunda são proposições falsas.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

@@ -1,0 +1,52 @@
+{
+  "examYear": 2008,
+  "originalLabel": "7",
+  "order": 7,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "Apesar do progresso verificado nos últimos anos, o Brasil continua\nsendo um país em que há uma grande desigualdade de renda\nentre os cidadãos. Uma forma de se constatar este fato é por meio\nda Curva de Lorenz, que fornece, para cada valor de x entre 0 e\n100, o percentual da renda total do País auferido pelos x% de\nbrasileiros de menor renda. Por exemplo, na Curva de Lorenz para\n2004, apresentada ao lado, constata-se que a renda total dos 60%\nde menor renda representou apenas 20% da renda total.\n\n(ver imagem anexa: gráfico da Curva de Lorenz, 2004)\n\nDisponível em http://www.ipea.gov.br\n\nDe acordo com o mesmo gráfico, o percentual da renda\ntotal correspondente aos 20% de maior renda foi,\naproximadamente, igual a",
+  "valuePoints": null,
+  "sourcePage": 5,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "chart",
+      "filePath": "2008/7-1.png",
+      "caption": "Curva de Lorenz — prova pág. 3"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "20%.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "40%.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "50%.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "60%.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "80%.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": [
+    "Alternativas reconstruídas manualmente (vinham intercaladas com o crédito da imagem) — conferir com a imagem da prova pág. 3.",
+    "Imagem já linkada (2008/7-1.png) — conferir enquadramento na tela de revisão."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "26",
+  "order": 26,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "ANULADA",
+  "statementMd": "Os métodos de projeto e análise de algoritmos são necessários\npara o desenvolvimento de algoritmos eficientes, pois eles\npermitem que se resolva problemas computacionais, reduzindo\ncomplexidade e tempo de execução. Acerca desses métodos,\nassinale a opção incorreta.",
+  "valuePoints": null,
+  "sourcePage": 15,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "A abordagem de Divisão e Conquista propõe dividir o problema em vários subproblemas, resolvendo-os e combinando suas soluções para criar a solução final do problema original.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "A Programação Dinâmica é uma técnica tipicamente aplicada a problemas de otimização em que pode haver várias soluções possíveis.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "O método Guloso nem sempre encontra a solução ótima, mas faz sempre a melhor escolha momentânea.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "A Programação Dinâmica e o Método Guloso têm em comum o fato de que se aplicam a problemas em que se observa a existência de sobreposição de subproblemas, ou seja, subproblemas que se repetem.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Os métodos de Divisão e Conquista e Programação Dinâmica apresentam a mesma eficiência quando resolvem problemas combinando soluções de subproblemas dependentes uns dos outros.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Estrutura de Dados e Algoritmos"],
+  "reviewNotes": []
+}

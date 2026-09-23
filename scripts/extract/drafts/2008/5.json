@@ -1,0 +1,49 @@
+{
+  "examYear": 2008,
+  "originalLabel": "5",
+  "order": 5,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "A foto a seguir, da americana Margaret Bourke-White\n(1904-71), apresenta desempregados na fila de alimentos\ndurante a Grande Depressão, que se iniciou em 1929.\n\n                   STRICKLAND, Carol; BOSWELL, John. Arte Comentada: da\n                   pré-história ao pós-moderno. Rio de Janeiro: Ediouro [s.d.].\n\nAlém da preocupação com a perfeita composição, a\nartista, nessa foto, revela",
+  "valuePoints": null,
+  "sourcePage": 4,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "photo",
+      "filePath": "2008/5-1.png",
+      "caption": "Foto histórica — prova pág. 2"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "a capacidade de organização do operariado.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "a esperança de um futuro melhor para negros.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "a possibilidade de ascensão social universal.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "as contradições da sociedade capitalista.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "o consumismo de determinadas classes sociais.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": ["Questão precisa de imagem — ver docs/figuras-2008.md."]
+}

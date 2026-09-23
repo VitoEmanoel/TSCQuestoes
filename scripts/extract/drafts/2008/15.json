@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "15",
+  "order": 15,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O conceito de máquina virtual (MV) foi usado na década de 70\ndo século passado no sistema operacional IBM System 370.\nAtualmente, centros de dados (datacenters) usam MVs para migrar\ntarefas entre servidores conectados em rede e, assim, equilibrar\ncarga de processamento. Além disso, plataformas atuais de\ndesenvolvimento de software empregam MVs (Java, .NET). Uma MV\npode ser construída para emular um processador ou um computador\ncompleto. Um código desenvolvido para uma máquina real pode ser\nexecutado de forma transparente em uma MV.\n\nCom relação a essas informações, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 10,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "O conceito de transparência mencionado indica que a MV permite que um aplicativo acesse diretamente o hardware da máquina.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Uma das vantagens mais significativas de uma MV é a economia de carga de CPU e de memória RAM na execução de um aplicativo.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Uma MV oferece maior controle de segurança, uma vez que aplicativos são executados em um ambiente controlado.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "Para emular uma CPU dual-core, uma MV deve ser instalada e executada em um computador com CPU dual-core.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Como uma MV não é uma máquina real, um sistema operacional nela executado fica automaticamente imune a vírus.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Sistemas Operacionais"],
+  "reviewNotes": []
+}

@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "3",
+  "order": 3,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "A exposição aos raios ultravioleta tipo B (UVB) causa\nqueimaduras na pele, que podem ocasionar lesões graves\nao longo do tempo. Por essa razão, recomenda-se a\nutilização de filtros solares, que deixam passar apenas\ncerta fração desses raios, indicada pelo Fator de Proteção\nSolar (FPS). Por exemplo, um protetor com FPS igual a 10\ndeixa passar apenas 1/10 (ou seja, retém 90%) dos raios\nUVB. Um protetor que retenha 95% dos raios UVB possui\num FPS igual a",
+  "valuePoints": null,
+  "sourcePage": 4,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "95.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "90.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "50.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "20.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "5.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": []
+}

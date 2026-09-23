@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "19",
+  "order": 19,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "ANULADA",
+  "statementMd": "Uma instituição de auxílio a desabrigados tem a preocupação\nde fornecer uma alimentação equilibrada a seus pensionistas. Para\natingir esse objetivo, decidiu empregar um sistema informatizado e\ncontratou um analista para projetá-lo. O analista, que deveria\nempregar UML na modelagem do sistema, recebeu as informações\na seguir acerca das refeições.\n\n< Café da manhã: dois tipos de carboidrato, duas vitaminas e duas\n  proteínas.\n< Almoço: dois tipos de carboidrato e de proteínas, quatro tipos de\n  vitamina e um tipo de lipídio.\n< Jantar: um tipo de carboidrato, uma proteína e uma vitamina.\n\n      Cada tipo de alimento deve ser acompanhado por seu nome,\nsua porção recomendável, por refeição, e seu valor calórico, por\nporção. O cálculo para descobrir a quantidade de calorias para cada\npensionista é dado pelo produto do fator de atividade (FA) pela taxa\nde metabolismo basal (TMB). Esses dois valores são obtidos nas\ntabelas I e II a seguir.\n\n                                  Tabela I\n\n| Idade | | Taxa de metabolismo basal |\n|---|---|---|\n| mulheres | de 30 a 60 anos | 8,7 × peso(kg) + 829 |\n| mulheres | acima de 60 anos | 10,5 × peso(kg) + 596 |\n| homens | de 30 a 60 anos | 8,7 × peso(kg) + 879 |\n| homens | acima de 60 anos | 13,5 × peso(kg) + 487 |\n\n                                 Tabela II\n\n| Descrição | | Valor do fator de atividade (FA) |\n|---|---|---|\n| fica a maior parte do tempo sentado e não pratica atividades físicas programadas | mulheres e homens | 1,2 |\n| caminha até o ponto de ônibus, mas sem atividades físicas programadas | mulheres | 1,3 |\n| caminha até o ponto de ônibus, mas sem atividades físicas programadas | homens | 1,4 |\n| realiza atividades físicas três vezes por semana, cerca de 30 minutos por dia | mulheres | 1,45 |\n| realiza atividades físicas três vezes por semana, cerca de 30 minutos por dia | homens | 1,5 |\n| faz duas horas e meia de atividades físicas diárias | mulheres | 1,5 |\n| faz duas horas e meia de atividades físicas diárias | homens | 1,6 |\n| pratica atividade física diária por mais de três horas | mulheres | 1,7 |\n| pratica atividade física diária por mais de três horas | homens | 1,8 |\n\nO cardápio de cada pensionista deve ser\ngerado, a cada dia, com base no cálculo da\nquantidade de calorias recomendada para cada\num deles e, depois, deve ser encaminhado para\na cozinheira.\n\nConsiderando as necessidades da instituição no\nque se refere ao cardápio diário e a aspectos da\nmodelagem conceitual com UML, julgue os itens\na seguir, acerca da classe Refeição.\n\nI   Para o cálculo do TMB, são precondições\n    que a idade seja um valor maior do que 30\n    anos e que seja relacionada uma das\n    descrições da tabela II para o valor de FA.\nII Essa classe tem um método denominado\n    montarCardápioDiário()          que    será\n    sobrescrito nas subclasses.\nIII Suas subclasses não implementam o método\n    para calcular a quantidade de calorias,\n    utilizando a implementação já definida na\n    classe pai.\nIV Essa classe possui associações um-para-um\n    com a classe Pensionista e agregação com\n    a classe Alimento.\nV O conceito de acoplamento é um critério\n    importante durante a modelagem da classe\n    Refeição, pois diminui a quantidade de seus\n\n    relacionamentos, o que contribui para o seu\n    reúso.\n\nEstão certos apenas os itens",
+  "valuePoints": null,
+  "sourcePage": 12,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e II.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "II e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "III e V.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "IV e V.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

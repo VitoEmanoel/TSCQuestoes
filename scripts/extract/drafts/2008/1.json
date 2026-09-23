@@ -1,0 +1,72 @@
+{
+  "examYear": 2008,
+  "originalLabel": "1",
+  "order": 1,
+  "type": "OBJECTIVE",
+  "area": "FORMACAO_GERAL",
+  "status": "VALID",
+  "statementMd": "O escritor Machado de Assis (1839-1908), cujo centenário de morte está sendo celebrado no presente ano, retratou na\nsua obra de ficção as grandes transformações políticas que aconteceram no Brasil nas últimas décadas do século XIX.\nO fragmento do romance Esaú e Jacó, a seguir transcrito, reflete o clima político-social vivido naquela época.\n\n      Podia ter sido mais turbulento. Conspiração houve, decerto, mas uma barricada não faria mal. Seja como for,\n   venceu-se a campanha. (...) Deodoro é uma bela figura. (...)\n      Enquanto a cabeça de Paulo ia formulando essas idéias, a de Pedro ia pensando o contrário; chamava o\n   movimento um crime.\n      — Um crime e um disparate, além de ingratidão; o imperador devia ter pegado os principais cabeças e mandá-los\n   executar.\n                                                         ASSIS, Machado de. Esaú e Jacó. In : Obra completa. Rio de Janeiro: Nova Aguilar, 1979. v. 1, cap. LXVII (Fragmento).\n\nOs personagens a seguir estão presentes no imaginário brasileiro, como símbolos da Pátria.\n\n(ver imagens anexas: I — gravura de homem barbado; II — retrato de militar; III — foto sentado de\nhomem idoso; IV — pintura de figura real com manto; V — pintura de coroação)\n\nDas imagens acima, as figuras referidas no fragmento do romance Esaú e Jacó são",
+  "valuePoints": null,
+  "sourcePage": 3,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "photo",
+      "filePath": "2008/1-1.png",
+      "caption": "Retrato I — prova pág. 1"
+    },
+    {
+      "kind": "photo",
+      "filePath": "2008/1-2.png",
+      "caption": "Retrato II — prova pág. 1"
+    },
+    {
+      "kind": "photo",
+      "filePath": "2008/1-3.png",
+      "caption": "Retrato III — prova pág. 1"
+    },
+    {
+      "kind": "photo",
+      "filePath": "2008/1-4.png",
+      "caption": "Retrato IV — prova pág. 1"
+    },
+    {
+      "kind": "photo",
+      "filePath": "2008/1-5.png",
+      "caption": "Retrato V — prova pág. 1"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "I e III.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "I e V.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "II e III.",
+      "isCorrect": true
+    },
+    {
+      "letter": "D",
+      "textMd": "II e IV.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "II e V.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Formação Geral"],
+  "reviewNotes": [
+    "Alternativas reconstruídas manualmente (vinham todas concatenadas numa única linha) — conferir com a imagem da prova pág. 1.",
+    "Questão precisa de imagem — ver docs/figuras-2008.md."
+  ]
+}

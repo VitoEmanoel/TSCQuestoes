@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "12",
+  "order": 12,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "Uma pizzaria fez uma ampliação de suas\ninstalações e o gerente aproveitou para melhorar o sistema\ninformatizado, que era limitado e não atendia a todas as\nfunções necessárias. O gerente, então, contratou uma\nempresa para ampliar o software. No desenvolvimento do\nnovo sistema, a empresa aproveitou partes do sistema\nantigo e estendeu os componentes de maneira a usar\ncódigo validado, acrescentando as novas funções\nsolicitadas.\n\nQue conceito de orientação a objetos está descrito na\nsituação hipotética acima?",
+  "valuePoints": null,
+  "sourcePage": 9,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "sobrecarga",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "herança",
+      "isCorrect": true
+    },
+    {
+      "letter": "C",
+      "textMd": "sobreposição",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "abstração",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "mensagem",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": []
+}

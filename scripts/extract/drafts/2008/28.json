@@ -1,0 +1,49 @@
+{
+  "examYear": 2008,
+  "originalLabel": "28",
+  "order": 28,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "(ver imagem anexa: diagrama de Venn com 3 círculos que se sobrepõem, rotulados A, B e C)\n\nA figura acima mostra 3 conjuntos — A, B e C —\nem que cada conjunto é representado, no diagrama\nde Venn, por um círculo no plano. Com relação aos\nconjuntos A, B e C, julgue os seguintes itens.\n\nI A ∪ B = ∅\nII A – (B ∩ C) = (A-B) ∩ (A-C)\nIII A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)\nIV A ∩ A = ∅\n\nAssinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 15,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2008/28-1.png",
+      "caption": "Diagrama de Venn — prova pág. 13"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "Apenas um item está certo.",
+      "isCorrect": true
+    },
+    {
+      "letter": "B",
+      "textMd": "Apenas os itens I e II estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "Apenas os itens II e III estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "Apenas os itens III e IV estão certos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "Apenas os itens II, III e IV estão certos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Matemática e Lógica"],
+  "reviewNotes": ["Imagem já linkada (2008/28-1.png) — conferir enquadramento na tela de revisão."]
+}

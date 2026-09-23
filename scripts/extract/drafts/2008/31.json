@@ -1,0 +1,43 @@
+{
+  "examYear": 2008,
+  "originalLabel": "31",
+  "order": 31,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "O plano de negócios, mais do que um documento de elaboração\ndas ações de implementação de um novo empreendimento, serve\ncomo documento que estabelece o relacionamento entre\nempreendedores e investidores. O conhecimento de características\ndos atores envolvidos nessa relação interfere diretamente na\nelaboração do plano de negócios. Considerando os papéis do\nempreendedor, do investidor e de conceitos de fatores envolvidos\nna elaboração do plano de negócios, assinale a opção correta.",
+  "valuePoints": null,
+  "sourcePage": 16,
+  "needsAsset": false,
+  "assets": [],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "O verdadeiro empreendedor cria um negócio diante de uma oportunidade e procura, o mais breve possível, vendê-lo para um grupo de investidores.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "Investidores inteligentes consideram, ao analisar onde investir, que projeções financeiras mês a mês para um período maior que um ano constituem um dos fatores que garante o sucesso de um novo empreendimento.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "O empreendedor é uma pessoa à procura de riscos, que diante de uma nova oportunidade de empreendimento transfere todos os riscos para si.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "As pessoas, as oportunidades, o contexto e as possibilidades de riscos e recompensas são quatro fatores fundamentais, que devem ser considerados para o sucesso de um novo empreendimento.",
+      "isCorrect": true
+    },
+    {
+      "letter": "E",
+      "textMd": "Um plano de negócios deve ser criado seguindo uma fórmula de sucesso preestabelecida apresentada em livros da área administração e implementada em aplicativos.",
+      "isCorrect": false
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Governança e Gestão de TI"],
+  "reviewNotes": []
+}

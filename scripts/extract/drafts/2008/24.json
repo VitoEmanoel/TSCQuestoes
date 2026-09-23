@@ -1,0 +1,49 @@
+{
+  "examYear": 2008,
+  "originalLabel": "24",
+  "order": 24,
+  "type": "OBJECTIVE",
+  "area": "COMPONENTE_ESPECIFICO",
+  "status": "VALID",
+  "statementMd": "(ver imagem anexa: diagrama de atividades UML de uma urna eletrônica, com raias Banco de dados,\nUrna eletrônica e Eleitor)\n\nA figura acima mostra um diagrama de",
+  "valuePoints": null,
+  "sourcePage": 14,
+  "needsAsset": true,
+  "assets": [
+    {
+      "kind": "diagram",
+      "filePath": "2008/24-1.png",
+      "caption": "Diagrama de atividades UML — prova pág. 12"
+    }
+  ],
+  "options": [
+    {
+      "letter": "A",
+      "textMd": "comunicação, pois modela o comportamento do sistema e ilustra as interações entre atores e objetos.",
+      "isCorrect": false
+    },
+    {
+      "letter": "B",
+      "textMd": "estados, pois apresenta os possíveis estados do objeto Urna eletrônica, além dos eventos que dão início à transição de um estado para outro.",
+      "isCorrect": false
+    },
+    {
+      "letter": "C",
+      "textMd": "estados, pois, a partir de um estado inicial, descreve a seqüência de possíveis estados que todos os objetos podem assumir.",
+      "isCorrect": false
+    },
+    {
+      "letter": "D",
+      "textMd": "atividades, pois as ações ilustram a forma como o ator Eleitor interage com os objetos em um caso de uso.",
+      "isCorrect": false
+    },
+    {
+      "letter": "E",
+      "textMd": "atividades, pois modela o fluxo de controle de um processo composto por ações seqüencias e paralelas partindo de um estado inicial.",
+      "isCorrect": true
+    }
+  ],
+  "answerStandards": [],
+  "tags": ["Engenharia de Software"],
+  "reviewNotes": ["Imagem já linkada (2008/24-1.png) — conferir enquadramento na tela de revisão."]
+}
