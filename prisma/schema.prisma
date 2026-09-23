@@ -76,6 +76,7 @@ model Question {
   valuePoints     Float?
   sourcePage      Int?
   publishedAt     DateTime?
+  reviewedAt      DateTime?
   options         Option[]
   answerStandards AnswerStandard[]
   assets          Asset[]

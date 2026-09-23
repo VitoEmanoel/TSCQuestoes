@@ -18,7 +18,7 @@ export async function adminExams() {
     select: {
       id: true,
       year: true,
-      questions: { select: { publishedAt: true, status: true } },
+      questions: { select: { publishedAt: true, status: true, reviewedAt: true } },
     },
   });
   return exams.map((exam) => ({
@@ -27,6 +27,7 @@ export async function adminExams() {
     total: exam.questions.length,
     published: exam.questions.filter((question) => question.publishedAt !== null).length,
     anuladas: exam.questions.filter((question) => question.status === "ANULADA").length,
+    unreviewed: exam.questions.filter((question) => question.reviewedAt === null).length,
   }));
 }
 
@@ -44,6 +45,7 @@ export async function adminExamQuestions(examId: string) {
           type: true,
           status: true,
           publishedAt: true,
+          reviewedAt: true,
           updatedAt: true,
           statementMd: true,
           tags: { select: { topic: { select: { name: true } } } },
@@ -71,6 +73,7 @@ export async function adminQuestion(id: string) {
       statementMd: true,
       valuePoints: true,
       publishedAt: true,
+      reviewedAt: true,
       updatedAt: true,
       exam: { select: { year: true } },
       options: {
@@ -207,6 +210,7 @@ export async function saveQuestion(input: QuestionInput): Promise<SaveOutcome> {
           area: input.area,
           status: input.status,
           valuePoints: isObjective ? null : input.valuePoints,
+          reviewedAt: new Date(),
         },
       });
       if (isObjective) {

@@ -84,6 +84,11 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
                       Rascunho
                     </span>
                   )}
+                  {question.reviewedAt === null ? (
+                    <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-900 dark:bg-red-900/40 dark:text-red-200">
+                      Não revisada
+                    </span>
+                  ) : null}
                   {question.status === "ANULADA" ? (
                     <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
                       Anulada

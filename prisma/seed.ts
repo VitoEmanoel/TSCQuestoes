@@ -114,6 +114,7 @@ async function seedExam(year: string) {
           valuePoints: draft.valuePoints,
           sourcePage: draft.sourcePage,
           publishedAt: new Date(),
+          reviewedAt: new Date(),
         },
         select: { id: true },
       });

@@ -57,6 +57,22 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
           )}
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">Editar: {title}</h1>
+        {question.reviewedAt ? (
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            Revisada em{" "}
+            {question.reviewedAt.toLocaleString("pt-BR", {
+              dateStyle: "short",
+              timeStyle: "short",
+              timeZone: "America/Sao_Paulo",
+            })}
+            .
+          </p>
+        ) : (
+          <p className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm font-medium text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-200">
+            Não revisada: esta questão veio do cadastro automático. Confira tudo com a prova
+            original e salve para marcá-la como revisada.
+          </p>
+        )}
         {question.publishedAt ? (
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Esta questão está publicada: ao salvar, os alunos já passam a ver a versão nova.{" "}

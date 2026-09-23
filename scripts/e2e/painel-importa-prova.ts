@@ -289,7 +289,7 @@ async function main() {
     const earlySummary = text(earlyPublish.body).match(/\d+ publicadas?[^.]*\./)?.[0] ?? "";
     step(
       "antes da revisão, o painel se recusa a publicar questões com pendência",
-      earlyPublished < reference.size && earlySummary.includes("com pendência"),
+      earlyPublished === 0 && earlySummary.includes(`${reference.size} com pendência`),
       `${earlyPublished} publicadas, resumo: ${earlySummary}`,
     );
     if (earlyPublished > 0) {

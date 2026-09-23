@@ -16,6 +16,7 @@ async function candidate(tx: Prisma.TransactionClient, questionId: string) {
       status: true,
       statementMd: true,
       publishedAt: true,
+      reviewedAt: true,
       options: { select: { letter: true, textMd: true, isCorrect: true } },
       _count: { select: { answerStandards: true, tags: true } },
       assets: { where: { answerStandardId: null }, select: { id: true } },
@@ -34,6 +35,7 @@ async function candidate(tx: Prisma.TransactionClient, questionId: string) {
       standards: question._count.answerStandards,
       topics: question._count.tags,
       statementAssets: question.assets.length,
+      reviewed: question.reviewedAt !== null,
     }),
   };
 }

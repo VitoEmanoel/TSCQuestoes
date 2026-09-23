@@ -15,6 +15,7 @@ function objective(overrides: Partial<PublishCandidate> = {}): PublishCandidate 
     standards: 0,
     topics: 1,
     statementAssets: 0,
+    reviewed: true,
     ...overrides,
   };
 }
@@ -22,6 +23,12 @@ function objective(overrides: Partial<PublishCandidate> = {}): PublishCandidate 
 describe("publishProblems", () => {
   it("objetiva completa pode publicar", () => {
     assert.deepEqual(publishProblems(objective()), []);
+  });
+
+  it("questão completa mas não revisada não publica", () => {
+    assert.deepEqual(publishProblems(objective({ reviewed: false })), [
+      "Ainda não foi revisada: abra no editor, confira e salve.",
+    ]);
   });
 
   it("aponta enunciado vazio, sem tema e sem correta", () => {

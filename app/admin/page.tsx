@@ -48,6 +48,7 @@ export default async function AdminPage(props: PageProps<"/admin">) {
                   ? ` · ${exam.total - exam.published} em rascunho`
                   : ""}
                 {exam.anuladas > 0 ? ` · ${exam.anuladas} anuladas` : ""}
+                {exam.unreviewed > 0 ? ` · ${exam.unreviewed} não revisadas` : ""}
               </span>
             </Link>
           </li>

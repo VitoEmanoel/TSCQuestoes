@@ -2624,7 +2624,8 @@ async function main() {
       (await publishedAt(incomplete.id)) === null &&
       bulkText.includes("1 publicada") &&
       bulkText.includes("1 com pendência") &&
-      bulkText.includes(`${DRAFT_LABEL}-G: Há alternativa sem texto.`),
+      bulkText.includes(`${DRAFT_LABEL}-G: Ainda não foi revisada`) &&
+      bulkText.includes("Há alternativa sem texto."),
     bulkText.slice(bulkText.indexOf("publicada") - 20, bulkText.indexOf("publicada") + 160),
   );
   await postBulk(admin, [
@@ -2752,6 +2753,37 @@ async function main() {
   );
   const firstImported = createdExam.questions.find((question) => question.originalLabel === "1")!;
   const firstImportedPath = `/admin/questoes/${firstImported.id}`;
+  const importedPublishFields = await formFields(
+    admin,
+    firstImportedPath,
+    'name="acao" value="publicar"',
+  );
+  reply = await postFields(admin, firstImportedPath, importedPublishFields);
+  check(
+    "questão importada não publica antes de revisada (salva no editor)",
+    (await publishedAt(firstImported.id)) === null &&
+      pageText(reply.body).includes("Ainda não foi revisada") &&
+      pageText((await admin.get(examPath)).body).includes("Não revisada"),
+  );
+  const importedEditor = await formFields(admin, firstImportedPath, 'name="statementMd"');
+  const importedData = new FormData();
+  for (const [key, value] of Object.entries(importedEditor)) importedData.append(key, value);
+  for (const [key, value] of [
+    ["statementMd", "Enunciado da primeira, revisado"],
+    ["area", "FORMACAO_GERAL"],
+    ["status", "VALID"],
+    ["valuePoints", ""],
+    ["option_A", "um"],
+    ["option_B", "dois"],
+    ["option_C", "três"],
+    ["option_D", "quatro"],
+    ["option_E", "cinco"],
+    ["correct", "B"],
+    ["topic", "Formação Geral"],
+  ]) {
+    importedData.set(key, value);
+  }
+  await admin.request(firstImportedPath, { method: "POST", body: importedData }, { origin: BASE });
   await postFields(
     admin,
     firstImportedPath,

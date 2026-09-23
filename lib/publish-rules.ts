@@ -8,12 +8,16 @@ export type PublishCandidate = {
   standards: number;
   topics: number;
   statementAssets: number;
+  reviewed: boolean;
 };
 
 const LETTERS = ["A", "B", "C", "D", "E"];
 
 export function publishProblems(question: PublishCandidate): string[] {
   const problems: string[] = [];
+  if (!question.reviewed) {
+    problems.push("Ainda não foi revisada: abra no editor, confira e salve.");
+  }
   if (question.statementMd.trim() === "") {
     problems.push("Enunciado vazio.");
   }
