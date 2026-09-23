@@ -40,7 +40,11 @@ export async function listReplayExams(userId: string) {
   });
 }
 
-export async function startReplay(userId: string, examId: string): Promise<string | null> {
+export async function startReplay(
+  userId: string,
+  examId: string,
+  minutes: number | null,
+): Promise<string | null> {
   const exam = await prisma.exam.findUnique({ where: { id: examId }, select: { id: true } });
   if (!exam) {
     return null;
@@ -66,6 +70,7 @@ export async function startReplay(userId: string, examId: string): Promise<strin
         examId,
         revealPolicy: "AT_END",
         questionIds: questions.map((question) => question.id),
+        timeLimitSec: minutes ? minutes * 60 : null,
       },
       select: { id: true },
     });
@@ -245,7 +250,35 @@ export async function simuladoQuestion(questionId: string) {
   });
 }
 
-type LockedAttempt = { examId: string | null; questionIds: string[]; status: string };
+export const SAVE_GRACE_MS = 10_000;
+
+export function deadlineOf(attempt: { startedAt: Date; timeLimitSec: number | null }) {
+  return attempt.timeLimitSec
+    ? new Date(attempt.startedAt.getTime() + attempt.timeLimitSec * 1000)
+    : null;
+}
+
+export function remainingSeconds(attempt: { startedAt: Date; timeLimitSec: number | null }) {
+  const deadline = deadlineOf(attempt);
+  return deadline ? Math.max(0, Math.ceil((deadline.getTime() - Date.now()) / 1000)) : null;
+}
+
+export function closedByTime(attempt: {
+  startedAt: Date;
+  timeLimitSec: number | null;
+  submittedAt: Date | null;
+}) {
+  const deadline = deadlineOf(attempt);
+  return Boolean(deadline && attempt.submittedAt && attempt.submittedAt >= deadline);
+}
+
+type LockedAttempt = {
+  examId: string | null;
+  questionIds: string[];
+  status: string;
+  startedAt: Date;
+  timeLimitSec: number | null;
+};
 
 async function lockOwnedAttempt(
   tx: Prisma.TransactionClient,
@@ -253,10 +286,76 @@ async function lockOwnedAttempt(
   attemptId: string,
 ): Promise<LockedAttempt | null> {
   const rows = await tx.$queryRaw<LockedAttempt[]>`
-    SELECT "examId", "questionIds", status::text AS status FROM "Attempt"
+    SELECT "examId", "questionIds", status::text AS status, "startedAt", "timeLimitSec"
+    FROM "Attempt"
     WHERE id = ${attemptId} AND "userId" = ${userId} AND mode IN ('FULL_EXAM', 'CUSTOM')
     FOR UPDATE`;
   return rows[0] ?? null;
+}
+
+function expired(attempt: LockedAttempt, graceMs: number): Date | null {
+  const deadline = deadlineOf(attempt);
+  return deadline && Date.now() > deadline.getTime() + graceMs ? deadline : null;
+}
+
+async function closeLocked(tx: Prisma.TransactionClient, attemptId: string, submittedAt: Date) {
+  const items = await tx.attemptItem.findMany({
+    where: { attemptId },
+    select: {
+      id: true,
+      questionId: true,
+      answeredAt: true,
+      selectedLetter: true,
+      selfScore: true,
+      question: { select: SCORED_QUESTION },
+    },
+  });
+  const now = new Date();
+  for (const item of items) {
+    const correctLetter = item.question.options[0]?.letter ?? null;
+    await tx.attemptItem.update({
+      where: { id: item.id },
+      data: {
+        revealedAt: now,
+        isCorrect:
+          item.question.type === "OBJECTIVE" && item.question.status === "VALID"
+            ? item.selectedLetter === correctLetter
+            : null,
+      },
+    });
+  }
+  await tx.attempt.update({
+    where: { id: attemptId },
+    data: { status: "SUBMITTED", submittedAt, autoScore: summarize(items).percent },
+  });
+}
+
+export async function closeIfExpired(userId: string, attemptId: string): Promise<void> {
+  await prisma.$transaction(async (tx) => {
+    const attempt = await lockOwnedAttempt(tx, userId, attemptId);
+    const deadline = attempt?.status === "IN_PROGRESS" ? expired(attempt, 0) : null;
+    if (deadline) {
+      await closeLocked(tx, attemptId, deadline);
+    }
+  });
+}
+
+export async function closeExpiredSimulados(userId: string): Promise<void> {
+  const open = await prisma.attempt.findMany({
+    where: {
+      userId,
+      mode: { in: [...SIMULADO_MODES] },
+      status: "IN_PROGRESS",
+      timeLimitSec: { not: null },
+    },
+    select: { id: true, startedAt: true, timeLimitSec: true },
+  });
+  for (const attempt of open) {
+    const deadline = deadlineOf(attempt);
+    if (deadline && Date.now() > deadline.getTime()) {
+      await closeIfExpired(userId, attempt.id);
+    }
+  }
 }
 
 export type SaveAnswer = { letter: string } | { text: string };
@@ -273,6 +372,11 @@ export async function saveSimuladoAnswer(
       return "invalid";
     }
     if (attempt.status !== "IN_PROGRESS") {
+      return "closed";
+    }
+    const deadline = expired(attempt, SAVE_GRACE_MS);
+    if (deadline) {
+      await closeLocked(tx, attemptId, deadline);
       return "closed";
     }
     if (!(await questionIdsOf(attempt)).includes(questionId)) {
@@ -326,35 +430,7 @@ export async function submitSimulado(
     if (attempt.status !== "IN_PROGRESS") {
       return "closed";
     }
-    const items = await tx.attemptItem.findMany({
-      where: { attemptId },
-      select: {
-        id: true,
-        questionId: true,
-        answeredAt: true,
-        selectedLetter: true,
-        selfScore: true,
-        question: { select: SCORED_QUESTION },
-      },
-    });
-    const now = new Date();
-    for (const item of items) {
-      const correctLetter = item.question.options[0]?.letter ?? null;
-      await tx.attemptItem.update({
-        where: { id: item.id },
-        data: {
-          revealedAt: now,
-          isCorrect:
-            item.question.type === "OBJECTIVE" && item.question.status === "VALID"
-              ? item.selectedLetter === correctLetter
-              : null,
-        },
-      });
-    }
-    await tx.attempt.update({
-      where: { id: attemptId },
-      data: { status: "SUBMITTED", submittedAt: now, autoScore: summarize(items).percent },
-    });
+    await closeLocked(tx, attemptId, expired(attempt, SAVE_GRACE_MS) ?? new Date());
     return "ok";
   });
 }

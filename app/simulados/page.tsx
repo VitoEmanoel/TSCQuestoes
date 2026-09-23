@@ -7,6 +7,7 @@ import { formatMinutes } from "@/components/simulado-badge";
 import { requireUser } from "@/lib/dal";
 import { AREA_LABEL, getFilterOptions, TYPE_LABEL } from "@/lib/questions";
 import {
+  closeExpiredSimulados,
   listReplayExams,
   MAX_CUSTOM_QUESTIONS,
   openCustomSimulados,
@@ -27,6 +28,7 @@ export const metadata: Metadata = { title: "Simulados — TSCQuestões" };
 
 export default async function SimuladosPage() {
   const user = await requireUser("/simulados");
+  await closeExpiredSimulados(user.id);
   const [exams, custom, { years, topics }] = await Promise.all([
     listReplayExams(user.id),
     openCustomSimulados(user.id),
@@ -65,8 +67,26 @@ export default async function SimuladosPage() {
                   Em andamento: {exam.openAttempt.answered} de {exam.total} respondidas.
                 </p>
               ) : null}
-              <form action={startReplayAction}>
+              <form action={startReplayAction} className="flex flex-wrap items-end gap-3">
                 <input type="hidden" name="examId" value={exam.id} />
+                {exam.openAttempt ? null : (
+                  <label className="flex flex-col gap-1 text-sm">
+                    <span className="font-medium">Tempo</span>
+                    <select
+                      name="tempo"
+                      defaultValue=""
+                      className="rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                    >
+                      <option value="">Sem tempo</option>
+                      {TIME_LIMIT_MINUTES.map((minutes) => (
+                        <option key={minutes} value={minutes}>
+                          {formatMinutes(minutes * 60)}
+                          {minutes === 240 ? " (como no ENADE)" : ""}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                )}
                 <button
                   type="submit"
                   className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"

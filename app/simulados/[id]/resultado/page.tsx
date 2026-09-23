@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SimuladoBadge } from "@/components/simulado-badge";
 import { requireUser } from "@/lib/dal";
-import { simuladoResult } from "@/lib/simulados";
+import { closedByTime, simuladoResult } from "@/lib/simulados";
+import { formatMinutes } from "@/components/simulado-badge";
 
 export const metadata: Metadata = { title: "Resultado do simulado — TSCQuestões" };
 
@@ -21,6 +22,9 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
   const { summary } = result;
   const anuladas = summary.objectives.anuladas + summary.discursives.anuladas;
   const blank = result.totalQuestions - result.items.length;
+  const usedSeconds = result.submittedAt
+    ? Math.round((result.submittedAt.getTime() - result.startedAt.getTime()) / 1000)
+    : 0;
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
@@ -40,6 +44,17 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
           {summary.objectives.counted === 1 ? "objetiva certa" : "objetivas certas"}
           {summary.percent !== null ? ` (${formatScore(summary.percent)}%)` : null}
         </p>
+        {closedByTime(result) ? (
+          <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+            Tempo esgotado: o simulado foi entregue automaticamente com as respostas salvas.
+          </p>
+        ) : null}
+        {result.submittedAt ? (
+          <p className="text-sm text-zinc-700 dark:text-zinc-300">
+            Tempo usado: {formatMinutes(Math.max(60, usedSeconds))}
+            {result.timeLimitSec ? ` de ${formatMinutes(result.timeLimitSec)}` : null}.
+          </p>
+        ) : null}
         {blank > 0 ? (
           <p className="text-sm text-zinc-700 dark:text-zinc-300">
             {blank} {blank === 1 ? "questão ficou em branco" : "questões ficaram em branco"}.

@@ -556,10 +556,33 @@ async function main() {
       [...form.querySelectorAll('button')].find((b) => b.textContent.includes('Montar simulado')).click();
     })()`);
     const customStarted = await page.waitFor(
-      "/^\\/simulados\\/[^/]+$/.test(location.pathname) && document.body.textContent.includes('0 de 5 respondidas') && document.body.textContent.includes('Tempo escolhido: 30 min') && document.body.textContent.includes('Simulado personalizado')",
+      "/^\\/simulados\\/[^/]+$/.test(location.pathname) && document.body.textContent.includes('0 de 5 respondidas') && document.body.textContent.includes('Tempo total: 30 min') && document.body.textContent.includes('Simulado personalizado')",
       15_000,
     );
     check("montar simulado personalizado (5 objetivas, 30 min)", customStarted);
+    const timerBefore = await page.evaluate<string>(
+      "document.querySelector('[role=timer]')?.textContent ?? ''",
+    );
+    const ticking = await page.waitFor(
+      `(document.querySelector('[role=timer]')?.textContent ?? '') !== ${JSON.stringify(timerBefore)}`,
+      4_000,
+    );
+    check(
+      "cronômetro conta para trás na tela",
+      /^(30:00|29:\d\d)$/.test(timerBefore) && ticking,
+      timerBefore,
+    );
+    const customId = await page.evaluate<string>("location.pathname.split('/').pop()");
+    await prisma.attempt.update({
+      where: { id: customId },
+      data: { startedAt: new Date(Date.now() - (30 * 60 - 4) * 1000) },
+    });
+    await page.goto(`${BASE}/simulados/${customId}`);
+    const expiredOnScreen = await page.waitFor(
+      "location.pathname.endsWith('/resultado') && document.body.textContent.includes('Tempo esgotado')",
+      20_000,
+    );
+    check("quando o tempo acaba na tela, o simulado é entregue sozinho", expiredOnScreen);
     check(
       "simulado personalizado: nenhuma violação de CSP nem erro de JavaScript",
       cspViolations(phase).length === 0 && jsErrors(phase).length === 0,

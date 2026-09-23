@@ -1445,6 +1445,125 @@ async function main() {
       pageText(reply.body).includes("5 simulados personalizados em andamento"),
   );
 
+  group("Cronômetro do simulado");
+  await prisma.attemptItem.deleteMany({
+    where: { attempt: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" } },
+  });
+  await prisma.attempt.deleteMany({
+    where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+  });
+  const exam2021Id = (await prisma.exam.findFirstOrThrow({ where: { year: 2021 } })).id;
+  await answerer.submitForm("/simulados", `value="${exam2021Id}"`, { tempo: "7" });
+  await answerer.submitForm("/simulados", `value="${exam2021Id}"`, { tempo: "99999" });
+  const replays2021 = () =>
+    prisma.attempt.findMany({
+      where: { user: { email: studentEmail }, mode: "FULL_EXAM", examId: exam2021Id },
+      select: { id: true, timeLimitSec: true },
+    });
+  check("tempo forjado no replay não cria simulado", (await replays2021()).length === 0);
+  await answerer.submitForm("/simulados", `value="${exam2021Id}"`, { tempo: "240" });
+  const timedReplay = await replays2021();
+  check(
+    "replay com “4 h (como no ENADE)” grava o tempo",
+    timedReplay.length === 1 && timedReplay[0].timeLimitSec === 14_400,
+  );
+  await prisma.attempt.deleteMany({ where: { id: { in: timedReplay.map((a) => a.id) } } });
+
+  const newTimed = async () => {
+    await build({ ano: "2017", tipo: "OBJECTIVE", quantidade: "5", tempo: "15" });
+    const created = await prisma.attempt.findFirstOrThrow({
+      where: { user: { email: studentEmail }, mode: "CUSTOM", status: "IN_PROGRESS" },
+      orderBy: { startedAt: "desc" },
+      select: { id: true, questionIds: true },
+    });
+    return { ...created, path: `/simulados/${created.id}` };
+  };
+  const shiftStart = (id: string, secondsAgo: number) =>
+    prisma.attempt.update({
+      where: { id },
+      data: { startedAt: new Date(Date.now() - secondsAgo * 1000) },
+    });
+  const timed = await newTimed();
+  const timedPage = await answerer.get(timed.path);
+  check(
+    "página do simulado com tempo mostra o cronômetro vindo do servidor",
+    timedPage.body.includes('role="timer"') &&
+      /Tempo restante (15:00|14:5\d)/.test(pageText(timedPage.body)),
+    pageText(timedPage.body).match(/Tempo restante \S+/)?.[0],
+  );
+  const timedForm = await formFields(answerer, `${timed.path}?q=1`, 'name="letter"');
+  const timedItems = () =>
+    prisma.attemptItem.findMany({
+      where: { attemptId: timed.id },
+      orderBy: { questionId: "asc" },
+      select: { questionId: true, selectedLetter: true },
+    });
+  await shiftStart(timed.id, 15 * 60 - 10);
+  await postFields(answerer, `${timed.path}?q=1`, { ...timedForm, letter: "A" });
+  check("faltando 10 s, salvar ainda funciona", (await timedItems()).length === 1);
+  await shiftStart(timed.id, 15 * 60 + 5);
+  await postFields(answerer, `${timed.path}?q=1`, { ...timedForm, letter: "B" });
+  check(
+    "salvar enviado no limite (5 s de atraso da rede) ainda é aceito",
+    (await timedItems())[0]?.selectedLetter === "B",
+  );
+  await shiftStart(timed.id, 16 * 60);
+  const beforeLate = await timedItems();
+  reply = await postFields(answerer, `${timed.path}?q=1`, { ...timedForm, letter: "C" });
+  const lateAttempt = await prisma.attempt.findUniqueOrThrow({
+    where: { id: timed.id },
+    select: { status: true, startedAt: true, submittedAt: true },
+  });
+  check(
+    "salvar 1 min depois do prazo é recusado e o simulado fecha no horário do prazo",
+    JSON.stringify(await timedItems()) === JSON.stringify(beforeLate) &&
+      lateAttempt.status === "SUBMITTED" &&
+      lateAttempt.submittedAt?.getTime() === lateAttempt.startedAt.getTime() + 15 * 60 * 1000 &&
+      reply.location.endsWith(`${timed.path}/resultado`),
+    `${lateAttempt.status} ${reply.status} ${reply.location}`,
+  );
+  check(
+    "resultado avisa que o tempo esgotou",
+    pageText((await answerer.get(`${timed.path}/resultado`)).body).includes(
+      "Tempo esgotado: o simulado foi entregue automaticamente",
+    ),
+  );
+  const openedLate = await newTimed();
+  await shiftStart(openedLate.id, 20 * 60);
+  reply = await answerer.get(openedLate.path);
+  check(
+    "abrir um simulado vencido fecha e leva ao resultado",
+    reply.status === 307 &&
+      reply.location.endsWith(`${openedLate.path}/resultado`) &&
+      (await prisma.attempt.findUniqueOrThrow({ where: { id: openedLate.id } })).status ===
+        "SUBMITTED",
+    `${reply.status} ${reply.location}`,
+  );
+  const listedLate = await newTimed();
+  await shiftStart(listedLate.id, 20 * 60);
+  await answerer.get("/simulados");
+  check(
+    "abrir a lista de simulados fecha os vencidos",
+    (await prisma.attempt.findUniqueOrThrow({ where: { id: listedLate.id } })).status ===
+      "SUBMITTED",
+  );
+  const submitLate = await newTimed();
+  const submitLateFields = await formFields(
+    answerer,
+    `${submitLate.path}/entregar`,
+    'name="attemptId"',
+  );
+  await shiftStart(submitLate.id, 30 * 60);
+  await postFields(answerer, `${submitLate.path}/entregar`, submitLateFields);
+  const submittedLate = await prisma.attempt.findUniqueOrThrow({
+    where: { id: submitLate.id },
+    select: { startedAt: true, submittedAt: true },
+  });
+  check(
+    "entregar depois do prazo registra a entrega no horário do prazo, não depois",
+    submittedLate.submittedAt?.getTime() === submittedLate.startedAt.getTime() + 15 * 60 * 1000,
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });

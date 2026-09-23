@@ -3,12 +3,19 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
 import { formatMinutes, SimuladoBadge } from "@/components/simulado-badge";
+import { SimuladoTimer } from "@/components/simulado-timer";
 import { RichText } from "@/components/rich-text";
 import { SimuladoAnswerForm } from "@/components/simulado-answer-form";
 import { resolveAssets } from "@/lib/assets";
 import { requireUser } from "@/lib/dal";
 import { AREA_LABEL, questionTitle, TYPE_LABEL } from "@/lib/questions";
-import { MAX_SIMULADO_ANSWER_LENGTH, simuladoOverview, simuladoQuestion } from "@/lib/simulados";
+import {
+  closeIfExpired,
+  MAX_SIMULADO_ANSWER_LENGTH,
+  remainingSeconds,
+  simuladoOverview,
+  simuladoQuestion,
+} from "@/lib/simulados";
 
 export const metadata: Metadata = { title: "Simulado — TSCQuestões" };
 
@@ -16,6 +23,7 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
   const { id } = await props.params;
   const { q, pedidas } = await props.searchParams;
   const user = await requireUser(`/simulados/${encodeURIComponent(id)}`);
+  await closeIfExpired(user.id, id);
   const overview = await simuladoOverview(user.id, id);
   if (!overview) {
     notFound();
@@ -35,6 +43,7 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
   const assets = await resolveAssets(question.assets);
   const answered = overview.questions.filter((item) => item.answer !== null).length;
   const base = `/simulados/${encodeURIComponent(id)}`;
+  const remaining = remainingSeconds(overview.attempt);
   const requestedCount = Number(Array.isArray(pedidas) ? pedidas[0] : pedidas);
   const shortOfRequest =
     Number.isInteger(requestedCount) && requestedCount > total ? requestedCount : null;
@@ -49,17 +58,20 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
               {overview.year !== null ? "Simulado — prova completa" : "Simulado personalizado"}
             </span>
           </div>
-          <Link
-            href={`${base}/entregar`}
-            className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
-          >
-            Entregar simulado
-          </Link>
+          <div className="flex flex-wrap items-center gap-2">
+            {remaining !== null ? <SimuladoTimer remainingSeconds={remaining} /> : null}
+            <Link
+              href={`${base}/entregar`}
+              className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
+            >
+              Entregar simulado
+            </Link>
+          </div>
         </div>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
           {answered} de {total} respondidas.
           {overview.attempt.timeLimitSec
-            ? ` Tempo escolhido: ${formatMinutes(overview.attempt.timeLimitSec)}.`
+            ? ` Tempo total: ${formatMinutes(overview.attempt.timeLimitSec)}. Ao acabar, o simulado é entregue com as respostas já salvas.`
             : null}
         </p>
         {shortOfRequest ? (

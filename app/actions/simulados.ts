@@ -30,7 +30,12 @@ export async function startReplayAction(formData: FormData): Promise<void> {
     redirect("/login?callbackUrl=/simulados");
   }
   const examId = field(formData, "examId");
-  const attemptId = examId ? await startReplay(user.id, examId) : null;
+  const minutesRaw = field(formData, "tempo") ?? "";
+  const minutes = minutesRaw === "" ? null : Number(minutesRaw);
+  if (minutes !== null && !TIME_LIMIT_MINUTES.some((allowed) => allowed === minutes)) {
+    redirect("/simulados");
+  }
+  const attemptId = examId ? await startReplay(user.id, examId, minutes) : null;
   redirect(attemptId ? simuladoPath(attemptId) : "/simulados");
 }
 

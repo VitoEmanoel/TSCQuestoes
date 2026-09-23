@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { submitSimuladoAction } from "@/app/actions/simulados";
+import { SimuladoTimer } from "@/components/simulado-timer";
 import { SimuladoBadge } from "@/components/simulado-badge";
 import { requireUser } from "@/lib/dal";
 import { questionTitle } from "@/lib/questions";
-import { simuladoOverview } from "@/lib/simulados";
+import { closeIfExpired, remainingSeconds, simuladoOverview } from "@/lib/simulados";
 
 export const metadata: Metadata = { title: "Entregar simulado — TSCQuestões" };
 
 export default async function EntregarSimuladoPage(props: PageProps<"/simulados/[id]/entregar">) {
   const { id } = await props.params;
   const user = await requireUser(`/simulados/${encodeURIComponent(id)}/entregar`);
+  await closeIfExpired(user.id, id);
   const overview = await simuladoOverview(user.id, id);
   if (!overview) {
     notFound();
@@ -24,6 +26,7 @@ export default async function EntregarSimuladoPage(props: PageProps<"/simulados/
     .map((question, index) => ({ ...question, position: index + 1 }))
     .filter((question) => question.answer === null);
   const total = overview.questions.length;
+  const remaining = remainingSeconds(overview.attempt);
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
@@ -35,6 +38,11 @@ export default async function EntregarSimuladoPage(props: PageProps<"/simulados/
           <SimuladoBadge year={overview.year} />
           <h1 className="text-2xl font-semibold tracking-tight">Entregar simulado</h1>
         </div>
+        {remaining !== null ? (
+          <div className="self-start">
+            <SimuladoTimer remainingSeconds={remaining} />
+          </div>
+        ) : null}
         <p className="text-zinc-700 dark:text-zinc-300">
           Você respondeu {total - blank.length} de {total} questões. Depois de entregar, não dá mais
           para mudar as respostas.
