@@ -157,7 +157,14 @@ function startEvilSite(): Server {
   return server;
 }
 
+const DRAFT_LABEL = "RASCUNHO-NAVEGADOR";
+
 async function removeTestUser() {
+  const drafts = { originalLabel: DRAFT_LABEL };
+  await prisma.attemptItem.deleteMany({ where: { question: drafts } });
+  await prisma.option.deleteMany({ where: { question: drafts } });
+  await prisma.questionTag.deleteMany({ where: { question: drafts } });
+  await prisma.question.deleteMany({ where: drafts });
   await prisma.attemptItem.deleteMany({ where: { attempt: { user: { email: TEST_EMAIL } } } });
   await prisma.attempt.deleteMany({ where: { user: { email: TEST_EMAIL } } });
   await prisma.user.deleteMany({ where: { email: TEST_EMAIL } });
@@ -653,6 +660,92 @@ async function main() {
         .join(" | ")
         .slice(0, 200),
     );
+
+    phase = "editor do admin";
+    const loginAs = async (email: string, password: string) => {
+      await page.evaluate(
+        "[...document.querySelectorAll('header button')].find((b) => b.textContent.includes('Sair'))?.click()",
+      );
+      await page.waitFor("!document.querySelector('header')?.textContent.includes('Sair')", 10_000);
+      await page.goto(`${BASE}/login`);
+      await page.evaluate(`(() => {
+        document.querySelector('#email').value = ${JSON.stringify(email)};
+        document.querySelector('#password').value = ${JSON.stringify(password)};
+        document.querySelector('main form').requestSubmit();
+      })()`);
+      return page.waitFor("document.querySelector('header')?.textContent.includes('Sair')", 15_000);
+    };
+    const exam2017ForAdmin = await prisma.exam.findFirstOrThrow({ where: { year: 2017 } });
+    const soTopic = await prisma.topic.findUniqueOrThrow({
+      where: { name: "Sistemas Operacionais" },
+    });
+    const adminDraft = await prisma.question.create({
+      data: {
+        examId: exam2017ForAdmin.id,
+        originalLabel: DRAFT_LABEL,
+        order: 995,
+        type: "OBJECTIVE",
+        area: "COMPONENTE_ESPECIFICO",
+        statementMd: "Rascunho para o teste do navegador",
+        options: {
+          create: ["A", "B", "C", "D", "E"].map((letter) => ({
+            letter,
+            textMd: `alternativa ${letter}`,
+            isCorrect: letter === "A",
+          })),
+        },
+        tags: { create: { topicId: soTopic.id } },
+      },
+      select: { id: true },
+    });
+    const adminIn = await loginAs(
+      process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local",
+      process.env.ADMIN_SEED_PASSWORD ?? "admin123",
+    );
+    await page.goto(`${BASE}/admin/questoes/${adminDraft.id}`);
+    await page.waitFor(
+      "(() => { const area = document.querySelector('#statementMd'); return Boolean(area) && Object.keys(area).some((key) => key.startsWith('__reactProps')); })()",
+      15_000,
+    );
+    await page.evaluate(`(() => {
+      const area = document.querySelector('#statementMd');
+      const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
+      setter.call(area, ${JSON.stringify("Texto novo digitado no navegador\n\n(ver imagem anexa: figura de teste)")});
+      area.dispatchEvent(new Event('input', { bubbles: true }));
+    })()`);
+    const dirtyShown = await page.waitFor(
+      "document.body.textContent.includes('Alterações não salvas') && document.body.textContent.includes('Marcadores de imagem no texto: 1 · imagens anexadas: 0')",
+    );
+    await page.evaluate(
+      "[...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Salvar alterações')).click()",
+    );
+    const savedShown = await page.waitFor(
+      "location.search === '?salvo=1' && document.body.textContent.includes('Alterações salvas')",
+      15_000,
+    );
+    const savedText = (
+      await prisma.question.findUniqueOrThrow({
+        where: { id: adminDraft.id },
+        select: { statementMd: true },
+      })
+    ).statementMd;
+    check(
+      "admin edita no navegador: aviso de não salvo, contador de imagens e salvamento",
+      adminIn &&
+        dirtyShown &&
+        savedShown &&
+        savedText.startsWith("Texto novo digitado no navegador"),
+      `login ${adminIn}, não salvo ${dirtyShown}, salvo ${savedShown}, banco "${savedText.slice(0, 40)}"`,
+    );
+    check(
+      "editor do admin: nenhuma violação de CSP nem erro de JavaScript",
+      cspViolations(phase).length === 0 && jsErrors(phase).length === 0,
+      [...cspViolations(phase), ...jsErrors(phase)]
+        .map((e) => e.text)
+        .join(" | ")
+        .slice(0, 200),
+    );
+    await loginAs(TEST_EMAIL, TEST_PASSWORD);
 
     phase = "XSS simulado";
     await page.goto(`${BASE}/questoes`);

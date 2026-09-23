@@ -25,6 +25,11 @@ export async function SiteHeader() {
               <Link href="/historico" className="font-medium underline-offset-2 hover:underline">
                 Histórico
               </Link>
+              {user.role === "ADMIN" ? (
+                <Link href="/admin" className="font-medium underline-offset-2 hover:underline">
+                  Painel
+                </Link>
+              ) : null}
             </nav>
             <span className="text-zinc-700 dark:text-zinc-300">{user.name ?? user.email}</span>
             <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">

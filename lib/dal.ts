@@ -1,6 +1,6 @@
 import "server-only";
 import { cache } from "react";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { UserRole } from "@prisma/client";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
@@ -28,6 +28,14 @@ export async function requireUser(callbackUrl: string): Promise<CurrentUser> {
   const user = await getCurrentUser();
   if (!user) {
     redirect(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+  }
+  return user;
+}
+
+export async function requireAdmin(): Promise<CurrentUser> {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "ADMIN") {
+    notFound();
   }
   return user;
 }

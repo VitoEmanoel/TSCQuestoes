@@ -1972,6 +1972,240 @@ async function main() {
     `sorteio ${drawn.questionIds.length}; prova ${replayWithDrafts.questionIds.length}`,
   );
 
+  group("Painel do admin: editor de questões");
+  const editDraft = await prisma.question.create({
+    data: {
+      examId: exam2017.id,
+      originalLabel: `${DRAFT_LABEL}-E`,
+      order: 997,
+      type: "OBJECTIVE",
+      area: "COMPONENTE_ESPECIFICO",
+      statementMd: "Enunciado original do rascunho de edição",
+      options: {
+        create: ["A", "B", "C", "D", "E"].map((letter) => ({
+          letter,
+          textMd: `original ${letter}`,
+          isCorrect: letter === "A",
+        })),
+      },
+      tags: { create: { topicId: soTopic.id } },
+    },
+    select: { id: true },
+  });
+  const editPath = `/admin/questoes/${editDraft.id}`;
+  const anonAdmin = new Client("10.70.0.1");
+  const adminPages = ["/admin", `/admin/provas/${exam2017.id}`, editPath];
+  const blocked = await Promise.all(
+    adminPages.flatMap((path) => [answerer.get(path), anonAdmin.get(path)]),
+  );
+  check(
+    "aluno e visitante recebem 404 em todas as páginas do painel",
+    blocked.every((response) => response.status === 404 && !response.body.includes("statementMd")),
+    blocked.map((response) => response.status).join(","),
+  );
+  const admin = new Client("10.70.0.2");
+  await pageLogin(
+    admin,
+    process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local",
+    process.env.ADMIN_SEED_PASSWORD ?? "admin123",
+  );
+  const editorPage = await admin.get(editPath);
+  check(
+    "admin abre o editor",
+    editorPage.status === 200 && editorPage.body.includes('name="statementMd"'),
+    `${editorPage.status}`,
+  );
+  const editorHidden = await formFields(admin, editPath, 'name="statementMd"');
+  const withTopics = (entries: [string, string][], topics: string[]) => {
+    return async (client: Client, hidden = editorHidden) => {
+      const data = new FormData();
+      for (const [key, value] of Object.entries(hidden)) {
+        data.append(key, value);
+      }
+      for (const [key, value] of entries) {
+        data.set(key, value);
+      }
+      for (const topic of topics) {
+        data.append("topic", topic);
+      }
+      return client.request(editPath, { method: "POST", body: data }, { origin: BASE });
+    };
+  };
+  const baseEdit: [string, string][] = [
+    ["statementMd", "Enunciado editado pelo painel"],
+    ["area", "COMPONENTE_ESPECIFICO"],
+    ["status", "VALID"],
+    ["valuePoints", ""],
+    ...["A", "B", "C", "D", "E"].map((letter): [string, string] => [
+      `option_${letter}`,
+      `editada ${letter}`,
+    ]),
+    ["correct", "B"],
+  ];
+  const draftState = () =>
+    prisma.question.findUniqueOrThrow({
+      where: { id: editDraft.id },
+      select: {
+        statementMd: true,
+        status: true,
+        updatedAt: true,
+        options: { orderBy: { letter: "asc" }, select: { textMd: true, isCorrect: true } },
+        tags: { select: { topic: { select: { name: true } } } },
+      },
+    });
+  const original = JSON.stringify(await draftState());
+  await withTopics(baseEdit, ["Sistemas Operacionais"])(answerer);
+  await withTopics(baseEdit, ["Sistemas Operacionais"])(anonAdmin);
+  check(
+    "aluno e visitante reaproveitando o formulário do admin não alteram nada",
+    JSON.stringify(await draftState()) === original,
+  );
+  const invalidEdits: [string, [string, string][], string[]][] = [
+    ["correta inexistente", [...baseEdit, ["correct", "Z"]], ["Sistemas Operacionais"]],
+    ["situação forjada", [...baseEdit, ["status", "HACK"]], ["Sistemas Operacionais"]],
+    ["área forjada", [...baseEdit, ["area", "' OR 1=1 --"]], ["Sistemas Operacionais"]],
+    ["enunciado vazio", [...baseEdit, ["statementMd", "   "]], ["Sistemas Operacionais"]],
+    [
+      "enunciado gigante",
+      [...baseEdit, ["statementMd", "x".repeat(20_001)]],
+      ["Sistemas Operacionais"],
+    ],
+    ["alternativa vazia", [...baseEdit, ["option_C", ""]], ["Sistemas Operacionais"]],
+    ["válida sem correta", [...baseEdit, ["correct", ""]], ["Sistemas Operacionais"]],
+    ["tema inexistente", baseEdit, ["Tema Inventado"]],
+    ["sem tema", baseEdit, []],
+    [
+      "padrão de resposta numa objetiva",
+      [
+        ...baseEdit,
+        ["standardId", ""],
+        ["standardSubItem", "a"],
+        ["standardMaxScore", "5"],
+        ["standardCriteria", "x"],
+      ],
+      ["Sistemas Operacionais"],
+    ],
+  ];
+  const acceptedInvalid: string[] = [];
+  for (const [label, entries, topics] of invalidEdits) {
+    await withTopics(entries, topics)(admin);
+    if (JSON.stringify(await draftState()) !== original) {
+      acceptedInvalid.push(label);
+    }
+  }
+  check(
+    "admin: 10 envios inválidos são recusados sem alterar a questão",
+    acceptedInvalid.length === 0,
+    acceptedInvalid.join(", "),
+  );
+  reply = await withTopics(baseEdit, ["Sistemas Operacionais", "Redes de Computadores"])(admin);
+  const edited = await draftState();
+  check(
+    "admin salva: enunciado, alternativas, correta e temas atualizados",
+    edited.statementMd === "Enunciado editado pelo painel" &&
+      edited.options.map((option) => option.textMd).join("|") ===
+        "editada A|editada B|editada C|editada D|editada E" &&
+      edited.options.map((option) => option.isCorrect).join(",") ===
+        "false,true,false,false,false" &&
+      edited.tags.length === 2 &&
+      reply.location.endsWith(`${editPath}?salvo=1`),
+    `${reply.status} ${reply.location}`,
+  );
+  await withTopics(
+    [...baseEdit, ["statementMd", "sobrescrita com versão velha"]],
+    ["Sistemas Operacionais"],
+  )(admin);
+  check(
+    "salvar com a versão velha da página (outra aba) é recusado",
+    (await draftState()).statementMd === "Enunciado editado pelo painel",
+  );
+  const freshHidden = await formFields(admin, editPath, 'name="statementMd"');
+  await withTopics(
+    [
+      ...baseEdit,
+      ["statementMd", '<script>alert(1)</script> <img src=x onerror="alert(2)"> texto'],
+    ],
+    ["Sistemas Operacionais"],
+  )(admin, freshHidden);
+  const xssPage = await admin.get(editPath);
+  check(
+    "HTML no enunciado salvo aparece escapado no painel",
+    !xssPage.body.includes("<script>alert(1)</script>") &&
+      !xssPage.body.includes('<img src=x onerror="alert(2)">') &&
+      xssPage.body.includes("&lt;script&gt;alert(1)&lt;/script&gt;"),
+  );
+  const discDraft = await prisma.question.create({
+    data: {
+      examId: exam2017.id,
+      originalLabel: `${DRAFT_LABEL}-F`,
+      order: 996,
+      type: "DISCURSIVE",
+      area: "COMPONENTE_ESPECIFICO",
+      statementMd: "Discursiva de edição",
+      valuePoints: 10,
+      answerStandards: { create: { subItem: "a", maxScore: 10, criteriaMd: "padrão a" } },
+      tags: { create: { topicId: soTopic.id } },
+    },
+    select: { id: true, answerStandards: { select: { id: true } } },
+  });
+  const discPath = `/admin/questoes/${discDraft.id}`;
+  const foreignStandard = await prisma.answerStandard.findFirstOrThrow({
+    where: { questionId: { not: discDraft.id }, question: { publishedAt: { not: null } } },
+    select: { id: true, criteriaMd: true },
+  });
+  const discHidden = await formFields(admin, discPath, 'name="statementMd"');
+  const postDisc = (standards: [string, string, string, string][], hidden = discHidden) => {
+    const data = new FormData();
+    for (const [key, value] of Object.entries(hidden)) {
+      if (key !== "standardId") {
+        data.append(key, value);
+      }
+    }
+    data.set("statementMd", "Discursiva editada");
+    data.set("area", "COMPONENTE_ESPECIFICO");
+    data.set("status", "VALID");
+    data.set("valuePoints", "10");
+    data.append("topic", "Sistemas Operacionais");
+    for (const [id, subItem, maxScore, criteria] of standards) {
+      data.append("standardId", id);
+      data.append("standardSubItem", subItem);
+      data.append("standardMaxScore", maxScore);
+      data.append("standardCriteria", criteria);
+    }
+    return admin.request(discPath, { method: "POST", body: data }, { origin: BASE });
+  };
+  await postDisc([[foreignStandard.id, "a", "10", "SEQUESTRADO"]]);
+  await postDisc([
+    [discDraft.answerStandards[0].id, "a", "5", "x"],
+    ["", "a", "5", "y"],
+  ]);
+  check(
+    "item de padrão de outra questão (IDOR) e subitem repetido são recusados",
+    (await prisma.answerStandard.findUniqueOrThrow({ where: { id: foreignStandard.id } }))
+      .criteriaMd === foreignStandard.criteriaMd &&
+      (await prisma.question.findUniqueOrThrow({ where: { id: discDraft.id } })).statementMd ===
+        "Discursiva de edição",
+  );
+  await postDisc([
+    [discDraft.answerStandards[0].id, "a", "6", "padrão a editado"],
+    ["", "b", "4", "padrão b novo"],
+  ]);
+  const discStandards = await prisma.answerStandard.findMany({
+    where: { questionId: discDraft.id },
+    orderBy: { subItem: "asc" },
+    select: { id: true, subItem: true, maxScore: true, criteriaMd: true },
+  });
+  check(
+    "admin edita item existente e adiciona item novo no padrão de resposta",
+    discStandards.length === 2 &&
+      discStandards[0].id === discDraft.answerStandards[0].id &&
+      discStandards[0].criteriaMd === "padrão a editado" &&
+      discStandards[0].maxScore === 6 &&
+      discStandards[1].subItem === "b" &&
+      discStandards[1].maxScore === 4,
+    JSON.stringify(discStandards.map((item) => [item.subItem, item.maxScore])),
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });
