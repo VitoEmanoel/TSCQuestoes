@@ -4,8 +4,12 @@ import { join } from "node:path";
 const ROOT = process.cwd();
 const SCAN = ["app", "lib", "components", "auth.ts", "scripts", "prisma/seed.ts"];
 const SEED = "prisma/seed.ts";
-const TEST_USER_WRITERS = ["scripts/security/browser-check.ts", "scripts/qa/mobile-check.ts"];
-const USER_WRITERS = new Set(["app/actions/auth.ts", SEED, ...TEST_USER_WRITERS]);
+const STUDENT_ONLY_WRITERS = [
+  "auth.ts",
+  "scripts/security/browser-check.ts",
+  "scripts/qa/mobile-check.ts",
+];
+const USER_WRITERS = new Set(["app/actions/auth.ts", SEED, ...STUDENT_ONLY_WRITERS]);
 
 const RULES: { name: string; pattern: RegExp; allowed: Set<string> }[] = [
   {
@@ -65,10 +69,13 @@ function main() {
       problems.push(`app/actions/auth.ts — criação de User sem role: "STUDENT" fixo`);
     }
   }
-  for (const writer of TEST_USER_WRITERS) {
+  for (const writer of STUDENT_ONLY_WRITERS) {
     const source = readFileSync(join(ROOT, writer), "utf-8");
-    const creates = [...source.matchAll(/prisma\.user\.create\(\{[\s\S]*?\n\s*\}\);/g)];
-    if (creates.length === 0 || creates.some((create) => !/role:\s*"STUDENT"/.test(create[0]))) {
+    const starts = [...source.matchAll(/prisma\.user\.create\(/g)].map((match) => match.index ?? 0);
+    if (
+      starts.length === 0 ||
+      starts.some((start) => !/role:\s*"STUDENT"/.test(source.slice(start, start + 400)))
+    ) {
       problems.push(`${writer} — criação de User sem role: "STUDENT" fixo`);
     }
   }

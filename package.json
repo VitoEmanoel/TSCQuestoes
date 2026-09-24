@@ -24,7 +24,7 @@
     "extract:audit-figures": "tsx scripts/extract/audit-figures.ts",
     "security:check": "tsx scripts/security/check-admin-paths.ts",
     "security:attack": "tsx scripts/security/attack-suite.ts",
-    "security:serve": "next build && AUTH_URL=http://localhost:3123 SIGNUP_ALLOWED_DOMAINS=ataque.local SIGNUP_IP_LIMIT=12 next start -p 3123",
+    "security:serve": "next build && AUTH_URL=http://localhost:3123 SIGNUP_ALLOWED_DOMAINS=ataque.local SIGNUP_IP_LIMIT=12 AUTH_GOOGLE_ID=id-falso-dos-testes AUTH_GOOGLE_SECRET=segredo-falso-dos-testes next start -p 3123",
     "security:browser": "tsx scripts/security/browser-check.ts",
     "test": "tsx --test lib/*.test.ts scripts/extract/*.test.ts",
     "e2e:painel": "next build && tsx scripts/e2e/painel-importa-prova.ts",

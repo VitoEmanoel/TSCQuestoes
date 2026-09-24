@@ -1,5 +1,7 @@
+import { Prisma } from "@prisma/client";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import { normalizeEmail } from "@/lib/auth-validation";
 import {
@@ -12,6 +14,7 @@ import {
   recordFailure,
   throttleKey,
 } from "@/lib/login-throttle";
+import { allowedSignupDomains, googleIdentityAllowed } from "@/lib/institutional-email";
 import { prisma } from "@/lib/prisma";
 
 export class TooManyAttempts extends CredentialsSignin {
@@ -20,10 +23,43 @@ export class TooManyAttempts extends CredentialsSignin {
 
 const DUMMY_HASH = bcrypt.hashSync("senha-inexistente-para-tempo-constante", 10);
 
+export const googleEnabled = Boolean(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET);
+
+const GOOGLE_DENIED = "/login?erro=google";
+
+async function ensureGoogleStudent(email: string, name: string | null): Promise<boolean> {
+  const existing = await prisma.user.findUnique({ where: { email }, select: { role: true } });
+  if (existing) {
+    return existing.role === "STUDENT";
+  }
+  try {
+    await prisma.user.create({ data: { email, name, role: "STUDENT" } });
+  } catch (error) {
+    if (!(error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002")) {
+      throw error;
+    }
+  }
+  const created = await prisma.user.findUnique({ where: { email }, select: { role: true } });
+  return created?.role === "STUDENT";
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
-  pages: { signIn: "/login" },
+  pages: { signIn: "/login", error: "/login" },
   providers: [
+    ...(googleEnabled
+      ? [
+          Google({
+            checks: ["pkce", "state", "nonce"],
+            authorization: {
+              params: {
+                prompt: "select_account",
+                ...(allowedSignupDomains().length === 1 ? { hd: allowedSignupDomains()[0] } : {}),
+              },
+            },
+          }),
+        ]
+      : []),
     Credentials({
       credentials: {
         email: {},
@@ -73,7 +109,39 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
+    signIn: async ({ account, profile }) => {
+      if (account?.provider !== "google") {
+        return true;
+      }
+      const email = typeof profile?.email === "string" ? profile.email.toLowerCase() : null;
+      const allowed = googleIdentityAllowed(
+        {
+          email,
+          emailVerified: profile?.email_verified === true,
+          hostedDomain: typeof profile?.hd === "string" ? profile.hd : null,
+        },
+        allowedSignupDomains(),
+      );
+      if (!allowed || !email) {
+        return GOOGLE_DENIED;
+      }
+      const name = typeof profile?.name === "string" ? profile.name.slice(0, 100) : null;
+      return (await ensureGoogleStudent(email, name)) ? true : GOOGLE_DENIED;
+    },
+    jwt: async ({ token, user, account, profile }) => {
+      if (account?.provider === "google") {
+        const email = typeof profile?.email === "string" ? profile.email.toLowerCase() : "";
+        const dbUser = await prisma.user.findUnique({
+          where: { email },
+          select: { id: true, role: true },
+        });
+        if (!dbUser || dbUser.role !== "STUDENT") {
+          return null;
+        }
+        token.sub = dbUser.id;
+        token.role = dbUser.role;
+        return token;
+      }
       if (user) {
         token.role = user.role;
       }

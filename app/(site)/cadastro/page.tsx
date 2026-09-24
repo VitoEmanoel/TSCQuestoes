@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { googleEnabled } from "@/auth";
 import { AuthCard } from "@/components/auth-card";
+import { GoogleButton } from "@/components/google-button";
 import { SignupForm } from "@/components/signup-form";
 import { getCurrentUser } from "@/lib/dal";
 import { allowedSignupDomains, describeDomains } from "@/lib/institutional-email";
@@ -14,6 +16,11 @@ export default async function SignupPage() {
 
   return (
     <AuthCard title="Criar conta" subtitle="Conta de estudante, de graça. Leva um minuto.">
+      {googleEnabled ? (
+        <div className="mb-5">
+          <GoogleButton callbackUrl="/" label="Criar conta com Google" />
+        </div>
+      ) : null}
       <SignupForm
         emailHint={
           allowedSignupDomains().length > 0

@@ -178,3 +178,7 @@ export async function confirmSignup(
 export async function logout() {
   await signOut({ redirectTo: "/" });
 }
+
+export async function googleSignIn(formData: FormData): Promise<void> {
+  await signIn("google", { redirectTo: safeRedirectPath(formData.get("callbackUrl")) });
+}

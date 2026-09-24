@@ -173,7 +173,7 @@ async function main() {
     await page.evaluate(`(() => {
       document.querySelector('#email').value = ${JSON.stringify(TEST_EMAIL)};
       document.querySelector('#password').value = ${JSON.stringify(TEST_PASSWORD)};
-      document.querySelector('main form').requestSubmit();
+      document.querySelector('#password').form.requestSubmit();
     })()`);
     const loggedIn = await page.waitFor(
       "document.querySelector('header')?.textContent.includes('Sair')",
@@ -592,7 +592,7 @@ async function main() {
       await page.evaluate(`(() => {
         document.querySelector('#email').value = ${JSON.stringify(email)};
         document.querySelector('#password').value = ${JSON.stringify(password)};
-        document.querySelector('main form').requestSubmit();
+        document.querySelector('#password').form.requestSubmit();
       })()`);
       return page.waitFor("document.querySelector('header')?.textContent.includes('Sair')", 15_000);
     };

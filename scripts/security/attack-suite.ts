@@ -747,6 +747,11 @@ async function main() {
     check(`CSP contém ${directive}`, csp.includes(directive));
   }
   check(
+    "form-action só libera o próprio site e o login do Google",
+    csp.match(/form-action ([^;]*)/)?.[1].trim() === "'self' https://accounts.google.com",
+    csp.match(/form-action ([^;]*)/)?.[0],
+  );
+  check(
     "CSP de produção não libera 'unsafe-inline' nem 'unsafe-eval' para scripts",
     !/script-src[^;]*'unsafe-(inline|eval)'/.test(csp),
   );
@@ -2142,6 +2147,49 @@ async function main() {
     classroomReplies.slice(0, 12).every((text) => text.includes("Verifique seu e-mail")) &&
       classroomReplies[12].includes("Muitas solicitações de cadastro a partir desta rede") &&
       (await prisma.pendingSignup.count({ where: { email: { in: classroomEmails } } })) === 12,
+  );
+
+  group("Entrar com Google");
+  const googleVisitor = new Client("10.75.0.1");
+  const [googleLoginPage, googleSignupPage, adminLoginPage] = await Promise.all([
+    googleVisitor.get("/login"),
+    googleVisitor.get("/cadastro"),
+    googleVisitor.get("/admin/entrar"),
+  ]);
+  check(
+    "botão do Google aparece no login e no cadastro do estudante, nunca na tela do admin",
+    pageText(googleLoginPage.body).includes("Continuar com Google") &&
+      pageText(googleSignupPage.body).includes("Criar conta com Google") &&
+      !adminLoginPage.body.includes("Google"),
+  );
+  reply = await googleVisitor.submitForm("/login", "Continuar com Google", {
+    callbackUrl: "/historico",
+  });
+  const googleUrl = reply.location.startsWith("https://") ? new URL(reply.location) : null;
+  check(
+    "o botão leva ao Google pedindo a conta do domínio, escolha de conta, state e PKCE",
+    googleUrl?.origin === "https://accounts.google.com" &&
+      googleUrl.searchParams.get("client_id") === "id-falso-dos-testes" &&
+      googleUrl.searchParams.get("hd") === "ataque.local" &&
+      googleUrl.searchParams.get("prompt") === "select_account" &&
+      googleUrl.searchParams.get("redirect_uri") === `${BASE}/api/auth/callback/google` &&
+      Boolean(googleUrl.searchParams.get("state")) &&
+      Boolean(googleUrl.searchParams.get("nonce")) &&
+      googleUrl.searchParams.get("code_challenge_method") === "S256",
+    reply.location.slice(0, 140),
+  );
+  const forger = new Client("10.75.0.2");
+  reply = await forger.get("/api/auth/callback/google?code=codigo-forjado&state=state-forjado");
+  const forgedSession = await forger.session();
+  check(
+    "volta do Google forjada (sem o state/PKCE certos) não cria sessão",
+    forgedSession === null && reply.status >= 300 && reply.status < 400,
+    `${reply.status} → ${reply.location}`,
+  );
+  const googleError = await googleVisitor.get("/login?erro=google");
+  check(
+    "erro do Google explica que precisa da conta institucional",
+    pageText(googleError.body).includes("Use sua conta institucional (@ataque.local)"),
   );
 
   group("Portais de login (estudante × administrador)");
