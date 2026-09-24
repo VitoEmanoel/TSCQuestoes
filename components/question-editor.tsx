@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { type QuestionEditorState, saveQuestionAction } from "@/app/actions/admin";
 import { parseRichText } from "@/lib/rich-text";
+import { buttonPrimary } from "@/components/ui";
 
 type Standard = {
   key: string;
@@ -34,7 +35,7 @@ type EditorQuestion = {
 };
 
 const FIELD =
-  "rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-accent focus:ring-4 focus:ring-accent/15 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 ";
+  "rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors focus:border-accent focus:ring-4 focus:ring-accent/15 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
 
 function numberText(value: number | null): string {
   return value === null ? "" : String(value).replace(".", ",");
@@ -131,11 +132,7 @@ export function QuestionEditor({
             <code>|</code>. Código: entre linhas com <code>```</code>. Imagem: escreva{" "}
             <code>(ver imagem anexa: descrição)</code> onde a figura deve aparecer.
           </p>
-          <p
-            className={
-              markers > question.assetCount ? "font-medium text-red-700 dark:text-red-400" : ""
-            }
-          >
+          <p className={markers > question.assetCount ? "text-alert font-medium" : ""}>
             Marcadores de imagem no texto: {markers} · imagens anexadas: {question.assetCount}
             {markers > question.assetCount
               ? " — há marcador sem imagem; o aluno verá um aviso no lugar."
@@ -247,14 +244,18 @@ export function QuestionEditor({
                   touch(setOptions)({ ...options, [letter]: event.target.value })
                 }
                 aria-label={`Texto da alternativa ${letter}`}
-                className={`${FIELD} w-full ${correct === letter ? "border-emerald-500 dark:border-emerald-600" : ""}`}
+                className={`${FIELD} w-full ${correct === letter ? "border-accent ring-accent/20 ring-2" : ""}`}
               />
             </div>
           ))}
           {status === "ANULADA" ? (
             <p className="text-xs text-zinc-600 dark:text-zinc-400">
               Questão anulada pode ficar sem alternativa correta.{" "}
-              <button type="button" onClick={() => touch(setCorrect)("")} className="underline">
+              <button
+                type="button"
+                onClick={() => touch(setCorrect)("")}
+                className="text-accent underline-offset-4 hover:underline"
+              >
                 Desmarcar correta
               </button>
             </p>
@@ -353,21 +354,17 @@ export function QuestionEditor({
         </fieldset>
       )}
 
-      <div className="sticky bottom-0 flex flex-wrap items-center gap-3 border-t border-zinc-200 bg-white/95 py-3 dark:border-zinc-800 dark:bg-zinc-950/95">
-        <button
-          type="submit"
-          disabled={pending}
-          className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-5 font-medium transition-colors disabled:opacity-60"
-        >
+      <div className="bg-background/95 sticky bottom-0 z-10 flex flex-wrap items-center gap-3 border-t border-zinc-200 py-3 backdrop-blur dark:border-zinc-800">
+        <button type="submit" disabled={pending} className={buttonPrimary}>
           {pending ? "Salvando..." : "Salvar alterações"}
         </button>
         <span aria-live="polite" className="text-sm">
           {state.error ? (
-            <span role="alert" className="text-red-700 dark:text-red-400">
+            <span role="alert" className="text-alert">
               {state.error}
             </span>
           ) : dirty ? (
-            <span className="text-amber-700 dark:text-amber-400">Alterações não salvas.</span>
+            <span className="text-zinc-600 dark:text-zinc-400">● Alterações não salvas.</span>
           ) : null}
         </span>
       </div>

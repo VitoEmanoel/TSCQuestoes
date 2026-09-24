@@ -15,6 +15,15 @@ import { adminQuestion, allTopics } from "@/lib/admin-questions";
 import { resolveAssets } from "@/lib/assets";
 import { requireAdmin } from "@/lib/dal";
 import { AREA_LABEL, questionTitle, TYPE_LABEL } from "@/lib/questions";
+import {
+  backLink,
+  buttonDanger,
+  dangerPanel,
+  noticeError,
+  noticeSuccess,
+  panel,
+  pill,
+} from "@/components/ui";
 
 export const metadata: Metadata = { title: "Editar questão — Painel" };
 
@@ -41,7 +50,7 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8">
-      <Link href={`/admin/provas/${question.examId}`} className="tap text-sm underline">
+      <Link href={`/admin/provas/${question.examId}`} className={backLink}>
         ← Voltar às questões da prova
       </Link>
       <header className="flex flex-col gap-2">
@@ -51,30 +60,20 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
             {TYPE_LABEL[question.type]}
           </span>
           {question.publishedAt ? (
-            <span className="rounded-full bg-emerald-100 px-2 py-0.5 font-medium text-emerald-900 dark:bg-emerald-900/40 dark:text-emerald-200">
-              Publicada
-            </span>
+            <span className={pill.accent}>Publicada</span>
           ) : (
-            <span className="rounded-full bg-zinc-200 px-2 py-0.5 font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
-              Rascunho
-            </span>
+            <span className={pill.neutral}>Rascunho</span>
           )}
         </div>
         <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">Editar: {title}</h1>
         <RenameQuestionForm questionId={question.id} label={question.originalLabel} />
         {nova === "1" ? (
-          <p
-            role="status"
-            className="bg-accent-soft rounded-md px-3 py-2 text-sm text-zinc-800 dark:text-zinc-200"
-          >
+          <p role="status" className={noticeSuccess}>
             Questão criada como rascunho. Escreva o enunciado, preencha o resto e salve.
           </p>
         ) : null}
         {erro === "em-uso" || erro === "confirmacao" ? (
-          <p
-            role="alert"
-            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-200"
-          >
+          <p role="alert" className={noticeError}>
             {erro === "em-uso"
               ? "Não dá para excluir: esta questão já foi usada por alunos. Volte-a para rascunho para tirá-la da vista deles."
               : "Marque a confirmação para excluir a questão."}
@@ -91,24 +90,24 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
             .
           </p>
         ) : (
-          <p className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm font-medium text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-200">
-            Não revisada: esta questão veio do cadastro automático. Confira tudo com a prova
-            original e salve para marcá-la como revisada.
+          <p className={noticeError}>
+            <strong className="text-alert">Não revisada:</strong> Esta questão veio do cadastro
+            automático. Confira tudo com a prova original e salve para marcá-la como revisada.
           </p>
         )}
         {question.publishedAt ? (
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Esta questão está publicada: ao salvar, os alunos já passam a ver a versão nova.{" "}
-            <Link href={`/questoes/${question.id}`} className="underline">
+            <Link
+              href={`/questoes/${question.id}`}
+              className="text-accent underline-offset-4 hover:underline"
+            >
               Ver como o aluno vê
             </Link>
           </p>
         ) : null}
         {salvo === "1" ? (
-          <p
-            role="status"
-            className="rounded-md border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
-          >
+          <p role="status" className={noticeSuccess}>
             Alterações salvas às{" "}
             {question.updatedAt.toLocaleTimeString("pt-BR", {
               hour: "2-digit",
@@ -119,18 +118,12 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
           </p>
         ) : null}
         {imagem === "ok" ? (
-          <p
-            role="status"
-            className="rounded-md border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
-          >
+          <p role="status" className={noticeSuccess}>
             Imagem enviada.
           </p>
         ) : null}
         {imageError ? (
-          <p
-            role="alert"
-            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm font-medium text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-200"
-          >
+          <p role="alert" className={noticeError}>
             {imageError}
           </p>
         ) : null}
@@ -170,8 +163,11 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
           topics={topics}
         />
         <aside className="flex flex-col gap-3">
-          <h2 className="font-semibold">Pré-visualização (versão salva)</h2>
-          <div className="flex flex-col gap-4 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
+          <h2 className="text-lg font-semibold">Pré-visualização</h2>
+          <p className="-mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            Versão salva, como o aluno vê.
+          </p>
+          <div className={`${panel} flex flex-col gap-4`}>
             <RichText source={question.statementMd} assets={assets} />
             {question.type === "OBJECTIVE" ? (
               <ul className="flex flex-col gap-2">
@@ -180,7 +176,7 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
                     key={option.letter}
                     className={`flex gap-3 rounded-lg border p-3 ${
                       option.isCorrect
-                        ? "border-emerald-500 bg-emerald-50 dark:border-emerald-600 dark:bg-emerald-950"
+                        ? "border-accent bg-accent-soft"
                         : "border-zinc-200 dark:border-zinc-800"
                     }`}
                   >
@@ -223,11 +219,8 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
           ))}
         </div>
       </section>
-      <section
-        aria-labelledby="excluir"
-        className="flex flex-col gap-2 rounded-xl border border-red-200 p-4 dark:border-red-900"
-      >
-        <h2 id="excluir" className="font-semibold text-red-800 dark:text-red-300">
+      <section aria-labelledby="excluir" className={dangerPanel}>
+        <h2 id="excluir" className="text-alert text-lg font-semibold">
           Excluir questão
         </h2>
         {usage.total === 0 ? (
@@ -237,10 +230,7 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
               <input type="checkbox" name="confirmacao" value="sim" required />
               Apagar de vez esta questão, as alternativas, o padrão e as imagens dela
             </label>
-            <button
-              type="submit"
-              className="inline-flex min-h-11 items-center rounded-lg border border-red-400 px-4 font-medium text-red-800 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-950"
-            >
+            <button type="submit" className={buttonDanger}>
               Excluir questão
             </button>
           </form>

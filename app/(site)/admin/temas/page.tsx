@@ -3,6 +3,7 @@ import Link from "next/link";
 import { NewTopicForm, TopicRow } from "@/components/topic-admin";
 import { topicsWithUsage } from "@/lib/admin-topics";
 import { requireAdmin } from "@/lib/dal";
+import { backLink } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Temas — Painel" };
 
@@ -12,10 +13,7 @@ export default async function AdminTopicsPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-10">
-      <Link
-        href="/admin"
-        className="tap text-sm text-zinc-600 underline-offset-4 hover:underline dark:text-zinc-400"
-      >
+      <Link href="/admin" className={backLink}>
         ← Voltar ao painel
       </Link>
       <header className="flex flex-col gap-2">

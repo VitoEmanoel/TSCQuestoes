@@ -7,17 +7,16 @@ import {
   renameTopicAction,
   type TopicState,
 } from "@/app/actions/admin-topics";
+import { buttonDanger, buttonPrimary, buttonSecondary, inputBox, inputTone } from "@/components/ui";
 
-const FIELD =
-  "min-h-11 rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
-const SECONDARY =
-  "inline-flex min-h-11 items-center justify-center rounded-lg border border-zinc-300 px-4 text-sm font-medium transition-colors hover:bg-zinc-100 disabled:opacity-60 dark:border-zinc-700 dark:hover:bg-zinc-900";
+const FIELD = `${inputBox} ${inputTone.default} max-w-full text-sm`;
+const SECONDARY = `${buttonSecondary} text-sm`;
 
 function Feedback({ state }: { state: TopicState }) {
   return (
     <span aria-live="polite" className="w-full text-sm">
       {state.error ? (
-        <span role="alert" className="text-red-700 dark:text-red-400">
+        <span role="alert" className="text-alert">
           {state.error}
         </span>
       ) : state.saved ? (
@@ -48,11 +47,7 @@ export function NewTopicForm() {
           <option>Formação Geral</option>
         </select>
       </label>
-      <button
-        type="submit"
-        disabled={pending}
-        className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-5 text-sm font-medium transition-colors disabled:opacity-60"
-      >
+      <button type="submit" disabled={pending} className={`${buttonPrimary} text-sm`}>
         {pending ? "Criando..." : "Criar tema"}
       </button>
       <Feedback state={state} />
@@ -116,11 +111,7 @@ export function TopicRow({
           {total === 0 ? (
             <form action={deleteAction}>
               <input type="hidden" name="topicId" value={id} />
-              <button
-                type="submit"
-                disabled={deleting}
-                className="inline-flex min-h-11 items-center rounded-lg border border-red-300 px-4 text-sm font-medium text-red-800 hover:bg-red-50 disabled:opacity-60 dark:border-red-800 dark:text-red-300 dark:hover:bg-red-950"
-              >
+              <button type="submit" disabled={deleting} className={`${buttonDanger} min-h-11 px-4`}>
                 Excluir
               </button>
             </form>

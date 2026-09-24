@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { type ManageState, renameQuestionAction } from "@/app/actions/admin-manage";
+import { buttonSecondary, inputBox, inputTone } from "@/components/ui";
 
 export function RenameQuestionForm({ questionId, label }: { questionId: string; label: string }) {
   const [state, action, pending] = useActionState<ManageState, FormData>(renameQuestionAction, {});
@@ -14,19 +15,15 @@ export function RenameQuestionForm({ questionId, label }: { questionId: string; 
           name="numero"
           defaultValue={state.saved ?? label}
           required
-          className="min-h-11 w-28 rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+          className={`${inputBox} ${inputTone.default} w-28 text-sm`}
         />
       </label>
-      <button
-        type="submit"
-        disabled={pending}
-        className="inline-flex min-h-11 items-center justify-center rounded-lg border border-zinc-300 px-4 font-medium transition-colors hover:bg-zinc-100 disabled:opacity-60 dark:border-zinc-700 dark:hover:bg-zinc-900"
-      >
+      <button type="submit" disabled={pending} className={`${buttonSecondary} text-sm`}>
         {pending ? "Salvando..." : "Trocar número"}
       </button>
       <span aria-live="polite" className="w-full">
         {state.error ? (
-          <span role="alert" className="text-red-700 dark:text-red-400">
+          <span role="alert" className="text-alert">
             {state.error}
           </span>
         ) : state.saved ? (

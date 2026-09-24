@@ -2,6 +2,13 @@
 
 import Image from "next/image";
 import { type PointerEvent as ReactPointerEvent, useRef, useState } from "react";
+import {
+  buttonSmall,
+  buttonSmallSecondary,
+  inputBase,
+  inputTone,
+  textError,
+} from "@/components/ui";
 
 const MAX_BYTES = 2 * 1024 * 1024;
 const MIN_FRACTION = 0.03;
@@ -11,10 +18,8 @@ type Rect = { x: number; y: number; w: number; h: number };
 type Handle = "move" | "nw" | "ne" | "sw" | "se";
 type Source = { src: string; width: number; height: number };
 
-const SECONDARY =
-  "inline-flex min-h-11 items-center justify-center rounded-lg border border-zinc-300 px-4 text-sm font-medium transition-colors hover:bg-zinc-100 disabled:opacity-60 dark:border-zinc-700 dark:hover:bg-zinc-900";
-const PRIMARY =
-  "inline-flex min-h-11 items-center justify-center rounded-lg bg-accent px-4 text-sm font-medium text-accent-contrast transition-colors hover:bg-accent-hover disabled:opacity-60";
+const SECONDARY = buttonSmallSecondary;
+const PRIMARY = buttonSmall;
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
@@ -216,7 +221,7 @@ export function ImageCropUpload({
       action={action}
       method="post"
       encType="multipart/form-data"
-      className="flex flex-col gap-3"
+      className={`flex flex-col gap-3 ${editing ? "basis-full" : ""}`}
     >
       {answerStandardId ? <input type="hidden" name="item" value={answerStandardId} /> : null}
       {replaceAssetId ? <input type="hidden" name="substituir" value={replaceAssetId} /> : null}
@@ -224,7 +229,8 @@ export function ImageCropUpload({
         <input ref={fileRef} type="file" name="arquivo" hidden tabIndex={-1} aria-hidden="true" />
       ) : (
         <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium">Adicionar imagem (PNG ou JPEG, até 2 MB)</span>
+          <span className="font-medium">Adicionar imagem</span>
+          <span className="text-xs text-zinc-600 dark:text-zinc-400">PNG ou JPEG, até 2 MB.</span>
           <input
             ref={fileRef}
             type="file"
@@ -232,7 +238,7 @@ export function ImageCropUpload({
             accept="image/png,image/jpeg"
             required
             onChange={(event) => pick(event.target.files?.[0])}
-            className="min-h-6 text-sm"
+            className="min-h-6 text-sm text-zinc-600 file:mr-3 file:min-h-9 file:rounded-lg file:border file:border-zinc-300 file:bg-transparent file:px-3 file:text-sm file:font-medium file:text-zinc-900 dark:text-zinc-400 dark:file:border-zinc-700 dark:file:text-zinc-100"
           />
         </label>
       )}
@@ -259,12 +265,12 @@ export function ImageCropUpload({
           <input
             name="legenda"
             maxLength={captionMaxLength}
-            className="rounded-lg border border-zinc-300 bg-white px-2 py-1 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+            className={`${inputBase} ${inputTone.default} min-h-9 text-sm`}
           />
         </label>
       ) : null}
       {error ? (
-        <p role="alert" className="text-sm text-red-700 dark:text-red-400">
+        <p role="alert" className={textError}>
           {error}
         </p>
       ) : null}

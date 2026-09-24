@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { type PublishState, setPublishedAction } from "@/app/actions/admin-publish";
+import { buttonDanger, buttonSmall, panel } from "@/components/ui";
 
 export function PublishControls({
   questionId,
@@ -18,10 +19,7 @@ export function PublishControls({
   const shownProblems = state.problems ?? (published ? [] : problems);
 
   return (
-    <section
-      aria-label="Publicação"
-      className="flex flex-col gap-2 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800"
-    >
+    <section aria-label="Publicação" className={`${panel} flex flex-col gap-2`}>
       <form action={action} className="flex flex-wrap items-center gap-3">
         <input type="hidden" name="questionId" value={questionId} />
         {published ? (
@@ -34,11 +32,7 @@ export function PublishControls({
               <input type="checkbox" name="confirmacao" value="sim" required />
               Tirar dos alunos (voltar para rascunho)
             </label>
-            <button
-              type="submit"
-              disabled={pending}
-              className="rounded-md border border-red-300 px-3 py-1.5 text-sm font-medium text-red-800 hover:bg-red-50 disabled:opacity-60 dark:border-red-800 dark:text-red-300 dark:hover:bg-red-950"
-            >
+            <button type="submit" disabled={pending} className={buttonDanger}>
               {pending ? "Salvando..." : "Voltar para rascunho"}
             </button>
           </>
@@ -48,11 +42,7 @@ export function PublishControls({
             <span className="text-sm">
               <strong>Rascunho:</strong> só o administrador vê esta questão.
             </span>
-            <button
-              type="submit"
-              disabled={pending || problems.length > 0}
-              className="rounded-md bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
-            >
+            <button type="submit" disabled={pending || problems.length > 0} className={buttonSmall}>
               {pending ? "Publicando..." : "Publicar para os alunos"}
             </button>
           </>
@@ -67,19 +57,19 @@ export function PublishControls({
       ) : null}
       <div aria-live="polite" className="text-sm">
         {state.error ? (
-          <p role="alert" className="text-red-700 dark:text-red-400">
+          <p role="alert" className="text-alert">
             {state.error}
           </p>
         ) : null}
         {state.done === "publicada" ? (
-          <p className="text-emerald-700 dark:text-emerald-400">Questão publicada.</p>
+          <p className="text-accent font-medium">Questão publicada.</p>
         ) : state.done === "rascunho" ? (
-          <p className="text-amber-700 dark:text-amber-400">Questão voltou para rascunho.</p>
+          <p className="font-medium">Questão voltou para rascunho.</p>
         ) : null}
       </div>
       {shownProblems.length > 0 ? (
-        <div className="text-sm text-amber-900 dark:text-amber-200">
-          <p className="font-medium">Para publicar, corrija antes:</p>
+        <div className="text-sm">
+          <p className="text-alert font-medium">Para publicar, corrija antes:</p>
           <ul className="list-inside list-disc">
             {shownProblems.map((problem) => (
               <li key={problem}>{problem}</li>

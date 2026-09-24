@@ -2,14 +2,14 @@
 
 import { useActionState } from "react";
 import { createQuestionAction, type ManageState } from "@/app/actions/admin-manage";
+import { buttonPrimary, inputBox, inputTone, textError } from "@/components/ui";
 
-const FIELD =
-  "min-h-11 rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
+const FIELD = `${inputBox} ${inputTone.default} text-sm`;
 
 export function NewQuestionForm({ examId }: { examId: string }) {
   const [state, action, pending] = useActionState<ManageState, FormData>(createQuestionAction, {});
   return (
-    <details className="group rounded-lg border border-zinc-200 px-4 py-3 dark:border-zinc-800">
+    <details className="group rounded-xl border border-dashed border-zinc-300 px-4 py-3 dark:border-zinc-700">
       <summary className="tap cursor-pointer list-none text-sm font-medium">
         <span className="text-accent">+ Nova questão</span>
       </summary>
@@ -33,15 +33,11 @@ export function NewQuestionForm({ examId }: { examId: string }) {
             <option value="FORMACAO_GERAL">Formação Geral</option>
           </select>
         </label>
-        <button
-          type="submit"
-          disabled={pending}
-          className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-5 text-sm font-medium transition-colors disabled:opacity-60"
-        >
+        <button type="submit" disabled={pending} className={`${buttonPrimary} text-sm`}>
           {pending ? "Criando..." : "Criar como rascunho"}
         </button>
         {state.error ? (
-          <p role="alert" className="w-full text-sm text-red-700 dark:text-red-400">
+          <p role="alert" className={`${textError} w-full`}>
             {state.error}
           </p>
         ) : null}
