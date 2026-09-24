@@ -34,9 +34,12 @@ with_env() {
 }
 
 install -m 0644 "$HERE/tscquestoes.service" "$HERE/tscquestoes-backup.service" \
-  "$HERE/tscquestoes-backup.timer" /etc/systemd/system/
+  "$HERE/tscquestoes-backup.timer" "$HERE/tscquestoes-firewall.service" /etc/systemd/system/
 install -m 0755 "$HERE/backup.sh" "$BASE/backup.sh"
+install -m 0644 "$HERE/firewall.nft" /etc/tscquestoes/firewall.nft
 systemctl daemon-reload
+systemctl enable tscquestoes-firewall.service >/dev/null
+systemctl restart tscquestoes-firewall.service
 
 chown -R root:root "$HERE"
 chmod -R u=rwX,go=rX "$HERE"

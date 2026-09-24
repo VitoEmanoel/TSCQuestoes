@@ -14,7 +14,7 @@ if [[ "$(id -u)" != "0" ]]; then
 fi
 
 apt-get update -qq
-apt-get install -y -qq curl ca-certificates xz-utils openssl postgresql-client >/dev/null
+DEBIAN_FRONTEND=noninteractive apt-get install -y -qq curl ca-certificates xz-utils openssl postgresql-client nftables >/dev/null
 
 ARCH="$(uname -m)"
 case "$ARCH" in
@@ -67,12 +67,15 @@ if [[ ! -x "$BASE/ferramentas/node_modules/.bin/prisma" ]] ||
     /usr/local/bin/npm install --no-audit --no-fund --silent "prisma@${PRISMA_VERSION}")
 fi
 
+install -m 0644 "$HERE/firewall.nft" "$CONF/firewall.nft"
+install -m 0644 "$HERE/tscquestoes-firewall.service" /etc/systemd/system/tscquestoes-firewall.service
 install -m 0644 "$HERE/tscquestoes.service" /etc/systemd/system/tscquestoes.service
 install -m 0644 "$HERE/tscquestoes-backup.service" /etc/systemd/system/tscquestoes-backup.service
 install -m 0644 "$HERE/tscquestoes-backup.timer" /etc/systemd/system/tscquestoes-backup.timer
 install -m 0755 "$HERE/backup.sh" "$BASE/backup.sh"
 systemctl daemon-reload
-systemctl enable tscquestoes.service tscquestoes-backup.timer >/dev/null
+systemctl enable tscquestoes.service tscquestoes-backup.timer tscquestoes-firewall.service >/dev/null
+systemctl restart tscquestoes-firewall.service
 systemctl start tscquestoes-backup.timer
 
 echo "Servidor preparado."

@@ -1,0 +1,11 @@
+table inet tscquestoes
+delete table inet tscquestoes
+
+table inet tscquestoes {
+	chain entrada {
+		type filter hook input priority filter; policy accept;
+		tcp dport 80 ip saddr { 10.10.10.21, 127.0.0.1 } accept
+		tcp dport 80 ip6 saddr ::1 accept
+		tcp dport 80 drop
+	}
+}

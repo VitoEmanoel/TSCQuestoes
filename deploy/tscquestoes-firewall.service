@@ -1,0 +1,13 @@
+[Unit]
+Description=Firewall do TSCQuestões (porta 80 só pelo proxy da LES)
+Before=tscquestoes.service
+After=network-pre.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/nft -f /etc/tscquestoes/firewall.nft
+ExecStop=/usr/sbin/nft delete table inet tscquestoes
+
+[Install]
+WantedBy=multi-user.target
