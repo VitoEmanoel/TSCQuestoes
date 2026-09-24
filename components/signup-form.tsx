@@ -7,7 +7,7 @@ import { type AuthFormState, PASSWORD_MIN_LENGTH } from "@/lib/auth-validation";
 import { FormField } from "@/components/form-field";
 import { buttonPrimary } from "@/components/ui";
 
-export function SignupForm() {
+export function SignupForm({ emailHint }: { emailHint?: string }) {
   const [state, action, pending] = useActionState<AuthFormState, FormData>(signup, {});
 
   if (state.sentTo) {
@@ -44,6 +44,7 @@ export function SignupForm() {
         autoComplete="email"
         defaultValue={state.values?.email}
         error={state.errors?.email}
+        hint={emailHint}
       />
       <FormField
         id="password"

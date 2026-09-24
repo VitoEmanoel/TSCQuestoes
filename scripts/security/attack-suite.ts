@@ -2097,6 +2097,53 @@ async function main() {
     blocked.every((response) => response.status === 404 && !response.body.includes("statementMd")),
     blocked.map((response) => response.status).join(","),
   );
+  group("Cadastro institucional e limites");
+  const pendingFor = (email: string) => prisma.pendingSignup.count({ where: { email } });
+  const signupAs = (client: Client, email: string) =>
+    client.submit("/cadastro", {
+      name: "Teste Institucional",
+      email,
+      password: "senhaInstitucional1",
+      confirmPassword: "senhaInstitucional1",
+    });
+  const outsider = new Client("10.74.0.1");
+  reply = await signupAs(outsider, "alguem@gmail.com");
+  check(
+    "e-mail de fora do domínio institucional é recusado com a mensagem certa",
+    pageText(reply.body).includes("Use seu e-mail institucional (@ataque.local)") &&
+      (await pendingFor("alguem@gmail.com")) === 0,
+  );
+  const tricks = [
+    "fulano@ataque.local.site-falso.com",
+    "fulano@sub.ataque.local",
+    "fulano@аtaque.local",
+  ];
+  for (const email of tricks) {
+    await signupAs(outsider, email);
+  }
+  check(
+    "e-mails com truque (domínio real no fim, subdomínio, letra de outro alfabeto) são recusados",
+    (await prisma.pendingSignup.count({ where: { email: { in: tricks } } })) === 0,
+  );
+  check(
+    "a tela de cadastro mostra qual e-mail usar",
+    pageText((await outsider.get("/cadastro")).body).includes(
+      "Use seu e-mail institucional (@ataque.local)",
+    ),
+  );
+  const classroom = new Client("10.74.0.2");
+  const classroomEmails = Array.from({ length: 13 }, (_, index) => `turma${index}${TEST_DOMAIN}`);
+  const classroomReplies = [];
+  for (const email of classroomEmails) {
+    classroomReplies.push(pageText((await signupAs(classroom, email)).body));
+  }
+  check(
+    "limite de cadastros por rede vem do .env (12 no teste): 12 passam, o 13º é barrado",
+    classroomReplies.slice(0, 12).every((text) => text.includes("Verifique seu e-mail")) &&
+      classroomReplies[12].includes("Muitas solicitações de cadastro a partir desta rede") &&
+      (await prisma.pendingSignup.count({ where: { email: { in: classroomEmails } } })) === 12,
+  );
+
   group("Portais de login (estudante × administrador)");
   const adminEmail = process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local";
   const adminPassword = process.env.ADMIN_SEED_PASSWORD ?? "admin123";

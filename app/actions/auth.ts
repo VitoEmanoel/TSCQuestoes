@@ -13,6 +13,7 @@ import {
   SIGNUP_IP_POLICY,
   throttleKey,
 } from "@/lib/login-throttle";
+import { allowedSignupDomains, isAllowedEmail } from "@/lib/institutional-email";
 import { prisma } from "@/lib/prisma";
 import {
   createPendingSignup,
@@ -73,7 +74,7 @@ export async function adminLogin(
 }
 
 export async function signup(_state: AuthFormState, formData: FormData): Promise<AuthFormState> {
-  const result = validateSignup(formData);
+  const result = validateSignup(formData, allowedSignupDomains());
   if (!result.ok) {
     return result.state;
   }
@@ -124,7 +125,7 @@ export async function confirmSignup(
   }
 
   const pending = await findPendingSignup(token);
-  if (!pending) {
+  if (!pending || !isAllowedEmail(pending.email, allowedSignupDomains())) {
     return { message: "Este link é inválido ou expirou. Faça o cadastro novamente." };
   }
 

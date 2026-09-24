@@ -34,8 +34,13 @@ export const IP_POLICY: ThrottlePolicy = {
   lockMemoryMs: 24 * 60 * MINUTE,
 };
 
+function limitFromEnv(name: string, fallback: number): number {
+  const value = Number(process.env[name]);
+  return Number.isInteger(value) && value >= 1 && value <= 10_000 ? value : fallback;
+}
+
 export const SIGNUP_EMAIL_POLICY: ThrottlePolicy = {
-  maxFailures: 3,
+  maxFailures: limitFromEnv("SIGNUP_EMAIL_LIMIT", 3),
   windowMs: 60 * MINUTE,
   baseLockMs: 60 * MINUTE,
   maxLockMs: 24 * 60 * MINUTE,
@@ -43,7 +48,7 @@ export const SIGNUP_EMAIL_POLICY: ThrottlePolicy = {
 };
 
 export const SIGNUP_IP_POLICY: ThrottlePolicy = {
-  maxFailures: 10,
+  maxFailures: limitFromEnv("SIGNUP_IP_LIMIT", 60),
   windowMs: 60 * MINUTE,
   baseLockMs: 60 * MINUTE,
   maxLockMs: 24 * 60 * MINUTE,

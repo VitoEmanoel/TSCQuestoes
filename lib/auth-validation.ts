@@ -11,6 +11,8 @@ export type SignupInput = {
   password: string;
 };
 
+import { describeDomains, isAllowedEmail } from "@/lib/institutional-email";
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const PASSWORD_MIN_LENGTH = 8;
@@ -25,6 +27,7 @@ function readText(value: FormDataEntryValue | null): string {
 
 export function validateSignup(
   formData: FormData,
+  allowedDomains: string[] = [],
 ): { ok: true; data: SignupInput } | { ok: false; state: AuthFormState } {
   const name = readText(formData.get("name")).trim().replace(/\s+/g, " ");
   const email = normalizeEmail(formData.get("email"));
@@ -40,6 +43,8 @@ export function validateSignup(
 
   if (!EMAIL_PATTERN.test(email)) {
     errors.email = "Informe um e-mail válido.";
+  } else if (!isAllowedEmail(email, allowedDomains)) {
+    errors.email = `Use seu e-mail institucional (${describeDomains(allowedDomains)}).`;
   }
 
   if (password.length < PASSWORD_MIN_LENGTH) {
