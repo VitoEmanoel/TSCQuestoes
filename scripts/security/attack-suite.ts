@@ -1856,6 +1856,14 @@ async function main() {
     }
     return totals;
   };
+  const dashboardSection = (html: string) => {
+    const text = pageText(html);
+    return text.slice(
+      text.indexOf("Olá"),
+      text.indexOf("Questões Resolva") > 0 ? text.indexOf("Questões Resolva") : undefined,
+    );
+  };
+  const dashboardBefore = dashboardSection((await answerer.get("/")).body);
   const historyBefore = await answerer.get("/historico");
   const expected = await expectedTopics();
   const beforeSection = topicSection(historyBefore.body);
@@ -1891,6 +1899,15 @@ async function main() {
   await answerer.submitForm(`/simulados/${peekSim.id}?q=1`, 'name="letter"', {
     letter: peekQuestion.options[0]?.letter ?? "A",
   });
+  const dashboardAfter = dashboardSection((await answerer.get("/")).body);
+  check(
+    "painel inicial mostra o desempenho e não muda com resposta de simulado aberto",
+    dashboardBefore.includes("questões respondidas") &&
+      dashboardBefore.includes("de acerto nas objetivas") &&
+      dashboardAfter.replace(/Simulado em andamento: \d+ de \d+ respondidas Continuar →/, "") ===
+        dashboardBefore.replace(/Simulado em andamento: \d+ de \d+ respondidas Continuar →/, ""),
+    dashboardBefore.slice(0, 160),
+  );
   check(
     "resposta de simulado aberto não entra no histórico (não dá para espiar se acertou)",
     topicSection((await answerer.get("/historico")).body) === beforeSection,

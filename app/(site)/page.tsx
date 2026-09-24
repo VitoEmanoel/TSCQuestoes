@@ -1,7 +1,7 @@
 import Link from "next/link";
+import { StudentDashboard } from "@/components/student-dashboard";
 import { buttonPrimary, buttonSecondary } from "@/components/ui";
 import { getCurrentUser } from "@/lib/dal";
-import { openSimulados } from "@/lib/history";
 import { prisma } from "@/lib/prisma";
 import { PUBLISHED } from "@/lib/questions";
 
@@ -20,12 +20,6 @@ const FEATURES = [
   },
 ];
 
-const PATHS = [
-  { href: "/questoes", title: "Questões", text: "Resolva e confira na hora." },
-  { href: "/simulados", title: "Simulados", text: "Prova completa ou personalizada." },
-  { href: "/historico", title: "Histórico", text: "Sua evolução por tema." },
-];
-
 async function stats() {
   const [questions, exams] = await Promise.all([
     prisma.question.count({ where: { ...PUBLISHED, status: "VALID" } }),
@@ -42,46 +36,7 @@ export default async function Home() {
   const user = await getCurrentUser();
 
   if (user) {
-    const open = await openSimulados(user.id);
-    const firstName = user.name?.trim().split(/\s+/)[0];
-    return (
-      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-4 py-14">
-        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
-          {firstName ? `Olá, ${firstName}.` : "Olá."}
-        </h1>
-        {open[0] ? (
-          <Link
-            href={`/simulados/${open[0].id}`}
-            className="border-accent/40 bg-accent-soft flex items-center justify-between gap-4 rounded-lg border px-4 py-3 text-sm"
-          >
-            <span>
-              Simulado em andamento: {open[0].answered} de {open[0].total} respondidas
-            </span>
-            <span className="text-accent font-medium">Continuar →</span>
-          </Link>
-        ) : null}
-        <ul className="divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
-          {PATHS.map((path) => (
-            <li key={path.href}>
-              <Link href={path.href} className="group flex items-center justify-between gap-4 py-5">
-                <span>
-                  <span className="block font-serif text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-                    {path.title}
-                  </span>
-                  <span className="text-sm text-zinc-600 dark:text-zinc-400">{path.text}</span>
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="group-hover:text-accent text-zinc-400 transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </main>
-    );
+    return <StudentDashboard userId={user.id} name={user.name} />;
   }
 
   const { questions, exams } = await stats();
