@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { studentDashboard } from "@/lib/dashboard";
+import { firstName as firstNameOf } from "@/lib/person-name";
 
 const PATHS = [
   { href: "/questoes", title: "Questões", text: "Resolva e confira na hora." },
@@ -69,7 +70,7 @@ function Paths({ compact }: { compact: boolean }) {
 
 export async function StudentDashboard({ userId, name }: { userId: string; name: string | null }) {
   const data = await studentDashboard(userId);
-  const firstName = name?.trim().split(/\s+/)[0];
+  const firstName = firstNameOf(name);
   const empty = data.answered === 0 && data.simulados === 0;
 
   return (

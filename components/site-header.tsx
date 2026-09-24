@@ -2,6 +2,7 @@ import Link from "next/link";
 import { logout } from "@/app/actions/auth";
 import { NavLinks } from "@/components/nav-links";
 import { getCurrentUser } from "@/lib/dal";
+import { firstName } from "@/lib/person-name";
 
 const STUDENT_LINKS = [
   { href: "/questoes", label: "Questões" },
@@ -13,7 +14,7 @@ const ADMIN_LINKS = [...STUDENT_LINKS, { href: "/admin", label: "Painel" }];
 
 export async function SiteHeader() {
   const user = await getCurrentUser();
-  const firstName = user?.name?.trim().split(/\s+/)[0] ?? user?.email;
+  const shownName = firstName(user?.name) ?? user?.email;
 
   return (
     <header className="border-b border-zinc-200 dark:border-zinc-800">
@@ -28,7 +29,7 @@ export async function SiteHeader() {
         <div className="ml-auto flex min-h-14 items-center gap-4 text-sm">
           {user ? (
             <>
-              <span className="hidden text-zinc-600 md:inline dark:text-zinc-400">{firstName}</span>
+              <span className="hidden text-zinc-600 md:inline dark:text-zinc-400">{shownName}</span>
               {user.role === "ADMIN" ? (
                 <span className="rounded-md border border-zinc-300 px-1.5 py-0.5 font-mono text-[11px] tracking-wide text-zinc-600 uppercase dark:border-zinc-700 dark:text-zinc-400">
                   Admin
