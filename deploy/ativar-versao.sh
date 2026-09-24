@@ -55,7 +55,7 @@ systemctl restart tscquestoes.service
 
 healthy=0
 for _ in $(seq 1 30); do
-  if curl -fsS -o /dev/null --max-time 5 http://127.0.0.1:80/login; then
+  if curl -fs -o /dev/null --max-time 5 http://127.0.0.1:80/login; then
     healthy=1
     break
   fi
