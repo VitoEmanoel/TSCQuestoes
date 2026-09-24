@@ -4,6 +4,7 @@ import { googleEnabled } from "@/auth";
 import { AuthCard } from "@/components/auth-card";
 import { GoogleButton } from "@/components/google-button";
 import { SignupForm } from "@/components/signup-form";
+import { studentPasswordEnabled } from "@/lib/auth-mode";
 import { getCurrentUser } from "@/lib/dal";
 import { allowedSignupDomains, describeDomains } from "@/lib/institutional-email";
 
@@ -21,13 +22,21 @@ export default async function SignupPage() {
           <GoogleButton callbackUrl="/" label="Criar conta com Google" />
         </div>
       ) : null}
-      <SignupForm
-        emailHint={
-          allowedSignupDomains().length > 0
-            ? `Use seu e-mail institucional (${describeDomains(allowedSignupDomains())}).`
-            : undefined
-        }
-      />
+      {studentPasswordEnabled() ? (
+        <SignupForm
+          emailHint={
+            allowedSignupDomains().length > 0
+              ? `Use seu e-mail institucional (${describeDomains(allowedSignupDomains())}).`
+              : undefined
+          }
+        />
+      ) : (
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          {allowedSignupDomains().length > 0
+            ? `Use sua conta institucional (${describeDomains(allowedSignupDomains())}). Não precisa criar senha.`
+            : "Não precisa criar senha."}
+        </p>
+      )}
     </AuthCard>
   );
 }

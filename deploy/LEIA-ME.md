@@ -24,7 +24,9 @@ temas e imagens (sem nenhuma conta) para `release/conteudo.tar.gz`.
    - `DATABASE_URL`: a string de conexão do banco da LES
    - `ADMIN_SEED_EMAIL` e `ADMIN_SEED_PASSWORD` (mínimo 14 caracteres)
    - `AUTH_GOOGLE_ID` e `AUTH_GOOGLE_SECRET`
-   - `SMTP_*` e `MAIL_FROM`
+   - Os `SMTP_*` podem ficar vazios: com `STUDENT_PASSWORD_AUTH="off"` (padrão do modelo),
+     estudantes entram só com Google e nenhum e-mail é enviado. Para ligar o cadastro por senha,
+     configure o SMTP e troque para `STUDENT_PASSWORD_AUTH=""`
 4. `npm run publicar -- root@IP-DA-VPS` de novo — aplica as migrations e põe o site no ar.
 5. `npm run publicar -- root@IP-DA-VPS conteudo` — carrega as provas e cria o administrador
    (só funciona com o banco vazio).

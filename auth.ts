@@ -3,6 +3,7 @@ import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
+import { googleConfigured, studentPasswordEnabled } from "@/lib/auth-mode";
 import { normalizeEmail } from "@/lib/auth-validation";
 import {
   anyLocked,
@@ -23,7 +24,7 @@ export class TooManyAttempts extends CredentialsSignin {
 
 const DUMMY_HASH = bcrypt.hashSync("senha-inexistente-para-tempo-constante", 10);
 
-export const googleEnabled = Boolean(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET);
+export const googleEnabled = googleConfigured();
 
 const GOOGLE_DENIED = "/login?erro=google";
 
@@ -72,6 +73,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const expectedRole = credentials?.portal === "admin" ? "ADMIN" : "STUDENT";
 
         if (!email || typeof password !== "string" || password.length === 0) {
+          return null;
+        }
+        if (expectedRole === "STUDENT" && !studentPasswordEnabled()) {
           return null;
         }
 

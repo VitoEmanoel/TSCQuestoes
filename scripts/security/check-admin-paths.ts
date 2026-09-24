@@ -8,6 +8,7 @@ const STUDENT_ONLY_WRITERS = [
   "auth.ts",
   "scripts/security/browser-check.ts",
   "scripts/qa/mobile-check.ts",
+  "scripts/security/google-only-check.ts",
 ];
 const USER_WRITERS = new Set(["app/actions/auth.ts", SEED, ...STUDENT_ONLY_WRITERS]);
 

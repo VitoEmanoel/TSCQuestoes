@@ -13,6 +13,7 @@ import {
   SIGNUP_IP_POLICY,
   throttleKey,
 } from "@/lib/login-throttle";
+import { PASSWORD_DISABLED_MESSAGE, studentPasswordEnabled } from "@/lib/auth-mode";
 import { allowedSignupDomains, isAllowedEmail } from "@/lib/institutional-email";
 import { prisma } from "@/lib/prisma";
 import {
@@ -63,6 +64,9 @@ async function portalLogin(
 }
 
 export async function login(_state: AuthFormState, formData: FormData): Promise<AuthFormState> {
+  if (!studentPasswordEnabled()) {
+    return { message: PASSWORD_DISABLED_MESSAGE };
+  }
   return portalLogin("aluno", formData, safeRedirectPath(formData.get("callbackUrl")));
 }
 
@@ -74,6 +78,9 @@ export async function adminLogin(
 }
 
 export async function signup(_state: AuthFormState, formData: FormData): Promise<AuthFormState> {
+  if (!studentPasswordEnabled()) {
+    return { message: PASSWORD_DISABLED_MESSAGE };
+  }
   const result = validateSignup(formData, allowedSignupDomains());
   if (!result.ok) {
     return result.state;
@@ -118,6 +125,9 @@ export async function confirmSignup(
   _state: AuthFormState,
   formData: FormData,
 ): Promise<AuthFormState> {
+  if (!studentPasswordEnabled()) {
+    return { message: PASSWORD_DISABLED_MESSAGE };
+  }
   const token = formData.get("token");
   const password = formData.get("password");
   if (typeof token !== "string" || typeof password !== "string" || password.length === 0) {

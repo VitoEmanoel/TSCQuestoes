@@ -32,7 +32,8 @@
     "release": "bash scripts/deploy/build-release.sh",
     "release:conteudo": "tsx scripts/deploy/export-content.ts release/conteudo && tar -C release -czf release/conteudo.tar.gz conteudo",
     "publicar": "bash scripts/deploy/publicar.sh",
-    "qa:carga": "tsx scripts/qa/carga.ts"
+    "qa:carga": "tsx scripts/qa/carga.ts",
+    "security:google": "next build && tsx scripts/security/google-only-check.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

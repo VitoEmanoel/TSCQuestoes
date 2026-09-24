@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { AuthCard } from "@/components/auth-card";
 import { ConfirmSignupForm } from "@/components/confirm-signup-form";
 import { getCurrentUser } from "@/lib/dal";
+import { studentPasswordEnabled } from "@/lib/auth-mode";
 import { findPendingSignup } from "@/lib/signup";
 
 export const metadata: Metadata = { title: "Ativar conta — TSCQuestões" };
@@ -11,6 +12,9 @@ export const metadata: Metadata = { title: "Ativar conta — TSCQuestões" };
 export default async function ConfirmSignupPage(props: PageProps<"/cadastro/confirmar">) {
   if (await getCurrentUser()) {
     redirect("/");
+  }
+  if (!studentPasswordEnabled()) {
+    redirect("/cadastro");
   }
 
   const { token } = await props.searchParams;

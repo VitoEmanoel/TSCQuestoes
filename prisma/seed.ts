@@ -36,8 +36,8 @@ async function seedTopics() {
 }
 
 async function seedAdmin() {
-  const adminEmail = process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local";
-  const adminPassword = process.env.ADMIN_SEED_PASSWORD ?? DEV_PASSWORD;
+  const adminEmail = process.env.ADMIN_SEED_EMAIL || "admin@tscquestoes.local";
+  const adminPassword = process.env.ADMIN_SEED_PASSWORD || DEV_PASSWORD;
   if (
     ONLY_ADMIN &&
     (adminPassword === DEV_PASSWORD || adminPassword.length < MIN_PRODUCTION_PASSWORD)

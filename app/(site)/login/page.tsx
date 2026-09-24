@@ -4,6 +4,7 @@ import { googleEnabled } from "@/auth";
 import { AuthCard } from "@/components/auth-card";
 import { GoogleButton } from "@/components/google-button";
 import { LoginForm } from "@/components/login-form";
+import { studentPasswordEnabled } from "@/lib/auth-mode";
 import { safeRedirectPath } from "@/lib/auth-validation";
 import { getCurrentUser } from "@/lib/dal";
 import { allowedSignupDomains, describeDomains } from "@/lib/institutional-email";
@@ -33,7 +34,15 @@ export default async function LoginPage(props: PageProps<"/login">) {
           <GoogleButton callbackUrl={target} label="Continuar com Google" />
         </div>
       ) : null}
-      <LoginForm callbackUrl={target} />
+      {studentPasswordEnabled() ? (
+        <LoginForm callbackUrl={target} />
+      ) : (
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          {domains.length > 0
+            ? `Entre com sua conta institucional (${describeDomains(domains)}). Na primeira vez, a conta é criada automaticamente.`
+            : "Na primeira vez, a conta é criada automaticamente."}
+        </p>
+      )}
     </AuthCard>
   );
 }
