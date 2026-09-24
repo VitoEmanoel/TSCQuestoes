@@ -80,9 +80,9 @@ function CheckGroup<T extends string | number>({
           return (
             <label
               key={value}
-              className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1 text-sm has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-zinc-900 dark:has-[:focus-visible]:outline-zinc-100 ${
+              className={`has-[:focus-visible]:outline-accent flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1 text-sm has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 ${
                 checked
-                  ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
+                  ? "border-accent bg-accent text-accent-contrast"
                   : available === 0
                     ? "border-zinc-200 text-zinc-400 dark:border-zinc-800 dark:text-zinc-600"
                     : "border-zinc-300 hover:border-zinc-500 dark:border-zinc-700"
@@ -240,7 +240,7 @@ export function CustomSimuladoForm({
       <button
         type="submit"
         disabled={pending || available === 0}
-        className="self-start rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+        className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center self-start rounded-lg px-5 text-sm font-medium transition-colors disabled:opacity-60"
       >
         {pending ? "Sorteando..." : "Montar simulado"}
       </button>

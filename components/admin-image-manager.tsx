@@ -64,7 +64,7 @@ export async function AdminImageManager({
                     name="legenda"
                     defaultValue={asset.caption ?? ""}
                     maxLength={MAX_CAPTION_LENGTH}
-                    className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                    className="rounded-lg border border-zinc-300 bg-white px-2 py-1 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
                   />
                 </label>
                 <button type="submit" className={SMALL_BUTTON}>
@@ -152,12 +152,12 @@ export async function AdminImageManager({
             <input
               name="legenda"
               maxLength={MAX_CAPTION_LENGTH}
-              className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+              className="rounded-lg border border-zinc-300 bg-white px-2 py-1 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
             />
           </label>
           <button
             type="submit"
-            className="self-start rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+            className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-9 items-center justify-center self-start rounded-lg px-3 text-sm font-medium transition-colors"
           >
             Enviar imagem
           </button>

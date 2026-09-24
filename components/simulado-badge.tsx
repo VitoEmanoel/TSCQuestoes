@@ -5,7 +5,7 @@ export function SimuladoBadge({ year }: { year: number | null }) {
     return <ExamBadge year={year} />;
   }
   return (
-    <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs font-semibold text-violet-900 dark:bg-violet-900/40 dark:text-violet-200">
+    <span className="inline-flex items-center rounded-md border border-zinc-300 px-1.5 py-0.5 font-mono text-[11px] font-medium tracking-wide text-zinc-700 dark:border-zinc-700 dark:text-zinc-300">
       Personalizado
     </span>
   );

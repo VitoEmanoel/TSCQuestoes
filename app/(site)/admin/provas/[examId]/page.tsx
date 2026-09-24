@@ -29,7 +29,9 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
       </Link>
       <header className="flex items-center gap-2">
         <ExamBadge year={exam.year} />
-        <h1 className="text-2xl font-semibold tracking-tight">Questões da prova de {exam.year}</h1>
+        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
+          Questões da prova de {exam.year}
+        </h1>
       </header>
       {importada === "1" ? (
         <p

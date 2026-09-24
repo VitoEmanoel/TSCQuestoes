@@ -1378,7 +1378,7 @@ async function main() {
       submitted.autoScore === 50 &&
       reply.location.endsWith(`${simPath}/resultado`) &&
       graded.filter((item) => item.isCorrect === true).length === 1 &&
-      resultText.includes("1 de 2 objetivas certas (50%)") &&
+      resultText.includes("50% 1 de 2 objetivas certas") &&
       (!annulledIn2017 || resultText.includes("1 questão anulada pelo INEP ficou fora da nota")),
     `autoScore ${submitted?.autoScore}; ${resultText.slice(resultText.indexOf("Simulado entregue"), resultText.indexOf("Simulado entregue") + 200)}`,
   );
@@ -1511,7 +1511,7 @@ async function main() {
     "entregar o personalizado dá a nota (1 de 1 = 100%) e conta as em branco",
     customs[0]?.status === "SUBMITTED" &&
       customs[0].autoScore === 100 &&
-      customText.includes("1 de 1 objetiva certa (100%)") &&
+      customText.includes("100% 1 de 1 objetiva certa") &&
       customText.includes(`${validCount - 1} questões ficaram em branco`),
     customText.slice(
       customText.indexOf("Simulado entregue"),

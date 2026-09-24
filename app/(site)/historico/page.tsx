@@ -10,8 +10,8 @@ import { closeExpiredSimulados } from "@/lib/simulados";
 export const metadata: Metadata = { title: "Histórico — TSCQuestões" };
 
 const TREND_VIEW: Record<Trend, { symbol: string; label: string; className: string }> = {
-  up: { symbol: "↑", label: "melhorando", className: "text-emerald-700 dark:text-emerald-400" },
-  down: { symbol: "↓", label: "piorando", className: "text-red-700 dark:text-red-400" },
+  up: { symbol: "↑", label: "melhorando", className: "text-accent" },
+  down: { symbol: "↓", label: "piorando", className: "text-alert" },
   steady: { symbol: "→", label: "estável", className: "text-zinc-600 dark:text-zinc-400" },
   unknown: {
     symbol: "·",
@@ -64,7 +64,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-col gap-8 px-4 py-8">
       <header className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold tracking-tight">Histórico</h1>
+        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">Histórico</h1>
         <p className="text-zinc-700 dark:text-zinc-300">
           Seus simulados e sessões de estudo, a evolução da nota e como você está em cada tema.
         </p>
@@ -79,7 +79,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
             {open.map((attempt) => (
               <li
                 key={attempt.id}
-                className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-sm dark:border-sky-900 dark:bg-sky-950"
+                className="bg-accent-soft flex flex-wrap items-center justify-between gap-2 rounded-lg border px-4 py-3 text-sm"
               >
                 <span className="flex flex-wrap items-center gap-2">
                   <SimuladoBadge year={attempt.year} />
@@ -121,7 +121,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                   >
                     <span className="text-xs font-semibold">{formatScore(point.score)}%</span>
                     <span
-                      className={`w-full max-w-10 rounded-t-md ${point.score >= 60 ? "bg-emerald-500" : "bg-red-500"}`}
+                      className={`w-full max-w-10 rounded-t-md ${point.score >= 60 ? "bg-accent" : "bg-alert"}`}
                       style={{ height: `${Math.max(2, point.score)}%` }}
                     />
                     <span className="text-[11px] text-zinc-500">
@@ -157,11 +157,11 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
             </Link>
           </p>
         ) : (
-          <ul className="grid gap-2 sm:grid-cols-2">
+          <ul className="grid gap-x-10 sm:grid-cols-2">
             {topics.map((topic) => (
               <li
                 key={topic.topic}
-                className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-3 dark:border-zinc-800"
+                className="flex flex-col gap-2 border-b border-zinc-200 py-3 dark:border-zinc-800"
               >
                 <div className="flex items-center justify-between gap-2">
                   <Link
@@ -180,7 +180,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                   aria-hidden="true"
                 >
                   <div
-                    className={`h-full rounded-full ${topic.percent >= 60 ? "bg-emerald-500" : "bg-red-500"}`}
+                    className={`h-full rounded-full ${topic.percent >= 60 ? "bg-accent" : "bg-alert"}`}
                     style={{ width: `${topic.percent}%` }}
                   />
                 </div>

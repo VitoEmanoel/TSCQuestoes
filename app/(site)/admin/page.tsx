@@ -14,14 +14,16 @@ export default async function AdminPage(props: PageProps<"/admin">) {
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8">
       <header className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold tracking-tight">Painel do administrador</h1>
+        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
+          Painel do administrador
+        </h1>
         <p className="text-zinc-700 dark:text-zinc-300">
           Escolha uma prova para revisar e editar as questões. O que você salvar aqui é a versão
           oficial que os alunos veem.
         </p>
         <Link
           href="/admin/provas/nova"
-          className="self-start rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center self-start rounded-lg px-5 text-sm font-medium transition-colors"
         >
           Cadastrar prova nova
         </Link>

@@ -56,7 +56,7 @@ export function SelfEvaluationForm({
               inputMode="decimal"
               value={values[slot.key]}
               onChange={(event) => setValues({ ...values, [slot.key]: event.target.value })}
-              className="w-28 rounded-md border border-zinc-300 bg-white px-3 py-2 text-base text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+              className="w-28 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
             />
           </label>
         ))}
@@ -77,7 +77,7 @@ export function SelfEvaluationForm({
       <button
         type="submit"
         disabled={pending}
-        className="self-start rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+        className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center self-start rounded-lg px-5 text-sm font-medium transition-colors disabled:opacity-60"
       >
         {pending ? "Salvando..." : "Salvar autoavaliação"}
       </button>

@@ -4,7 +4,7 @@ import { type ChangeEvent, useActionState, useState } from "react";
 import { importExamAction, type ImportState } from "@/app/actions/admin-import";
 
 const FIELD =
-  "rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-zinc-100";
+  "rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-accent focus:ring-4 focus:ring-accent/15 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 ";
 
 type TextKey = "prova" | "gabarito" | "padrao";
 
@@ -151,7 +151,7 @@ export function ImportExamForm({
           name="etapa"
           value="criar"
           disabled={!canCreate}
-          className="rounded-md bg-zinc-900 px-4 py-2 font-medium text-white hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-5 font-medium transition-colors disabled:opacity-50"
         >
           Criar prova como rascunho
         </button>

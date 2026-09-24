@@ -62,7 +62,7 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
             {remaining !== null ? <SimuladoTimer remainingSeconds={remaining} /> : null}
             <Link
               href={`${base}/entregar`}
-              className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
+              className="inline-flex min-h-9 items-center justify-center rounded-lg border border-zinc-300 px-3 text-sm font-medium transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
             >
               Entregar simulado
             </Link>
@@ -77,7 +77,7 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
         {shortOfRequest ? (
           <p
             role="note"
-            className="rounded-md border border-sky-300 bg-sky-50 px-3 py-2 text-sm text-sky-900 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-200"
+            className="border-accent/30 bg-accent-soft rounded-md border px-3 py-2 text-sm text-zinc-800 dark:text-zinc-200"
           >
             Você pediu {shortOfRequest} questões, mas só havia {total} válidas com esses filtros.
           </p>
@@ -87,7 +87,7 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
             {overview.questions.map((item, index) => {
               const isCurrent = index + 1 === position;
               const tone = isCurrent
-                ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
+                ? "border-accent bg-accent text-accent-contrast"
                 : item.answer
                   ? "border-emerald-500 bg-emerald-50 text-emerald-900 dark:border-emerald-700 dark:bg-emerald-950 dark:text-emerald-200"
                   : "border-zinc-300 text-zinc-700 hover:border-zinc-500 dark:border-zinc-700 dark:text-zinc-300";
@@ -111,14 +111,14 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
       <section aria-label="Enunciado" className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           {overview.year === null ? <ExamBadge year={current.exam.year} /> : null}
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
+          <span className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
             {AREA_LABEL[question.area]}
           </span>
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
+          <span className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
             {TYPE_LABEL[question.type]}
           </span>
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
           {questionTitle(question.originalLabel, question.type)}{" "}
           <span className="text-base font-normal text-zinc-500">
             ({position} de {total})

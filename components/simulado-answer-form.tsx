@@ -43,7 +43,7 @@ export function SimuladoAnswerForm({
           {options.map((option) => (
             <label
               key={option.letter}
-              className="flex cursor-pointer gap-3 rounded-lg border border-zinc-200 p-3 transition-colors hover:border-zinc-400 has-[:checked]:border-zinc-900 has-[:checked]:ring-2 has-[:checked]:ring-zinc-900/20 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-zinc-900 dark:border-zinc-800 dark:hover:border-zinc-600 dark:has-[:checked]:border-zinc-100 dark:has-[:focus-visible]:outline-zinc-100"
+              className="has-[:checked]:border-accent has-[:checked]:bg-accent-soft has-[:checked]:ring-accent/20 flex cursor-pointer gap-3 rounded-lg border border-zinc-200 p-3 transition-colors hover:border-zinc-400 has-[:checked]:ring-2 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-zinc-900 dark:border-zinc-800 dark:hover:border-zinc-600 dark:has-[:focus-visible]:outline-zinc-100"
             >
               <input
                 type="radio"
@@ -74,7 +74,7 @@ export function SimuladoAnswerForm({
             defaultValue={initialText}
             onChange={(event) => setLength(event.target.value.length)}
             aria-describedby="answerText-help"
-            className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-base leading-relaxed text-zinc-900 outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-zinc-100"
+            className="focus:border-accent focus:ring-accent/15 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base leading-relaxed text-zinc-900 outline-none focus:ring-4 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
           />
           <p id="answerText-help" className="text-sm text-zinc-500">
             {length}/{maxLength} caracteres. O padrão de resposta aparece só depois de entregar.
@@ -90,7 +90,7 @@ export function SimuladoAnswerForm({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-md bg-zinc-900 px-4 py-2 font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-5 font-medium transition-colors disabled:opacity-60"
         >
           {pending ? "Salvando..." : isLast ? "Salvar resposta" : "Salvar e ir para a próxima"}
         </button>

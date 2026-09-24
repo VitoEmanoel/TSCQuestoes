@@ -13,7 +13,7 @@ type OptionView = { letter: string; content: ReactNode };
 
 function optionTone(letter: string, result: RevealedObjectiveResult | undefined): string {
   if (!result) {
-    return "border-zinc-200 hover:border-zinc-400 has-[:checked]:border-zinc-900 has-[:checked]:ring-2 has-[:checked]:ring-zinc-900/20 dark:border-zinc-800 dark:hover:border-zinc-600 dark:has-[:checked]:border-zinc-100";
+    return "border-zinc-200 hover:border-zinc-400 has-[:checked]:border-accent has-[:checked]:bg-accent-soft has-[:checked]:ring-2 has-[:checked]:ring-accent/20 dark:border-zinc-800 dark:hover:border-zinc-600";
   }
   if (!result.isAnulada && letter === result.correctLetter) {
     return "border-emerald-500 bg-emerald-50 dark:border-emerald-600 dark:bg-emerald-950";
@@ -28,7 +28,7 @@ function optionTone(letter: string, result: RevealedObjectiveResult | undefined)
 
 function PendingMessage({ result }: { result: PendingObjectiveResult }) {
   return (
-    <p className="rounded-md border border-sky-300 bg-sky-50 px-3 py-2 text-sky-900 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-200">
+    <p className="bg-accent-soft rounded-lg px-4 py-3 text-zinc-800 dark:text-zinc-200">
       Resposta registrada: alternativa {result.letter}.{" "}
       {result.policy === "MANUAL" ? (
         "Clique em “Ver correção” quando quiser saber se acertou."
@@ -104,7 +104,7 @@ export function ObjectiveAnswer({
           {options.map((option) => (
             <label
               key={option.letter}
-              className={`flex cursor-pointer gap-3 rounded-lg border p-3 transition-colors has-[:disabled]:cursor-default has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-zinc-900 dark:has-[:focus-visible]:outline-zinc-100 ${optionTone(option.letter, revealed)}`}
+              className={`has-[:focus-visible]:outline-accent flex cursor-pointer gap-3 rounded-lg border p-3 transition-colors has-[:disabled]:cursor-default has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 ${optionTone(option.letter, revealed)}`}
             >
               <input
                 type="radio"
@@ -148,7 +148,7 @@ export function ObjectiveAnswer({
               <button
                 type="submit"
                 disabled={revealing}
-                className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+                className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-5 text-sm font-medium transition-colors disabled:opacity-60"
               >
                 {revealing ? "Corrigindo..." : "Ver correção"}
               </button>
@@ -157,7 +157,7 @@ export function ObjectiveAnswer({
           <button
             type="button"
             onClick={() => setDismissed(shown.answeredAt)}
-            className="rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
+            className="inline-flex min-h-11 items-center justify-center rounded-lg border border-zinc-300 px-5 text-sm font-medium transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"
           >
             Responder de novo
           </button>
@@ -167,7 +167,7 @@ export function ObjectiveAnswer({
           type="submit"
           form={formId}
           disabled={pending}
-          className="self-start rounded-md bg-zinc-900 px-4 py-2 font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center self-start rounded-lg px-5 font-medium transition-colors disabled:opacity-60"
         >
           {pending ? "Enviando..." : "Responder"}
         </button>

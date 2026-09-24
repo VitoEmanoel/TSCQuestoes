@@ -66,10 +66,10 @@ export default async function SimuladoReviewPage(props: PageProps<"/simulados/[i
       <header className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <ExamBadge year={question.exam.year} />
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
+          <span className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
             {AREA_LABEL[question.area]}
           </span>
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
+          <span className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
             {TYPE_LABEL[question.type]}
           </span>
           {question.tags
@@ -77,13 +77,13 @@ export default async function SimuladoReviewPage(props: PageProps<"/simulados/[i
             .map((tag) => (
               <span
                 key={tag.topic.name}
-                className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800"
+                className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
               >
                 {tag.topic.name}
               </span>
             ))}
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
           {title}{" "}
           <span className="text-base font-normal text-zinc-500">
             ({position} de {review.total})

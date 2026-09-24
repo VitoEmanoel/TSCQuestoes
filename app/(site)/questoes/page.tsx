@@ -26,8 +26,8 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
     await Promise.all([listQuestions(filters), getFilterOptions(), practiceSession(user.id)]);
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8">
-      <h1 className="text-2xl font-semibold tracking-tight">Questões</h1>
+    <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-10">
+      <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">Questões</h1>
       <PracticeSessionPanel
         policy={session.policy}
         answered={session.answered}
@@ -45,7 +45,7 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
             {hiddenAnuladas === 1 ? "anulada pelo INEP oculta" : "anuladas pelo INEP ocultas"} (
             <Link
               href={`/questoes${filtersToSearchParams(filters, { status: "ANULADA", page: 1 })}`}
-              className="underline"
+              className="text-accent underline underline-offset-4"
             >
               ver
             </Link>
@@ -53,47 +53,44 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
           </>
         ) : null}
       </p>
-      <ul className="flex flex-col gap-3">
-        {items.map((question) => (
-          <li
-            key={question.id}
-            className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800"
-          >
-            <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
-              <ExamBadge year={question.exam.year} />
+      <ul className="divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+        {items.map((question) => {
+          const topics = question.tags
+            .map((tag) => tag.topic.name)
+            .filter((name) => name !== AREA_LABEL[question.area]);
+          return (
+            <li key={question.id}>
               <Link
                 href={`/questoes/${question.id}`}
-                className="tap text-sm font-semibold underline-offset-2 hover:underline"
+                className="group flex flex-col gap-1.5 py-4 sm:py-5"
               >
-                {questionTitle(question.originalLabel, question.type)}
-              </Link>
-              <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
-                {AREA_LABEL[question.area]}
-              </span>
-              <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
-                {TYPE_LABEL[question.type]}
-              </span>
-              {question.tags
-                .filter((tag) => tag.topic.name !== AREA_LABEL[question.area])
-                .map((tag) => (
-                  <span
-                    key={tag.topic.name}
-                    className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800"
-                  >
-                    {tag.topic.name}
-                  </span>
-                ))}
-              {question.status === "ANULADA" ? (
-                <span className="rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
-                  Anulada
+                <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-600 dark:text-zinc-400">
+                  <ExamBadge year={question.exam.year} />
+                  <span>{AREA_LABEL[question.area]}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{TYPE_LABEL[question.type]}</span>
+                  {topics.length > 0 ? (
+                    <>
+                      <span aria-hidden="true">·</span>
+                      <span>{topics.join(", ")}</span>
+                    </>
+                  ) : null}
+                  {question.status === "ANULADA" ? (
+                    <span className="rounded-md bg-amber-100 px-1.5 py-0.5 font-medium text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
+                      Anulada
+                    </span>
+                  ) : null}
                 </span>
-              ) : null}
-            </div>
-            <p className="text-sm text-zinc-700 dark:text-zinc-300">
-              {excerpt(question.statementMd)}
-            </p>
-          </li>
-        ))}
+                <span className="group-hover:text-accent font-medium text-zinc-900 dark:text-zinc-100">
+                  {questionTitle(question.originalLabel, question.type)}
+                </span>
+                <span className="line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">
+                  {excerpt(question.statementMd)}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
       {pageCount > 1 ? (
         <nav aria-label="Paginação" className="flex items-center justify-between text-sm">

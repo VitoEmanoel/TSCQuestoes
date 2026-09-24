@@ -96,10 +96,10 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
       <header className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <ExamBadge year={question.exam.year} />
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
+          <span className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
             {AREA_LABEL[question.area]}
           </span>
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
+          <span className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
             {TYPE_LABEL[question.type]}
           </span>
           {question.tags
@@ -107,13 +107,13 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
             .map((tag) => (
               <span
                 key={tag.topic.name}
-                className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800"
+                className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
               >
                 {tag.topic.name}
               </span>
             ))}
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">{title}</h1>
         {isAnulada ? (
           <p
             role="note"
@@ -188,7 +188,7 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
               </Link>
             </p>
           </div>
-          <p className="rounded-md border border-sky-300 bg-sky-50 px-3 py-2 text-sm text-sky-900 dark:border-sky-800 dark:bg-sky-950 dark:text-sky-200">
+          <p className="border-accent/30 bg-accent-soft rounded-md border px-3 py-2 text-sm text-zinc-800 dark:text-zinc-200">
             {lastWritten.attempt.revealPolicy === "MANUAL" ? (
               "Resposta registrada. Abra o padrão de resposta oficial quando quiser se autoavaliar."
             ) : (

@@ -43,7 +43,7 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
       <header className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <ExamBadge year={question.exam.year} />
-          <span className="rounded-full bg-zinc-100 px-2 py-0.5 dark:bg-zinc-800">
+          <span className="rounded-md border border-zinc-200 px-1.5 py-0.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
             {TYPE_LABEL[question.type]}
           </span>
           {question.publishedAt ? (
@@ -56,7 +56,7 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
             </span>
           )}
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight">Editar: {title}</h1>
+        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">Editar: {title}</h1>
         {question.reviewedAt ? (
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Revisada em{" "}

@@ -38,67 +38,79 @@ export function PracticeSessionPanel({
   );
   const locked = pending > 0;
 
+  const current = POLICY_OPTIONS.find((option) => option.value === policy);
+
   return (
-    <section
-      aria-label="Sessão de estudo"
-      className="flex flex-col gap-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800"
-    >
-      <form action={policyAction} className="flex flex-wrap items-end gap-3">
-        <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium">Mostrar a correção</span>
-          <select
-            name="policy"
-            defaultValue={policy}
-            key={policy}
+    <section aria-label="Sessão de estudo" className="flex flex-col gap-3 text-sm">
+      <details className="group">
+        <summary className="tap cursor-pointer list-none text-zinc-600 dark:text-zinc-400">
+          Correção:&nbsp;
+          <span className="font-medium text-zinc-900 dark:text-zinc-100">
+            {current?.label.toLowerCase()}
+          </span>
+          &nbsp;·&nbsp;
+          <span className="text-accent underline-offset-4 group-open:hidden hover:underline">
+            alterar
+          </span>
+          <span className="text-accent hidden group-open:inline">fechar</span>
+        </summary>
+        <form action={policyAction} className="mt-3 flex flex-wrap items-end gap-3">
+          <label className="flex flex-col gap-1">
+            <span className="sr-only">Mostrar a correção</span>
+            <select
+              name="policy"
+              defaultValue={policy}
+              key={policy}
+              disabled={locked || savingPolicy}
+              className="min-h-11 rounded-lg border border-zinc-300 bg-white px-3 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+            >
+              {POLICY_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label} — {option.help}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            type="submit"
             disabled={locked || savingPolicy}
-            className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+            className="inline-flex min-h-11 items-center justify-center rounded-lg border border-zinc-300 px-5 font-medium transition-colors hover:bg-zinc-100 disabled:opacity-60 dark:border-zinc-700 dark:hover:bg-zinc-900"
           >
-            {POLICY_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label} — {option.help}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button
-          type="submit"
-          disabled={locked || savingPolicy}
-          className="rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-100 disabled:opacity-60 dark:border-zinc-700 dark:hover:bg-zinc-900"
-        >
-          {savingPolicy ? "Salvando..." : "Salvar"}
-        </button>
-      </form>
-      <div aria-live="polite" className="text-sm">
+            {savingPolicy ? "Salvando..." : "Salvar"}
+          </button>
+          {locked ? (
+            <p className="w-full text-zinc-600 dark:text-zinc-400">
+              Para trocar o modo, finalize a sessão primeiro.
+            </p>
+          ) : null}
+        </form>
+      </details>
+      <div aria-live="polite">
         {policyState.error ? (
-          <p role="alert" className="text-red-600 dark:text-red-400">
+          <p role="alert" className="text-red-700 dark:text-red-400">
             {policyState.error}
           </p>
         ) : policyState.savedAt ? (
-          <p className="text-emerald-700 dark:text-emerald-400">Modo de correção salvo.</p>
+          <p className="text-accent">Modo de correção salvo.</p>
         ) : null}
       </div>
 
-      {policy !== "IMMEDIATE" ? (
-        <div className="flex flex-wrap items-center gap-3 border-t border-zinc-200 pt-3 text-sm dark:border-zinc-800">
-          <p className="text-zinc-700 dark:text-zinc-300">
-            {answered === 0
-              ? "Nenhuma resposta nesta sessão ainda."
-              : `${answered} ${answered === 1 ? "resposta" : "respostas"} nesta sessão, ${pending} aguardando correção.`}
-            {locked ? " Para trocar o modo, finalize a sessão." : null}
+      {policy !== "IMMEDIATE" && answered > 0 ? (
+        <div className="bg-accent-soft flex flex-wrap items-center gap-3 rounded-lg px-4 py-3">
+          <p className="text-zinc-800 dark:text-zinc-200">
+            {`${answered} ${answered === 1 ? "resposta" : "respostas"} nesta sessão, ${pending} aguardando correção.`}
           </p>
-          {answered > 0 ? (
-            <form action={finishAction}>
-              <button
-                type="submit"
-                disabled={finishing}
-                className="rounded-md bg-zinc-900 px-4 py-2 font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
-              >
-                {finishing ? "Corrigindo..." : "Finalizar sessão e ver resultado"}
-              </button>
-            </form>
-          ) : null}
+          <form action={finishAction} className="ml-auto">
+            <button
+              type="submit"
+              disabled={finishing}
+              className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-5 font-medium transition-colors disabled:opacity-60"
+            >
+              {finishing ? "Corrigindo..." : "Finalizar sessão e ver resultado"}
+            </button>
+          </form>
           {finishState.error ? (
-            <p role="alert" className="text-red-600 dark:text-red-400">
+            <p role="alert" className="w-full text-red-700 dark:text-red-400">
               {finishState.error}
             </p>
           ) : null}

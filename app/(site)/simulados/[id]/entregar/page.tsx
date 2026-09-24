@@ -36,7 +36,9 @@ export default async function EntregarSimuladoPage(props: PageProps<"/simulados/
       <header className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <SimuladoBadge year={overview.year} />
-          <h1 className="text-2xl font-semibold tracking-tight">Entregar simulado</h1>
+          <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
+            Entregar simulado
+          </h1>
         </div>
         {remaining !== null ? (
           <div className="self-start">
@@ -73,7 +75,7 @@ export default async function EntregarSimuladoPage(props: PageProps<"/simulados/
         <input type="hidden" name="attemptId" value={overview.attempt.id} />
         <button
           type="submit"
-          className="rounded-md bg-zinc-900 px-4 py-2 font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center rounded-lg px-5 font-medium transition-colors"
         >
           Entregar e ver a nota
         </button>

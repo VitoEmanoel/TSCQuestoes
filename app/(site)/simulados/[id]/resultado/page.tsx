@@ -24,11 +24,11 @@ type FilterKey = keyof typeof FILTERS;
 const OUTCOME_VIEW: Record<ReviewOutcome, { label: string; className: string }> = {
   correct: {
     label: "Acertou",
-    className: "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/40 dark:text-emerald-200",
+    className: "bg-accent-soft text-accent",
   },
   wrong: {
     label: "Errou",
-    className: "bg-red-100 text-red-900 dark:bg-red-900/40 dark:text-red-200",
+    className: "bg-alert/15 text-alert",
   },
   blank: {
     label: "Em branco",
@@ -40,7 +40,7 @@ const OUTCOME_VIEW: Record<ReviewOutcome, { label: string; className: string }> 
   },
   discursive: {
     label: "Discursiva",
-    className: "bg-sky-100 text-sky-900 dark:bg-sky-900/40 dark:text-sky-200",
+    className: "bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200",
   },
 };
 
@@ -80,17 +80,23 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
       </Link>
       <header className="flex items-center gap-2">
         <SimuladoBadge year={result.year} />
-        <h1 className="text-2xl font-semibold tracking-tight">Simulado entregue</h1>
+        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
+          Simulado entregue
+        </h1>
       </header>
 
       <section
         aria-label="Nota"
-        className="flex flex-col gap-1 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800"
+        className="flex flex-col gap-1 border-y border-zinc-200 py-6 dark:border-zinc-800"
       >
-        <p className="text-lg font-semibold">
-          {summary.objectives.correct} de {summary.objectives.counted}{" "}
-          {summary.objectives.counted === 1 ? "objetiva certa" : "objetivas certas"}
-          {summary.percent !== null ? ` (${formatScore(summary.percent)}%)` : null}
+        <p className="flex items-baseline gap-3">
+          <span className="font-serif text-5xl font-semibold text-zinc-900 dark:text-zinc-50">
+            {summary.percent !== null ? `${formatScore(summary.percent)}%` : "—"}
+          </span>
+          <span className="text-zinc-700 dark:text-zinc-300">
+            {summary.objectives.correct} de {summary.objectives.counted}{" "}
+            {summary.objectives.counted === 1 ? "objetiva certa" : "objetivas certas"}
+          </span>
         </p>
         {summary.discursives.evaluated > 0 ? (
           <p className="text-sm text-zinc-700 dark:text-zinc-300">
@@ -145,30 +151,23 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
               : `Nenhum tema abaixo de ${REVIEW_THRESHOLD}% nas objetivas. Os piores aparecem primeiro.`}
           </p>
         </div>
-        <ul className="flex flex-col gap-2">
+        <ul className="divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
           {topics.map((topic) => {
             const needsReview = topic.percent !== null && topic.percent < REVIEW_THRESHOLD;
             return (
-              <li
-                key={topic.topic}
-                className={`flex flex-col gap-2 rounded-lg border p-3 ${
-                  needsReview
-                    ? "border-red-200 bg-red-50/60 dark:border-red-900 dark:bg-red-950/40"
-                    : "border-zinc-200 dark:border-zinc-800"
-                }`}
-              >
+              <li key={topic.topic} className="flex flex-col gap-2 py-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="flex items-center gap-2 font-medium">
                     {topic.topic}
                     {needsReview ? (
-                      <span className="rounded-full bg-red-600 px-2 py-0.5 text-xs font-semibold text-white">
+                      <span className="bg-alert rounded-md px-1.5 py-0.5 text-xs font-semibold text-white dark:text-zinc-950">
                         Revisar
                       </span>
                     ) : null}
                   </span>
                   <Link
                     href={`/questoes?tema=${encodeURIComponent(topic.topic)}`}
-                    className="tap text-sm underline"
+                    className="tap text-accent text-sm underline-offset-4 hover:underline"
                   >
                     Estudar este tema
                   </Link>
@@ -180,7 +179,7 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
                       aria-hidden="true"
                     >
                       <div
-                        className={`h-full rounded-full ${needsReview ? "bg-red-500" : "bg-emerald-500"}`}
+                        className={`h-full rounded-full ${needsReview ? "bg-alert" : "bg-accent"}`}
                         style={{ width: `${topic.percent ?? 0}%` }}
                       />
                     </div>
@@ -229,7 +228,7 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
                 aria-current={filter === key ? "page" : undefined}
                 className={`rounded-full border px-3 py-1 ${
                   filter === key
-                    ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
+                    ? "border-accent bg-accent text-accent-contrast"
                     : "border-zinc-300 hover:border-zinc-500 dark:border-zinc-700"
                 }`}
               >
@@ -241,12 +240,12 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
         {visible.length === 0 ? (
           <p className="text-sm text-zinc-600 dark:text-zinc-400">Nenhuma questão neste filtro.</p>
         ) : (
-          <ol className="flex flex-col gap-2">
+          <ol className="divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
             {visible.map((row) => (
               <li key={row.id}>
                 <Link
                   href={`${base}/revisao?q=${row.position}`}
-                  className="flex flex-col gap-1 rounded-lg border border-zinc-200 p-3 hover:border-zinc-400 dark:border-zinc-800 dark:hover:border-zinc-600"
+                  className="group flex flex-col gap-1 py-3"
                 >
                   <span className="flex flex-wrap items-center gap-2 text-sm">
                     <span
