@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ImageCropUpload } from "@/components/image-cropper";
 import { captionImageAction, moveImageAction, removeImageAction } from "@/app/actions/admin-images";
 import { resolveAssets } from "@/lib/assets";
 import { MAX_CAPTION_LENGTH, MAX_IMAGES_PER_TARGET } from "@/lib/uploads";
@@ -102,6 +103,15 @@ export async function AdminImageManager({
                     Remover
                   </button>
                 </form>
+                {view ? (
+                  <ImageCropUpload
+                    action={uploadAction}
+                    answerStandardId={answerStandardId}
+                    replaceAssetId={asset.id}
+                    existing={{ src: view.src, width: view.width, height: view.height }}
+                    captionMaxLength={MAX_CAPTION_LENGTH}
+                  />
+                ) : null}
                 <form
                   action={uploadAction}
                   method="post"
@@ -130,38 +140,13 @@ export async function AdminImageManager({
         </ol>
       )}
       {resolved.length < MAX_IMAGES_PER_TARGET ? (
-        <form
-          action={uploadAction}
-          method="post"
-          encType="multipart/form-data"
-          className="flex flex-col gap-2 border-t border-zinc-200 pt-3 dark:border-zinc-800"
-        >
-          {answerStandardId ? <input type="hidden" name="item" value={answerStandardId} /> : null}
-          <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium">Adicionar imagem (PNG ou JPEG, até 2 MB)</span>
-            <input
-              type="file"
-              name="arquivo"
-              accept="image/png,image/jpeg"
-              required
-              className="min-h-6 text-sm"
-            />
-          </label>
-          <label className="flex flex-col gap-1 text-sm">
-            <span className="font-medium">Legenda (opcional)</span>
-            <input
-              name="legenda"
-              maxLength={MAX_CAPTION_LENGTH}
-              className="rounded-lg border border-zinc-300 bg-white px-2 py-1 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
-            />
-          </label>
-          <button
-            type="submit"
-            className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-9 items-center justify-center self-start rounded-lg px-3 text-sm font-medium transition-colors"
-          >
-            Enviar imagem
-          </button>
-        </form>
+        <div className="border-t border-zinc-200 pt-3 dark:border-zinc-800">
+          <ImageCropUpload
+            action={uploadAction}
+            answerStandardId={answerStandardId}
+            captionMaxLength={MAX_CAPTION_LENGTH}
+          />
+        </div>
       ) : (
         <p className="text-xs text-zinc-600 dark:text-zinc-400">
           Limite de {MAX_IMAGES_PER_TARGET} imagens atingido.

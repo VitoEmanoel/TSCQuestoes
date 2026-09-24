@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { type ChildProcess, spawn } from "node:child_process";
-import { existsSync, mkdtempSync, rmSync, unlinkSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, rmSync, unlinkSync } from "node:fs";
 import { createServer, type Server } from "node:http";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -694,6 +694,80 @@ async function main() {
       "admin envia imagem pelo painel e ela aparece na pré-visualização",
       imageUploaded,
       imageDetail,
+    );
+    await page.evaluate(`(async () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 200;
+      canvas.height = 100;
+      const context = canvas.getContext('2d');
+      context.fillStyle = '#7c2d12';
+      context.fillRect(0, 0, 200, 100);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+      const form = [...document.querySelectorAll('form')].find((f) => f.textContent.includes('Adicionar imagem'));
+      const input = form.querySelector('input[type=file]');
+      const transfer = new DataTransfer();
+      transfer.items.add(new File([blob], 'grande.png', { type: 'image/png' }));
+      input.files = transfer.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    })()`);
+    const cropperShown = await page.waitFor(
+      "Boolean(document.querySelector('[data-handle=se]')) && [...document.querySelectorAll('img[alt=\"Imagem a recortar\"]')].some((img) => img.complete && img.naturalWidth === 200)",
+      10_000,
+    );
+    const corner = await page.evaluate<{ x: number; y: number; w: number; h: number }>(`(() => {
+      const handle = document.querySelector('[data-handle=se]');
+      handle.scrollIntoView({ block: 'center' });
+      const box = handle.getBoundingClientRect();
+      const image = document.querySelector('img[alt="Imagem a recortar"]').getBoundingClientRect();
+      return { x: box.x + box.width / 2, y: box.y + box.height / 2, w: image.width, h: image.height };
+    })()`);
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: corner.x,
+      y: corner.y,
+      button: "left",
+      clickCount: 1,
+    });
+    for (let step = 1; step <= 5; step += 1) {
+      await page.send("Input.dispatchMouseEvent", {
+        type: "mouseMoved",
+        x: corner.x - (corner.w / 2) * (step / 5),
+        y: corner.y - (corner.h / 2) * (step / 5),
+        button: "left",
+      });
+    }
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: corner.x - corner.w / 2,
+      y: corner.y - corner.h / 2,
+      button: "left",
+      clickCount: 1,
+    });
+    await page.evaluate(
+      "[...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Enviar recorte')).click()",
+    );
+    await page.waitFor("location.search === '?imagem=ok'", 15_000);
+    const croppedAsset = await prisma.asset.findFirst({
+      where: { question: { originalLabel: DRAFT_LABEL } },
+      orderBy: { position: "desc" },
+      select: { filePath: true },
+    });
+    const uploadRoot = process.env.UPLOAD_DIR ?? join(process.cwd(), "storage", "uploads");
+    const header = croppedAsset
+      ? readFileSync(join(uploadRoot, croppedAsset.filePath.replace("uploads/", ""))).subarray(
+          0,
+          24,
+        )
+      : Buffer.alloc(24);
+    const croppedWidth = header.readUInt32BE(16);
+    const croppedHeight = header.readUInt32BE(20);
+    check(
+      "recortar no painel: arrastar o canto e enviar grava só o pedaço escolhido",
+      cropperShown &&
+        croppedWidth >= 90 &&
+        croppedWidth <= 140 &&
+        Math.abs(croppedWidth / croppedHeight - 2) < 0.1,
+      `${croppedWidth}×${croppedHeight}`,
     );
     await page.evaluate(
       "[...document.querySelectorAll('main button')].find((b) => b.textContent.includes('Publicar para os alunos')).click()",
