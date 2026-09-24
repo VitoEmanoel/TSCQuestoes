@@ -304,6 +304,9 @@ async function cleanup() {
   await prisma.questionTag.deleteMany({ where: { question: testExams } });
   await prisma.question.deleteMany({ where: testExams });
   await prisma.exam.deleteMany({ where: { course: TEST_COURSE } });
+  const testTopics = { name: { startsWith: "Tema Teste Ataque" } };
+  await prisma.questionTag.deleteMany({ where: { topic: testTopics } });
+  await prisma.topic.deleteMany({ where: testTopics });
   await prisma.option.deleteMany({ where: { question: drafts } });
   await prisma.questionTag.deleteMany({ where: { question: drafts } });
   await prisma.answerStandard.deleteMany({ where: { question: drafts } });
@@ -3160,6 +3163,88 @@ async function main() {
       usedPage.includes("Não dá para excluir: 1 resposta de aluno") &&
       reply.location.includes("erro=em-uso"),
     usedPage.slice(usedPage.indexOf("Excluir questão"), usedPage.indexOf("Excluir questão") + 160),
+  );
+
+  group("Painel: temas");
+  const topicsPath = "/admin/temas";
+  const topicDenied = await Promise.all([answerer.get(topicsPath), anonAdmin.get(topicsPath)]);
+  check(
+    "aluno e visitante recebem 404 na tela de temas",
+    topicDenied.every((response) => response.status === 404),
+  );
+  const topicByName = (name: string) =>
+    prisma.topic.findFirst({ where: { name }, select: { id: true, name: true } });
+  const createTopicFields = await formFields(admin, topicsPath, 'name="categoria"');
+  const createTopicAs = (client: Client, nome: string, categoria = "Componente Específico") =>
+    postFields(client, topicsPath, { ...createTopicFields, nome, categoria });
+  await createTopicAs(answerer, "Tema Teste Ataque Aluno");
+  for (const nome of ["", "a", "x".repeat(61), "<script>alert(1)</script>", "   "]) {
+    await createTopicAs(admin, nome);
+  }
+  await createTopicAs(admin, "Tema Teste Ataque Categoria", "' OR 1=1 --");
+  reply = await createTopicAs(admin, "  Tema   Teste Ataque Um ");
+  const duplicateTopic = await createTopicAs(admin, "tema teste ataque um");
+  const createdTopic = await topicByName("Tema Teste Ataque Um");
+  check(
+    "criar tema: só o admin, nome limpo, inválidos e repetido (maiúsculas) recusados",
+    createdTopic !== null &&
+      (await topicByName("Tema Teste Ataque Aluno")) === null &&
+      (await topicByName("Tema Teste Ataque Categoria")) === null &&
+      (await prisma.topic.count({ where: { name: { contains: "script" } } })) === 0 &&
+      pageText(duplicateTopic.body).includes("Já existe um tema com esse nome") &&
+      (await prisma.topic.count({
+        where: { name: { equals: "tema teste ataque um", mode: "insensitive" } },
+      })) === 1,
+  );
+  await prisma.questionTag.create({
+    data: { questionId: editDraft.id, topicId: createdTopic!.id },
+  });
+  const renameTopicFields = await formFields(
+    admin,
+    topicsPath,
+    `value="${createdTopic!.id}"/><label`,
+  );
+  await postFields(answerer, topicsPath, { ...renameTopicFields, nome: "Tema Teste Ataque Hack" });
+  await postFields(admin, topicsPath, {
+    ...renameTopicFields,
+    nome: "Tema Teste Ataque Renomeado",
+  });
+  const editorAfterRename = pageText((await admin.get(editPath)).body);
+  check(
+    "renomear: aluno não consegue; admin renomeia e a questão passa a mostrar o nome novo",
+    (await topicByName("Tema Teste Ataque Hack")) === null &&
+      (await topicByName("Tema Teste Ataque Renomeado"))?.id === createdTopic!.id &&
+      editorAfterRename.includes("Tema Teste Ataque Renomeado"),
+  );
+  const fg = await topicByName("Formação Geral");
+  await postFields(admin, topicsPath, {
+    ...renameTopicFields,
+    topicId: fg!.id,
+    nome: "Tema Teste Ataque FG",
+  });
+  await createTopicAs(admin, "Tema Teste Ataque Livre");
+  const freeTopic = await topicByName("Tema Teste Ataque Livre");
+  const deleteTopicFields = await formFields(
+    admin,
+    topicsPath,
+    `value="${freeTopic!.id}"/><button`,
+  );
+  await postFields(admin, topicsPath, { ...deleteTopicFields, topicId: fg!.id });
+  check(
+    "“Formação Geral” é protegido: não dá para renomear nem excluir, nem forjando",
+    (await topicByName("Formação Geral"))?.id === fg!.id &&
+      (await topicByName("Tema Teste Ataque FG")) === null,
+  );
+  await postFields(admin, topicsPath, { ...deleteTopicFields, topicId: createdTopic!.id });
+  const usedStillThere = (await topicByName("Tema Teste Ataque Renomeado")) !== null;
+  await postFields(answerer, topicsPath, deleteTopicFields);
+  const studentCouldNotDelete = (await topicByName("Tema Teste Ataque Livre")) !== null;
+  await postFields(admin, topicsPath, deleteTopicFields);
+  check(
+    "excluir tema: em uso é bloqueado, aluno não exclui, sem uso o admin exclui",
+    usedStillThere &&
+      studentCouldNotDelete &&
+      (await topicByName("Tema Teste Ataque Livre")) === null,
   );
 
   await prisma.attemptItem.deleteMany({

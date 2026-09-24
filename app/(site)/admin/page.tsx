@@ -22,6 +22,12 @@ export default async function AdminPage(props: PageProps<"/admin">) {
           oficial que os alunos veem.
         </p>
         <Link
+          href="/admin/temas"
+          className="tap text-accent self-start text-sm underline-offset-4 hover:underline"
+        >
+          Gerenciar temas
+        </Link>
+        <Link
           href="/admin/provas/nova"
           className="bg-accent text-accent-contrast hover:bg-accent-hover inline-flex min-h-11 items-center justify-center self-start rounded-lg px-5 text-sm font-medium transition-colors"
         >

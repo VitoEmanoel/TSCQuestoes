@@ -263,6 +263,7 @@ async function main() {
       await visit("admin-editor", `/admin/questoes/${withImage.id}`);
       await visit("admin-editor-discursiva", `/admin/questoes/${discursive.id}`);
       await visit("admin-nova-prova", "/admin/provas/nova");
+      await visit("admin-temas", "/admin/temas");
       await removeStudent();
       await prisma.user.create({
         data: {
