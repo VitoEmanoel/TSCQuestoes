@@ -15,6 +15,13 @@ export function AuthCard({
         <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">{title}</h1>
         {subtitle ? <p className="mt-2 text-zinc-600 dark:text-zinc-400">{subtitle}</p> : null}
         <div className="mt-8">{children}</div>
+        <p className="mt-8 text-xs text-zinc-500">
+          Ao entrar, você concorda com a nossa{" "}
+          <Link href="/privacidade" className="tap underline underline-offset-4">
+            política de privacidade
+          </Link>
+          .
+        </p>
       </div>
     </main>
   );

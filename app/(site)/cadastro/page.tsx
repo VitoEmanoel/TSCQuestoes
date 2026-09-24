@@ -19,7 +19,11 @@ export default async function SignupPage() {
     <AuthCard title="Criar conta" subtitle="Conta de estudante, de graça. Leva um minuto.">
       {googleEnabled ? (
         <div className="mb-5">
-          <GoogleButton callbackUrl="/" label="Criar conta com Google" />
+          <GoogleButton
+            callbackUrl="/"
+            label="Criar conta com Google"
+            divider={studentPasswordEnabled()}
+          />
         </div>
       ) : null}
       {studentPasswordEnabled() ? (

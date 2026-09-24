@@ -139,7 +139,10 @@ async function main() {
     const login = await (await fetch(`${BASE}/login`)).text();
     check(
       "/login mostra só o Google (sem campo de senha)",
-      !login.includes('id="password"') && login.includes("Continuar com Google"),
+      !login.includes('id="password"') &&
+        !login.includes("ou com e-mail") &&
+        login.includes("Continuar com Google") &&
+        login.includes('href="/privacidade"'),
     );
     const signupPage = await (await fetch(`${BASE}/cadastro`)).text();
     check(

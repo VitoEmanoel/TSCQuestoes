@@ -1,6 +1,14 @@
 import { googleSignIn } from "@/app/actions/auth";
 
-export function GoogleButton({ callbackUrl, label }: { callbackUrl: string; label: string }) {
+export function GoogleButton({
+  callbackUrl,
+  label,
+  divider = true,
+}: {
+  callbackUrl: string;
+  label: string;
+  divider?: boolean;
+}) {
   return (
     <form action={googleSignIn} className="flex flex-col gap-5">
       <input type="hidden" name="callbackUrl" value={callbackUrl} />
@@ -28,11 +36,13 @@ export function GoogleButton({ callbackUrl, label }: { callbackUrl: string; labe
         </svg>
         {label}
       </button>
-      <p className="flex items-center gap-3 text-xs text-zinc-500">
-        <span className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
-        ou com e-mail
-        <span className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
-      </p>
+      {divider ? (
+        <p className="flex items-center gap-3 text-xs text-zinc-500">
+          <span className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+          ou com e-mail
+          <span className="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
+        </p>
+      ) : null}
     </form>
   );
 }

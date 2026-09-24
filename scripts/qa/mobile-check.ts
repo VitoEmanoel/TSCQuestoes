@@ -187,6 +187,7 @@ async function main() {
       await visit("inicio", "/");
       await visit("login", "/login");
       await visit("cadastro", "/cadastro");
+      await visit("privacidade", "/privacidade");
 
       await login(page, STUDENT_EMAIL, STUDENT_PASSWORD);
       await visit("questoes-lista", "/questoes");

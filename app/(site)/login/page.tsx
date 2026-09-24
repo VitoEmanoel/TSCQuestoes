@@ -31,7 +31,11 @@ export default async function LoginPage(props: PageProps<"/login">) {
       ) : null}
       {googleEnabled ? (
         <div className="mb-5">
-          <GoogleButton callbackUrl={target} label="Continuar com Google" />
+          <GoogleButton
+            callbackUrl={target}
+            label="Continuar com Google"
+            divider={studentPasswordEnabled()}
+          />
         </div>
       ) : null}
       {studentPasswordEnabled() ? (
