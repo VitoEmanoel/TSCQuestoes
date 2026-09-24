@@ -16,8 +16,8 @@ if [[ "$WHAT" == "conteudo" ]]; then
     echo "Gere antes com: npm run release:conteudo" >&2
     exit 1
   fi
-  scp -q release/conteudo.tar.gz "$HOST:/tmp/tscquestoes-conteudo.tar.gz"
-  ssh "$HOST" 'sudo bash /opt/tscquestoes/atual/carregar-conteudo.sh /tmp/tscquestoes-conteudo.tar.gz; status=$?; rm -f /tmp/tscquestoes-conteudo.tar.gz; exit $status'
+  ssh "$HOST" 'umask 077 && cat > /var/tmp/tscquestoes-conteudo.tar.gz' < release/conteudo.tar.gz
+  ssh "$HOST" 'sudo bash /opt/tscquestoes/atual/carregar-conteudo.sh /var/tmp/tscquestoes-conteudo.tar.gz; status=$?; rm -f /var/tmp/tscquestoes-conteudo.tar.gz; exit $status'
   exit 0
 fi
 
@@ -28,7 +28,7 @@ if [[ -z "$PACKAGE" ]]; then
 fi
 NAME="$(basename "$PACKAGE" .tar.gz)"
 echo "Enviando $NAME..."
-scp -q "$PACKAGE" "$HOST:/tmp/$NAME.tar.gz"
+ssh "$HOST" "umask 077 && cat > /var/tmp/$NAME.tar.gz" < "$PACKAGE"
 
 ssh "$HOST" sudo bash -s -- "$NAME" <<'REMOTE'
 set -euo pipefail
@@ -36,8 +36,8 @@ NAME="$1"
 DIR="/opt/tscquestoes/versoes/$NAME"
 mkdir -p /opt/tscquestoes/versoes
 rm -rf "$DIR"
-tar -xzf "/tmp/$NAME.tar.gz" -C /opt/tscquestoes/versoes
-rm -f "/tmp/$NAME.tar.gz"
+tar -xzf "/var/tmp/$NAME.tar.gz" -C /opt/tscquestoes/versoes
+rm -f "/var/tmp/$NAME.tar.gz"
 if [[ ! -f /etc/tscquestoes/ambiente || ! -x /opt/tscquestoes/ferramentas/node_modules/.bin/prisma ]]; then
   bash "$DIR/instalar-servidor.sh"
 fi
