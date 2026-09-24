@@ -2,7 +2,15 @@ import type { NextConfig } from "next";
 import { isHttps, staticSecurityHeaders } from "./lib/security-headers";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
+  deploymentId: process.env.DEPLOYMENT_VERSION || undefined,
   poweredByHeader: false,
+  experimental: {
+    isrFlushToDisk: false,
+  },
+  outputFileTracingIncludes: {
+    "/*": ["node_modules/@prisma/client/**", "node_modules/.prisma/client/**"],
+  },
   outputFileTracingExcludes: {
     "/*": [
       "ProvasEnadeADS/**",
@@ -11,6 +19,25 @@ const nextConfig: NextConfig = {
       "docs/**",
       ".git/**",
       "coverage/**",
+      "release/**",
+      "app/**",
+      "components/**",
+      "lib/**",
+      "types/**",
+      "deploy/**",
+      "prisma/**",
+      "public/**",
+      "*.md",
+      "*.ts",
+      "*.mjs",
+      "*.yml",
+      "tsconfig*.json",
+      "tsconfig.tsbuildinfo",
+      "package-lock.json",
+      ".claudeignore",
+      ".gitignore",
+      ".prettier*",
+      ".env*",
     ],
   },
   turbopack: {

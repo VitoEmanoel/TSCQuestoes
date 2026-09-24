@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup do TSCQuestões (banco e imagens)
+
+[Service]
+Type=oneshot
+ExecStart=/opt/tscquestoes/backup.sh

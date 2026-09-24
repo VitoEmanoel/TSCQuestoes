@@ -28,7 +28,11 @@
     "security:browser": "tsx scripts/security/browser-check.ts",
     "test": "tsx --test lib/*.test.ts scripts/extract/*.test.ts",
     "e2e:painel": "next build && tsx scripts/e2e/painel-importa-prova.ts",
-    "qa:celular": "tsx scripts/qa/mobile-check.ts"
+    "qa:celular": "tsx scripts/qa/mobile-check.ts",
+    "release": "bash scripts/deploy/build-release.sh",
+    "release:conteudo": "tsx scripts/deploy/export-content.ts release/conteudo && tar -C release -czf release/conteudo.tar.gz conteudo",
+    "publicar": "bash scripts/deploy/publicar.sh",
+    "qa:carga": "tsx scripts/qa/carga.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

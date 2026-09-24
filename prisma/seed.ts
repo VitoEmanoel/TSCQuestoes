@@ -2,7 +2,8 @@ import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import bcrypt from "bcryptjs";
 import { prisma } from "../lib/prisma";
-import { listYears, loadDrafts, validateYears } from "../scripts/extract/validate";
+
+type Validate = typeof import("../scripts/extract/validate");
 
 const COURSE = "Tecnologia em Análise e Desenvolvimento de Sistemas";
 const PROVAS_ROOT = join(process.cwd(), "ProvasEnadeADS");
@@ -20,7 +21,11 @@ const TOPICS: Array<{ name: string; category: string }> = [
   { name: "Qualidade de Software", category: "Componente Específico" },
 ];
 
-async function seedTopicsAndAdmin() {
+const ONLY_ADMIN = process.argv.includes("--somente-admin");
+const DEV_PASSWORD = "admin123";
+const MIN_PRODUCTION_PASSWORD = 14;
+
+async function seedTopics() {
   for (const topic of TOPICS) {
     await prisma.topic.upsert({
       where: { name: topic.name },
@@ -28,9 +33,19 @@ async function seedTopicsAndAdmin() {
       create: topic,
     });
   }
+}
 
+async function seedAdmin() {
   const adminEmail = process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local";
-  const adminPassword = process.env.ADMIN_SEED_PASSWORD ?? "admin123";
+  const adminPassword = process.env.ADMIN_SEED_PASSWORD ?? DEV_PASSWORD;
+  if (
+    ONLY_ADMIN &&
+    (adminPassword === DEV_PASSWORD || adminPassword.length < MIN_PRODUCTION_PASSWORD)
+  ) {
+    throw new Error(
+      `No servidor, defina ADMIN_SEED_PASSWORD com pelo menos ${MIN_PRODUCTION_PASSWORD} caracteres (e diferente da senha de desenvolvimento).`,
+    );
+  }
   const passwordHash = await bcrypt.hash(adminPassword, 10);
 
   await prisma.$transaction(async (tx) => {
@@ -47,7 +62,11 @@ async function seedTopicsAndAdmin() {
     });
   });
 
-  console.log(`Admin ok: ${adminEmail} / ${adminPassword}`);
+  console.log(
+    adminPassword === DEV_PASSWORD
+      ? `Admin ok: ${adminEmail} / ${adminPassword}`
+      : `Admin ok: ${adminEmail} (senha definida em ADMIN_SEED_PASSWORD)`,
+  );
 }
 
 function findPdfFile(year: string, tipo: string): string | null {
@@ -56,7 +75,7 @@ function findPdfFile(year: string, tipo: string): string | null {
   return file ?? null;
 }
 
-async function seedExam(year: string) {
+async function seedExam(year: string, drafts: Validate["loadDrafts"]) {
   const yearNumber = Number(year);
 
   const exam = await prisma.exam.upsert({
@@ -85,7 +104,7 @@ async function seedExam(year: string) {
     ]),
   );
 
-  for (const { draft } of loadDrafts(year)) {
+  for (const { draft } of drafts(year)) {
     const existing = await prisma.question.findUnique({
       where: { examId_originalLabel: { examId: exam.id, originalLabel: draft.originalLabel } },
       select: { id: true },
@@ -181,8 +200,15 @@ async function seedExam(year: string) {
 }
 
 async function main() {
-  await seedTopicsAndAdmin();
+  if (ONLY_ADMIN) {
+    await seedAdmin();
+    return;
+  }
+  await seedTopics();
+  await seedAdmin();
 
+  const { listYears, loadDrafts, validateYears }: Validate =
+    await import("../scripts/extract/validate");
   const years = listYears();
   const issues = validateYears(years);
   const errors = issues.filter((issue) => issue.level === "error");
@@ -197,7 +223,7 @@ async function main() {
   }
 
   for (const year of years) {
-    await seedExam(year);
+    await seedExam(year, loadDrafts);
   }
 
   console.log("Seed concluído.");

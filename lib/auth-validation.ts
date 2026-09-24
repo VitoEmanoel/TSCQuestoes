@@ -17,8 +17,13 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const PASSWORD_MIN_LENGTH = 8;
 
+const CONTROL_CHARS = /[\u0000-\u001f\u007f]/;
+
 export function normalizeEmail(value: FormDataEntryValue | null): string {
-  return typeof value === "string" ? value.trim().toLowerCase() : "";
+  if (typeof value !== "string" || CONTROL_CHARS.test(value.trim())) {
+    return "";
+  }
+  return value.trim().toLowerCase();
 }
 
 function readText(value: FormDataEntryValue | null): string {

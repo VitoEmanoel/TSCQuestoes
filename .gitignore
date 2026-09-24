@@ -27,3 +27,6 @@ Thumbs.db
 
 # Imagens enviadas pelo painel (ficam no disco do servidor e entram no backup)
 storage/
+
+# Pacotes gerados para enviar ao servidor
+/release/
