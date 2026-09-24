@@ -101,9 +101,9 @@ class Browser {
     return this.request(path, { method: "POST", body: data }, true);
   }
 
-  async login(email: string, password: string) {
-    const hidden = await this.form("/login", 'name="password"');
-    return this.post("/login", [
+  async login(email: string, password: string, path = "/login") {
+    const hidden = await this.form(path, 'name="password"');
+    return this.post(path, [
       ...Object.entries(hidden),
       ["email", email],
       ["password", password],
@@ -186,7 +186,7 @@ async function main() {
     const raw = (name: string) =>
       readFileSync(join(process.cwd(), "scripts/extract/raw", YEAR, `${name}.txt`), "utf-8");
     const admin = new Browser();
-    const login = await admin.login(ADMIN_EMAIL, ADMIN_PASSWORD);
+    const login = await admin.login(ADMIN_EMAIL, ADMIN_PASSWORD, "/admin/entrar");
     step("admin entra pelo formulário de login", login.status === 303, login.location);
 
     const importHidden = await admin.form("/admin/provas/nova", 'name="etapa"');

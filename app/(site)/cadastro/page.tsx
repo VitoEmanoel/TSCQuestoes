@@ -12,7 +12,7 @@ export default async function SignupPage() {
   }
 
   return (
-    <AuthCard title="Criar conta">
+    <AuthCard title="Criar conta" subtitle="Conta de estudante, de graça. Leva um minuto.">
       <SignupForm />
     </AuthCard>
   );

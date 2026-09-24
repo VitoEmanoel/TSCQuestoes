@@ -37,7 +37,11 @@ function describeAuthError(error: AuthError): string {
     : "Não foi possível entrar agora. Tente novamente.";
 }
 
-export async function login(_state: AuthFormState, formData: FormData): Promise<AuthFormState> {
+async function portalLogin(
+  portal: "aluno" | "admin",
+  formData: FormData,
+  redirectTo: string,
+): Promise<AuthFormState> {
   const email = normalizeEmail(formData.get("email"));
   const password = formData.get("password");
 
@@ -46,11 +50,7 @@ export async function login(_state: AuthFormState, formData: FormData): Promise<
   }
 
   try {
-    await signIn("credentials", {
-      email,
-      password,
-      redirectTo: safeRedirectPath(formData.get("callbackUrl")),
-    });
+    await signIn("credentials", { email, password, portal, redirectTo });
   } catch (error) {
     if (error instanceof AuthError) {
       return { message: describeAuthError(error), values: { email } };
@@ -59,6 +59,17 @@ export async function login(_state: AuthFormState, formData: FormData): Promise<
   }
 
   return {};
+}
+
+export async function login(_state: AuthFormState, formData: FormData): Promise<AuthFormState> {
+  return portalLogin("aluno", formData, safeRedirectPath(formData.get("callbackUrl")));
+}
+
+export async function adminLogin(
+  _state: AuthFormState,
+  formData: FormData,
+): Promise<AuthFormState> {
+  return portalLogin("admin", formData, "/admin");
 }
 
 export async function signup(_state: AuthFormState, formData: FormData): Promise<AuthFormState> {

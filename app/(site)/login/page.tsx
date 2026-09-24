@@ -16,7 +16,7 @@ export default async function LoginPage(props: PageProps<"/login">) {
   }
 
   return (
-    <AuthCard title="Entrar">
+    <AuthCard title="Entrar" subtitle="Continue seus estudos para o ENADE.">
       <LoginForm callbackUrl={target} />
     </AuthCard>
   );

@@ -28,10 +28,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       credentials: {
         email: {},
         password: {},
+        portal: {},
       },
       authorize: async (credentials, request) => {
         const email = normalizeEmail((credentials?.email as string | undefined) ?? null);
         const password = credentials?.password;
+        const expectedRole = credentials?.portal === "admin" ? "ADMIN" : "STUDENT";
 
         if (!email || typeof password !== "string" || password.length === 0) {
           return null;
@@ -47,7 +49,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const user = await prisma.user.findUnique({ where: { email } });
         const passwordMatches = await bcrypt.compare(password, user?.passwordHash ?? DUMMY_HASH);
 
-        if (!user?.passwordHash || !passwordMatches) {
+        if (!user?.passwordHash || !passwordMatches || user.role !== expectedRole) {
           const [emailState, ipState] = await Promise.all([
             recordFailure(emailKey, EMAIL_POLICY),
             recordFailure(ipKey, IP_POLICY),

@@ -583,12 +583,12 @@ async function main() {
     );
 
     phase = "editor do admin";
-    const loginAs = async (email: string, password: string) => {
+    const loginAs = async (email: string, password: string, path = "/login") => {
       await page.evaluate(
         "[...document.querySelectorAll('header button')].find((b) => b.textContent.includes('Sair'))?.click()",
       );
       await page.waitFor("!document.querySelector('header')?.textContent.includes('Sair')", 10_000);
-      await page.goto(`${BASE}/login`);
+      await page.goto(`${BASE}${path}`);
       await page.evaluate(`(() => {
         document.querySelector('#email').value = ${JSON.stringify(email)};
         document.querySelector('#password').value = ${JSON.stringify(password)};
@@ -622,6 +622,7 @@ async function main() {
     const adminIn = await loginAs(
       process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local",
       process.env.ADMIN_SEED_PASSWORD ?? "admin123",
+      "/admin/entrar",
     );
     await page.goto(`${BASE}/admin/questoes/${adminDraft.id}`);
     await page.waitFor(

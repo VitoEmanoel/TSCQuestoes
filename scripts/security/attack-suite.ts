@@ -442,8 +442,10 @@ async function main() {
   const leakedSession = await leaked.session();
   const leakedHeader = await leaked.headerText();
   check(
-    "token legítimo com role=ADMIN: a camada de dados relê o papel no banco e mostra Estudante",
-    leakedHeader.includes("Estudante") && !leakedHeader.includes("Administrador"),
+    "token legítimo com role=ADMIN: a camada de dados relê o papel no banco e não mostra o painel",
+    leakedHeader.includes("Sair") &&
+      !leakedHeader.includes("Painel") &&
+      !/\bAdmin\b/.test(leakedHeader),
     `/api/auth/session diz ${leakedSession?.user.role}; cabeçalho: "${leakedHeader.slice(0, 60)}"`,
   );
   const ghost = new Client("10.53.0.2");
@@ -2078,11 +2080,47 @@ async function main() {
     blocked.every((response) => response.status === 404 && !response.body.includes("statementMd")),
     blocked.map((response) => response.status).join(","),
   );
+  group("Portais de login (estudante × administrador)");
+  const adminEmail = process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local";
+  const adminPassword = process.env.ADMIN_SEED_PASSWORD ?? "admin123";
+  const adminAtStudentPortal = new Client("10.72.0.1");
+  reply = await pageLogin(adminAtStudentPortal, adminEmail, adminPassword);
+  check(
+    "admin pela tela de estudante é recusado com a mensagem genérica",
+    (await adminAtStudentPortal.session()) === null &&
+      pageText(reply.body).includes("E-mail ou senha incorretos"),
+  );
+  const studentAtAdminPortal = new Client("10.72.0.2");
+  reply = await studentAtAdminPortal.submit("/admin/entrar", {
+    email: studentEmail,
+    password: studentPassword,
+  });
+  check(
+    "estudante pela tela de admin é recusado com a mensagem genérica",
+    (await studentAtAdminPortal.session()) === null &&
+      pageText(reply.body).includes("E-mail ou senha incorretos"),
+  );
+  const apiAdmin = new Client("10.72.0.3");
+  await apiAdmin.apiLogin(adminEmail, adminPassword);
+  const apiStudentForged = new Client("10.72.0.4");
+  await apiStudentForged.apiLogin(studentEmail, studentPassword, { portal: "admin" });
+  check(
+    "API de login direta: admin sem portal não entra e estudante com portal=admin forjado também não",
+    (await apiAdmin.session()) === null && (await apiStudentForged.session()) === null,
+  );
+  const publicPages = await Promise.all(
+    ["/", "/login", "/cadastro"].map((path) => new Client("10.72.0.5").get(path)),
+  );
+  check(
+    "nenhuma página pública tem link para o login do admin",
+    publicPages.every((page) => page.status === 200 && !page.body.includes("/admin/entrar")),
+  );
   const admin = new Client("10.70.0.2");
-  await pageLogin(
-    admin,
-    process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local",
-    process.env.ADMIN_SEED_PASSWORD ?? "admin123",
+  reply = await admin.submit("/admin/entrar", { email: adminEmail, password: adminPassword });
+  check(
+    "admin entra pela tela própria e cai no painel",
+    (await admin.session())?.user.role === "ADMIN" && reply.location.endsWith("/admin"),
+    reply.location,
   );
   const editorPage = await admin.get(editPath);
   check(

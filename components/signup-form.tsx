@@ -5,6 +5,7 @@ import { useActionState } from "react";
 import { signup } from "@/app/actions/auth";
 import { type AuthFormState, PASSWORD_MIN_LENGTH } from "@/lib/auth-validation";
 import { FormField } from "@/components/form-field";
+import { buttonPrimary } from "@/components/ui";
 
 export function SignupForm() {
   const [state, action, pending] = useActionState<AuthFormState, FormData>(signup, {});
@@ -20,7 +21,7 @@ export function SignupForm() {
         <p className="text-zinc-600 dark:text-zinc-400">
           Não recebeu? Confira a caixa de spam ou aguarde alguns minutos antes de tentar de novo.
         </p>
-        <Link href="/login" className="tap font-medium underline">
+        <Link href="/login" className="tap text-accent font-medium underline underline-offset-4">
           Ir para o login
         </Link>
       </div>
@@ -28,7 +29,7 @@ export function SignupForm() {
   }
 
   return (
-    <form action={action} className="flex flex-col gap-4" noValidate>
+    <form action={action} className="flex flex-col gap-5" noValidate>
       <FormField
         id="name"
         label="Nome"
@@ -64,16 +65,12 @@ export function SignupForm() {
           {state.message}
         </p>
       ) : null}
-      <button
-        type="submit"
-        disabled={pending}
-        className="rounded-md bg-zinc-900 px-4 py-2 font-medium text-white hover:bg-zinc-700 disabled:opacity-60 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
-      >
+      <button type="submit" disabled={pending} className={`${buttonPrimary} w-full`}>
         {pending ? "Criando conta..." : "Criar conta"}
       </button>
-      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
         Já tem conta?{" "}
-        <Link href="/login" className="font-medium underline">
+        <Link href="/login" className="text-accent font-medium underline underline-offset-4">
           Entrar
         </Link>
       </p>

@@ -1,35 +1,73 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafaf7;
+  --foreground: #1a1a17;
+  --accent: #1f5f4a;
+  --accent-hover: #174a3a;
+  --accent-soft: #e6efe9;
+  --accent-contrast: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #11110f;
+    --foreground: #ecebe4;
+    --accent: #5fb391;
+    --accent-hover: #79c4a5;
+    --accent-soft: #1b2a23;
+    --accent-contrast: #0c1512;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-zinc-50: #fafaf7;
+  --color-zinc-100: #f1f0ea;
+  --color-zinc-200: #e3e2d9;
+  --color-zinc-300: #cfcdc2;
+  --color-zinc-400: #a4a296;
+  --color-zinc-500: #78766b;
+  --color-zinc-600: #5c5a50;
+  --color-zinc-700: #46453d;
+  --color-zinc-800: #2d2c27;
+  --color-zinc-900: #1a1a17;
+  --color-zinc-950: #11110f;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
 
 @layer base {
+  h1,
+  h2 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+
   input[type="checkbox"],
   input[type="radio"] {
     width: 1.5rem;
     height: 1.5rem;
+    accent-color: var(--accent);
+  }
+
+  ::selection {
+    background: var(--accent-soft);
   }
 }
 

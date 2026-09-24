@@ -89,12 +89,12 @@ async function hydrated(page: Page) {
   );
 }
 
-async function login(page: Page, email: string, password: string) {
+async function login(page: Page, email: string, password: string, path = "/login") {
   await page.evaluate(
     "[...document.querySelectorAll('header button')].find((b) => b.textContent.includes('Sair'))?.click()",
   );
   await page.waitFor("!document.querySelector('header')?.textContent.includes('Sair')", 10_000);
-  await page.goto(`${BASE}/login`);
+  await page.goto(`${BASE}${path}`);
   await page.evaluate(`(() => {
     document.querySelector('#email').value = ${JSON.stringify(email)};
     document.querySelector('#password').value = ${JSON.stringify(password)};
@@ -243,6 +243,20 @@ async function main() {
         page,
         process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local",
         process.env.ADMIN_SEED_PASSWORD ?? "admin123",
+        "/admin/entrar",
+      );
+      await visit("admin-login", null, async () => {
+        await page.evaluate(
+          "[...document.querySelectorAll('header button')].find((b) => b.textContent.includes('Sair'))?.click()",
+        );
+        await sleep(800);
+        await page.goto(`${BASE}/admin/entrar`, 1200);
+      });
+      await login(
+        page,
+        process.env.ADMIN_SEED_EMAIL ?? "admin@tscquestoes.local",
+        process.env.ADMIN_SEED_PASSWORD ?? "admin123",
+        "/admin/entrar",
       );
       await visit("admin", "/admin");
       await visit("admin-prova", `/admin/provas/${exam2021.id}`);
