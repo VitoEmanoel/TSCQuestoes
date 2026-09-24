@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { moveQuestionAction } from "@/app/actions/admin-manage";
 import { BulkPublishForm } from "@/components/bulk-publish-form";
+import { NewQuestionForm } from "@/components/new-question-form";
 import { ExamBadge } from "@/components/exam-badge";
 import { deleteExamAction } from "@/app/actions/admin-import";
 import { examDeletionBlockers } from "@/lib/admin-import";
@@ -14,7 +16,7 @@ export const metadata: Metadata = { title: "Questões da prova — Painel" };
 export default async function AdminExamPage(props: PageProps<"/admin/provas/[examId]">) {
   await requireAdmin();
   const { examId } = await props.params;
-  const { importada, erro } = await props.searchParams;
+  const { importada, erro, excluida } = await props.searchParams;
   const exam = await adminExamQuestions(examId);
   if (!exam) {
     notFound();
@@ -52,13 +54,19 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
             : "Não foi possível excluir: a prova tem questão publicada ou já foi usada por alunos."}
         </p>
       ) : null}
+      {excluida === "1" ? (
+        <p role="status" className="text-accent text-sm font-medium">
+          Questão excluída.
+        </p>
+      ) : null}
+      <NewQuestionForm examId={exam.id} />
       <p className="text-sm text-zinc-600 dark:text-zinc-400">
         {exam.questions.length} questões · {exam.questions.length - drafts} publicadas · {drafts} em
         rascunho
       </p>
       <BulkPublishForm examId={exam.id}>
         <ul className="flex flex-col gap-2">
-          {exam.questions.map((question) => (
+          {exam.questions.map((question, index) => (
             <li key={question.id} className="flex items-stretch gap-2">
               <label className="flex items-center rounded-lg border border-zinc-200 px-3 dark:border-zinc-800">
                 <input
@@ -68,6 +76,26 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
                   aria-label={`Selecionar ${questionTitle(question.originalLabel, question.type)}`}
                 />
               </label>
+              <div className="flex flex-col justify-center gap-1">
+                <button
+                  type="submit"
+                  form={`mover-${question.id}-up`}
+                  disabled={index === 0}
+                  aria-label={`Subir ${questionTitle(question.originalLabel, question.type)}`}
+                  className="inline-flex h-7 w-8 items-center justify-center rounded-md border border-zinc-200 text-xs hover:bg-zinc-100 disabled:opacity-30 dark:border-zinc-800 dark:hover:bg-zinc-900"
+                >
+                  ↑
+                </button>
+                <button
+                  type="submit"
+                  form={`mover-${question.id}-down`}
+                  disabled={index === exam.questions.length - 1}
+                  aria-label={`Descer ${questionTitle(question.originalLabel, question.type)}`}
+                  className="inline-flex h-7 w-8 items-center justify-center rounded-md border border-zinc-200 text-xs hover:bg-zinc-100 disabled:opacity-30 dark:border-zinc-800 dark:hover:bg-zinc-900"
+                >
+                  ↓
+                </button>
+              </div>
               <Link
                 href={`/admin/questoes/${question.id}`}
                 className="flex min-w-0 flex-1 flex-col gap-1 rounded-lg border border-zinc-200 p-3 hover:border-zinc-400 dark:border-zinc-800 dark:hover:border-zinc-600"
@@ -112,6 +140,18 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
           ))}
         </ul>
       </BulkPublishForm>
+      {exam.questions.flatMap((question) =>
+        (["up", "down"] as const).map((direction) => (
+          <form
+            key={`${question.id}-${direction}`}
+            id={`mover-${question.id}-${direction}`}
+            action={moveQuestionAction}
+            hidden
+          >
+            <input type="hidden" name="mover" value={`${question.id}:${direction}`} />
+          </form>
+        )),
+      )}
       <section
         aria-label="Excluir prova"
         className="flex flex-col gap-2 rounded-xl border border-red-200 p-4 dark:border-red-900"

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { deleteQuestionAction } from "@/app/actions/admin-manage";
 import { AdminImageManager } from "@/components/admin-image-manager";
+import { RenameQuestionForm } from "@/components/rename-question-form";
 import { ExamBadge } from "@/components/exam-badge";
 import { PublishControls } from "@/components/publish-controls";
 import { QuestionEditor } from "@/components/question-editor";
 import { RichText } from "@/components/rich-text";
 import { IMAGE_ERROR_MESSAGE, type ImageError } from "@/lib/admin-images";
 import { openAttemptsWith, questionPublishProblems } from "@/lib/admin-publish";
+import { questionUsage } from "@/lib/admin-manage";
 import { adminQuestion, allTopics } from "@/lib/admin-questions";
 import { resolveAssets } from "@/lib/assets";
 import { requireAdmin } from "@/lib/dal";
@@ -18,16 +21,17 @@ export const metadata: Metadata = { title: "Editar questão — Painel" };
 export default async function AdminQuestionPage(props: PageProps<"/admin/questoes/[id]">) {
   await requireAdmin();
   const { id } = await props.params;
-  const { salvo, imagem, erro } = await props.searchParams;
+  const { salvo, imagem, erro, nova } = await props.searchParams;
   const imageError =
     typeof erro === "string" && Object.hasOwn(IMAGE_ERROR_MESSAGE, erro)
       ? IMAGE_ERROR_MESSAGE[erro as ImageError]
       : null;
-  const [question, topics, problems, openAttempts] = await Promise.all([
+  const [question, topics, problems, openAttempts, usage] = await Promise.all([
     adminQuestion(id),
     allTopics(),
     questionPublishProblems(id),
     openAttemptsWith(id),
+    questionUsage(id),
   ]);
   if (!question) {
     notFound();
@@ -57,6 +61,25 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
           )}
         </div>
         <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">Editar: {title}</h1>
+        <RenameQuestionForm questionId={question.id} label={question.originalLabel} />
+        {nova === "1" ? (
+          <p
+            role="status"
+            className="bg-accent-soft rounded-md px-3 py-2 text-sm text-zinc-800 dark:text-zinc-200"
+          >
+            Questão criada como rascunho. Escreva o enunciado, preencha o resto e salve.
+          </p>
+        ) : null}
+        {erro === "em-uso" || erro === "confirmacao" ? (
+          <p
+            role="alert"
+            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-200"
+          >
+            {erro === "em-uso"
+              ? "Não dá para excluir: esta questão já foi usada por alunos. Volte-a para rascunho para tirá-la da vista deles."
+              : "Marque a confirmação para excluir a questão."}
+          </p>
+        ) : null}
         {question.reviewedAt ? (
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Revisada em{" "}
@@ -199,6 +222,39 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
             />
           ))}
         </div>
+      </section>
+      <section
+        aria-labelledby="excluir"
+        className="flex flex-col gap-2 rounded-xl border border-red-200 p-4 dark:border-red-900"
+      >
+        <h2 id="excluir" className="font-semibold text-red-800 dark:text-red-300">
+          Excluir questão
+        </h2>
+        {usage.total === 0 ? (
+          <form action={deleteQuestionAction} className="flex flex-wrap items-center gap-3 text-sm">
+            <input type="hidden" name="questionId" value={question.id} />
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="confirmacao" value="sim" required />
+              Apagar de vez esta questão, as alternativas, o padrão e as imagens dela
+            </label>
+            <button
+              type="submit"
+              className="inline-flex min-h-11 items-center rounded-lg border border-red-400 px-4 font-medium text-red-800 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-950"
+            >
+              Excluir questão
+            </button>
+          </form>
+        ) : (
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            Não dá para excluir:{" "}
+            {usage.answers > 0
+              ? `${usage.answers} ${usage.answers === 1 ? "resposta de aluno" : "respostas de alunos"}`
+              : ""}
+            {usage.answers > 0 && usage.attempts + usage.rooms > 0 ? " e " : ""}
+            {usage.attempts + usage.rooms > 0 ? "está em simulados ou salas" : ""}. Para tirar da
+            vista dos alunos sem apagar o histórico deles, use “Voltar para rascunho” no topo.
+          </p>
+        )}
       </section>
     </main>
   );

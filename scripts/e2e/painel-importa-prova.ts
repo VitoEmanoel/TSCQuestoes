@@ -277,7 +277,7 @@ async function main() {
     );
 
     const examPath = `/admin/provas/${exam.id}`;
-    const bulkHidden = await admin.form(examPath, 'name="examId"');
+    const bulkHidden = await admin.form(examPath, "Publicar selecionadas");
     const earlyPublish = await admin.post(examPath, [
       ...Object.entries(bulkHidden),
       ["acao", "publicar"],
@@ -381,7 +381,7 @@ async function main() {
     );
 
     const finalPublish = await admin.post(examPath, [
-      ...Object.entries(await admin.form(examPath, 'name="examId"')),
+      ...Object.entries(await admin.form(examPath, "Publicar selecionadas")),
       ["acao", "publicar"],
       ...imported.map((question): [string, string] => ["ids", question.id]),
     ]);

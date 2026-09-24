@@ -2778,7 +2778,7 @@ async function main() {
     `${editedPosition} ${stillPublished} ${hiddenAgain.status} ${inSimulado.status}`,
   );
   const bulkPath = `/admin/provas/${exam2017.id}`;
-  const bulkFields = await formFields(admin, bulkPath, 'name="examId"');
+  const bulkFields = await formFields(admin, bulkPath, "Publicar selecionadas");
   const postBulk = (client: Client, entries: [string, string][]) => {
     const data = new FormData();
     for (const [key, value] of Object.entries(bulkFields)) data.append(key, value);
@@ -3009,6 +3009,142 @@ async function main() {
       (await prisma.question.count({ where: { examId: createdExam.id } })) === 0 &&
       reply.location.includes("/admin?excluida=1"),
     reply.location,
+  );
+
+  group("Painel: criar, excluir e reordenar questões");
+  const manageExam = await prisma.exam.create({
+    data: { year: 2097, course: TEST_COURSE },
+    select: { id: true },
+  });
+  const managePath = `/admin/provas/${manageExam.id}`;
+  const questionsOfManage = () =>
+    prisma.question.findMany({
+      where: { examId: manageExam.id },
+      orderBy: { order: "asc" },
+      select: {
+        id: true,
+        originalLabel: true,
+        order: true,
+        type: true,
+        publishedAt: true,
+        reviewedAt: true,
+        _count: { select: { options: true, answerStandards: true } },
+      },
+    });
+  const createFields = await formFields(admin, managePath, 'name="numero"');
+  const createAs = (client: Client, fields: Record<string, string>) =>
+    postFields(client, managePath, {
+      ...createFields,
+      tipo: "OBJECTIVE",
+      area: "COMPONENTE_ESPECIFICO",
+      ...fields,
+    });
+  await createAs(answerer, { numero: "36" });
+  await createAs(anonAdmin, { numero: "36" });
+  for (const numero of ["abc", "D-1", "<script>", "1234", "", "36; DROP TABLE"]) {
+    await createAs(admin, { numero });
+  }
+  await createAs(admin, { numero: "40", tipo: "HACK" });
+  await createAs(admin, { numero: "41", area: "' OR 1=1 --" });
+  check(
+    "criar questão: aluno, visitante e valores inválidos não criam nada",
+    Object.keys(createFields).some((key) => key.startsWith("$ACTION")) &&
+      (await questionsOfManage()).length === 0,
+  );
+  reply = await createAs(admin, { numero: "036" });
+  await createAs(admin, { numero: "d6", tipo: "DISCURSIVE", area: "FORMACAO_GERAL" });
+  const duplicateCreate = await createAs(admin, { numero: "36" });
+  let managed = await questionsOfManage();
+  check(
+    "admin cria objetiva e discursiva como rascunho não revisado, sem número repetido",
+    managed.length === 2 &&
+      managed[0].originalLabel === "36" &&
+      managed[0]._count.options === 5 &&
+      managed[1].originalLabel === "D6" &&
+      managed[1].type === "DISCURSIVE" &&
+      managed[1]._count.answerStandards === 1 &&
+      managed.every((question) => question.publishedAt === null && question.reviewedAt === null) &&
+      reply.location.includes(`/admin/questoes/${managed[0].id}?nova=1`) &&
+      pageText(duplicateCreate.body).includes("Já existe a questão 36"),
+    managed.map((question) => question.originalLabel).join(","),
+  );
+  const renamePath = `/admin/questoes/${managed[0].id}`;
+  const renameFields = await formFields(admin, renamePath, "Trocar número");
+  await postFields(answerer, renamePath, { ...renameFields, numero: "99" });
+  reply = await postFields(admin, renamePath, { ...renameFields, numero: "D6" });
+  const renameDuplicate = pageText(reply.body);
+  await postFields(admin, renamePath, { ...renameFields, numero: "37" });
+  managed = await questionsOfManage();
+  check(
+    "trocar número: aluno não troca, repetido é recusado, válido é aplicado",
+    renameDuplicate.includes("Já existe a questão D6") && managed[0].originalLabel === "37",
+  );
+  await createAs(admin, { numero: "38" });
+  managed = await questionsOfManage();
+  const orderBefore = managed.map((question) => question.originalLabel).join(",");
+  const reorderFields = (id: string, direction: string) =>
+    formFields(admin, managePath, `value="${id}:${direction}"`);
+  const lastId = managed[2].id;
+  await postFields(answerer, managePath, await reorderFields(lastId, "up"));
+  await postFields(admin, managePath, {
+    ...(await reorderFields(lastId, "up")),
+    mover: `${lastId}:sideways`,
+  });
+  const afterForged = (await questionsOfManage())
+    .map((question) => question.originalLabel)
+    .join(",");
+  await postFields(admin, managePath, await reorderFields(lastId, "up"));
+  const afterUp = (await questionsOfManage()).map((question) => question.originalLabel).join(",");
+  check(
+    "reordenar: aluno e direção forjada não mudam nada; ↑ troca com a vizinha",
+    orderBefore === "37,D6,38" && afterForged === orderBefore && afterUp === "37,38,D6",
+    `${orderBefore} → ${afterForged} → ${afterUp}`,
+  );
+  const deleteTarget = managed.find((question) => question.originalLabel === "38")!;
+  const deletePath = `/admin/questoes/${deleteTarget.id}`;
+  await upload(admin, deleteTarget.id, {
+    bytes: makePng(12, 12, 7),
+    name: "x.png",
+    type: "image/png",
+  });
+  const uploadedForDelete = await prisma.asset.findFirstOrThrow({
+    where: { questionId: deleteTarget.id },
+    select: { filePath: true },
+  });
+  const deleteQuestionFields = await formFields(admin, deletePath, ">Excluir questão</button>");
+  await postFields(answerer, deletePath, { ...deleteQuestionFields, confirmacao: "sim" });
+  await postFields(admin, deletePath, deleteQuestionFields);
+  const stillThere = await prisma.question.count({ where: { id: deleteTarget.id } });
+  reply = await postFields(admin, deletePath, { ...deleteQuestionFields, confirmacao: "sim" });
+  check(
+    "excluir: aluno não exclui, sem confirmação não exclui, com confirmação some com a imagem",
+    stillThere === 1 &&
+      (await prisma.question.count({ where: { id: deleteTarget.id } })) === 0 &&
+      !uploadFiles().includes(uploadedForDelete.filePath.replace("uploads/", "")) &&
+      reply.location.includes(`${managePath}?excluida=1`),
+    reply.location,
+  );
+  const usedTarget = managed.find((question) => question.originalLabel === "37")!;
+  const answererAttempt = await prisma.attempt.findFirstOrThrow({
+    where: { user: { email: studentEmail } },
+    select: { id: true },
+  });
+  await prisma.attemptItem.create({
+    data: { attemptId: answererAttempt.id, questionId: usedTarget.id, selectedLetter: "A" },
+  });
+  const usedPath = `/admin/questoes/${usedTarget.id}`;
+  const usedPage = pageText((await admin.get(usedPath)).body);
+  reply = await postFields(admin, usedPath, {
+    ...deleteQuestionFields,
+    questionId: usedTarget.id,
+    confirmacao: "sim",
+  });
+  check(
+    "questão já respondida não pode ser excluída (o painel sugere despublicar)",
+    (await prisma.question.count({ where: { id: usedTarget.id } })) === 1 &&
+      usedPage.includes("Não dá para excluir: 1 resposta de aluno") &&
+      reply.location.includes("erro=em-uso"),
+    usedPage.slice(usedPage.indexOf("Excluir questão"), usedPage.indexOf("Excluir questão") + 160),
   );
 
   await prisma.attemptItem.deleteMany({
