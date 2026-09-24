@@ -3,7 +3,7 @@ import type { RevealPolicy } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { PUBLISHED } from "@/lib/questions";
 import { SCORED_QUESTION, scoreAttempt, summarize } from "@/lib/attempt-score";
-import { type ScoreSlot, slotsFor } from "@/lib/scoring";
+import { latestPerQuestion, type ScoreSlot, slotsFor, topicPerformance } from "@/lib/scoring";
 
 export const REVEAL_POLICIES = ["IMMEDIATE", "AT_END", "MANUAL"] as const;
 
@@ -381,7 +381,12 @@ export async function practiceSessionResults(userId: string, attemptId: string) 
           answerText: true,
           selfScore: true,
           answeredAt: true,
-          question: { select: SCORED_QUESTION },
+          question: {
+            select: {
+              ...SCORED_QUESTION,
+              tags: { select: { topic: { select: { name: true } } } },
+            },
+          },
         },
       },
     },
@@ -389,5 +394,21 @@ export async function practiceSessionResults(userId: string, attemptId: string) 
   if (!attempt) {
     return null;
   }
-  return { ...attempt, summary: summarize(attempt.items) };
+  const topics = topicPerformance(
+    latestPerQuestion(attempt.items).map((item) => ({
+      topics: item.question.tags.map((tag) => tag.topic.name),
+      type: item.question.type,
+      anulada: item.question.status === "ANULADA",
+      answered: true,
+      correct:
+        item.selectedLetter !== null &&
+        item.selectedLetter === (item.question.options[0]?.letter ?? null),
+      selfScore: item.selfScore,
+      maxPoints: slotsFor(item.question.valuePoints, item.question.answerStandards).reduce(
+        (sum, slot) => sum + slot.max,
+        0,
+      ),
+    })),
+  );
+  return { ...attempt, summary: summarize(attempt.items), topics };
 }

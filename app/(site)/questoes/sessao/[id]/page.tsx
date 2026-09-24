@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
+import { TopicFocus } from "@/components/topic-focus";
 import { requireUser } from "@/lib/dal";
 import { practiceSessionResults } from "@/lib/practice";
 import { questionTitle } from "@/lib/questions";
@@ -84,6 +85,8 @@ export default async function PracticeSessionPage(props: PageProps<"/questoes/se
           </p>
         ) : null}
       </section>
+
+      <TopicFocus topics={results.topics} />
 
       <ol className="flex flex-col gap-3">
         {items.map((item) => {

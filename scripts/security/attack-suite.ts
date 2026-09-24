@@ -1120,6 +1120,21 @@ async function main() {
       pageText((await answerer.get(answerPath)).body).includes("(acertou)"),
     pageText(resultPage.body).slice(0, 400),
   );
+  const sessionTopics = (
+    await prisma.question.findUniqueOrThrow({
+      where: { id: objective?.id },
+      select: { tags: { select: { topic: { select: { name: true } } } } },
+    })
+  ).tags.map((tag) => tag.topic.name);
+  const sessionText = pageText(resultPage.body);
+  const focusSection = sessionText.slice(sessionText.indexOf("Onde estudar mais"));
+  check(
+    "resultado da sessão de estudo mostra “Onde estudar mais” com o tema da questão",
+    sessionText.includes("Onde estudar mais") &&
+      sessionTopics.every((topic) => focusSection.includes(topic)) &&
+      focusSection.includes("Estudar este tema"),
+    sessionTopics.join(", "),
+  );
   reply = await intruder.get(`/questoes/sessao/${atEndItem?.attemptId}`);
   check("outro aluno não abre o resultado da sessão alheia", reply.status === 404);
   check(
