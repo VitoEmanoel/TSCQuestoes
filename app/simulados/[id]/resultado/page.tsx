@@ -75,7 +75,7 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
-      <Link href="/simulados" className="text-sm underline">
+      <Link href="/simulados" className="tap text-sm underline">
         ← Voltar para os simulados
       </Link>
       <header className="flex items-center gap-2">
@@ -168,7 +168,7 @@ export default async function SimuladoResultPage(props: PageProps<"/simulados/[i
                   </span>
                   <Link
                     href={`/questoes?tema=${encodeURIComponent(topic.topic)}`}
-                    className="text-sm underline"
+                    className="tap text-sm underline"
                   >
                     Estudar este tema
                   </Link>

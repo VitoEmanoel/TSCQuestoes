@@ -36,7 +36,7 @@ export default async function PracticeSessionPage(props: PageProps<"/questoes/se
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
-      <Link href="/questoes" className="text-sm underline">
+      <Link href="/questoes" className="tap text-sm underline">
         ← Voltar para a lista
       </Link>
       <header className="flex flex-col gap-2">
@@ -96,7 +96,7 @@ export default async function PracticeSessionPage(props: PageProps<"/questoes/se
                 <ExamBadge year={item.question.exam.year} />
                 <Link
                   href={`/questoes/${item.question.id}`}
-                  className="font-semibold underline-offset-2 hover:underline"
+                  className="tap font-semibold underline-offset-2 hover:underline"
                 >
                   {questionTitle(item.question.originalLabel, item.question.type)}
                 </Link>

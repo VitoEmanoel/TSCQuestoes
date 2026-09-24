@@ -24,7 +24,7 @@ export default async function ConfirmSignupPage(props: PageProps<"/cadastro/conf
       ) : (
         <div className="flex flex-col gap-3 text-sm">
           <p>Este link é inválido ou expirou.</p>
-          <Link href="/cadastro" className="font-medium underline">
+          <Link href="/cadastro" className="tap font-medium underline">
             Fazer o cadastro novamente
           </Link>
         </div>

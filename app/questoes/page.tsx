@@ -63,7 +63,7 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
               <ExamBadge year={question.exam.year} />
               <Link
                 href={`/questoes/${question.id}`}
-                className="text-sm font-semibold underline-offset-2 hover:underline"
+                className="tap text-sm font-semibold underline-offset-2 hover:underline"
               >
                 {questionTitle(question.originalLabel, question.type)}
               </Link>
@@ -100,7 +100,7 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
           {page > 1 ? (
             <Link
               href={`/questoes${filtersToSearchParams(filters, { page: page - 1 })}`}
-              className="underline"
+              className="tap underline"
             >
               ← Anterior
             </Link>
@@ -113,7 +113,7 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
           {page < pageCount ? (
             <Link
               href={`/questoes${filtersToSearchParams(filters, { page: page + 1 })}`}
-              className="underline"
+              className="tap underline"
             >
               Próxima →
             </Link>

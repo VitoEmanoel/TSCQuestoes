@@ -89,7 +89,7 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
-      <Link href="/questoes" className="text-sm underline">
+      <Link href="/questoes" className="tap text-sm underline">
         ← Voltar para a lista
       </Link>
 
@@ -213,7 +213,7 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
             policy={session.policy}
           />
           {lastWritten ? (
-            <Link href={`/questoes/${question.id}`} className="text-sm underline">
+            <Link href={`/questoes/${question.id}`} className="tap text-sm underline">
               Ver sua última resposta ({formatWhen(lastWritten.answeredAt)})
             </Link>
           ) : null}
@@ -222,14 +222,14 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
 
       <nav aria-label="Navegação na prova" className="flex justify-between gap-4 text-sm">
         {previous ? (
-          <Link href={`/questoes/${previous.id}`} className="underline">
+          <Link href={`/questoes/${previous.id}`} className="tap underline">
             ← {questionTitle(previous.originalLabel, previous.type)}
           </Link>
         ) : (
           <span />
         )}
         {next ? (
-          <Link href={`/questoes/${next.id}`} className="underline">
+          <Link href={`/questoes/${next.id}`} className="tap underline">
             {questionTitle(next.originalLabel, next.type)} →
           </Link>
         ) : (

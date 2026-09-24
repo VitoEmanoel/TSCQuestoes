@@ -30,7 +30,7 @@ export default async function EntregarSimuladoPage(props: PageProps<"/simulados/
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
-      <Link href={base} className="text-sm underline">
+      <Link href={base} className="tap text-sm underline">
         ← Voltar ao simulado
       </Link>
       <header className="flex flex-col gap-2">
@@ -59,7 +59,7 @@ export default async function EntregarSimuladoPage(props: PageProps<"/simulados/
           <ul className="flex flex-wrap gap-2 text-sm">
             {blank.map((question) => (
               <li key={question.id}>
-                <Link href={`${base}?q=${question.position}`} className="underline">
+                <Link href={`${base}?q=${question.position}`} className="tap underline">
                   {overview.year !== null
                     ? questionTitle(question.originalLabel, question.type)
                     : `Questão ${question.position}`}

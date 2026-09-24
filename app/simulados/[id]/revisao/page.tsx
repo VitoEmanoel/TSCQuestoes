@@ -60,7 +60,7 @@ export default async function SimuladoReviewPage(props: PageProps<"/simulados/[i
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8">
-      <Link href={`${base}/resultado`} className="text-sm underline">
+      <Link href={`${base}/resultado`} className="tap text-sm underline">
         ← Voltar ao resultado
       </Link>
       <header className="flex flex-col gap-3">
@@ -180,18 +180,18 @@ export default async function SimuladoReviewPage(props: PageProps<"/simulados/[i
 
       <nav aria-label="Anterior e próxima" className="flex justify-between gap-4 text-sm">
         {position > 1 ? (
-          <Link href={`${base}/revisao?q=${position - 1}`} className="underline">
+          <Link href={`${base}/revisao?q=${position - 1}`} className="tap underline">
             ← Anterior
           </Link>
         ) : (
           <span />
         )}
         {position < review.total ? (
-          <Link href={`${base}/revisao?q=${position + 1}`} className="underline">
+          <Link href={`${base}/revisao?q=${position + 1}`} className="tap underline">
             Próxima →
           </Link>
         ) : (
-          <Link href={`${base}/resultado`} className="underline">
+          <Link href={`${base}/resultado`} className="tap underline">
             Voltar ao resultado →
           </Link>
         )}

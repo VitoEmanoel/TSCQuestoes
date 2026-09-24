@@ -20,7 +20,7 @@ export function SignupForm() {
         <p className="text-zinc-600 dark:text-zinc-400">
           Não recebeu? Confira a caixa de spam ou aguarde alguns minutos antes de tentar de novo.
         </p>
-        <Link href="/login" className="font-medium underline">
+        <Link href="/login" className="tap font-medium underline">
           Ir para o login
         </Link>
       </div>

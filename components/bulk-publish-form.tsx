@@ -17,10 +17,10 @@ export function BulkPublishForm({ examId, children }: { examId: string; children
     <form ref={formRef} action={action} className="flex flex-col gap-3">
       <input type="hidden" name="examId" value={examId} />
       <div className="sticky top-0 z-10 flex flex-wrap items-center gap-2 border-b border-zinc-200 bg-white/95 py-2 text-sm dark:border-zinc-800 dark:bg-zinc-950/95">
-        <button type="button" onClick={() => setAll(true)} className="underline">
+        <button type="button" onClick={() => setAll(true)} className="tap underline">
           Marcar todas
         </button>
-        <button type="button" onClick={() => setAll(false)} className="underline">
+        <button type="button" onClick={() => setAll(false)} className="tap underline">
           Desmarcar
         </button>
         <button

@@ -235,7 +235,6 @@ export function QuestionEditor({
                   value={letter}
                   checked={correct === letter}
                   onChange={() => touch(setCorrect)(letter)}
-                  className="h-4 w-4"
                   aria-label={`Alternativa ${letter} é a correta`}
                 />
                 <span className="font-semibold">{letter}</span>

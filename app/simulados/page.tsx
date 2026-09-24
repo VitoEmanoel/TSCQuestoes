@@ -115,7 +115,7 @@ export default async function SimuladosPage() {
                   {attempt.total} respondidas
                   {attempt.timeLimitSec ? ` · ${formatMinutes(attempt.timeLimitSec)}` : null}
                 </span>
-                <Link href={`/simulados/${attempt.id}`} className="font-medium underline">
+                <Link href={`/simulados/${attempt.id}`} className="tap font-medium underline">
                   Continuar
                 </Link>
               </li>

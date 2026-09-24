@@ -86,7 +86,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                   {attempt.answered} de {attempt.total} respondidas · começou em{" "}
                   {formatDate(attempt.startedAt)}
                 </span>
-                <Link href={`/simulados/${attempt.id}`} className="font-medium underline">
+                <Link href={`/simulados/${attempt.id}`} className="tap font-medium underline">
                   Continuar
                 </Link>
               </li>
@@ -166,7 +166,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                 <div className="flex items-center justify-between gap-2">
                   <Link
                     href={`/questoes?tema=${encodeURIComponent(topic.topic)}`}
-                    className="font-medium underline-offset-2 hover:underline"
+                    className="tap font-medium underline-offset-2 hover:underline"
                   >
                     {topic.topic}
                   </Link>
@@ -255,7 +255,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
         {history.pageCount > 1 ? (
           <nav aria-label="Paginação" className="flex items-center justify-between text-sm">
             {history.page > 1 ? (
-              <Link href={`/historico?pagina=${history.page - 1}`} className="underline">
+              <Link href={`/historico?pagina=${history.page - 1}`} className="tap underline">
                 ← Mais recentes
               </Link>
             ) : (
@@ -265,7 +265,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
               Página {history.page} de {history.pageCount}
             </span>
             {history.page < history.pageCount ? (
-              <Link href={`/historico?pagina=${history.page + 1}`} className="underline">
+              <Link href={`/historico?pagina=${history.page + 1}`} className="tap underline">
                 Mais antigas →
               </Link>
             ) : (

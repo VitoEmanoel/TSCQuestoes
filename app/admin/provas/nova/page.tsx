@@ -11,7 +11,7 @@ export default async function NewExamPage() {
   await requireAdmin();
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-8">
-      <Link href="/admin" className="text-sm underline">
+      <Link href="/admin" className="tap text-sm underline">
         ← Voltar ao painel
       </Link>
       <header className="flex flex-col gap-2">

@@ -158,18 +158,18 @@ export default async function SimuladoPage(props: PageProps<"/simulados/[id]">) 
 
       <nav aria-label="Anterior e próxima" className="flex justify-between gap-4 text-sm">
         {position > 1 ? (
-          <Link href={`${base}?q=${position - 1}`} className="underline">
+          <Link href={`${base}?q=${position - 1}`} className="tap underline">
             ← Anterior
           </Link>
         ) : (
           <span />
         )}
         {position < total ? (
-          <Link href={`${base}?q=${position + 1}`} className="underline">
+          <Link href={`${base}?q=${position + 1}`} className="tap underline">
             Próxima (sem salvar) →
           </Link>
         ) : (
-          <Link href={`${base}/entregar`} className="underline">
+          <Link href={`${base}/entregar`} className="tap underline">
             Revisar e entregar →
           </Link>
         )}

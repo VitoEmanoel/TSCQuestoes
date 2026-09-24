@@ -16,17 +16,23 @@ export async function SiteHeader() {
         {user ? (
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <nav aria-label="Principal" className="flex items-center gap-3">
-              <Link href="/questoes" className="font-medium underline-offset-2 hover:underline">
+              <Link href="/questoes" className="tap font-medium underline-offset-2 hover:underline">
                 Questões
               </Link>
-              <Link href="/simulados" className="font-medium underline-offset-2 hover:underline">
+              <Link
+                href="/simulados"
+                className="tap font-medium underline-offset-2 hover:underline"
+              >
                 Simulados
               </Link>
-              <Link href="/historico" className="font-medium underline-offset-2 hover:underline">
+              <Link
+                href="/historico"
+                className="tap font-medium underline-offset-2 hover:underline"
+              >
                 Histórico
               </Link>
               {user.role === "ADMIN" ? (
-                <Link href="/admin" className="font-medium underline-offset-2 hover:underline">
+                <Link href="/admin" className="tap font-medium underline-offset-2 hover:underline">
                   Painel
                 </Link>
               ) : null}
@@ -36,14 +42,14 @@ export async function SiteHeader() {
               {ROLE_LABEL[user.role]}
             </span>
             <form action={logout}>
-              <button type="submit" className="font-medium underline">
+              <button type="submit" className="tap font-medium underline">
                 Sair
               </button>
             </form>
           </div>
         ) : (
           <nav className="flex items-center gap-4 text-sm">
-            <Link href="/login" className="font-medium underline">
+            <Link href="/login" className="tap font-medium underline">
               Entrar
             </Link>
             <Link

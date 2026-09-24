@@ -108,7 +108,7 @@ export function ImportExamForm({
             <label htmlFor={`texto-${field.key}`} className="text-sm font-semibold">
               {field.label}
             </label>
-            <label className="text-xs">
+            <label className="tap cursor-pointer text-xs">
               <span className="underline">Carregar .txt</span>
               <input
                 type="file"

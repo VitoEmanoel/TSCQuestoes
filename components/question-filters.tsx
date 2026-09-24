@@ -85,7 +85,7 @@ export function QuestionFiltersForm({
         >
           Filtrar
         </button>
-        <Link href="/questoes" className="py-2 text-sm underline">
+        <Link href="/questoes" className="tap py-2 text-sm underline">
           Limpar
         </Link>
       </div>

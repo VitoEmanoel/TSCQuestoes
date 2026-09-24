@@ -118,7 +118,7 @@ export async function AdminImageManager({
                     accept="image/png,image/jpeg"
                     required
                     aria-label={`Novo arquivo para a imagem ${index + 1}`}
-                    className="max-w-56 text-xs"
+                    className="min-h-6 max-w-56 text-xs"
                   />
                   <button type="submit" className={SMALL_BUTTON}>
                     Substituir
@@ -144,7 +144,7 @@ export async function AdminImageManager({
               name="arquivo"
               accept="image/png,image/jpeg"
               required
-              className="text-sm"
+              className="min-h-6 text-sm"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">

@@ -68,7 +68,7 @@ function CheckGroup<T extends string | number>({
           </span>
         </span>
         {selected.length > 0 ? (
-          <button type="button" onClick={onClear} className="text-xs font-normal underline">
+          <button type="button" onClick={onClear} className="tap text-xs font-normal underline">
             Limpar
           </button>
         ) : null}

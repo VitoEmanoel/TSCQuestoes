@@ -27,7 +27,8 @@
     "security:serve": "next build && AUTH_URL=http://localhost:3123 next start -p 3123",
     "security:browser": "tsx scripts/security/browser-check.ts",
     "test": "tsx --test lib/*.test.ts scripts/extract/*.test.ts",
-    "e2e:painel": "next build && tsx scripts/e2e/painel-importa-prova.ts"
+    "e2e:painel": "next build && tsx scripts/e2e/painel-importa-prova.ts",
+    "qa:celular": "tsx scripts/qa/mobile-check.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
