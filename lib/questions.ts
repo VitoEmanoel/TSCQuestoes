@@ -24,13 +24,15 @@ export const SITUATION_LABEL = {
 export type Situation = keyof typeof SITUATION_LABEL;
 
 export type QuestionFilters = {
-  year?: number;
+  years: number[];
   area?: QuestionArea;
   type?: QuestionType;
   status?: Situation;
-  topic?: string;
+  topics: string[];
   page: number;
 };
+
+const MAX_FILTER_VALUES = 30;
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -38,6 +40,11 @@ function first(value: string | string[] | undefined): string | undefined {
   const raw = Array.isArray(value) ? value[0] : value;
   const trimmed = raw?.trim();
   return trimmed ? trimmed : undefined;
+}
+
+function all(value: string | string[] | undefined): string[] {
+  const list = Array.isArray(value) ? value : value === undefined ? [] : [value];
+  return [...new Set(list.map((item) => item.trim()).filter(Boolean))].slice(0, MAX_FILTER_VALUES);
 }
 
 function pick<T extends string>(
@@ -48,14 +55,15 @@ function pick<T extends string>(
 }
 
 export function parseQuestionFilters(searchParams: SearchParams): QuestionFilters {
-  const year = Number(first(searchParams.ano));
   const page = Number(first(searchParams.pagina));
   return {
-    year: Number.isInteger(year) && year >= 2000 && year <= 2100 ? year : undefined,
+    years: all(searchParams.ano)
+      .map(Number)
+      .filter((year) => Number.isInteger(year) && year >= 2000 && year <= 2100),
     area: pick(first(searchParams.area), AREA_LABEL),
     type: pick(first(searchParams.tipo), TYPE_LABEL),
     status: pick(first(searchParams.status), SITUATION_LABEL),
-    topic: first(searchParams.tema)?.slice(0, 100),
+    topics: all(searchParams.tema).filter((topic) => topic.length <= 100),
     page: Number.isInteger(page) && page >= 1 ? page : 1,
   };
 }
@@ -66,11 +74,11 @@ export function filtersToSearchParams(
 ): string {
   const merged = { ...filters, ...overrides };
   const params = new URLSearchParams();
-  if (merged.year) params.set("ano", String(merged.year));
+  for (const year of merged.years) params.append("ano", String(year));
   if (merged.area) params.set("area", merged.area);
   if (merged.type) params.set("tipo", merged.type);
   if (merged.status) params.set("status", merged.status);
-  if (merged.topic) params.set("tema", merged.topic);
+  for (const topic of merged.topics) params.append("tema", topic);
   if (merged.page > 1) params.set("pagina", String(merged.page));
   const query = params.toString();
   return query ? `?${query}` : "";
@@ -103,11 +111,13 @@ function situationWhere(status: Situation | undefined): { status?: QuestionStatu
 function buildWhere(filters: QuestionFilters): Prisma.QuestionWhereInput {
   return {
     ...PUBLISHED,
-    ...(filters.year ? { exam: { year: filters.year } } : {}),
+    ...(filters.years.length > 0 ? { exam: { year: { in: filters.years } } } : {}),
     ...(filters.area ? { area: filters.area } : {}),
     ...(filters.type ? { type: filters.type } : {}),
     ...situationWhere(filters.status),
-    ...(filters.topic ? { tags: { some: { topic: { name: filters.topic } } } } : {}),
+    ...(filters.topics.length > 0
+      ? { tags: { some: { topic: { name: { in: filters.topics } } } } }
+      : {}),
   };
 }
 
@@ -225,4 +235,32 @@ export async function getQuestionDetail(id: string, options: { publishedOnly?: b
     }),
   ]);
   return { question, previous, next };
+}
+
+export type QuestionCatalogEntry = {
+  year: number;
+  area: QuestionArea;
+  type: QuestionType;
+  status: QuestionStatus;
+  topics: string[];
+};
+
+export async function questionCatalog(): Promise<QuestionCatalogEntry[]> {
+  const questions = await prisma.question.findMany({
+    where: PUBLISHED,
+    select: {
+      area: true,
+      type: true,
+      status: true,
+      exam: { select: { year: true } },
+      tags: { select: { topic: { select: { name: true } } } },
+    },
+  });
+  return questions.map((question) => ({
+    year: question.exam.year,
+    area: question.area,
+    type: question.type,
+    status: question.status,
+    topics: question.tags.map((tag) => tag.topic.name),
+  }));
 }

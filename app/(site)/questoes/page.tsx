@@ -12,6 +12,8 @@ import {
   getFilterOptions,
   listQuestions,
   parseQuestionFilters,
+  questionCatalog,
+  SITUATION_LABEL,
   questionTitle,
   TYPE_LABEL,
 } from "@/lib/questions";
@@ -22,8 +24,13 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
   const filters = parseQuestionFilters(await props.searchParams);
   const user = await requireUser(`/questoes${filtersToSearchParams(filters)}`);
 
-  const [{ items, total, page, pageCount, hiddenAnuladas }, { years, topics }, session] =
-    await Promise.all([listQuestions(filters), getFilterOptions(), practiceSession(user.id)]);
+  const [{ items, total, page, pageCount, hiddenAnuladas }, { years, topics }, session, catalog] =
+    await Promise.all([
+      listQuestions(filters),
+      getFilterOptions(),
+      practiceSession(user.id),
+      questionCatalog(),
+    ]);
 
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-10">
@@ -33,7 +40,22 @@ export default async function QuestionsPage(props: PageProps<"/questoes">) {
         answered={session.answered}
         pending={session.pending}
       />
-      <QuestionFiltersForm filters={filters} years={years} topics={topics} />
+      <QuestionFiltersForm
+        key={filtersToSearchParams(filters, { page: 1 })}
+        initial={{
+          years: filters.years,
+          topics: filters.topics,
+          area: filters.area ?? "",
+          type: filters.type ?? "",
+          status: filters.status ?? "",
+        }}
+        catalog={catalog}
+        years={years}
+        topics={topics}
+        areas={Object.entries(AREA_LABEL).map(([value, label]) => ({ value, label }))}
+        types={Object.entries(TYPE_LABEL).map(([value, label]) => ({ value, label }))}
+        situations={Object.entries(SITUATION_LABEL).map(([value, label]) => ({ value, label }))}
+      />
       <p className="text-sm text-zinc-600 dark:text-zinc-400" aria-live="polite">
         {total === 0
           ? "Nenhuma questão encontrada com esses filtros."

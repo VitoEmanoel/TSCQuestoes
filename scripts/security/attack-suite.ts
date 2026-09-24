@@ -1127,6 +1127,57 @@ async function main() {
     (await answerer.get("/questoes")).body.includes('value="AT_END" selected=""'),
   );
 
+  group("Filtros da lista com vários anos e temas");
+  const multiTopicsList = ["Redes de Computadores", "Sistemas Operacionais"];
+  const expectedMulti = await prisma.question.count({
+    where: {
+      publishedAt: { not: null },
+      status: "VALID",
+      exam: { year: { in: [2014, 2017] } },
+      tags: { some: { topic: { name: { in: multiTopicsList } } } },
+    },
+  });
+  const multiText = pageText(
+    (
+      await answerer.get(
+        `/questoes?ano=2014&ano=2017&${multiTopicsList.map((topic) => `tema=${encodeURIComponent(topic)}`).join("&")}`,
+      )
+    ).body,
+  );
+  check(
+    "vários anos e temas na URL: a lista traz exatamente as que batem",
+    expectedMulti > 0 &&
+      multiText.includes(
+        `${expectedMulti} ${expectedMulti === 1 ? "questão encontrada" : "questões encontradas"}`,
+      ),
+    `${expectedMulti} esperadas`,
+  );
+  const forgedLists = [
+    Array.from({ length: 40 }, (_, index) => `ano=${1990 + index}`).join("&"),
+    `tema=${"x".repeat(500)}`,
+    `ano=abc&ano=2017'--&tema=${encodeURIComponent("' OR 1=1 --")}`,
+  ];
+  let forgedOk = true;
+  for (const query of forgedLists) {
+    const response = await answerer.get(`/questoes?${query}`);
+    forgedOk &&= response.status === 200 && noLeak(response.body);
+  }
+  check("listas forjadas nos filtros não quebram a página", forgedOk);
+  const singleTopic = pageText(
+    (await answerer.get(`/questoes?tema=${encodeURIComponent("Sistemas Operacionais")}`)).body,
+  );
+  const expectedSingle = await prisma.question.count({
+    where: {
+      publishedAt: { not: null },
+      status: "VALID",
+      tags: { some: { topic: { name: "Sistemas Operacionais" } } },
+    },
+  });
+  check(
+    "links antigos com um só tema (painel, resultado) continuam funcionando",
+    singleTopic.includes(`${expectedSingle} questões encontradas`),
+  );
+
   group("Questões anuladas");
   const countOf = (where: Record<string, unknown>) =>
     prisma.question.count({ where: { exam: { year: 2017 }, type: "OBJECTIVE", ...where } });

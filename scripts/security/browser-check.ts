@@ -199,11 +199,18 @@ async function main() {
       select: { id: true },
     });
     await page.goto(`${BASE}/questoes`);
+    await page.waitFor(
+      "Object.keys(document.querySelector('#tipo') ?? {}).some((key) => key.startsWith('__react'))",
+      10_000,
+    );
     await page.evaluate(`(() => {
-      document.querySelector('#ano').value = '2017';
-      document.querySelector('#tipo').value = 'DISCURSIVE';
-      document.querySelector('#ano').form.requestSubmit();
+      [...document.querySelectorAll('label')].find((l) => l.textContent.trim().startsWith('2017')).click();
+      const tipo = document.querySelector('#tipo');
+      Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value').set.call(tipo, 'DISCURSIVE');
+      tipo.dispatchEvent(new Event('change', { bubbles: true }));
     })()`);
+    await page.waitFor("document.body.textContent.includes('Mostrar 5 questões')", 5_000);
+    await page.evaluate("document.querySelector('#tipo').form.requestSubmit()");
     const filtered = await page.waitFor(
       "location.search.includes('ano=2017') && document.body.textContent.includes('5 questões encontradas')",
       10_000,
