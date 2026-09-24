@@ -20,7 +20,7 @@ const SECTIONS: { title: string; items: string[] }[] = [
     items: [
       "Apenas para o funcionamento do site: entrar na sua conta, corrigir questões e mostrar o seu desempenho.",
       "Não vendemos, não compartilhamos e não usamos seus dados para propaganda.",
-      "Seus dados só aparecem para você. O administrador vê apenas o necessário para manter o banco de questões.",
+      "Suas respostas só aparecem para você. O administrador vê a lista de contas (nome, e-mail, data de cadastro e quantas questões e simulados cada conta fez), sem as respostas.",
     ],
   },
   {

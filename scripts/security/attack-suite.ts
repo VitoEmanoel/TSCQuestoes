@@ -3247,6 +3247,37 @@ async function main() {
       (await topicByName("Tema Teste Ataque Livre")) === null,
   );
 
+  group("Painel: contas");
+  const usersPath = "/admin/usuarios";
+  const usersDenied = await Promise.all([answerer.get(usersPath), anonAdmin.get(usersPath)]);
+  check(
+    "aluno e visitante recebem 404 na lista de contas",
+    usersDenied.every((response) => response.status === 404),
+  );
+  const usersPage = await admin.get(usersPath);
+  const usersText = pageText(usersPage.body);
+  check(
+    "admin vê as contas com uso, sem hash de senha nem segredos",
+    usersPage.status === 200 &&
+      usersText.includes(studentEmail) &&
+      usersText.includes("usou hoje") &&
+      !usersPage.body.includes("passwordHash") &&
+      !/\$2[aby]\$\d\d\$/.test(usersPage.body),
+  );
+  const found = await admin.get(`${usersPath}?q=${encodeURIComponent(studentEmail.toUpperCase())}`);
+  const injected = await admin.get(
+    `${usersPath}?q=${encodeURIComponent("' OR 1=1 --<script>alert(1)</script>")}`,
+  );
+  const hugeSearch = await admin.get(`${usersPath}?q=${"a".repeat(5000)}`);
+  check(
+    "busca de contas: acha sem diferenciar maiúsculas; SQL/HTML injetado não vaza nem executa",
+    pageText(found.body).includes(studentEmail) &&
+      injected.status === 200 &&
+      pageText(injected.body).includes("Nenhuma conta encontrada") &&
+      !injected.body.includes("<script>alert(1)</script>") &&
+      hugeSearch.status === 200,
+  );
+
   await prisma.attemptItem.deleteMany({
     where: { attempt: { user: { email: { endsWith: TEST_DOMAIN } } } },
   });

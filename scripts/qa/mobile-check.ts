@@ -260,6 +260,7 @@ async function main() {
         "/admin/entrar",
       );
       await visit("admin", "/admin");
+      await visit("admin-contas", "/admin/usuarios");
       await visit("admin-prova", `/admin/provas/${exam2021.id}`);
       await visit("admin-editor", `/admin/questoes/${withImage.id}`);
       await visit("admin-editor-discursiva", `/admin/questoes/${discursive.id}`);

@@ -32,6 +32,9 @@ export default async function AdminPage(props: PageProps<"/admin">) {
           <Link href="/admin/temas" className={`${buttonSecondary} text-sm`}>
             Gerenciar temas
           </Link>
+          <Link href="/admin/usuarios" className={`${buttonSecondary} text-sm`}>
+            Contas
+          </Link>
         </div>
         {excluida === "1" ? (
           <p role="status" className={textSuccess}>
