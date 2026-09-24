@@ -14,7 +14,7 @@ if [[ "$(id -u)" != "0" ]]; then
 fi
 
 apt-get update -qq
-DEBIAN_FRONTEND=noninteractive apt-get install -y -qq curl ca-certificates xz-utils openssl postgresql-client nftables >/dev/null
+DEBIAN_FRONTEND=noninteractive apt-get install -y -qq curl ca-certificates xz-utils openssl postgresql-client nftables nano >/dev/null
 
 ARCH="$(uname -m)"
 case "$ARCH" in
