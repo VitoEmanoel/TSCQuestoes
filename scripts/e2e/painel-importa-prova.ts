@@ -174,7 +174,7 @@ async function main() {
       `${await db.question.count()} questões das outras provas`,
     );
 
-    server = spawn("npx", ["next", "start", "-p", String(PORT)], {
+    server = spawn("npx", ["next", "start", "-H", "127.0.0.1", "-p", String(PORT)], {
       env: { ...env, AUTH_URL: BASE, UPLOAD_DIR: uploadDir },
       stdio: "ignore",
     });

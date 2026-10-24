@@ -122,7 +122,7 @@ async function main() {
       },
     });
 
-    server = spawn("npx", ["next", "start", "-p", String(PORT)], {
+    server = spawn("npx", ["next", "start", "-H", "127.0.0.1", "-p", String(PORT)], {
       env: {
         ...process.env,
         AUTH_URL: BASE,
