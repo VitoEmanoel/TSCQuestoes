@@ -7,12 +7,6 @@ import { latestPerQuestion, type ScoreSlot, slotsFor, topicPerformance } from "@
 
 export const REVEAL_POLICIES = ["IMMEDIATE", "AT_END", "MANUAL"] as const;
 
-export const REVEAL_POLICY_LABEL: Record<RevealPolicy, string> = {
-  IMMEDIATE: "Na hora",
-  AT_END: "Ao finalizar a sessão",
-  MANUAL: "Quando eu pedir",
-};
-
 export type RevealedObjectiveResult = {
   status: "revealed";
   itemId: string;
