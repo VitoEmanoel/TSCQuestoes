@@ -41,6 +41,20 @@ npm run publicar -- aluno@IP-DA-VPS
 Se a versão nova não responder em 30 segundos, o script volta sozinho para a anterior.
 As três últimas versões ficam em `/opt/tscquestoes/versoes`.
 
+### Quando a versão nova apaga algo do banco
+
+A volta automática troca só o código: as migrations já aplicadas continuam no banco. Se uma
+migration apaga tabela ou coluna, a versão anterior pode deixar de funcionar junto. Antes de
+publicar uma versão assim (procure `DROP` nos arquivos novos de `prisma/migrations/`):
+
+1. Na VPS: `sudo systemctl start tscquestoes-backup` e confira o arquivo novo em
+   `/var/backups/tscquestoes`.
+2. Publique e acompanhe com `journalctl -u tscquestoes -f`.
+3. Se der errado, restaure o banco do backup com `pg_restore --clean` antes de voltar a versão.
+
+Isso vale para `20261024120000_remove_salas_virtuais`, que apaga as tabelas e colunas das salas
+virtuais (vazias, nunca usadas).
+
 ## No servidor
 
 | O quê                        | Onde                           |
