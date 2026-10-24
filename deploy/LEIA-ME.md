@@ -44,13 +44,18 @@ As três últimas versões ficam em `/opt/tscquestoes/versoes`.
 ### Quando a versão nova apaga algo do banco
 
 A volta automática troca só o código: as migrations já aplicadas continuam no banco. Se uma
-migration apaga tabela ou coluna, a versão anterior pode deixar de funcionar junto. Antes de
-publicar uma versão assim (procure `DROP` nos arquivos novos de `prisma/migrations/`):
+migration apaga tabela ou coluna, a versão anterior volta ao ar mas falha nas telas que gravam
+nessas tabelas (o Prisma da versão anterior ainda pede as colunas apagadas). Antes de publicar
+uma versão assim (procure `DROP` nos arquivos novos de `prisma/migrations/`):
 
-1. Na VPS: `sudo systemctl start tscquestoes-backup` e confira o arquivo novo em
+1. Na VPS: `sudo systemctl start tscquestoes-backup` e anote o nome do `banco-*.dump` novo em
    `/var/backups/tscquestoes`.
 2. Publique e acompanhe com `journalctl -u tscquestoes -f`.
-3. Se der errado, restaure o banco do backup com `pg_restore --clean` antes de voltar a versão.
+3. Se o script disser que voltou para a versão anterior, o banco precisa voltar também:
+   `sudo systemctl stop tscquestoes`, depois
+   `pg_restore --clean --if-exists --no-owner --dbname="<DATABASE_URL sem ?schema=...>" <arquivo .dump>`
+   e `sudo systemctl start tscquestoes`. Respostas gravadas entre o backup e a restauração se
+   perdem, por isso publique num horário sem alunos usando.
 
 Isso vale para `20261024120000_remove_salas_virtuais`, que apaga as tabelas e colunas das salas
 virtuais (vazias, nunca usadas).
