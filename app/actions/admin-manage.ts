@@ -10,14 +10,10 @@ import {
   renameQuestion,
 } from "@/lib/admin-manage";
 import { getCurrentUser } from "@/lib/dal";
+import { formText } from "@/lib/form-input";
 import { AREA_LABEL, TYPE_LABEL } from "@/lib/questions";
 
 const ID = /^[a-z0-9]{10,40}$/;
-
-function field(formData: FormData, name: string): string {
-  const value = formData.get(name);
-  return typeof value === "string" ? value : "";
-}
 
 async function isAdmin(): Promise<boolean> {
   const user = await getCurrentUser();
@@ -33,10 +29,10 @@ export async function createQuestionAction(
   if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
-  const examId = field(formData, "examId");
-  const type = field(formData, "tipo");
-  const area = field(formData, "area");
-  const label = normalizeLabel(field(formData, "numero"));
+  const examId = formText(formData, "examId");
+  const type = formText(formData, "tipo");
+  const area = formText(formData, "area");
+  const label = normalizeLabel(formText(formData, "numero"));
   if (!ID.test(examId) || !Object.hasOwn(TYPE_LABEL, type) || !Object.hasOwn(AREA_LABEL, area)) {
     return { error: "Pedido inválido." };
   }
@@ -68,8 +64,8 @@ export async function renameQuestionAction(
   if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
-  const questionId = field(formData, "questionId");
-  const label = normalizeLabel(field(formData, "numero"));
+  const questionId = formText(formData, "questionId");
+  const label = normalizeLabel(formText(formData, "numero"));
   if (!ID.test(questionId)) {
     return { error: "Pedido inválido." };
   }
@@ -91,7 +87,7 @@ export async function moveQuestionAction(formData: FormData): Promise<void> {
   if (!(await isAdmin())) {
     return;
   }
-  const [questionId, direction] = field(formData, "mover").split(":");
+  const [questionId, direction] = formText(formData, "mover").split(":");
   if (!ID.test(questionId ?? "") || (direction !== "up" && direction !== "down")) {
     return;
   }
@@ -105,11 +101,11 @@ export async function deleteQuestionAction(formData: FormData): Promise<void> {
   if (!(await isAdmin())) {
     return;
   }
-  const questionId = field(formData, "questionId");
+  const questionId = formText(formData, "questionId");
   if (!ID.test(questionId)) {
     redirect("/admin");
   }
-  if (field(formData, "confirmacao") !== "sim") {
+  if (formText(formData, "confirmacao") !== "sim") {
     redirect(`/admin/questoes/${questionId}?erro=confirmacao`);
   }
   const outcome = await deleteQuestion(questionId);

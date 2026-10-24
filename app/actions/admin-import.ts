@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createExamFromImport, deleteDraftExam } from "@/lib/admin-import";
 import { getCurrentUser } from "@/lib/dal";
+import { formText } from "@/lib/form-input";
 import { IMPORT_LIMITS, parseExamText } from "@/lib/exam-import";
 
 const ID = /^[a-z0-9]{10,40}$/;
@@ -32,11 +33,6 @@ export type ImportState = {
   };
 };
 
-function text(formData: FormData, name: string): string {
-  const value = formData.get(name);
-  return typeof value === "string" ? value : "";
-}
-
 async function isAdmin(): Promise<boolean> {
   const user = await getCurrentUser();
   return Boolean(user && user.role === "ADMIN");
@@ -49,12 +45,12 @@ export async function importExamAction(
   if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
-  const step = text(formData, "etapa");
-  const year = Number(text(formData, "ano"));
-  const course = text(formData, "curso").trim();
-  const prova = text(formData, "prova");
-  const gabarito = text(formData, "gabarito");
-  const padrao = text(formData, "padrao");
+  const step = formText(formData, "etapa");
+  const year = Number(formText(formData, "ano"));
+  const course = formText(formData, "curso").trim();
+  const prova = formText(formData, "prova");
+  const gabarito = formText(formData, "gabarito");
+  const padrao = formText(formData, "padrao");
   if (step !== "analisar" && step !== "criar") {
     return { error: "Pedido inválido." };
   }
@@ -120,8 +116,8 @@ export async function deleteExamAction(formData: FormData): Promise<void> {
   if (!(await isAdmin())) {
     return;
   }
-  const examId = text(formData, "examId");
-  if (!ID.test(examId) || text(formData, "confirmacao") !== "sim") {
+  const examId = formText(formData, "examId");
+  if (!ID.test(examId) || formText(formData, "confirmacao") !== "sim") {
     redirect(ID.test(examId) ? `/admin/provas/${examId}?erro=confirmacao` : "/admin");
   }
   if (!(await deleteDraftExam(examId))) {

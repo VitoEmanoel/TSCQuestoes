@@ -11,6 +11,7 @@ export type SignupInput = {
   password: string;
 };
 
+import { formValue } from "@/lib/form-input";
 import { describeDomains, isAllowedEmail } from "@/lib/institutional-email";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,10 +35,10 @@ export function validateSignup(
   formData: FormData,
   allowedDomains: string[] = [],
 ): { ok: true; data: SignupInput } | { ok: false; state: AuthFormState } {
-  const name = readText(formData.get("name")).trim().replace(/\s+/g, " ");
-  const email = normalizeEmail(formData.get("email"));
-  const password = readText(formData.get("password"));
-  const confirmPassword = readText(formData.get("confirmPassword"));
+  const name = readText(formValue(formData, "name")).trim().replace(/\s+/g, " ");
+  const email = normalizeEmail(formValue(formData, "email"));
+  const password = readText(formValue(formData, "password"));
+  const confirmPassword = readText(formValue(formData, "confirmPassword"));
   const errors: AuthFormState["errors"] = {};
 
   if (name.length < 2) {

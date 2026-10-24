@@ -9,6 +9,7 @@ import {
   type StandardInput,
 } from "@/lib/admin-questions";
 import { getCurrentUser } from "@/lib/dal";
+import { formText } from "@/lib/form-input";
 import { AREA_LABEL } from "@/lib/questions";
 
 export type QuestionEditorState = { error?: string };
@@ -17,8 +18,7 @@ const STATUSES = ["VALID", "ANULADA"] as const;
 const LETTERS = ["A", "B", "C", "D", "E"];
 
 function text(formData: FormData, name: string): string {
-  const value = formData.get(name);
-  return typeof value === "string" ? value.replace(/\r\n/g, "\n") : "";
+  return formText(formData, name).replace(/\r\n/g, "\n");
 }
 
 function texts(formData: FormData, name: string): string[] {

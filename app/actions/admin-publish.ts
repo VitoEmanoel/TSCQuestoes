@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { bulkSetPublished, MAX_BULK, setPublished } from "@/lib/admin-publish";
 import { getCurrentUser } from "@/lib/dal";
+import { formText, formValues } from "@/lib/form-input";
 
 const ID = /^[a-z0-9]{10,40}$/;
 
@@ -13,11 +14,6 @@ async function isAdmin(): Promise<boolean> {
   return Boolean(user && user.role === "ADMIN");
 }
 
-function field(formData: FormData, name: string): string {
-  const value = formData.get(name);
-  return typeof value === "string" ? value : "";
-}
-
 export async function setPublishedAction(
   _state: PublishState,
   formData: FormData,
@@ -25,12 +21,12 @@ export async function setPublishedAction(
   if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
-  const questionId = field(formData, "questionId");
-  const action = field(formData, "acao");
+  const questionId = formText(formData, "questionId");
+  const action = formText(formData, "acao");
   if (!ID.test(questionId) || (action !== "publicar" && action !== "despublicar")) {
     return { error: "Pedido inválido." };
   }
-  if (action === "despublicar" && field(formData, "confirmacao") !== "sim") {
+  if (action === "despublicar" && formText(formData, "confirmacao") !== "sim") {
     return { error: "Marque a confirmação para voltar a questão para rascunho." };
   }
   const outcome = await setPublished(questionId, action === "publicar");
@@ -55,9 +51,9 @@ export async function bulkPublishAction(_state: BulkState, formData: FormData): 
   if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
-  const examId = field(formData, "examId");
-  const action = field(formData, "acao");
-  const ids = [...new Set(formData.getAll("ids").filter((value) => typeof value === "string"))];
+  const examId = formText(formData, "examId");
+  const action = formText(formData, "acao");
+  const ids = [...new Set(formValues(formData, "ids"))];
   if (
     !ID.test(examId) ||
     (action !== "publicar" && action !== "despublicar") ||
@@ -69,7 +65,7 @@ export async function bulkPublishAction(_state: BulkState, formData: FormData): 
   if (ids.length === 0) {
     return { error: "Marque pelo menos uma questão." };
   }
-  if (action === "despublicar" && field(formData, "confirmacao") !== "sim") {
+  if (action === "despublicar" && formText(formData, "confirmacao") !== "sim") {
     return { error: "Marque a confirmação para voltar as questões para rascunho." };
   }
   const result = await bulkSetPublished(examId, ids, action === "publicar");

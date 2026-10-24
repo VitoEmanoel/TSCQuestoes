@@ -1,6 +1,7 @@
 "use server";
 
 import { getCurrentUser } from "@/lib/dal";
+import { formValue } from "@/lib/form-input";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {
@@ -27,8 +28,8 @@ export async function answerObjectiveAction(
     return { error: "Sua sessão expirou. Entre novamente para responder." };
   }
 
-  const questionId = formData.get("questionId");
-  const letter = formData.get("letter");
+  const questionId = formValue(formData, "questionId");
+  const letter = formValue(formData, "letter");
   if (typeof questionId !== "string" || typeof letter !== "string" || !/^[A-E]$/.test(letter)) {
     return { error: "Escolha uma das alternativas antes de responder." };
   }
@@ -50,8 +51,8 @@ export async function answerDiscursiveAction(
   if (!user) {
     return { error: "Sua sessão expirou. Entre novamente para responder." };
   }
-  const questionId = formData.get("questionId");
-  const raw = formData.get("answerText");
+  const questionId = formValue(formData, "questionId");
+  const raw = formValue(formData, "answerText");
   const answerText = typeof raw === "string" ? raw.replace(/\r\n/g, "\n").trim() : "";
   if (typeof questionId !== "string") {
     return { error: "Não foi possível registrar a resposta para esta questão." };
@@ -82,7 +83,7 @@ export async function selfEvaluateAction(
   if (!user) {
     return { error: "Sua sessão expirou. Entre novamente." };
   }
-  const itemId = formData.get("itemId");
+  const itemId = formValue(formData, "itemId");
   if (typeof itemId !== "string") {
     return { error: "Não foi possível salvar a autoavaliação." };
   }
@@ -107,7 +108,7 @@ export async function revealObjectiveAction(
   if (!user) {
     return { error: "Sua sessão expirou. Entre novamente." };
   }
-  const itemId = formData.get("itemId");
+  const itemId = formValue(formData, "itemId");
   const result = typeof itemId === "string" ? await revealObjective(user.id, itemId) : null;
   if (!result) {
     return { error: "Esta correção ainda não pode ser mostrada." };
@@ -125,7 +126,7 @@ export async function revealDiscursiveAction(
   if (!user) {
     return { error: "Sua sessão expirou. Entre novamente." };
   }
-  const itemId = formData.get("itemId");
+  const itemId = formValue(formData, "itemId");
   const questionId = typeof itemId === "string" ? await revealDiscursive(user.id, itemId) : null;
   if (!questionId) {
     return { error: "Este padrão de resposta ainda não pode ser mostrado." };
@@ -143,7 +144,7 @@ export async function setRevealPolicyAction(
   if (!user) {
     return { error: "Sua sessão expirou. Entre novamente." };
   }
-  const policy = formData.get("policy");
+  const policy = formValue(formData, "policy");
   const valid = REVEAL_POLICIES.find((candidate) => candidate === policy);
   if (!valid) {
     return { error: "Escolha um dos modos de correção." };

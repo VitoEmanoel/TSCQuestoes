@@ -1,5 +1,6 @@
 import "server-only";
 import type { UserRole } from "@prisma/client";
+import { withoutNullCharacters } from "@/lib/form-input";
 import { prisma } from "@/lib/prisma";
 
 export const USER_SEARCH_MAX = 100;
@@ -27,7 +28,7 @@ export type AdminUserSummary = {
 type Activity = { userId: string; answered: number; lastAnswer: Date | null };
 
 export function normalizeUserSearch(raw: unknown): string {
-  return typeof raw === "string" ? raw.trim().slice(0, USER_SEARCH_MAX) : "";
+  return typeof raw === "string" ? withoutNullCharacters(raw).trim().slice(0, USER_SEARCH_MAX) : "";
 }
 
 function latest(...dates: (Date | null | undefined)[]): Date | null {

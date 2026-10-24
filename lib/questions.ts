@@ -1,5 +1,6 @@
 import "server-only";
 import type { Prisma, QuestionArea, QuestionStatus, QuestionType } from "@prisma/client";
+import { queryValues } from "@/lib/form-input";
 import { prisma } from "@/lib/prisma";
 
 export const PAGE_SIZE = 20;
@@ -37,13 +38,12 @@ const MAX_FILTER_VALUES = 30;
 type SearchParams = Record<string, string | string[] | undefined>;
 
 function first(value: string | string[] | undefined): string | undefined {
-  const raw = Array.isArray(value) ? value[0] : value;
-  const trimmed = raw?.trim();
+  const trimmed = queryValues(value)[0]?.trim();
   return trimmed ? trimmed : undefined;
 }
 
 function all(value: string | string[] | undefined): string[] {
-  const list = Array.isArray(value) ? value : value === undefined ? [] : [value];
+  const list = queryValues(value);
   return [...new Set(list.map((item) => item.trim()).filter(Boolean))].slice(0, MAX_FILTER_VALUES);
 }
 

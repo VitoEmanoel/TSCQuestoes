@@ -9,6 +9,7 @@ import {
   type TopicOutcome,
 } from "@/lib/admin-topics";
 import { getCurrentUser } from "@/lib/dal";
+import { formText } from "@/lib/form-input";
 
 const ID = /^[a-z0-9]{10,40}$/;
 const CATEGORIES = ["Componente Específico", "Formação Geral"];
@@ -22,11 +23,6 @@ const MESSAGES: Record<Exclude<TopicOutcome, "ok">, string> = {
   used: "Este tema está em questões. Tire-o das questões antes de excluir.",
   missing: "Tema não encontrado. Recarregue a página.",
 };
-
-function field(formData: FormData, name: string): string {
-  const value = formData.get(name);
-  return typeof value === "string" ? value : "";
-}
 
 async function isAdmin(): Promise<boolean> {
   const user = await getCurrentUser();
@@ -43,8 +39,8 @@ export async function createTopicAction(
   if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
-  const name = normalizeTopicName(field(formData, "nome"));
-  const category = field(formData, "categoria");
+  const name = normalizeTopicName(formText(formData, "nome"));
+  const category = formText(formData, "categoria");
   if (!name) {
     return { error: INVALID_NAME };
   }
@@ -66,8 +62,8 @@ export async function renameTopicAction(
   if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
-  const id = field(formData, "topicId");
-  const name = normalizeTopicName(field(formData, "nome"));
+  const id = formText(formData, "topicId");
+  const name = normalizeTopicName(formText(formData, "nome"));
   if (!ID.test(id)) {
     return { error: MESSAGES.missing };
   }
@@ -89,7 +85,7 @@ export async function deleteTopicAction(
   if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
-  const id = field(formData, "topicId");
+  const id = formText(formData, "topicId");
   if (!ID.test(id)) {
     return { error: MESSAGES.missing };
   }

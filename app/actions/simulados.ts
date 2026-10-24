@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/dal";
+import { formValue, formValues } from "@/lib/form-input";
 import { AREA_LABEL, TYPE_LABEL } from "@/lib/questions";
 import {
   createCustomSimulado,
@@ -14,11 +15,6 @@ import {
   TIME_LIMIT_MINUTES,
 } from "@/lib/simulados";
 
-function field(formData: FormData, name: string): string | null {
-  const value = formData.get(name);
-  return typeof value === "string" ? value : null;
-}
-
 function simuladoPath(attemptId: string, position?: number): string {
   const base = `/simulados/${encodeURIComponent(attemptId)}`;
   return position ? `${base}?q=${position}` : base;
@@ -29,8 +25,8 @@ export async function startReplayAction(formData: FormData): Promise<void> {
   if (!user) {
     redirect("/login?callbackUrl=/simulados");
   }
-  const examId = field(formData, "examId");
-  const minutesRaw = field(formData, "tempo") ?? "";
+  const examId = formValue(formData, "examId");
+  const minutesRaw = formValue(formData, "tempo") ?? "";
   const minutes = minutesRaw === "" ? null : Number(minutesRaw);
   if (minutes !== null && !TIME_LIMIT_MINUTES.some((allowed) => allowed === minutes)) {
     redirect("/simulados");
@@ -49,11 +45,11 @@ export async function saveSimuladoAnswerAction(
   if (!user) {
     return { error: "Sua sessão expirou. Entre novamente para continuar o simulado." };
   }
-  const attemptId = field(formData, "attemptId");
-  const questionId = field(formData, "questionId");
-  const letter = field(formData, "letter");
-  const rawText = field(formData, "answerText");
-  const next = Number(field(formData, "next"));
+  const attemptId = formValue(formData, "attemptId");
+  const questionId = formValue(formData, "questionId");
+  const letter = formValue(formData, "letter");
+  const rawText = formValue(formData, "answerText");
+  const next = Number(formValue(formData, "next"));
   if (!attemptId || !questionId) {
     return { error: "Não foi possível salvar a resposta." };
   }
@@ -90,7 +86,7 @@ export async function submitSimuladoAction(formData: FormData): Promise<void> {
   if (!user) {
     redirect("/login?callbackUrl=/simulados");
   }
-  const attemptId = field(formData, "attemptId");
+  const attemptId = formValue(formData, "attemptId");
   const outcome = attemptId ? await submitSimulado(user.id, attemptId) : "invalid";
   redirect(
     outcome === "invalid" || !attemptId ? "/simulados" : `${simuladoPath(attemptId)}/resultado`,
@@ -113,16 +109,14 @@ export async function createCustomSimuladoAction(
   if (!user) {
     return { error: "Sua sessão expirou. Entre novamente para montar o simulado." };
   }
-  const yearValues = formData.getAll("ano").filter((value) => value !== "");
-  const topicValues = formData.getAll("tema").filter((value) => value !== "");
-  const areaRaw = field(formData, "area") ?? "";
-  const typeRaw = field(formData, "tipo") ?? "";
-  const count = Number(field(formData, "quantidade"));
-  const minutesRaw = field(formData, "tempo") ?? "";
+  const yearValues = formValues(formData, "ano").filter((value) => value !== "");
+  const topicValues = formValues(formData, "tema").filter((value) => value !== "");
+  const areaRaw = formValue(formData, "area") ?? "";
+  const typeRaw = formValue(formData, "tipo") ?? "";
+  const count = Number(formValue(formData, "quantidade"));
+  const minutesRaw = formValue(formData, "tempo") ?? "";
   const years = [...new Set(yearValues.map((value) => Number(value)))];
-  const topics = [
-    ...new Set(topicValues.map((value) => (typeof value === "string" ? value.trim() : ""))),
-  ];
+  const topics = [...new Set(topicValues.map((value) => value.trim()))];
   const area = pickKey(areaRaw, AREA_LABEL);
   const type = pickKey(typeRaw, TYPE_LABEL);
   const minutes = minutesRaw === "" ? null : Number(minutesRaw);

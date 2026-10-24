@@ -14,6 +14,7 @@ import {
   throttleKey,
 } from "@/lib/login-throttle";
 import { PASSWORD_DISABLED_MESSAGE, studentPasswordEnabled } from "@/lib/auth-mode";
+import { formValue } from "@/lib/form-input";
 import { allowedSignupDomains, isAllowedEmail } from "@/lib/institutional-email";
 import { prisma } from "@/lib/prisma";
 import {
@@ -44,8 +45,8 @@ async function portalLogin(
   formData: FormData,
   redirectTo: string,
 ): Promise<AuthFormState> {
-  const email = normalizeEmail(formData.get("email"));
-  const password = formData.get("password");
+  const email = normalizeEmail(formValue(formData, "email"));
+  const password = formValue(formData, "password");
 
   if (!email || typeof password !== "string" || password.length === 0) {
     return { message: "Informe e-mail e senha.", values: { email } };
@@ -67,7 +68,7 @@ export async function login(_state: AuthFormState, formData: FormData): Promise<
   if (!studentPasswordEnabled()) {
     return { message: PASSWORD_DISABLED_MESSAGE };
   }
-  return portalLogin("aluno", formData, safeRedirectPath(formData.get("callbackUrl")));
+  return portalLogin("aluno", formData, safeRedirectPath(formValue(formData, "callbackUrl")));
 }
 
 export async function adminLogin(
@@ -128,8 +129,8 @@ export async function confirmSignup(
   if (!studentPasswordEnabled()) {
     return { message: PASSWORD_DISABLED_MESSAGE };
   }
-  const token = formData.get("token");
-  const password = formData.get("password");
+  const token = formValue(formData, "token");
+  const password = formValue(formData, "password");
   if (typeof token !== "string" || typeof password !== "string" || password.length === 0) {
     return { message: "Informe a senha escolhida no cadastro." };
   }
@@ -190,5 +191,5 @@ export async function logout() {
 }
 
 export async function googleSignIn(formData: FormData): Promise<void> {
-  await signIn("google", { redirectTo: safeRedirectPath(formData.get("callbackUrl")) });
+  await signIn("google", { redirectTo: safeRedirectPath(formValue(formData, "callbackUrl")) });
 }
