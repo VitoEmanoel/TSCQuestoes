@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { type PublishState, setPublishedAction } from "@/app/actions/admin-publish";
-import { buttonDanger, buttonSmall, panel } from "@/components/ui";
+import { buttonDanger, buttonSmall, checkboxConfirm, panel } from "@/components/ui";
 
 export function PublishControls({
   questionId,
@@ -29,7 +29,13 @@ export function PublishControls({
               <strong>Publicada:</strong> os alunos veem esta questão.
             </span>
             <label className="flex items-center gap-2 text-sm">
-              <input type="checkbox" name="confirmacao" value="sim" required />
+              <input
+                type="checkbox"
+                name="confirmacao"
+                value="sim"
+                className={checkboxConfirm}
+                required
+              />
               Tirar dos alunos (voltar para rascunho)
             </label>
             <button type="submit" disabled={pending} className={buttonDanger}>

@@ -13,6 +13,7 @@ import { excerpt, questionTitle } from "@/lib/questions";
 import {
   backLink,
   buttonDanger,
+  checkboxConfirm,
   dangerPanel,
   noticeError,
   noticeSuccess,
@@ -157,7 +158,13 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
           <form action={deleteExamAction} className="flex flex-wrap items-center gap-3 text-sm">
             <input type="hidden" name="examId" value={exam.id} />
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="confirmacao" value="sim" required />
+              <input
+                type="checkbox"
+                name="confirmacao"
+                value="sim"
+                className={checkboxConfirm}
+                required
+              />
               Apagar a prova de {exam.year} e as {exam.questions.length} questões dela
             </label>
             <button type="submit" className={buttonDanger}>

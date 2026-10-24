@@ -2,7 +2,7 @@
 
 import { type ReactNode, useActionState, useRef } from "react";
 import { type BulkState, bulkPublishAction } from "@/app/actions/admin-publish";
-import { buttonDanger, buttonSmall, textError } from "@/components/ui";
+import { buttonDanger, buttonSmall, checkboxConfirm, textError } from "@/components/ui";
 
 const LINK =
   "tap text-zinc-600 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-400 dark:hover:text-zinc-100";
@@ -37,7 +37,7 @@ export function BulkPublishForm({ examId, children }: { examId: string; children
           Publicar selecionadas
         </button>
         <label className="ml-auto flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
-          <input type="checkbox" name="confirmacao" value="sim" />
+          <input type="checkbox" name="confirmacao" value="sim" className={checkboxConfirm} />
           confirmo tirar dos alunos
         </label>
         <button

@@ -19,6 +19,7 @@ import { AREA_LABEL, questionTitle, TYPE_LABEL } from "@/lib/questions";
 import {
   backLink,
   buttonDanger,
+  checkboxConfirm,
   dangerPanel,
   noticeError,
   noticeSuccess,
@@ -222,7 +223,13 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
           <form action={deleteQuestionAction} className="flex flex-wrap items-center gap-3 text-sm">
             <input type="hidden" name="questionId" value={question.id} />
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="confirmacao" value="sim" required />
+              <input
+                type="checkbox"
+                name="confirmacao"
+                value="sim"
+                className={checkboxConfirm}
+                required
+              />
               Apagar de vez esta questão, as alternativas, o padrão e as imagens dela
             </label>
             <button type="submit" className={buttonDanger}>

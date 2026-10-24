@@ -50,3 +50,5 @@ export const backLink =
 export const panel = "rounded-xl border border-zinc-200 p-4 dark:border-zinc-800";
 
 export const dangerPanel = "flex flex-col gap-2 rounded-xl border border-alert/30 p-4";
+
+export const checkboxConfirm = "size-6 shrink-0 accent-alert";
