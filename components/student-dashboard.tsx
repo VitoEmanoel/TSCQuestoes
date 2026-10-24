@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatDayMonth } from "@/lib/format";
 import { studentDashboard } from "@/lib/dashboard";
 import { firstName as firstNameOf } from "@/lib/person-name";
 
@@ -10,16 +11,6 @@ const PATHS = [
 
 function formatPercent(value: number): string {
   return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%`;
-}
-
-function formatDay(date: Date | null): string {
-  return date
-    ? date.toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        timeZone: "America/Sao_Paulo",
-      })
-    : "";
 }
 
 function Paths({ compact }: { compact: boolean }) {
@@ -182,7 +173,9 @@ export async function StudentDashboard({ userId, name }: { userId: string; name:
                       className="flex min-h-12 items-center justify-between gap-4 text-sm hover:bg-zinc-100/60 dark:hover:bg-zinc-900"
                     >
                       <span className="flex items-center gap-3">
-                        <span className="w-12 text-zinc-500">{formatDay(point.submittedAt)}</span>
+                        <span className="w-12 text-zinc-500">
+                          {formatDayMonth(point.submittedAt)}
+                        </span>
                         <span className="text-zinc-900 dark:text-zinc-100">
                           {point.year !== null ? `Prova de ${point.year}` : "Personalizado"}
                         </span>

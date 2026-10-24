@@ -8,7 +8,7 @@ import {
   renameTopic,
   type TopicOutcome,
 } from "@/lib/admin-topics";
-import { getCurrentUser } from "@/lib/dal";
+import { isAdmin } from "@/lib/dal";
 import { formText } from "@/lib/form-input";
 
 const ID = /^[a-z0-9]{10,40}$/;
@@ -23,11 +23,6 @@ const MESSAGES: Record<Exclude<TopicOutcome, "ok">, string> = {
   used: "Este tema está em questões. Tire-o das questões antes de excluir.",
   missing: "Tema não encontrado. Recarregue a página.",
 };
-
-async function isAdmin(): Promise<boolean> {
-  const user = await getCurrentUser();
-  return Boolean(user && user.role === "ADMIN");
-}
 
 const INVALID_NAME =
   "Nome inválido: de 2 a 60 caracteres, com letras, números, espaços e pontuação simples.";

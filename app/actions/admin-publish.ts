@@ -2,17 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { bulkSetPublished, MAX_BULK, setPublished } from "@/lib/admin-publish";
-import { getCurrentUser } from "@/lib/dal";
+import { isAdmin } from "@/lib/dal";
 import { formText, formValues } from "@/lib/form-input";
 
 const ID = /^[a-z0-9]{10,40}$/;
 
 export type PublishState = { error?: string; problems?: string[]; done?: "publicada" | "rascunho" };
-
-async function isAdmin(): Promise<boolean> {
-  const user = await getCurrentUser();
-  return Boolean(user && user.role === "ADMIN");
-}
 
 export async function setPublishedAction(
   _state: PublishState,

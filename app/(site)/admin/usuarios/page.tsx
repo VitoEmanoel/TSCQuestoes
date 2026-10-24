@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { formatDate, plural, TIME_ZONE } from "@/lib/format";
 import Form from "next/form";
 import Link from "next/link";
 import { backLink, buttonSecondary, inputBase, inputTone, pill } from "@/components/ui";
@@ -7,12 +8,6 @@ import { requireAdmin } from "@/lib/dal";
 import { displayName } from "@/lib/person-name";
 
 export const metadata: Metadata = { title: "Contas — Painel" };
-
-const TIME_ZONE = "America/Sao_Paulo";
-
-function formatDate(date: Date): string {
-  return date.toLocaleDateString("pt-BR", { timeZone: TIME_ZONE });
-}
 
 function relative(date: Date | null): string {
   if (!date) {
@@ -28,10 +23,6 @@ function relative(date: Date | null): string {
     return "usou ontem";
   }
   return days < 30 ? `usou há ${days} dias` : `usou em ${formatDate(date)}`;
-}
-
-function plural(count: number, one: string, many: string): string {
-  return `${count} ${count === 1 ? one : many}`;
 }
 
 export default async function AdminUsersPage(props: PageProps<"/admin/usuarios">) {

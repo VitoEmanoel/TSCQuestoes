@@ -2,16 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { moveImage, removeImage, setCaption } from "@/lib/admin-images";
-import { getCurrentUser } from "@/lib/dal";
+import { isAdmin } from "@/lib/dal";
 import { formText } from "@/lib/form-input";
 
-async function adminOnly(): Promise<boolean> {
-  const user = await getCurrentUser();
-  return Boolean(user && user.role === "ADMIN");
-}
-
 export async function removeImageAction(formData: FormData): Promise<void> {
-  if (!(await adminOnly())) {
+  if (!(await isAdmin())) {
     return;
   }
   const questionId = formText(formData, "questionId");
@@ -21,7 +16,7 @@ export async function removeImageAction(formData: FormData): Promise<void> {
 }
 
 export async function moveImageAction(formData: FormData): Promise<void> {
-  if (!(await adminOnly())) {
+  if (!(await isAdmin())) {
     return;
   }
   const questionId = formText(formData, "questionId");
@@ -35,7 +30,7 @@ export async function moveImageAction(formData: FormData): Promise<void> {
 }
 
 export async function captionImageAction(formData: FormData): Promise<void> {
-  if (!(await adminOnly())) {
+  if (!(await isAdmin())) {
     return;
   }
   const questionId = formText(formData, "questionId");

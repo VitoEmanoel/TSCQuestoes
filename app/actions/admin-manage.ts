@@ -9,16 +9,11 @@ import {
   normalizeLabel,
   renameQuestion,
 } from "@/lib/admin-manage";
-import { getCurrentUser } from "@/lib/dal";
+import { isAdmin } from "@/lib/dal";
 import { formText } from "@/lib/form-input";
 import { AREA_LABEL, TYPE_LABEL } from "@/lib/questions";
 
 const ID = /^[a-z0-9]{10,40}$/;
-
-async function isAdmin(): Promise<boolean> {
-  const user = await getCurrentUser();
-  return Boolean(user && user.role === "ADMIN");
-}
 
 export type ManageState = { error?: string; saved?: string };
 

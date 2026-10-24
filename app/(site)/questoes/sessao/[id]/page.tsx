@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { formatDateTime, formatScore } from "@/lib/format";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
@@ -9,18 +10,6 @@ import { questionTitle } from "@/lib/questions";
 import { latestPerQuestion } from "@/lib/scoring";
 
 export const metadata: Metadata = { title: "Resultado da sessão — TSCQuestões" };
-
-function formatWhen(date: Date): string {
-  return date.toLocaleString("pt-BR", {
-    dateStyle: "short",
-    timeStyle: "short",
-    timeZone: "America/Sao_Paulo",
-  });
-}
-
-function formatScore(value: number): string {
-  return value.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
-}
 
 export default async function PracticeSessionPage(props: PageProps<"/questoes/sessao/[id]">) {
   const { id } = await props.params;
@@ -45,7 +34,7 @@ export default async function PracticeSessionPage(props: PageProps<"/questoes/se
           Resultado da sessão
         </h1>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          Finalizada em {formatWhen(results.submittedAt ?? results.startedAt)}.
+          Finalizada em {formatDateTime(results.submittedAt ?? results.startedAt)}.
         </p>
       </header>
 

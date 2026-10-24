@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { formatDateTime } from "@/lib/format";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
@@ -36,16 +37,8 @@ function describeLastAnswer(answer: {
         : answer.isCorrect
           ? " (acertou)"
           : " (errou)";
-  const when = formatWhen(answer.answeredAt);
+  const when = formatDateTime(answer.answeredAt);
   return `Sua última resposta: alternativa ${answer.selectedLetter}${verdict}, em ${when}.`;
-}
-
-function formatWhen(date: Date): string {
-  return date.toLocaleString("pt-BR", {
-    dateStyle: "short",
-    timeStyle: "short",
-    timeZone: "America/Sao_Paulo",
-  });
 }
 
 export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
@@ -153,7 +146,7 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
             <h2 className="font-semibold">Sua resposta</h2>
             <p className="text-sm whitespace-pre-wrap">{lastWritten.answerText}</p>
             <p className="text-xs text-zinc-500">
-              Enviada em {formatWhen(lastWritten.answeredAt)}.{" "}
+              Enviada em {formatDateTime(lastWritten.answeredAt)}.{" "}
               <Link href={`/questoes/${question.id}?nova=1`} className="underline">
                 Escrever nova resposta
               </Link>
@@ -182,7 +175,7 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
             <h2 className="font-semibold">Sua resposta</h2>
             <p className="text-sm whitespace-pre-wrap">{lastWritten.answerText}</p>
             <p className="text-xs text-zinc-500">
-              Enviada em {formatWhen(lastWritten.answeredAt)}.{" "}
+              Enviada em {formatDateTime(lastWritten.answeredAt)}.{" "}
               <Link href={`/questoes/${question.id}?nova=1`} className="underline">
                 Escrever nova resposta
               </Link>
@@ -214,7 +207,7 @@ export default async function QuestionPage(props: PageProps<"/questoes/[id]">) {
           />
           {lastWritten ? (
             <Link href={`/questoes/${question.id}`} className="tap text-sm underline">
-              Ver sua última resposta ({formatWhen(lastWritten.answeredAt)})
+              Ver sua última resposta ({formatDateTime(lastWritten.answeredAt)})
             </Link>
           ) : null}
         </section>

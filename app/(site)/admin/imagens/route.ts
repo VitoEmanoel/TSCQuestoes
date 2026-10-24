@@ -1,6 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { addImage, type ImageError } from "@/lib/admin-images";
-import { getCurrentUser } from "@/lib/dal";
+import { isAdmin } from "@/lib/dal";
 import { MAX_UPLOAD_BYTES } from "@/lib/uploads";
 
 const ID = /^[a-z0-9]{10,40}$/;
@@ -46,8 +46,7 @@ async function readLimited(request: Request, limit: number): Promise<Buffer | nu
 export async function POST(request: Request) {
   const questionParam = new URL(request.url).searchParams.get("questao");
   const questionId = questionParam && ID.test(questionParam) ? questionParam : null;
-  const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") {
+  if (!(await isAdmin())) {
     return new Response("Não encontrado", { status: 404 });
   }
   const origin = request.headers.get("origin");

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { formatDateTime } from "@/lib/format";
 import { startReplayAction } from "@/app/actions/simulados";
 import Link from "next/link";
 import { CustomSimuladoForm } from "@/components/custom-simulado-form";
@@ -15,14 +16,6 @@ import {
 } from "@/lib/simulados";
 
 const COUNTS = [5, 10, 15, 20, 30, MAX_CUSTOM_QUESTIONS];
-
-function formatWhen(date: Date): string {
-  return date.toLocaleString("pt-BR", {
-    dateStyle: "short",
-    timeStyle: "short",
-    timeZone: "America/Sao_Paulo",
-  });
-}
 
 export const metadata: Metadata = { title: "Simulados — TSCQuestões" };
 
@@ -115,7 +108,7 @@ export default async function SimuladosPage() {
                 className="bg-accent-soft flex flex-wrap items-center justify-between gap-2 rounded-lg border px-4 py-3 text-sm"
               >
                 <span>
-                  Em andamento desde {formatWhen(attempt.startedAt)}: {attempt.answered} de{" "}
+                  Em andamento desde {formatDateTime(attempt.startedAt)}: {attempt.answered} de{" "}
                   {attempt.total} respondidas
                   {attempt.timeLimitSec ? ` · ${formatMinutes(attempt.timeLimitSec)}` : null}
                 </span>

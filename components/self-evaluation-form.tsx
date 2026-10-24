@@ -1,13 +1,10 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { formatScore } from "@/lib/format";
 import { selfEvaluateAction, type SelfEvaluationState } from "@/app/actions/practice";
 
 type Slot = { key: string; label: string; max: number };
-
-function formatScore(value: number): string {
-  return value.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
-}
 
 export function SelfEvaluationForm({
   itemId,

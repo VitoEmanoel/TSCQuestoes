@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { formatDateTime, formatDayMonth, formatScore } from "@/lib/format";
 import Link from "next/link";
 import { ExamBadge } from "@/components/exam-badge";
 import { formatMinutes, SimuladoBadge } from "@/components/simulado-badge";
@@ -19,28 +20,6 @@ const TREND_VIEW: Record<Trend, { symbol: string; label: string; className: stri
     className: "text-zinc-400 dark:text-zinc-500",
   },
 };
-
-function formatScore(value: number): string {
-  return value.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
-}
-
-function formatDate(date: Date): string {
-  return date.toLocaleString("pt-BR", {
-    dateStyle: "short",
-    timeStyle: "short",
-    timeZone: "America/Sao_Paulo",
-  });
-}
-
-function shortDate(date: Date | null): string {
-  return date
-    ? date.toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        timeZone: "America/Sao_Paulo",
-      })
-    : "";
-}
 
 function modeLabel(mode: string, year: number | null): string {
   if (mode === "PRACTICE") {
@@ -84,7 +63,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                 <span className="flex flex-wrap items-center gap-2">
                   <SimuladoBadge year={attempt.year} />
                   {attempt.answered} de {attempt.total} respondidas · começou em{" "}
-                  {formatDate(attempt.startedAt)}
+                  {formatDateTime(attempt.startedAt)}
                 </span>
                 <Link href={`/simulados/${attempt.id}`} className="tap font-medium underline">
                   Continuar
@@ -117,15 +96,15 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                   <Link
                     href={`/simulados/${point.id}/resultado`}
                     className="flex h-full flex-col items-center justify-end gap-1"
-                    aria-label={`${modeLabel("CUSTOM", point.year)} em ${shortDate(point.submittedAt)}: ${formatScore(point.score)}%`}
+                    aria-label={`${modeLabel("CUSTOM", point.year)} em ${formatDayMonth(point.submittedAt)}: ${formatScore(point.score, 1)}%`}
                   >
-                    <span className="text-xs font-semibold">{formatScore(point.score)}%</span>
+                    <span className="text-xs font-semibold">{formatScore(point.score, 1)}%</span>
                     <span
                       className={`w-full max-w-10 rounded-t-md ${point.score >= 60 ? "bg-accent" : "bg-alert"}`}
                       style={{ height: `${Math.max(2, point.score)}%` }}
                     />
                     <span className="text-[11px] text-zinc-500">
-                      {shortDate(point.submittedAt)}
+                      {formatDayMonth(point.submittedAt)}
                     </span>
                   </Link>
                 </li>
@@ -185,7 +164,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                   />
                 </div>
                 <p className="text-sm text-zinc-700 dark:text-zinc-300">
-                  {topic.correct} de {topic.total} certas ({formatScore(topic.percent)}%)
+                  {topic.correct} de {topic.total} certas ({formatScore(topic.percent, 1)}%)
                 </p>
               </li>
             ))}
@@ -233,7 +212,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                       )}
                       <span className="font-medium">{modeLabel(attempt.mode, attempt.year)}</span>
                       <span className="text-zinc-600 dark:text-zinc-400">
-                        {attempt.submittedAt ? formatDate(attempt.submittedAt) : null}
+                        {attempt.submittedAt ? formatDateTime(attempt.submittedAt) : null}
                       </span>
                     </span>
                     <span className="flex flex-wrap items-center gap-3 text-sm">
@@ -243,7 +222,7 @@ export default async function HistoryPage(props: PageProps<"/historico">) {
                         {used !== null ? ` · ${formatMinutes(used)}` : null}
                       </span>
                       <span className="font-semibold">
-                        {attempt.autoScore !== null ? `${formatScore(attempt.autoScore)}%` : "—"}
+                        {attempt.autoScore !== null ? `${formatScore(attempt.autoScore, 1)}%` : "—"}
                       </span>
                     </span>
                   </Link>

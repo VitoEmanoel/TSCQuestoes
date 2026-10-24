@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createExamFromImport, deleteDraftExam } from "@/lib/admin-import";
-import { getCurrentUser } from "@/lib/dal";
+import { isAdmin } from "@/lib/dal";
 import { formText } from "@/lib/form-input";
 import { IMPORT_LIMITS, parseExamText } from "@/lib/exam-import";
 
@@ -32,11 +32,6 @@ export type ImportState = {
     rows: ImportPreviewRow[];
   };
 };
-
-async function isAdmin(): Promise<boolean> {
-  const user = await getCurrentUser();
-  return Boolean(user && user.role === "ADMIN");
-}
 
 export async function importExamAction(
   _state: ImportState,

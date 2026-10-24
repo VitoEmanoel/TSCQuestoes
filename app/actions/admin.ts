@@ -8,7 +8,7 @@ import {
   saveQuestion,
   type StandardInput,
 } from "@/lib/admin-questions";
-import { getCurrentUser } from "@/lib/dal";
+import { isAdmin } from "@/lib/dal";
 import { formText } from "@/lib/form-input";
 import { AREA_LABEL } from "@/lib/questions";
 
@@ -145,8 +145,7 @@ export async function saveQuestionAction(
   _state: QuestionEditorState,
   formData: FormData,
 ): Promise<QuestionEditorState> {
-  const user = await getCurrentUser();
-  if (!user || user.role !== "ADMIN") {
+  if (!(await isAdmin())) {
     return { error: "Acesso negado." };
   }
   const input = parse(formData);

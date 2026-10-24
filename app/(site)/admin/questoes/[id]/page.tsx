@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { formatDateTime, TIME_ZONE } from "@/lib/format";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { deleteQuestionAction } from "@/app/actions/admin-manage";
@@ -81,13 +82,7 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
         ) : null}
         {question.reviewedAt ? (
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Revisada em{" "}
-            {question.reviewedAt.toLocaleString("pt-BR", {
-              dateStyle: "short",
-              timeStyle: "short",
-              timeZone: "America/Sao_Paulo",
-            })}
-            .
+            Revisada em {formatDateTime(question.reviewedAt)}.
           </p>
         ) : (
           <p className={noticeError}>
@@ -112,7 +107,7 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
             {question.updatedAt.toLocaleTimeString("pt-BR", {
               hour: "2-digit",
               minute: "2-digit",
-              timeZone: "America/Sao_Paulo",
+              timeZone: TIME_ZONE,
             })}
             .
           </p>

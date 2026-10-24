@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
+import { plural } from "@/lib/format";
 import Link from "next/link";
 import { ExamBadge } from "@/components/exam-badge";
 import { adminExams } from "@/lib/admin-questions";
 import { requireAdmin } from "@/lib/dal";
 import { buttonPrimary, buttonSecondary, textSuccess } from "@/components/ui";
-
-function plural(count: number, one: string, many: string): string {
-  return `${count} ${count === 1 ? one : many}`;
-}
 
 export const metadata: Metadata = { title: "Painel — TSCQuestões" };
 

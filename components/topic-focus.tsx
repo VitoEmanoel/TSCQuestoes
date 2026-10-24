@@ -1,11 +1,8 @@
 import Link from "next/link";
+import { formatScore } from "@/lib/format";
 import type { TopicPerformance } from "@/lib/scoring";
 
 export const REVIEW_THRESHOLD = 60;
-
-function formatScore(value: number): string {
-  return value.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
-}
 
 export function TopicFocus({
   topics,

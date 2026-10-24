@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { formatScore } from "@/lib/format";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ExamBadge } from "@/components/exam-badge";
@@ -42,10 +43,6 @@ const OUTCOME_VIEW: Record<ReviewOutcome, { label: string; className: string }> 
     className: "bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200",
   },
 };
-
-function formatScore(value: number): string {
-  return value.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
-}
 
 export default async function SimuladoResultPage(props: PageProps<"/simulados/[id]/resultado">) {
   const { id } = await props.params;
