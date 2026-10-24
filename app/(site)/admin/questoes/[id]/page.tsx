@@ -240,9 +240,9 @@ export default async function AdminQuestionPage(props: PageProps<"/admin/questoe
             {usage.answers > 0
               ? `${usage.answers} ${usage.answers === 1 ? "resposta de aluno" : "respostas de alunos"}`
               : ""}
-            {usage.answers > 0 && usage.attempts + usage.rooms > 0 ? " e " : ""}
-            {usage.attempts + usage.rooms > 0 ? "está em simulados ou salas" : ""}. Para tirar da
-            vista dos alunos sem apagar o histórico deles, use “Voltar para rascunho” no topo.
+            {usage.answers > 0 && usage.attempts > 0 ? " e " : ""}
+            {usage.attempts > 0 ? "está em simulados" : ""}. Para tirar da vista dos alunos sem
+            apagar o histórico deles, use “Voltar para rascunho” no topo.
           </p>
         )}
       </section>

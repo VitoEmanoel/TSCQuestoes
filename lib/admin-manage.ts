@@ -81,13 +81,12 @@ export async function createQuestion(input: {
   }
 }
 
-export async function questionUsage(questionId: string) {
-  const [answers, rooms, attempts] = await Promise.all([
-    prisma.attemptItem.count({ where: { questionId } }),
-    prisma.roomQuestion.count({ where: { questionId } }),
-    prisma.attempt.count({ where: { questionIds: { has: questionId } } }),
+export async function questionUsage(questionId: string, db: Prisma.TransactionClient = prisma) {
+  const [answers, attempts] = await Promise.all([
+    db.attemptItem.count({ where: { questionId } }),
+    db.attempt.count({ where: { questionIds: { has: questionId } } }),
   ]);
-  return { answers, rooms, attempts, total: answers + rooms + attempts };
+  return { answers, attempts, total: answers + attempts };
 }
 
 export type DeleteOutcome = { status: "ok"; examId: string } | { status: "used" | "missing" };
@@ -99,12 +98,7 @@ export async function deleteQuestion(questionId: string): Promise<DeleteOutcome>
     if (locked.length === 0) {
       return { outcome: { status: "missing" } as const, files: [] as string[] };
     }
-    const [answers, rooms, attempts] = await Promise.all([
-      tx.attemptItem.count({ where: { questionId } }),
-      tx.roomQuestion.count({ where: { questionId } }),
-      tx.attempt.count({ where: { questionIds: { has: questionId } } }),
-    ]);
-    if (answers + rooms + attempts > 0) {
+    if ((await questionUsage(questionId, tx)).total > 0) {
       return { outcome: { status: "used" } as const, files: [] as string[] };
     }
     const uploads = await tx.asset.findMany({

@@ -70,14 +70,13 @@ export async function createExamFromImport(input: {
   }
 }
 
-export async function examDeletionBlockers(examId: string) {
-  const [published, answered, rooms, replays] = await Promise.all([
-    prisma.question.count({ where: { examId, publishedAt: { not: null } } }),
-    prisma.attemptItem.count({ where: { question: { examId } } }),
-    prisma.roomQuestion.count({ where: { question: { examId } } }),
-    prisma.attempt.count({ where: { examId } }),
+export async function examDeletionBlockers(examId: string, db: Prisma.TransactionClient = prisma) {
+  const [published, answered, replays] = await Promise.all([
+    db.question.count({ where: { examId, publishedAt: { not: null } } }),
+    db.attemptItem.count({ where: { question: { examId } } }),
+    db.attempt.count({ where: { examId } }),
   ]);
-  return { published, answered, rooms, replays, total: published + answered + rooms + replays };
+  return { published, answered, replays, total: published + answered + replays };
 }
 
 export async function deleteDraftExam(examId: string): Promise<boolean> {
@@ -87,13 +86,7 @@ export async function deleteDraftExam(examId: string): Promise<boolean> {
     if (locked.length === 0) {
       return null;
     }
-    const [published, answered, rooms, replays] = await Promise.all([
-      tx.question.count({ where: { examId, publishedAt: { not: null } } }),
-      tx.attemptItem.count({ where: { question: { examId } } }),
-      tx.roomQuestion.count({ where: { question: { examId } } }),
-      tx.attempt.count({ where: { examId } }),
-    ]);
-    if (published + answered + rooms + replays > 0) {
+    if ((await examDeletionBlockers(examId, tx)).total > 0) {
       return null;
     }
     const uploads = await tx.asset.findMany({

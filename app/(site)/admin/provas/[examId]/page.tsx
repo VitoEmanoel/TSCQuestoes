@@ -169,9 +169,8 @@ export default async function AdminExamPage(props: PageProps<"/admin/provas/[exa
             Não dá para excluir:{" "}
             {blockers.published > 0 ? `${blockers.published} questões publicadas` : null}
             {blockers.published > 0 && blockers.answered + blockers.replays > 0 ? " e " : null}
-            {blockers.answered + blockers.replays > 0 ? "já usada por alunos" : null}
-            {blockers.rooms > 0 ? " (e em salas virtuais)" : null}. Para desfazer um cadastro
-            errado, exclua antes de publicar qualquer questão.
+            {blockers.answered + blockers.replays > 0 ? "já usada por alunos" : null}. Para desfazer
+            um cadastro errado, exclua antes de publicar qualquer questão.
           </p>
         )}
       </section>
